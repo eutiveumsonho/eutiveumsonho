@@ -1,8 +1,13 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { BAD_REQUEST, METHOD_NOT_ALLOWED } from "../../utils/errors";
+import { sendEmail } from "../../clients/mailgun";
+import {
+  BAD_REQUEST,
+  METHOD_NOT_ALLOWED,
+  SERVER_ERROR,
+} from "../../utils/errors";
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     res.status(405).end(METHOD_NOT_ALLOWED);
@@ -16,10 +21,31 @@ export default function handler(req, res) {
 
   const { email } = req.body;
 
-  console.log({ email });
+  const subject = "Lista de espera";
+  const html = `<h1>Bem vindo a lista de espera da maior comunidade de pessoas sonhadoras do Brasil! 
+  Nossa previsao de lancamento da versao beta esta para o dia 25 de Julho. 
+  Neste dia, voce recebera um email para se cadastrar na comunidade. 
+  Aos poucos, e com o seu feedback, evoluiremos a comunidade. 
+  Voce nunca precisara pagar nada, e os seus dados estarao bem protegidos.</h1>`;
 
-  res.setHeader("Content-Type", "application/json");
-  res.status(201).end();
+  try {
+    await Promise.all([
+      sendEmail({
+        to: "marcelo@eutiveumsonho.com",
+        subject: `${subject} - inclusao de usuario`,
+        text: email,
+      }),
+      sendEmail({ to: email, subject, html }),
+    ]);
 
-  return res;
+    res.setHeader("Content-Type", "application/json");
+    res.status(201).end();
+
+    return res;
+  } catch (error) {
+    console.error(error);
+    res.status(500).end(SERVER_ERROR);
+
+    return res;
+  }
 }

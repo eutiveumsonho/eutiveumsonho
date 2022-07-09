@@ -9,6 +9,7 @@ import {
   PageContent,
   Spinner,
   TextInput,
+  Notification,
 } from "grommet";
 import { Mail } from "grommet-icons";
 import isEmail from "validator/lib/isEmail";
@@ -16,14 +17,22 @@ import { sendWaitListInviteMail } from "../api/api";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
+  const [feedbackMessage, setFeedbackMessage] = useState(null);
 
   const handleSubmit = async ({ value }) => {
     setLoading(true);
     const { success } = await sendWaitListInviteMail(value);
     setLoading(false);
 
-    if (success) {
-    }
+    setFeedbackMessage(
+      success
+        ? "Vamos construir a maior comunidade de pessoas sonhadoras, juntos! Cheque o seu email para saber mais sobre o lancamento da plataforma"
+        : "Vamos construir a maior comunidade de pessoas sonhadoras, juntos! Em breve, voce recebera um email com mais detalhes sobre a plataforma"
+    );
+  };
+
+  const onClose = () => {
+    setFeedbackMessage(null);
   };
 
   return (
@@ -71,6 +80,16 @@ export default function Home() {
           </Form>
         </Box>
       </PageContent>
+      {feedbackMessage && (
+        <Notification
+          toast={{
+            autoClose: false,
+          }}
+          status={"normal"}
+          title={feedbackMessage}
+          onClose={onClose}
+        />
+      )}
     </>
   );
 }
