@@ -40,7 +40,7 @@ export default function Home() {
     <>
       <Head>
         <title>Eu tive um sonho</title>
-        <meta name="description" content="O seu repositorio de sonhos." />
+        <meta name="description" content="O seu repositório de sonhos." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PageContent
