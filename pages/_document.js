@@ -1,9 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
-/**
- * Borrowed from https://github.com/grommet/nextjs-boilerplate
- */
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const sheet = new ServerStyleSheet();
@@ -13,6 +10,9 @@ class MyDocument extends Document {
       ctx.renderPage = () =>
         originalRenderPage({
           enhanceApp: (App) => (props) =>
+            /**
+             * Borrowed from https://github.com/grommet/nextjs-boilerplate
+             */
             sheet.collectStyles(<App {...props} />),
         });
 

@@ -5,7 +5,7 @@ import {
   BAD_REQUEST,
   METHOD_NOT_ALLOWED,
   SERVER_ERROR,
-} from "../../utils/errors";
+} from "../../lib/errors";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
