@@ -1,5 +1,9 @@
 # eutiveumsonho
 
+## Mailing
+
+- [Mailgun](https://app.mailgun.com/app/dashboard)
+
 ## SEO
 
 - [Real favicon generator](https://realfavicongenerator.net/)

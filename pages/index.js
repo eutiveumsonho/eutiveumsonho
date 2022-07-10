@@ -10,6 +10,7 @@ import {
   Spinner,
   TextInput,
   Notification,
+  WorldMap,
 } from "grommet";
 import { Mail } from "grommet-icons";
 import isEmail from "validator/lib/isEmail";
@@ -48,12 +49,39 @@ export default function Home() {
           minHeight: "calc(90vh - 11.75rem)",
         }}
       >
-        <Heading level={1} size="large">
+        <Box
+          style={{
+            position: "absolute",
+            zIndex: 0,
+          }}
+          align="center"
+          justify="center"
+        >
+          <WorldMap />
+        </Box>
+        <Heading
+          level={2}
+          size="large"
+          style={{
+            zIndex: 1,
+          }}
+        >
           Vamos construir a maior comunidade de pessoas sonhadoras do Brasil e
           do mundo?
         </Heading>
-        <Heading level={4}>Cadastre o seu email na lista de espera!</Heading>
-        <Box>
+        <Heading
+          level={4}
+          style={{
+            zIndex: 1,
+          }}
+        >
+          Cadastre o seu email na lista de espera!
+        </Heading>
+        <Box
+          style={{
+            zIndex: 1,
+          }}
+        >
           <Form validate="blur" onSubmit={handleSubmit}>
             <FormField
               name="email"
