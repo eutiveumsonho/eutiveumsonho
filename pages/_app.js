@@ -24,10 +24,12 @@ function MyApp({ Component, pageProps }) {
     <>
       {/* Global Site Tag (gtag.js) - Google Analytics */}
       <Script
+        id="gtag-load"
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_MEASUREMENT_ID}`}
       />
       <Script
+        id="gtag-start"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
