@@ -45,6 +45,8 @@ export default function Home() {
       </Head>
       <PageContent
         justify="center"
+        align="center"
+        flex
         style={{
           minHeight: "calc(90vh - 11.75rem)",
         }}
@@ -53,11 +55,18 @@ export default function Home() {
           style={{
             position: "absolute",
             zIndex: 0,
+            overflow: "hidden",
           }}
+          flex
           align="center"
           justify="center"
         >
-          <WorldMap />
+          <WorldMap
+            style={{
+              height: "100%",
+              width: "auto",
+            }}
+          />
         </Box>
         <Heading
           level={2}
@@ -75,7 +84,7 @@ export default function Home() {
             zIndex: 1,
           }}
         >
-          Cadastre o seu email na lista de espera!
+          Cadastre o seu e-mail na lista de espera!
         </Heading>
         <Box
           style={{
@@ -89,13 +98,17 @@ export default function Home() {
                 (value) => {
                   if (!isEmail(value ?? "")) {
                     return {
-                      message: "Insira um email valido",
+                      message: "Insira um e-mail valido",
                     };
                   }
                 },
               ]}
             >
-              <TextInput name="email" icon={<Mail />} placeholder="Seu email" />
+              <TextInput
+                name="email"
+                icon={<Mail />}
+                placeholder="Seu e-mail"
+              />
             </FormField>
             <div>
               <Button

@@ -33,7 +33,11 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html
+        style={{
+          overflowX: "hidden",
+        }}
+      >
         <Head>
           <link
             rel="apple-touch-icon"
