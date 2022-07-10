@@ -416,7 +416,7 @@ export default async function handler(req, res) {
     await Promise.all([
       sendEmail({
         to: "marcelo@eutiveumsonho.com",
-        subject: `${subject} - inclusao de usuario`,
+        subject: `${subject} - user-inclusion`,
         text: email,
       }),
       sendEmail({ to: email, subject, html }),
