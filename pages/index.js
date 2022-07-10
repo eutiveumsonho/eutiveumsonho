@@ -27,8 +27,8 @@ export default function Home() {
 
     setFeedbackMessage(
       success
-        ? "Vamos construir a maior comunidade de pessoas sonhadoras, juntos! Cheque o seu email para saber mais sobre o lancamento da plataforma"
-        : "Vamos construir a maior comunidade de pessoas sonhadoras, juntos! Em breve, voce recebera um email com mais detalhes sobre a plataforma"
+        ? "Cheque o seu e-mail para saber mais sobre o lançamento da plataforma."
+        : "Em breve, você receberá um e-mail com mais detalhes sobre o lançamento da plataforma."
     );
   };
 
@@ -126,8 +126,9 @@ export default function Home() {
           toast={{
             autoClose: false,
           }}
+          title="Vamos construir a maior comunidade de pessoas sonhadoras, juntos!"
           status={"normal"}
-          title={feedbackMessage}
+          message={feedbackMessage}
           onClose={onClose}
         />
       )}
