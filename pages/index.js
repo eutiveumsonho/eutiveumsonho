@@ -98,7 +98,7 @@ export default function Home() {
                 (value) => {
                   if (!isEmail(value ?? "")) {
                     return {
-                      message: "Insira um e-mail valido",
+                      message: "Insira um e-mail válido",
                     };
                   }
                 },
