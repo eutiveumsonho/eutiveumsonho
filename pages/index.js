@@ -13,10 +13,14 @@ import {
   WorldMap,
 } from "grommet";
 import { Mail } from "grommet-icons";
+import { useSession, signIn, signOut } from "next-auth/react";
 import isEmail from "validator/lib/isEmail";
+
+import Layout from "../components/layout";
 import { sendWaitListInviteMail } from "../lib/api";
 
 export default function Home() {
+  const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState(null);
 
@@ -36,8 +40,20 @@ export default function Home() {
     setFeedbackMessage(null);
   };
 
+  const renderPageHeaderActions = () => {
+    if (!session) {
+      return <Box direction="row-responsive" gap="small"><Button label="Entrar" onClick={signIn} /><Button label="Criar conta" primary /></Box>
+    }
+
+    return <Button label="Sair" onClick={signOut} />;
+  };
+
   return (
-    <>
+    <Layout
+      title="Eu tive um sonho"
+      subtitle="A maior comunidade conectada por sonhos, do Brasil para o mundo."
+      pageHeaderActions={renderPageHeaderActions()}
+    >
       <Head>
         <title>Eu tive um sonho</title>
         <meta name="description" content="O seu repositório de sonhos." />
@@ -132,6 +148,6 @@ export default function Home() {
           onClose={onClose}
         />
       )}
-    </>
+    </Layout>
   );
 }

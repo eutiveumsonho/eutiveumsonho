@@ -10,9 +10,7 @@ class MyDocument extends Document {
       ctx.renderPage = () =>
         originalRenderPage({
           enhanceApp: (App) => (props) =>
-            /**
-             * Borrowed from https://github.com/grommet/nextjs-boilerplate
-             */
+            // borrowed from https://github.com/grommet/nextjs-boilerplate
             sheet.collectStyles(<App {...props} />),
         });
 

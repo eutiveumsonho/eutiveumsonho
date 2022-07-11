@@ -1,11 +1,11 @@
-import Layout from "../components/layout";
 import { grommet, Grommet } from "grommet";
 import Script from "next/script";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { SessionProvider } from "next-auth/react";
 import * as gtag from "../lib/gtag";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
 
   useEffect(() => {
@@ -33,22 +33,19 @@ function MyApp({ Component, pageProps }) {
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${gtag.GA_MEASUREMENT_ID}', {
-              page_path: window.location.pathname,
-            });
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${gtag.GA_MEASUREMENT_ID}', {
+            page_path: window.location.pathname,
+          });
           `,
         }}
       />
       <Grommet theme={grommet}>
-        <Layout
-          title="Eu tive um sonho"
-          subtitle="A maior comunidade conectada por sonhos, do Brasil para o mundo."
-        >
+        <SessionProvider session={session}>
           <Component {...pageProps} />
-        </Layout>
+        </SessionProvider>
       </Grommet>
     </>
   );
