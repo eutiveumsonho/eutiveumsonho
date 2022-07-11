@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { sendEmail } from "../../clients/mailgun";
+import { sendEmail } from "../../lib/clients/mailgun";
 import {
   BAD_REQUEST,
   METHOD_NOT_ALLOWED,
