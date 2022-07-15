@@ -381,7 +381,7 @@ export default async function handler(req, res) {
                           <p>Aos poucos - e com o seu feedback - evoluiremos a comunidade para que ela atenda às suas demandas oníricas.</p>
                           <p>Essa plataforma sempre será gratuita e segura.</p>
                           <p>Abraços, e até breve,</p>
-                          <p>Marcelo.</p>
+                          <p>Luiza e Marcelo.</p>
                         </td>
                       </tr>
                     </table>
