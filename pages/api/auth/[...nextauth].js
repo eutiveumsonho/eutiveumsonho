@@ -1,9 +1,7 @@
-import NextAuth from "next-auth"
-import AppleProvider from "next-auth/providers/apple"
-import GoogleProvider from "next-auth/providers/google"
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
-import CredentialsProvider from "next-auth/providers/credentials"
-import clientPromise from "../../../lib/mongodb"
+import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+import clientPromise from "../../../lib/mongodb";
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -35,7 +33,7 @@ export default NextAuth({
     //       headers: { "Content-Type": "application/json" }
     //     })
     //     const user = await res.json()
-  
+
     //     // If no error and we have user data, return it
     //     if (res.ok && user) {
     //       return user
@@ -45,20 +43,16 @@ export default NextAuth({
     //   }
     // }),
     // OAuth authentication providers
-    AppleProvider({
-      clientId: process.env.AUTH_APPLE_ID,
-      clientSecret: process.env.AUTH_APPLE_SECRET,
-    }),
     GoogleProvider({
       clientId: process.env.AUTH_GOOGLE_ID,
       clientSecret: process.env.AUTH_GOOGLE_SECRET,
     }),
   ],
   pages: {
-    signIn: '/auth/signin',
+    signIn: "/auth/signin",
     // signOut: '/auth/signout',
     // error: '/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // (used for check email message)
     // newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
-  }
-})
+  },
+});

@@ -42,7 +42,12 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           `,
         }}
       />
-      <Grommet theme={grommet}>
+      <Grommet
+        theme={grommet}
+        style={{
+          backgroundColor: "transparent",
+        }}
+      >
         <SessionProvider session={session}>
           <Component {...pageProps} />
         </SessionProvider>

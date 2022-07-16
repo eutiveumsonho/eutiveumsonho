@@ -1,4 +1,13 @@
-import { Box, Button, Card, Form, FormField, Text, TextInput } from "grommet";
+import {
+  Box,
+  Button,
+  Card,
+  Form,
+  FormField,
+  Heading,
+  Text,
+  TextInput,
+} from "grommet";
 import { Apple, Google } from "grommet-icons";
 import { getCsrfToken, getProviders, signIn } from "next-auth/react";
 import Clouds from "../../components/clouds";
@@ -22,15 +31,17 @@ export default function SignIn({ providers, csrfToken }) {
           display: "flex",
           height: "90vh",
           margin: "auto",
-          background: "transparent",
         }}
       >
-        <Card pad="small" gap="medium" align="center">
-          <Box width="large">
+        <Card pad="large" gap="medium" align="center" background="white">
+          <Heading level={2} size="small">
+            Eu tive um sonho
+          </Heading>
+          <Box width="medium">
             <Form method="post" action="/api/auth/callback/credentials">
               <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
               <FormField
-                label="Nome de usuário ou email"
+                label="Nome de usuário ou e-mail"
                 name="username"
                 required
               >
@@ -39,11 +50,6 @@ export default function SignIn({ providers, csrfToken }) {
               <FormField label="Senha" name="password" required>
                 <TextInput name="password" type="password" />
               </FormField>
-              {/* {message && (
-                <Box pad={{ horizontal: "small" }}>
-                <Text color="status-error">{message}</Text>
-                </Box>
-            )} */}
               <Button
                 label="Entre com suas credenciais"
                 type="submit"
@@ -52,7 +58,7 @@ export default function SignIn({ providers, csrfToken }) {
               />
             </Form>
           </Box>
-          <hr />
+          <Text size="large">ou</Text>
           {Object.values(providers).map((provider) => (
             <Button
               key={provider.name}
