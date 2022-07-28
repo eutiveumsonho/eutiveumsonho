@@ -9,7 +9,12 @@ import {
   TextInput,
 } from "grommet";
 import { Apple, Google } from "grommet-icons";
-import { getCsrfToken, getProviders, signIn } from "next-auth/react";
+import {
+  getCsrfToken,
+  getProviders,
+  getSession,
+  signIn,
+} from "next-auth/react";
 import Clouds from "../../components/clouds";
 
 const icon = {
@@ -79,6 +84,14 @@ export default function SignIn({ providers, csrfToken }) {
 
 export async function getServerSideProps(context) {
   const providers = await getProviders();
+  const session = await getSession(context);
+
+  if (session) {
+    context.res.writeHead(302, { Location: "/" });
+    context.res.end();
+
+    return {};
+  }
 
   return {
     props: { providers, csrfToken: await getCsrfToken(context) },

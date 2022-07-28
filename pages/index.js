@@ -11,16 +11,17 @@ import {
   TextInput,
   Notification,
   WorldMap,
+  Avatar,
 } from "grommet";
 import { Mail } from "grommet-icons";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { signIn, signOut, getSession } from "next-auth/react";
 import isEmail from "validator/lib/isEmail";
 
 import Layout from "../components/layout";
 import { sendWaitListInviteMail } from "../lib/api";
 
-export default function Home() {
-  const { data: session } = useSession();
+export default function Home(props) {
+  const { user } = props;
   const [loading, setLoading] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState(null);
 
@@ -41,11 +42,21 @@ export default function Home() {
   };
 
   const renderPageHeaderActions = () => {
-    if (!session) {
-      return <Box direction="row-responsive" gap="small"><Button label="Entrar" onClick={signIn} /><Button label="Criar conta" primary /></Box>
+    if (!user) {
+      return (
+        <Box direction="row-responsive" gap="small">
+          <Button label="Entrar" onClick={signIn} />
+          <Button label="Criar conta" primary />
+        </Box>
+      );
     }
 
-    return <Button label="Sair" onClick={signOut} />;
+    return (
+      <Box direction="row" gap="small">
+        <Avatar src={user.image} />
+        <Button label="Sair" onClick={signOut} />
+      </Box>
+    );
   };
 
   return (
@@ -150,4 +161,20 @@ export default function Home() {
       )}
     </Layout>
   );
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      props: { user: null },
+    };
+  }
+
+  return {
+    props: {
+      user: session.user,
+    },
+  };
 }
