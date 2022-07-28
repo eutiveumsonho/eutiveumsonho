@@ -1,14 +1,26 @@
 # eutiveumsonho
 
-## Mailing
+## Services and dependencies
+
+### Mailing
 
 - [Mailgun](https://app.mailgun.com/app/dashboard)
 
-## SEO
+### SEO
 
 - [Real favicon generator](https://realfavicongenerator.net/)
 
-## UI/UX
+### Authentication
+
+- [Google Cloud's Console](https://console.cloud.google.com/apis/dashboard?pli=1&authuser=5&project=eutiveumsonho).
+
+### Storage
+
+- [MongoDB](https://cloud.mongodb.com/v2/62cb7701e4a3bf730a9230bd#clusters/detail/dev)
+
+### Secrets
+
+- [.env](https://docs.google.com/document/d/1f0W_mH4NjnXmKfOay6_Ob5ZvGgqgPk7on89ZiYMREi8/edit)
 
 ### Design system
 
