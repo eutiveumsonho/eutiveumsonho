@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
-import { Box, Button, PageContent, Spinner, Avatar } from "grommet";
+import { Box, Button, PageContent, Spinner, Avatar, Text } from "grommet";
 import { signOut } from "next-auth/react";
 
 import Layout from "../layout";
 import dynamic from "next/dynamic";
+import { createDream } from "../../lib/api";
+import { useRouter } from "next/router";
+import { stripHtml } from "../../lib/strings";
 
 const Editor = dynamic(() => import("../editor"), {
   ssr: false,
@@ -14,6 +17,47 @@ const Editor = dynamic(() => import("../editor"), {
 export default function Create(props) {
   const { user } = props;
   const [html, setHtml] = useState();
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      console.log(html);
+      sync();
+    }, 3000);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [html]);
+
+  console.log({ query: router.query });
+
+  const sync = async () => {
+    setLoading(true);
+
+    const { dreamId } = router.query;
+
+    if (!dreamId) {
+      const dreamData = { html, text: stripHtml(html), user: user.email };
+
+      const { success, data } = await createDream(dreamData);
+
+      if (!success && !data) {
+        // display toast
+
+        return;
+      }
+
+      // window.location.replace = `${process.env.HOST}/sonhos/${data.id}`;
+    }
+
+    await new Promise((res) => {
+      setTimeout(() => {
+        res();
+      }, 1000);
+    });
+
+    setLoading(false);
+  };
 
   return (
     <Layout
@@ -21,6 +65,17 @@ export default function Create(props) {
       subtitle={`Olá${user.name ? `, ${user.name}` : "!"}`}
       pageHeaderActions={
         <Box direction="row" gap="small">
+          {loading ? (
+            <Box
+              direction="column"
+              gap="xsmall"
+              align="center"
+              justify="center"
+            >
+              <Spinner size="xsmall" message={"Sincronizando sonho..."} />
+              <Text size="xsmall">Sincronizando sonho...</Text>
+            </Box>
+          ) : null}
           <Avatar src={user.image} />
           <Button label="Sair" onClick={signOut} />
         </Box>

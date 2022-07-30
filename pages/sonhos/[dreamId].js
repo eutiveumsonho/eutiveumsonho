@@ -1,16 +1,15 @@
 import { getSession } from "next-auth/react";
 
-import Create from "../components/pages/create";
-import Invite from "../components/pages/invite";
+import Create from "../../components/pages/create";
 
-export default function Home(props) {
+export default function Dream(props) {
   const { user } = props;
 
   if (user) {
     return <Create user={user} />;
   }
 
-  return <Invite />;
+  return null;
 }
 
 export async function getServerSideProps(context) {
