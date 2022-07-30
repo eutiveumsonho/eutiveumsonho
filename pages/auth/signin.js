@@ -90,7 +90,7 @@ export async function getServerSideProps(context) {
     context.res.writeHead(302, { Location: "/" });
     context.res.end();
 
-    return {};
+    return { props: {} };
   }
 
   return {

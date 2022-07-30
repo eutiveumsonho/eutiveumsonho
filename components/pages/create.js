@@ -22,16 +22,17 @@ export default function Create(props) {
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      console.log(html);
       sync();
     }, 3000);
 
     return () => clearTimeout(delayDebounceFn);
   }, [html]);
 
-  console.log({ query: router.query });
-
   const sync = async () => {
+    if (!html) {
+      return;
+    }
+
     setLoading(true);
 
     const { dreamId } = router.query;

@@ -1,4 +1,4 @@
-import { getSession } from "next-auth/react";
+import useAuth from "../lib/useAuth";
 
 import Create from "../components/pages/create";
 import Invite from "../components/pages/invite";
@@ -14,17 +14,5 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps(context) {
-  const session = await getSession(context);
-
-  if (!session) {
-    return {
-      props: { user: null },
-    };
-  }
-
-  return {
-    props: {
-      user: session.user,
-    },
-  };
+  return useAuth(context);
 }
