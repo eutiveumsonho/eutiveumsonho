@@ -8,7 +8,7 @@ import {
   Text,
   TextInput,
 } from "grommet";
-import { Apple, Google } from "grommet-icons";
+import { Facebook, Google } from "grommet-icons";
 import {
   getCsrfToken,
   getProviders,
@@ -18,7 +18,7 @@ import {
 import Clouds from "../../components/clouds";
 
 const icon = {
-  Apple: <Apple />,
+  Facebook: <Facebook />,
   Google: <Google />,
 };
 
