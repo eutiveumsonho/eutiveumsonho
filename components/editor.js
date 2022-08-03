@@ -12,7 +12,6 @@ export default function Editor(props) {
       formats={formats}
       {...props}
       onChange={(value) => {
-        console.log({ value });
         if (props.onChange) {
           // See https://github.com/zenoamaro/react-quill/issues/311
           props.onChange(value.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;"));

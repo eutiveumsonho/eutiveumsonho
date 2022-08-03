@@ -1,13 +1,13 @@
-import useAuth from "../lib/useAuth";
+import { useAuth } from "../lib/auth";
 
 import Create from "../components/pages/create";
 import Invite from "../components/pages/invite";
 
 export default function Home(props) {
-  const { user } = props;
+  const { serverSession } = props;
 
-  if (user) {
-    return <Create user={user} />;
+  if (serverSession) {
+    return <Create serverSession={serverSession} />;
   }
 
   return <Invite />;

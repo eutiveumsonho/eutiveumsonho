@@ -15,7 +15,7 @@ const Editor = dynamic(() => import("../editor"), {
 });
 
 export default function Create(props) {
-  const { user } = props;
+  const { serverSession } = props;
   const [html, setHtml] = useState();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -38,7 +38,11 @@ export default function Create(props) {
     const { dreamId } = router.query;
 
     if (!dreamId) {
-      const dreamData = { html, text: stripHtml(html), user: user.email };
+      const dreamData = {
+        html,
+        text: stripHtml(html),
+        session: serverSession,
+      };
 
       const { success, data } = await createDream(dreamData);
 
@@ -63,7 +67,9 @@ export default function Create(props) {
   return (
     <Layout
       title="Eu tive um sonho"
-      subtitle={`Olá${user.name ? `, ${user.name}` : "!"}`}
+      subtitle={`Olá${
+        serverSession.user.name ? `, ${serverSession.user.name}` : "!"
+      }`}
       pageHeaderActions={
         <Box direction="row" gap="small">
           {loading ? (
@@ -77,7 +83,7 @@ export default function Create(props) {
               <Text size="xsmall">Sincronizando sonho...</Text>
             </Box>
           ) : null}
-          <Avatar src={user.image} />
+          <Avatar src={serverSession.user.image} />
           <Button label="Sair" onClick={signOut} />
         </Box>
       }

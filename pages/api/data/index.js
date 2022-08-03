@@ -1,9 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
+import { getServerSession, validateSessions } from "../../../lib/auth";
 import {
   BAD_REQUEST,
   METHOD_NOT_ALLOWED,
   SERVER_ERROR,
+  FORBIDDEN,
 } from "../../../lib/errors";
 
 export default async function handler(req, res) {
@@ -13,7 +15,14 @@ export default async function handler(req, res) {
     return res;
   }
 
-  console.log({ body: req.body });
+  const clientSession = req.body.session;
+  const session = await getServerSession(req, res);
+  const isValidSession = validateSessions(clientSession, session);
+
+  if (!isValidSession) {
+    res.status(403).end(FORBIDDEN);
+    return res;
+  }
 
   if (!req.body.text || !req.body.html) {
     res.status(400).end(BAD_REQUEST);
