@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 import { getServerSession, validateSessions } from "../../../lib/auth";
+import { createDream } from "../../../lib/db/writes";
 import {
   BAD_REQUEST,
   METHOD_NOT_ALLOWED,
@@ -15,25 +16,27 @@ export default async function handler(req, res) {
     return res;
   }
 
-  const clientSession = req.body.session;
   const session = await getServerSession(req, res);
-  const isValidSession = validateSessions(clientSession, session);
 
-  if (!isValidSession) {
+  if (!session) {
     res.status(403).end(FORBIDDEN);
     return res;
   }
 
-  if (!req.body.text || !req.body.html) {
+  if (!req.body?.dream?.text || !req.body?.dream?.html) {
     res.status(400).end(BAD_REQUEST);
     return res;
   }
 
+  const data = { dream: req.body, session };
+
   try {
-    await Promise.all([]);
+    const result = await createDream(data);
+
+    const objectId = result.insertedId.toString();
 
     res.setHeader("Content-Type", "application/json");
-    res.status(201).end();
+    res.status(201).send({ objectId });
 
     return res;
   } catch (error) {

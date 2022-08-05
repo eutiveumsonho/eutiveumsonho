@@ -21,6 +21,22 @@ export default function Create(props) {
   const router = useRouter();
 
   useEffect(() => {
+    const { dreamId } = router.query;
+
+    if (dreamId) {
+      const storedHtmlKey = `created-dream-${dreamId}-html`;
+      const storedHtml = sessionStorage.getItem(storedHtmlKey);
+
+      if (storedHtml) {
+        setHtml(storedHtml);
+        sessionStorage.removeItem(storedHtmlKey);
+      } else {
+        // fetch dream based on its id
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       sync();
     }, 3000);
@@ -39,9 +55,7 @@ export default function Create(props) {
 
     if (!dreamId) {
       const dreamData = {
-        html,
-        text: stripHtml(html),
-        session: serverSession,
+        dream: { html, text: stripHtml(html) },
       };
 
       const { success, data } = await createDream(dreamData);
@@ -52,12 +66,17 @@ export default function Create(props) {
         return;
       }
 
-      // window.location.replace = `${process.env.HOST}/sonhos/${data.id}`;
+      const url = `/sonhos/${data.objectId}`;
+
+      sessionStorage.setItem(`created-dream-${data.objectId}-html`, html);
+
+      window.location.replace(url);
     }
 
     await new Promise((res) => {
       setTimeout(() => {
         res();
+        console.log("save dream");
       }, 1000);
     });
 

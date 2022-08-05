@@ -1,29 +1,16 @@
-import { getSession } from "next-auth/react";
-
 import Create from "../../components/pages/create";
+import { useAuth } from "../../lib/auth";
 
 export default function Dream(props) {
-  const { user } = props;
+  const { serverSession } = props;
 
-  if (user) {
-    return <Create user={user} />;
+  if (serverSession) {
+    return <Create serverSession={serverSession} />;
   }
 
   return null;
 }
 
 export async function getServerSideProps(context) {
-  const session = await getSession(context);
-
-  if (!session) {
-    return {
-      props: { user: null },
-    };
-  }
-
-  return {
-    props: {
-      user: session.user,
-    },
-  };
+  return useAuth(context);
 }
