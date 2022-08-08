@@ -5,7 +5,7 @@ import { signOut } from "next-auth/react";
 
 import Layout from "../layout";
 import dynamic from "next/dynamic";
-import { createDream, getDreamById } from "../../lib/api";
+import { createDream, saveDream } from "../../lib/api";
 import { useRouter } from "next/router";
 import { stripHtml } from "../../lib/strings";
 
@@ -56,12 +56,11 @@ export default function Create(props) {
     setLoading(true);
 
     const { dreamId } = router.query;
+    const dreamData = {
+      dream: { html, text: stripHtml(html) },
+    };
 
     if (!dreamId) {
-      const dreamData = {
-        dream: { html, text: stripHtml(html) },
-      };
-
       const { success, data } = await createDream(dreamData);
 
       if (!success && !data) {
@@ -76,12 +75,7 @@ export default function Create(props) {
 
       window.location.replace(url);
     } else {
-      await new Promise((res) => {
-        setTimeout(() => {
-          res();
-          console.log("save dream");
-        }, 1000);
-      });
+      await saveDream(dreamId, dreamData);
     }
 
     setLoading(false);
