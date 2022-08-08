@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { getServerSession, validateSessions } from "../../../lib/auth";
+import { getServerSession } from "../../../lib/auth";
 import { createDream } from "../../../lib/db/writes";
 import {
   BAD_REQUEST,
@@ -10,12 +10,17 @@ import {
 } from "../../../lib/errors";
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
-    res.status(405).end(METHOD_NOT_ALLOWED);
-    return res;
+  switch (req.method) {
+    case "POST":
+      return post(req, res);
+    default:
+      res.setHeader("Allow", ["POST"]);
+      res.status(405).end(METHOD_NOT_ALLOWED);
+      return res;
   }
+}
 
+async function post(req, res) {
   const session = await getServerSession(req, res);
 
   if (!session) {

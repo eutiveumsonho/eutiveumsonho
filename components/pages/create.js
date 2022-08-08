@@ -5,7 +5,7 @@ import { signOut } from "next-auth/react";
 
 import Layout from "../layout";
 import dynamic from "next/dynamic";
-import { createDream } from "../../lib/api";
+import { createDream, getDreamById } from "../../lib/api";
 import { useRouter } from "next/router";
 import { stripHtml } from "../../lib/strings";
 
@@ -18,6 +18,7 @@ export default function Create(props) {
   const { serverSession } = props;
   const [html, setHtml] = useState();
   const [loading, setLoading] = useState(false);
+  const [loadingDream, setLoadingDream] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function Create(props) {
         setHtml(storedHtml);
         sessionStorage.removeItem(storedHtmlKey);
       } else {
-        // fetch dream based on its id
+        getDream(dreamId);
       }
     }
   }, []);
@@ -43,6 +44,25 @@ export default function Create(props) {
 
     return () => clearTimeout(delayDebounceFn);
   }, [html]);
+
+  const getDream = async (id) => {
+    const prevHtml = html;
+    setHtml("<p>Carregando...</p>");
+    const dreamData = await getDreamById(id);
+
+    if (!dreamData?.success) {
+      // display toast
+
+      setHtml(prevHtml);
+      return;
+    }
+
+    const { data } = dreamData;
+
+    const newHtml = data.dream.html;
+
+    setHtml(newHtml);
+  };
 
   const sync = async () => {
     if (!html) {
