@@ -1,5 +1,5 @@
 import Create from "../../components/pages/create";
-import { useAuth } from "../../lib/auth";
+import { getA, getAuthPropsuthProps } from "../../lib/auth";
 import { getDreamById } from "../../lib/db/reads";
 
 export default function Dream(props) {
@@ -13,7 +13,7 @@ export default function Dream(props) {
 }
 
 export async function getServerSideProps(context) {
-  const authProps = await useAuth(context);
+  const authProps = await getAuthProps(context);
 
   const { dreamId } = context.params;
 

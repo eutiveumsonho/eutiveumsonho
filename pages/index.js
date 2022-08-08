@@ -1,4 +1,4 @@
-import { useAuth } from "../lib/auth";
+import { getAuthProps } from "../lib/auth";
 
 import Create from "../components/pages/create";
 import Invite from "../components/pages/invite";
@@ -14,5 +14,5 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps(context) {
-  return useAuth(context);
+  return getAuthProps(context);
 }
