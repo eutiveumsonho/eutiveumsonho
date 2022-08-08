@@ -14,26 +14,29 @@ const Editor = dynamic(() => import("../editor"), {
   loading: () => <Spinner message="Carregando editor de texto..." />,
 });
 
+const LOADING_PLACEHOLDER = "<p>Carregando...</p>";
+
 export default function Create(props) {
-  const { serverSession } = props;
+  const { serverSession, data } = props;
   const [html, setHtml] = useState();
   const [loading, setLoading] = useState(false);
-  const [loadingDream, setLoadingDream] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     const { dreamId } = router.query;
 
-    if (dreamId) {
+    if (dreamId && !data) {
       const storedHtmlKey = `created-dream-${dreamId}-html`;
       const storedHtml = sessionStorage.getItem(storedHtmlKey);
 
       if (storedHtml) {
         setHtml(storedHtml);
         sessionStorage.removeItem(storedHtmlKey);
-      } else {
-        getDream(dreamId);
       }
+    } else if (data) {
+      console.log({ data });
+
+      setHtml(data.dream.html);
     }
   }, []);
 
@@ -44,25 +47,6 @@ export default function Create(props) {
 
     return () => clearTimeout(delayDebounceFn);
   }, [html]);
-
-  const getDream = async (id) => {
-    const prevHtml = html;
-    setHtml("<p>Carregando...</p>");
-    const dreamData = await getDreamById(id);
-
-    if (!dreamData?.success) {
-      // display toast
-
-      setHtml(prevHtml);
-      return;
-    }
-
-    const { data } = dreamData;
-
-    const newHtml = data.dream.html;
-
-    setHtml(newHtml);
-  };
 
   const sync = async () => {
     if (!html) {
@@ -91,14 +75,14 @@ export default function Create(props) {
       sessionStorage.setItem(`created-dream-${data.objectId}-html`, html);
 
       window.location.replace(url);
+    } else {
+      await new Promise((res) => {
+        setTimeout(() => {
+          res();
+          console.log("save dream");
+        }, 1000);
+      });
     }
-
-    await new Promise((res) => {
-      setTimeout(() => {
-        res();
-        console.log("save dream");
-      }, 1000);
-    });
 
     setLoading(false);
   };
@@ -141,6 +125,7 @@ export default function Create(props) {
           placeholder="Eu tive um sonho..."
           onChange={setHtml}
           // See https://github.com/zenoamaro/react-quill/issues/311
+          // for the hacks below (defaultValue and value)
           defaultValue={html}
           style={{
             width: "100%",
