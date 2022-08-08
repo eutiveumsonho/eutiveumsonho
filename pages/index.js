@@ -1,31 +1,18 @@
-import { getSession } from "next-auth/react";
+import { getAuthProps } from "../lib/auth";
 
-import dynamic from "next/dynamic";
 import Create from "../components/pages/create";
 import Invite from "../components/pages/invite";
 
 export default function Home(props) {
-  const { user } = props;
+  const { serverSession } = props;
 
-  if (user) {
-    return <Create user={user} />;
+  if (serverSession) {
+    return <Create serverSession={serverSession} />;
   }
 
   return <Invite />;
 }
 
 export async function getServerSideProps(context) {
-  const session = await getSession(context);
-
-  if (!session) {
-    return {
-      props: { user: null },
-    };
-  }
-
-  return {
-    props: {
-      user: session.user,
-    },
-  };
+  return getAuthProps(context);
 }
