@@ -14,8 +14,6 @@ const Editor = dynamic(() => import("../editor"), {
   loading: () => <Spinner message="Carregando editor de texto..." />,
 });
 
-const LOADING_PLACEHOLDER = "<p>Carregando...</p>";
-
 export default function Create(props) {
   const { serverSession, data } = props;
   const [html, setHtml] = useState();
@@ -34,8 +32,6 @@ export default function Create(props) {
         sessionStorage.removeItem(storedHtmlKey);
       }
     } else if (data) {
-      console.log({ data });
-
       setHtml(data.dream.html);
     }
   }, []);

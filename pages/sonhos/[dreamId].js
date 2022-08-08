@@ -1,5 +1,5 @@
 import Create from "../../components/pages/create";
-import { getA, getAuthPropsuthProps } from "../../lib/auth";
+import { getAuthProps } from "../../lib/auth";
 import { getDreamById } from "../../lib/db/reads";
 
 export default function Dream(props) {
