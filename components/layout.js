@@ -1,7 +1,8 @@
 import { Box, Footer, Page, PageContent, PageHeader } from "grommet";
+import PageActions from "./page-actions";
 
 export default function Layout(props) {
-  const { title, subtitle, footer = null, children, pageHeaderActions } = props;
+  const { title, subtitle, footer = null, children, serverSession } = props;
 
   return (
     <Page>
@@ -10,13 +11,7 @@ export default function Layout(props) {
           title={title}
           subtitle={subtitle}
           responsive
-          actions={
-            pageHeaderActions ? (
-              <Box direction="row" gap="small" align="center">
-                {pageHeaderActions}
-              </Box>
-            ) : null
-          }
+          actions={<PageActions serverSession={serverSession} />}
         />
       </PageContent>
       {children}

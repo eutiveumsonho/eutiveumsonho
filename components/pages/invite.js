@@ -12,7 +12,7 @@ import {
   Notification,
   WorldMap,
 } from "grommet";
-import { Mail } from "grommet-icons";
+import { Mail, Servers } from "grommet-icons";
 import { signIn } from "next-auth/react";
 import isEmail from "validator/lib/isEmail";
 
@@ -43,11 +43,6 @@ export default function Invite() {
     <Layout
       title="Eu tive um sonho"
       subtitle="A maior comunidade conectada por sonhos, do Brasil para o mundo."
-      pageHeaderActions={
-        <Box direction="row-responsive" gap="small">
-          <Button label="Entrar" onClick={signIn} />
-        </Box>
-      }
     >
       <Head>
         <title>Eu tive um sonho</title>

@@ -83,23 +83,7 @@ export default function Create(props) {
       subtitle={`Olá${
         serverSession.user.name ? `, ${serverSession.user.name}` : "!"
       }`}
-      pageHeaderActions={
-        <Box direction="row" gap="small">
-          {loading ? (
-            <Box
-              direction="column"
-              gap="xsmall"
-              align="center"
-              justify="center"
-            >
-              <Spinner size="xsmall" message={"Sincronizando sonho..."} />
-              <Text size="xsmall">Sincronizando sonho...</Text>
-            </Box>
-          ) : null}
-          <Avatar src={serverSession.user.image} />
-          <Button label="Sair" onClick={signOut} />
-        </Box>
-      }
+      serverSession={serverSession}
     >
       <Head>
         <title>Eu tive um sonho</title>
