@@ -7,11 +7,7 @@ export default function Home(props) {
   const { serverSession } = props;
 
   return (
-    <Layout
-      title="Eu tive um sonho"
-      subtitle="A maior comunidade conectada por sonhos, do Brasil para o mundo."
-      serverSession={serverSession}
-    >
+    <Layout serverSession={serverSession}>
       <Head>
         <title>Política de Cookies</title>
         <meta
@@ -25,7 +21,7 @@ export default function Home(props) {
         align="center"
         flex
         style={{
-          minHeight: "calc(90vh - 11.75rem)",
+          minHeight: "100vh",
         }}
       >
         <div

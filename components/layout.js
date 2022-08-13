@@ -2,6 +2,7 @@ import {
   Anchor,
   Box,
   Footer,
+  Heading,
   Page,
   PageContent,
   PageHeader,
@@ -52,15 +53,37 @@ const FooterContent = () =>
   ));
 
 export default function Layout(props) {
-  const { title, subtitle, children, serverSession } = props;
+  const { children, serverSession } = props;
 
   return (
     <>
       <Page>
         <PageContent>
           <PageHeader
-            title={title}
-            subtitle={subtitle}
+            title={
+              <Box
+                style={{
+                  maxWidth: "24rem",
+                }}
+              >
+                <Link href="/">
+                  <a
+                    style={{
+                      color: "inherit",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <Heading level={1} style={{ marginBottom: "unset" }}>
+                      Eu tive um sonho
+                    </Heading>
+                    <Heading level={4} style={{ marginTop: "unset" }}>
+                      A maior comunidade conectada por sonhos, do Brasil para o
+                      mundo.
+                    </Heading>
+                  </a>
+                </Link>
+              </Box>
+            }
             responsive
             actions={<PageActions serverSession={serverSession} />}
           />
