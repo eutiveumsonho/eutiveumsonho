@@ -70,7 +70,11 @@ class MyDocument extends Document {
             }}
           />
         </Head>
-        <body>
+        <body
+          style={{
+            margin: "unset",
+          }}
+        >
           <Main />
           <NextScript />
         </body>

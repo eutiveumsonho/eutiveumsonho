@@ -92,19 +92,19 @@ export default function Layout(props) {
         <PageContent
           background={{ fill: "horizontal", color: "white" }}
           style={{
-            position: "absolute",
             display: "flex",
             width: "100vw",
             alignItems: "center",
+            paddingLeft: "unset",
+            paddingRight: "unset",
           }}
         >
           <Footer
             background="dark-1"
             pad="xlarge"
             style={{
-              position: "absolute",
-              width: "calc(100% + 3rem)",
               maxWidth: "99rem",
+              width: "100%",
             }}
           >
             <Box direction="row-responsive" gap="xsmall">

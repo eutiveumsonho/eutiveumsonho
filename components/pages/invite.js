@@ -51,6 +51,8 @@ export default function Invite() {
         flex
         style={{
           minHeight: "calc(90vh - 11.75rem)",
+          paddingBottom: "3rem",
+          paddingTop: "3rem",
         }}
       >
         <Box
