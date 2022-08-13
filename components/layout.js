@@ -66,13 +66,20 @@ export default function Layout(props) {
           />
         </PageContent>
         {children}
-        <PageContent background={{ fill: "horizontal", color: "white" }}>
+        <PageContent
+          background={{ fill: "horizontal", color: "white" }}
+          style={{
+            position: "absolute",
+            display: "flex",
+            width: "100vw",
+            alignItems: "center",
+          }}
+        >
           <Footer
             background="dark-1"
             pad="xlarge"
             style={{
               position: "absolute",
-              right: "-1.5rem",
               width: "calc(100% + 3rem)",
               maxWidth: "99rem",
             }}
