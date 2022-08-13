@@ -13,8 +13,11 @@ export default function Home(props) {
       serverSession={serverSession}
     >
       <Head>
-        <title>Eu tive um sonho</title>
-        <meta name="description" content="O seu repositório de sonhos." />
+        <title>Política de Privacidade</title>
+        <meta
+          name="description"
+          content="Política de Privacidade de eutiveumosho"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PageContent
