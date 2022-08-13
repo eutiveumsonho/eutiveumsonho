@@ -23,6 +23,10 @@
 
 - [.env](https://docs.google.com/document/d/1f0W_mH4NjnXmKfOay6_Ob5ZvGgqgPk7on89ZiYMREi8/edit)
 
+### Legal
+
+- [Iubenda](https://www.iubenda.com/pt-br/dashboard)
+
 ### Design system
 
 #### Grommet

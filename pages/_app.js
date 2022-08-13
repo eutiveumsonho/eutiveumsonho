@@ -22,7 +22,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 
   return (
     <>
-      {/* Global Site Tag (gtag.js) - Google Analytics */}
       <Script
         id="gtag-load"
         strategy="afterInteractive"

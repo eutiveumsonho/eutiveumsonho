@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import { Box, Button, PageContent, Spinner, Avatar, Text } from "grommet";
-import { signOut } from "next-auth/react";
+import { PageContent, Spinner } from "grommet";
 
 import Layout from "../layout";
 import dynamic from "next/dynamic";
@@ -17,7 +16,6 @@ const Editor = dynamic(() => import("../editor"), {
 export default function Create(props) {
   const { serverSession, data } = props;
   const [html, setHtml] = useState();
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -49,8 +47,6 @@ export default function Create(props) {
       return;
     }
 
-    setLoading(true);
-
     const { dreamId } = router.query;
     const dreamData = {
       dream: { html, text: stripHtml(html) },
@@ -73,34 +69,10 @@ export default function Create(props) {
     } else {
       await saveDream(dreamId, dreamData);
     }
-
-    setLoading(false);
   };
 
   return (
-    <Layout
-      title="Eu tive um sonho"
-      subtitle={`Olá${
-        serverSession.user.name ? `, ${serverSession.user.name}` : "!"
-      }`}
-      pageHeaderActions={
-        <Box direction="row" gap="small">
-          {loading ? (
-            <Box
-              direction="column"
-              gap="xsmall"
-              align="center"
-              justify="center"
-            >
-              <Spinner size="xsmall" message={"Sincronizando sonho..."} />
-              <Text size="xsmall">Sincronizando sonho...</Text>
-            </Box>
-          ) : null}
-          <Avatar src={serverSession.user.image} />
-          <Button label="Sair" onClick={signOut} />
-        </Box>
-      }
-    >
+    <Layout serverSession={serverSession}>
       <Head>
         <title>Eu tive um sonho</title>
         <meta name="description" content="O seu repositório de sonhos." />

@@ -13,7 +13,6 @@ import {
   WorldMap,
 } from "grommet";
 import { Mail } from "grommet-icons";
-import { signIn } from "next-auth/react";
 import isEmail from "validator/lib/isEmail";
 
 import Layout from "../layout";
@@ -40,15 +39,7 @@ export default function Invite() {
   };
 
   return (
-    <Layout
-      title="Eu tive um sonho"
-      subtitle="A maior comunidade conectada por sonhos, do Brasil para o mundo."
-      pageHeaderActions={
-        <Box direction="row-responsive" gap="small">
-          <Button label="Entrar" onClick={signIn} />
-        </Box>
-      }
-    >
+    <Layout>
       <Head>
         <title>Eu tive um sonho</title>
         <meta name="description" content="O seu repositório de sonhos." />
@@ -60,6 +51,8 @@ export default function Invite() {
         flex
         style={{
           minHeight: "calc(90vh - 11.75rem)",
+          paddingBottom: "3rem",
+          paddingTop: "3rem",
         }}
       >
         <Box
