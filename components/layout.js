@@ -7,6 +7,7 @@ import {
   PageHeader,
   Text,
 } from "grommet";
+import Image from "next/image";
 import Link from "next/link";
 import PageActions from "./page-actions";
 
@@ -77,8 +78,9 @@ export default function Layout(props) {
             }}
           >
             <Box direction="row-responsive" gap="xsmall">
-              <Box align="center" gap="medium">
-                <Link href="/">
+              <Link href="/">
+                <Box align="center" gap="medium">
+                  <Image src="/purple-cloud.svg" height={50} width={50} />
                   <a
                     style={{
                       color: "inherit",
@@ -86,11 +88,11 @@ export default function Layout(props) {
                     }}
                   >
                     <Text alignSelf="center" color="brand" weight="bold">
-                      eutiveumsonho
+                      Eu tive um sonho
                     </Text>
                   </a>
-                </Link>
-              </Box>
+                </Box>
+              </Link>
             </Box>
             <FooterContent />
           </Footer>
