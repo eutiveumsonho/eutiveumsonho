@@ -25,7 +25,7 @@
 
 ### Legal
 
-- [Iubenda](https://www.iubenda.com/pt-br/flow/2762124)
+- [Iubenda](https://www.iubenda.com/pt-br/dashboard)
 
 ### Design system
 
