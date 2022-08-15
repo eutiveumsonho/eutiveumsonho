@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Card,
-  Form,
-  FormField,
-  Heading,
-  Text,
-  TextInput,
-} from "grommet";
+import { Box, Button, Card, FormField, Spinner, TextInput } from "grommet";
 import { Facebook, Google } from "grommet-icons";
 import {
   getCsrfToken,
@@ -15,7 +6,10 @@ import {
   getSession,
   signIn,
 } from "next-auth/react";
+import { useState } from "react";
+import isEmail from "validator/lib/isEmail";
 import Clouds from "../../components/clouds";
+import { Logo } from "../../components/logo";
 
 const icon = {
   Facebook: <Facebook />,
@@ -23,6 +17,8 @@ const icon = {
 };
 
 export default function SignIn({ providers, csrfToken }) {
+  const [emailSignInLoading, setEmailSignInLoading] = useState(false);
+
   return (
     <>
       <Clouds />
@@ -38,44 +34,84 @@ export default function SignIn({ providers, csrfToken }) {
           margin: "auto",
         }}
       >
-        <Card pad="large" gap="medium" align="center" background="white">
-          <Heading level={2} size="small">
-            Eu tive um sonho
-          </Heading>
-          <Box width="medium">
-            <Form method="post" action="/api/auth/callback/credentials">
-              <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-              <FormField
-                label="Nome de usuário ou e-mail"
-                name="username"
-                required
-              >
-                <TextInput name="username" type="username" />
-              </FormField>
-              <FormField label="Senha" name="password" required>
-                <TextInput name="password" type="password" />
-              </FormField>
+        <Card
+          pad="large"
+          gap="medium"
+          align="center"
+          background="white"
+          style={{
+            minWidth: "24rem",
+          }}
+        >
+          <Logo color="black" />
+
+          {Object.values(providers).map((provider) => {
+            if (provider.type === "email") {
+              return (
+                <>
+                  {/* https://next-auth.js.org/configuration/pages#email-sign-in */}
+                  <form method="post" action="/api/auth/signin/email">
+                    <input
+                      name="csrfToken"
+                      type="hidden"
+                      defaultValue={csrfToken}
+                    />
+                    <FormField
+                      required
+                      name="email"
+                      validate={[
+                        (value) => {
+                          if (!isEmail(value ?? "")) {
+                            return {
+                              message: "Insira um e-mail válido",
+                            };
+                          }
+                        },
+                      ]}
+                    >
+                      <TextInput
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Seu e-email"
+                      />
+                    </FormField>
+                    <Button
+                      style={{
+                        minWidth: "18.75rem",
+                      }}
+                      icon={
+                        emailSignInLoading ? <Spinner size="xsmall" /> : null
+                      }
+                      label={
+                        emailSignInLoading
+                          ? "Enviando..."
+                          : "Enviar email com link de login"
+                      }
+                      type="submit"
+                      fill="horizontal"
+                      primary
+                      onClick={() => setEmailSignInLoading(true)}
+                    />
+                  </form>
+                  <hr />
+                </>
+              );
+            }
+
+            return (
               <Button
-                label="Entre com suas credenciais"
-                type="submit"
-                fill="horizontal"
+                key={provider.name}
+                style={{
+                  width: "100%",
+                }}
+                onClick={() => signIn(provider.id)}
+                icon={icon[provider.name]}
+                label={`Entre com ${provider.name}`}
                 primary
               />
-            </Form>
-          </Box>
-          <Text size="large">ou</Text>
-          {Object.values(providers).map((provider) => (
-            <Button
-              key={provider.name}
-              style={{
-                width: "100%",
-              }}
-              onClick={() => signIn(provider.id)}
-              icon={icon[provider.name]}
-              label={`Entre com ${provider.name}`}
-              primary
-            />
-          ))}
+            );
+          })}
         </Card>
       </Box>
     </>

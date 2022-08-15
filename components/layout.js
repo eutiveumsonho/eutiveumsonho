@@ -8,8 +8,8 @@ import {
   PageHeader,
   Text,
 } from "grommet";
-import Image from "next/image";
 import Link from "next/link";
+import { Logo } from "./logo";
 import PageActions from "./page-actions";
 
 const footerData = [
@@ -108,21 +108,7 @@ export default function Layout(props) {
             }}
           >
             <Box direction="row-responsive" gap="xsmall">
-              <Link href="/">
-                <Box align="center" gap="medium">
-                  <Image src="/purple-cloud.svg" height={50} width={50} />
-                  <a
-                    style={{
-                      color: "inherit",
-                      textDecoration: "none",
-                    }}
-                  >
-                    <Text alignSelf="center" color="brand" weight="bold">
-                      Eu tive um sonho
-                    </Text>
-                  </a>
-                </Box>
-              </Link>
+              <Logo />
             </Box>
             <FooterContent />
           </Footer>
