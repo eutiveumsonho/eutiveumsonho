@@ -1,18 +1,20 @@
 import { getAuthProps } from "../lib/auth";
 
-import Create from "../components/pages/create";
 import Invite from "../components/pages/invite";
 
-export default function Home(props) {
-  const { serverSession } = props;
-
-  if (serverSession) {
-    return <Create serverSession={serverSession} />;
-  }
-
+export default function Home() {
   return <Invite />;
 }
 
 export async function getServerSideProps(context) {
-  return getAuthProps(context);
+  const authProps = await getAuthProps(context);
+
+  if (authProps.props.serverSession) {
+    const { res } = context;
+    res.setHeader("location", "/descubra");
+    res.statusCode = 302;
+    res.end();
+  }
+
+  return { props: {} };
 }

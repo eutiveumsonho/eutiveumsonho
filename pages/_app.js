@@ -44,6 +44,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       <Grommet
         theme={grommet}
         style={{
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100vh",
           backgroundColor: "transparent",
         }}
       >

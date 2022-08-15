@@ -1,5 +1,6 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import "./editor.module.css";
 
 /*
  * Simple editor componnt that takes placeholder text as a prop

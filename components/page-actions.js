@@ -1,5 +1,6 @@
 import { Avatar, Box, Button } from "grommet";
 import { signIn, signOut } from "next-auth/react";
+import Link from "next/link";
 
 export default function PageActions(props) {
   const { serverSession } = props;
@@ -8,6 +9,9 @@ export default function PageActions(props) {
     return (
       <Box direction="row" gap="small">
         <Avatar src={serverSession.user.image} />
+        <Link href="/publicar">
+          <Button primary label="Adicionar sonho" />
+        </Link>
         <Button label="Sair" onClick={signOut} />
       </Box>
     );
