@@ -6,6 +6,7 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "../../../lib/mongodb";
 import { createTransport } from "nodemailer";
 import { html, BRAND_HEX } from "../../../lib/email";
+import { ALLOWED_HOST } from "../../../lib/config";
 
 async function sendVerificationRequest(params) {
   const { identifier, url, provider } = params;
@@ -28,10 +29,12 @@ async function sendVerificationRequest(params) {
 }
 
 function formatMagicLinkHtml(params) {
-  const { url, host } = params;
+  const { url } = params;
 
   return html(
-    `<p>Aqui está um link para entrar no Eu tive um sonho. Esse link só pode ser utilizado uma vez e expira depois de 24 horas. Caso o link tenha expirado, por favor tente entrar novamente, <a href=${host}>clicando aqui</a></p>
+    `<p>Aqui está um link para entrar no Eu tive um sonho.</p>
+    <p>Esse link só pode ser utilizado uma vez e expira depois de 24 horas.</p>
+    <p>Caso o link tenha expirado, por favor tente entrar novamente, <a href="${ALLOWED_HOST}">clicando aqui</a></p>
 <tr>
   <td align="center" style="padding: 20px 0;">
     <table border="0" cellspacing="0" cellpadding="0">
@@ -81,7 +84,7 @@ export const authOptions = {
   pages: {
     signIn: "/auth/signin",
     // signOut: '/auth/signout',
-    // error: '/auth/error', // Error code passed in query string as ?error=
+    error: "/auth/error", // Error code passed in query string as ?error=
     verifyRequest: "/auth/verify-request", // (used for check email message)
     // newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
   },

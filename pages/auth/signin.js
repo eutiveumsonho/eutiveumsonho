@@ -1,4 +1,4 @@
-import { Box, Button, Card, Form, FormField, TextInput } from "grommet";
+import { Box, Button, Card, FormField, Spinner, TextInput } from "grommet";
 import { Facebook, Google } from "grommet-icons";
 import {
   getCsrfToken,
@@ -6,6 +6,7 @@ import {
   getSession,
   signIn,
 } from "next-auth/react";
+import { useState } from "react";
 import isEmail from "validator/lib/isEmail";
 import Clouds from "../../components/clouds";
 import { Logo } from "../../components/logo";
@@ -16,6 +17,8 @@ const icon = {
 };
 
 export default function SignIn({ providers, csrfToken }) {
+  const [emailSignInLoading, setEmailSignInLoading] = useState(false);
+
   return (
     <>
       <Clouds />
@@ -74,10 +77,21 @@ export default function SignIn({ providers, csrfToken }) {
                       />
                     </FormField>
                     <Button
-                      label="Enviar email com link de login"
+                      style={{
+                        minWidth: "18.75rem",
+                      }}
+                      icon={
+                        emailSignInLoading ? <Spinner size="xsmall" /> : null
+                      }
+                      label={
+                        emailSignInLoading
+                          ? "Enviando..."
+                          : "Enviar email com link de login"
+                      }
                       type="submit"
                       fill="horizontal"
                       primary
+                      onClick={() => setEmailSignInLoading(true)}
                     />
                   </form>
                   <hr />
