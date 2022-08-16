@@ -9,7 +9,7 @@ export default function Home(props) {
 
 export async function getServerSideProps(context) {
   const authProps = await getAuthProps(context);
-  const { res, req } = context;
+  const { res } = context;
 
   if (!authProps.props.serverSession) {
     res.setHeader("location", "/auth/signin");
@@ -19,23 +19,13 @@ export async function getServerSideProps(context) {
 
   const { postId } = context.params;
 
-  console.log({ postIdFromFrontend: postId });
-
   if (postId) {
-    const response = await getDreamById(postId);
-
-    console.log({ response });
+    const data = await getDreamById(postId);
 
     // This condition must exist to guarantee privacy on the `publicar` route
-    // authProps.props.serverSession.user.email !== response.userEmail
+    // authProps.props.serverSession.user.email !== data.userEmail
 
-    if (!response) {
-      return {
-        props: { ...authProps.props, data: null },
-      };
-    }
-
-    const { dream, userEmail } = response;
+    const { dream, userEmail } = data;
 
     return {
       props: { ...authProps.props, data: { dream, dreamOwner: userEmail } },

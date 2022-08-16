@@ -1,11 +1,7 @@
 import { getAuthProps } from "../lib/auth";
 
-import Dashboard from "../components/dashboard";
-
-export default function FindOut(props) {
-  const { serverSession } = props;
-
-  return <Dashboard serverSession={serverSession} />;
+export default function FindOut(_props) {
+  return null;
 }
 
 export async function getServerSideProps(context) {
@@ -18,5 +14,5 @@ export async function getServerSideProps(context) {
     res.end();
   }
 
-  return authProps;
+  return { props: { ...authProps.props, data } };
 }

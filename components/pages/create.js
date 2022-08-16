@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import { Box, Button, Header, Spinner } from "grommet";
+import { Box, Button, Header, Spinner, Text } from "grommet";
 
 import dynamic from "next/dynamic";
 import { createDream, saveDream } from "../../lib/api";
@@ -18,6 +18,7 @@ export default function Create(props) {
   const { data } = props;
   const [html, setHtml] = useState();
   const router = useRouter();
+  const [syncing, setSyncing] = useState(false);
 
   useEffect(() => {
     const { postId } = router.query;
@@ -33,7 +34,7 @@ export default function Create(props) {
     } else if (data) {
       setHtml(data.dream.html);
     }
-  }, []);
+  }, [data, router.query]);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -48,20 +49,20 @@ export default function Create(props) {
       return;
     }
 
+    setSyncing(true);
+
     const { postId } = router.query;
     const dreamData = {
       dream: { html, text: stripHtml(html) },
     };
 
     if (!postId) {
-      console.log("Creating dream");
       const { success, data } = await createDream(dreamData);
-
-      console.log({ success, data });
 
       if (!success && !data) {
         // display toast
 
+        setSyncing(false);
         return;
       }
 
@@ -69,10 +70,12 @@ export default function Create(props) {
 
       sessionStorage.setItem(`created-dream-${data.objectId}-html`, html);
 
-      window.location.replace(url);
+      router.push(url);
     } else {
       await saveDream(postId, dreamData);
     }
+
+    setSyncing(false);
   };
 
   return (
@@ -99,7 +102,12 @@ export default function Create(props) {
           }}
         >
           <Logo noTitle />
-          <Button primary label="Publicar" />
+          <Box>
+            <Text size="small">
+              {syncing ? <Spinner size="xsmall" /> : null}
+            </Text>
+            <Button primary label="Publicar" />
+          </Box>
         </Box>
       </Header>
       <Editor
@@ -107,7 +115,7 @@ export default function Create(props) {
         onChange={setHtml}
         // See https://github.com/zenoamaro/react-quill/issues/311
         // for the hacks below (defaultValue and value)
-        defaultValue={html}
+        defaultValue={data?.dream?.html ?? html}
         style={{
           width: "100%",
         }}

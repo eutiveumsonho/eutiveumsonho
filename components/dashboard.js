@@ -1,6 +1,17 @@
 import React from "react";
-import { Avatar, Button, Box, Nav, Text, Sidebar, Header, Page } from "grommet";
-import { Magic, Save, Chat } from "grommet-icons";
+import {
+  Avatar,
+  Button,
+  Box,
+  Nav,
+  Text,
+  Sidebar,
+  Header,
+  Page,
+  PageContent,
+  Tip,
+} from "grommet";
+import { Book, Magic } from "grommet-icons";
 import { BRAND_HEX } from "../lib/config";
 import { Logo } from "./logo";
 import PageActions from "./page-actions";
@@ -48,10 +59,38 @@ const MainNavigation = () => {
   return (
     <Nav gap="small" fill>
       <SidebarButton
-        icon={<Magic />}
-        label="Descubra"
-        primary={pathname === "/descubra"}
+        icon={<Book />}
+        label="Meus sonhos"
+        primary={pathname === "/meus-sonhos"}
       />
+      <Tip
+        plain
+        content={
+          <Box
+            pad="small"
+            gap="small"
+            width={{ max: "small" }}
+            round="small"
+            background="background-front"
+            responsive={false}
+          >
+            <Text weight="bold">Descubra</Text>
+            <Text size="small">Em breve...</Text>
+          </Box>
+        }
+        dropProps={{ align: { left: "right" } }}
+      >
+        <Button
+          icon={
+            <SidebarButton
+              icon={<Magic />}
+              label="Descubra"
+              disabled
+              primary={pathname === "/descubra"}
+            />
+          }
+        />
+      </Tip>
       {/* Coming soon... */}
       {/* <SidebarButton icon={<Save />} label="Salvos" /> */}
       {/* <SidebarButton icon={<StatusInfoSmall />} label="Inbox" /> */}
@@ -61,7 +100,7 @@ const MainNavigation = () => {
 };
 
 export default function Dashboard(props) {
-  const { serverSession } = props;
+  const { serverSession, children } = props;
 
   return (
     <>
@@ -92,7 +131,7 @@ export default function Dashboard(props) {
             responsive
             header={<SidebarHeader serverSession={serverSession} />}
             footer={<SidebarFooter />}
-            pad={{ left: "medium", right: "large", vertical: "large" }}
+            pad={{ left: "unset", right: "unset", vertical: "large" }}
             background="light-1"
             style={{
               borderRight: `1px solid ${BRAND_HEX}`,
@@ -101,6 +140,7 @@ export default function Dashboard(props) {
           >
             <MainNavigation />
           </Sidebar>
+          <PageContent>{children}</PageContent>
         </Box>
       </Page>
     </>
