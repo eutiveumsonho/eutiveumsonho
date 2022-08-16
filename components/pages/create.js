@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import { Box, Button, Header, Spinner, Text } from "grommet";
+import { Box, Button, Header, Layer, Spinner, Text } from "grommet";
 
 import dynamic from "next/dynamic";
 import { createDream, saveDream } from "../../lib/api";
@@ -8,17 +8,82 @@ import { useRouter } from "next/router";
 import { stripHtml } from "../../lib/strings";
 import { BRAND_HEX } from "../../lib/config";
 import { Logo } from "../logo";
+import { StatusCritical, StatusGood } from "grommet-icons";
+import dayjs from "dayjs";
+import LocalizedFormat from "dayjs/plugin/localizedFormat";
+import "dayjs/locale/pt-br";
+
+dayjs.extend(LocalizedFormat);
 
 const Editor = dynamic(() => import("../editor"), {
   ssr: false,
   loading: () => <Spinner message="Carregando editor de texto..." />,
 });
 
+function Syncing() {
+  return (
+    <>
+      <Spinner size="xsmall" />
+      <Text
+        size="small"
+        style={{
+          paddingLeft: "0.5rem",
+        }}
+      >
+        Sincronizando
+      </Text>
+    </>
+  );
+}
+
+function LastSyncedAt(props) {
+  const { lastSynced } = props;
+
+  if (!lastSynced) {
+    return null;
+  }
+
+  return (
+    <>
+      <StatusGood />
+      <Text
+        size="small"
+        style={{
+          paddingLeft: "0.5rem",
+        }}
+      >
+        Salvo pela ultima vez as{" "}
+        {dayjs(lastSynced).locale("pt-br").format("LTS")}
+      </Text>
+    </>
+  );
+}
+
+function SyncFailed() {
+  return (
+    <>
+      <StatusCritical />
+      <Text
+        size="small"
+        style={{
+          paddingLeft: "0.5rem",
+        }}
+      >
+        Ocorreu um erro
+      </Text>
+    </>
+  );
+}
+
 export default function Create(props) {
   const { data } = props;
   const [html, setHtml] = useState();
   const router = useRouter();
-  const [syncing, setSyncing] = useState(false);
+  const [syncStatus, setSyncStatus] = useState(
+    data?.createdAt ? (
+      <LastSyncedAt lastSynced={data?.updatedAt || data.createdAt} />
+    ) : null
+  );
 
   useEffect(() => {
     const { postId } = router.query;
@@ -49,7 +114,7 @@ export default function Create(props) {
       return;
     }
 
-    setSyncing(true);
+    setSyncStatus(<Syncing />);
 
     const { postId } = router.query;
     const dreamData = {
@@ -60,9 +125,7 @@ export default function Create(props) {
       const { success, data } = await createDream(dreamData);
 
       if (!success && !data) {
-        // display toast
-
-        setSyncing(false);
+        setSyncStatus(<SyncFailed />);
         return;
       }
 
@@ -72,10 +135,13 @@ export default function Create(props) {
 
       router.push(url);
     } else {
-      await saveDream(postId, dreamData);
+      try {
+        await saveDream(postId, dreamData);
+        setSyncStatus(<LastSyncedAt lastSynced={new Date()} />);
+      } catch (error) {
+        console.error(error);
+      }
     }
-
-    setSyncing(false);
   };
 
   return (
@@ -102,10 +168,7 @@ export default function Create(props) {
           }}
         >
           <Logo noTitle />
-          <Box>
-            <Text size="small">
-              {syncing ? <Spinner size="xsmall" /> : null}
-            </Text>
+          <Box direction="row" gap="small" justify="center" align="center">
             <Button primary label="Publicar" />
           </Box>
         </Box>
@@ -120,6 +183,31 @@ export default function Create(props) {
           width: "100%",
         }}
       />
+      {syncStatus ? (
+        <Layer
+          position="bottom-right"
+          modal={false}
+          margin={{ vertical: "medium", horizontal: "small" }}
+          responsive={false}
+          plain
+        >
+          <Box
+            align="center"
+            direction="row"
+            gap="small"
+            justify="between"
+            round="medium"
+            elevation="medium"
+            pad={{ vertical: "xsmall", horizontal: "small" }}
+            background="light-2"
+            width="19.5rem"
+          >
+            <Box align="center" direction="row" gap="xsmall">
+              {syncStatus}
+            </Box>
+          </Box>
+        </Layer>
+      ) : null}
     </>
   );
 }
