@@ -1,14 +1,23 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import { Box, Button, Header, Layer, Spinner, Text } from "grommet";
+import {
+  Box,
+  Button,
+  Header,
+  Heading,
+  Layer,
+  RadioButtonGroup,
+  Spinner,
+  Text,
+} from "grommet";
 
 import dynamic from "next/dynamic";
-import { createDream, saveDream } from "../../lib/api";
+import { createDream, saveDream, updateDreamVisibility } from "../../lib/api";
 import { useRouter } from "next/router";
 import { stripHtml } from "../../lib/strings";
 import { BRAND_HEX } from "../../lib/config";
 import { Logo } from "../logo";
-import { StatusCritical, StatusGood } from "grommet-icons";
+import { Key, StatusCritical, StatusGood, Group, Hide } from "grommet-icons";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import "dayjs/locale/pt-br";
@@ -19,6 +28,8 @@ const Editor = dynamic(() => import("../editor"), {
   ssr: false,
   loading: () => <Spinner message="Carregando editor de texto..." />,
 });
+
+const SYNC_DELAY = 3000;
 
 function Syncing() {
   return (
@@ -79,11 +90,16 @@ export default function Create(props) {
   const { data } = props;
   const [html, setHtml] = useState();
   const router = useRouter();
+  const [openVisibilitySettings, setOpenVisibilitySettings] = useState(false);
+  const [updatingVisibility, setUpdatingVisibility] = useState(false);
+  const [visibility, setVisibility] = useState(data?.visbility || "private");
   const [syncStatus, setSyncStatus] = useState(
     data?.createdAt ? (
       <LastSyncedAt lastSynced={data?.updatedAt || data.createdAt} />
     ) : null
   );
+
+  const { postId } = router.query;
 
   useEffect(() => {
     const { postId } = router.query;
@@ -104,7 +120,7 @@ export default function Create(props) {
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       sync();
-    }, 3000);
+    }, SYNC_DELAY);
 
     return () => clearTimeout(delayDebounceFn);
   }, [html]);
@@ -144,6 +160,15 @@ export default function Create(props) {
     }
   };
 
+  const saveVisibility = async () => {
+    const { postId } = router.query;
+    setUpdatingVisibility(true);
+
+    await updateDreamVisibility(postId, visibility);
+
+    setUpdatingVisibility(false);
+  };
+
   return (
     <>
       <Head>
@@ -168,9 +193,15 @@ export default function Create(props) {
           }}
         >
           <Logo noTitle />
-          <Box direction="row" gap="small" justify="center" align="center">
-            <Button primary label="Publicar" />
-          </Box>
+          {postId ? (
+            <Box direction="row" gap="small" justify="center" align="center">
+              <Button
+                primary
+                label="Publicar"
+                onClick={() => setOpenVisibilitySettings(true)}
+              />
+            </Box>
+          ) : null}
         </Box>
       </Header>
       <Editor
@@ -208,6 +239,128 @@ export default function Create(props) {
           </Box>
         </Layer>
       ) : null}
+      {openVisibilitySettings ? (
+        <Layer
+          position="center"
+          onClickOutside={() => setOpenVisibilitySettings(false)}
+          onEsc={() => setOpenVisibilitySettings(false)}
+        >
+          <Box pad="medium" gap="small" width="medium">
+            <Heading level={3} margin="none">
+              Configuracao de visibilidade
+            </Heading>
+            <Text>
+              <Box background={"brand"} pad="xsmall" direction="row">
+                <VisibilityIcon option={"public"} />
+                <strong
+                  style={{
+                    marginLeft: "0.6rem",
+                  }}
+                >
+                  Publico
+                </strong>
+              </Box>
+              O seu sonho fica disponivel para todas as pessoas logadas na
+              plataforma, junto as informacoes de seu perfil.
+            </Text>
+            <hr />
+            <Text>
+              <Box background={"brand"} pad="xsmall" direction="row">
+                <VisibilityIcon option={"anonimous"} />
+                <strong
+                  style={{
+                    marginLeft: "0.6rem",
+                  }}
+                >
+                  Anonimo
+                </strong>
+              </Box>
+              O seu sonho fica disponivel para todas as pessoas logadas na
+              plataforma, porem as informacoes de seu perfil nao sao exibidas.
+            </Text>
+            <hr />
+            <Text>
+              <Box background={"brand"} pad="xsmall" direction="row">
+                <VisibilityIcon option={"private"} />
+                <strong
+                  style={{
+                    marginLeft: "0.6rem",
+                  }}
+                >
+                  Privado
+                </strong>
+              </Box>
+              O seu sonho fica disponivel apenas para voce.
+            </Text>
+            <hr />
+            <Box
+              as="footer"
+              gap="xsmall"
+              direction="row"
+              align="center"
+              justify="end"
+            >
+              <RadioButtonGroup
+                name="radio"
+                direction="row"
+                gap="xsmall"
+                options={["public", "anonimous", "private"]}
+                value={visibility}
+                onChange={(event) => setVisibility(event.target.value)}
+              >
+                {(option, { checked, focus, hover }) => {
+                  let background;
+                  if (checked) background = "brand";
+                  else if (hover) background = "light-4";
+                  else if (focus) background = "light-4";
+                  else background = "light-2";
+
+                  return (
+                    <Box background={background} pad="xsmall">
+                      <VisibilityIcon option={option} />
+                    </Box>
+                  );
+                }}
+              </RadioButtonGroup>
+            </Box>
+            <Text size="small">
+              O seu sonho esta salvo como{" "}
+              {
+                VISIBILITY_TRANSLATIONS[
+                  data?.visbility ? data.visiblity : "private"
+                ]
+              }
+            </Text>
+            <Button
+              onClick={() => saveVisibility()}
+              disabled={updatingVisibility}
+              icon={updatingVisibility ? <Spinner size="xsmall" /> : null}
+              label={`Salvar visibilidade do sonho como ${VISIBILITY_TRANSLATIONS[visibility]}`}
+            />
+          </Box>
+        </Layer>
+      ) : null}
     </>
   );
 }
+
+function VisibilityIcon(props) {
+  const { option } = props;
+
+  switch (option) {
+    case "private":
+      return <Key />;
+    case "public":
+      return <Group />;
+    case "anonimous":
+      return <Hide />;
+    default:
+      <Key />;
+  }
+}
+
+const VISIBILITY_TRANSLATIONS = {
+  private: "Privado",
+  public: "Publico",
+  anonimous: "Anonimo",
+};
