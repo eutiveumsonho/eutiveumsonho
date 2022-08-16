@@ -26,8 +26,15 @@ const SidebarHeader = (props) => {
       gap="small"
       direction="row"
       margin={{ bottom: "large" }}
+      justify="center"
     >
-      <Avatar src={serverSession.user.image} />
+      <Avatar
+        src={
+          serverSession.user.image
+            ? serverSession.user.image
+            : `https://avatars.dicebear.com/v2/jdenticon/${serverSession.user.email}.svg`
+        }
+      />
       <Text>{serverSession.user.name ?? serverSession.user.email}</Text>
     </Box>
   );
