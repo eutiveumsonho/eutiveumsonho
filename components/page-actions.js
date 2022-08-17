@@ -8,7 +8,12 @@ export default function PageActions(props) {
   if (serverSession) {
     return (
       <Box direction="row" gap="small">
-        <Avatar src={serverSession.user.image} />
+        <Avatar
+          src={
+            serverSession.user.image ||
+            `https://avatars.dicebear.com/v2/jdenticon/${serverSession.user.email}.svg`
+          }
+        />
         <Link href="/publicar">
           <Button primary label="Adicionar sonho" />
         </Link>

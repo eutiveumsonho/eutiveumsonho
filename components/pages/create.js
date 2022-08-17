@@ -14,13 +14,14 @@ import {
 import dynamic from "next/dynamic";
 import { createDream, saveDream, updateDreamVisibility } from "../../lib/api";
 import { useRouter } from "next/router";
-import { stripHtml } from "../../lib/strings";
+import { stripHtml, VISIBILITY_TRANSLATIONS } from "../../lib/strings";
 import { BRAND_HEX } from "../../lib/config";
 import { Logo } from "../logo";
-import { Key, StatusCritical, StatusGood, Group, Hide } from "grommet-icons";
+import { StatusCritical, StatusGood } from "grommet-icons";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import "dayjs/locale/pt-br";
+import VisibilityIcon from "../visbility-icon";
 
 dayjs.extend(LocalizedFormat);
 
@@ -114,6 +115,7 @@ export default function Create(props) {
       }
     } else if (data) {
       setHtml(data.dream.html);
+      setVisibility(data.visibility);
     }
   }, [data, router.query]);
 
@@ -197,7 +199,9 @@ export default function Create(props) {
             <Box direction="row" gap="small" justify="center" align="center">
               <Button
                 primary
-                label="Publicar"
+                label={
+                  visibility === "public" ? "Alterar visibilidade" : "Publicar"
+                }
                 onClick={() => setOpenVisibilitySettings(true)}
               />
             </Box>
@@ -324,12 +328,7 @@ export default function Create(props) {
               </RadioButtonGroup>
             </Box>
             <Text size="small">
-              O seu sonho esta salvo como{" "}
-              {
-                VISIBILITY_TRANSLATIONS[
-                  data?.visbility ? data.visiblity : "private"
-                ]
-              }
+              O seu sonho esta salvo como {VISIBILITY_TRANSLATIONS[visibility]}
             </Text>
             <Button
               onClick={() => saveVisibility()}
@@ -343,24 +342,3 @@ export default function Create(props) {
     </>
   );
 }
-
-function VisibilityIcon(props) {
-  const { option } = props;
-
-  switch (option) {
-    case "private":
-      return <Key />;
-    case "public":
-      return <Group />;
-    case "anonimous":
-      return <Hide />;
-    default:
-      <Key />;
-  }
-}
-
-const VISIBILITY_TRANSLATIONS = {
-  private: "Privado",
-  public: "Publico",
-  anonimous: "Anonimo",
-};

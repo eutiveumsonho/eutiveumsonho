@@ -9,7 +9,6 @@ import {
   Header,
   Page,
   PageContent,
-  Tip,
 } from "grommet";
 import { Book, Magic } from "grommet-icons";
 import { BRAND_HEX } from "../lib/config";
@@ -43,12 +42,15 @@ const SidebarHeader = (props) => {
 const SidebarButton = ({ icon, label, ...rest }) => (
   <Box pad="small">
     <Button
-      gap="medium"
+      gap="small"
       alignSelf="start"
       fill
       icon={icon}
       label={label}
       {...rest}
+      style={{
+        whiteSpace: "nowrap",
+      }}
     />
   </Box>
 );
@@ -61,7 +63,7 @@ const SidebarFooter = () => (
 );
 
 const MainNavigation = () => {
-  const { pathname } = useRouter();
+  const { pathname, push } = useRouter();
 
   return (
     <Nav gap="small" fill>
@@ -69,35 +71,14 @@ const MainNavigation = () => {
         icon={<Book />}
         label="Meus sonhos"
         primary={pathname === "/meus-sonhos"}
+        onClick={() => push("/meus-sonhos")}
       />
-      <Tip
-        plain
-        content={
-          <Box
-            pad="small"
-            gap="small"
-            width={{ max: "small" }}
-            round="small"
-            background="background-front"
-            responsive={false}
-          >
-            <Text weight="bold">Descubra</Text>
-            <Text size="small">Em breve...</Text>
-          </Box>
-        }
-        dropProps={{ align: { left: "right" } }}
-      >
-        <Button
-          icon={
-            <SidebarButton
-              icon={<Magic />}
-              label="Descubra"
-              disabled
-              primary={pathname === "/descubra"}
-            />
-          }
-        />
-      </Tip>
+      <SidebarButton
+        icon={<Magic />}
+        label="Descubra"
+        primary={pathname === "/descubra"}
+        onClick={() => push("/descubra")}
+      />
       {/* Coming soon... */}
       {/* <SidebarButton icon={<Save />} label="Salvos" /> */}
       {/* <SidebarButton icon={<StatusInfoSmall />} label="Inbox" /> */}

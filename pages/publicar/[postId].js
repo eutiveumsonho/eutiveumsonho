@@ -3,8 +3,10 @@ import { getAuthProps } from "../../lib/auth";
 import Create from "../../components/pages/create";
 import { getDreamById } from "../../lib/db/reads";
 
-export default function Home(props) {
-  return <Create {...props} />;
+export default function DreamEditor(props) {
+  const { data, ...authProps } = props;
+
+  return <Create {...authProps} data={data ? JSON.parse(data) : null} />;
 }
 
 export async function getServerSideProps(context) {
@@ -25,10 +27,8 @@ export async function getServerSideProps(context) {
     // This condition must exist to guarantee privacy on the `publicar` route
     // authProps.props.serverSession.user.email !== data.userEmail
 
-    const { dream, userEmail } = data;
-
     return {
-      props: { ...authProps.props, data: { dream, dreamOwner: userEmail } },
+      props: { ...authProps.props, data: JSON.stringify(data) },
     };
   }
 
