@@ -43,7 +43,7 @@ export default function SignIn({ providers, csrfToken }) {
             minWidth: "24rem",
           }}
         >
-          <Logo color="black" />
+          <Logo />
 
           {Object.values(providers).map((provider) => {
             if (provider.type === "email") {
