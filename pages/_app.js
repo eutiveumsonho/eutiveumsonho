@@ -3,7 +3,9 @@ import Script from "next/script";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { SessionProvider } from "next-auth/react";
+import { DefaultSeo } from "next-seo";
 import * as gtag from "../lib/gtag";
+import SEO from "../next-seo.config.js";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
@@ -41,6 +43,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           `,
         }}
       />
+      <DefaultSeo {...SEO} />
       <Grommet
         theme={grommet}
         style={{
