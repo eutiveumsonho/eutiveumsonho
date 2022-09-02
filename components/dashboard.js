@@ -1,14 +1,15 @@
-import React from "react";
+import React, { cloneElement, useContext } from "react";
 import {
   Avatar,
   Button,
   Box,
   Nav,
   Text,
-  Sidebar,
+  Sidebar as SidebarBase,
   Header,
   Page,
   PageContent,
+  ResponsiveContext,
 } from "grommet";
 import { Book, Magic } from "grommet-icons";
 import { BRAND_HEX } from "../lib/config";
@@ -17,7 +18,7 @@ import PageActions from "./page-actions";
 import { useRouter } from "next/router";
 
 const SidebarHeader = (props) => {
-  const { serverSession } = props;
+  const { serverSession, size } = props;
 
   return (
     <Box
@@ -34,25 +35,33 @@ const SidebarHeader = (props) => {
             : `https://avatars.dicebear.com/v2/jdenticon/${serverSession.user.email}.svg`
         }
       />
-      <Text>{serverSession.user.name ?? serverSession.user.email}</Text>
+      {size === "small" ? null : (
+        <Text>{serverSession.user.name ?? serverSession.user.email}</Text>
+      )}
     </Box>
   );
 };
 
-const SidebarButton = ({ icon, label, ...rest }) => (
-  <Box pad="small">
-    <Button
-      gap="small"
-      alignSelf="start"
-      fill
-      icon={icon}
-      label={label}
-      {...rest}
-      style={{
-        whiteSpace: "nowrap",
-      }}
-    />
-  </Box>
+const SidebarButton = ({ icon, label, selected, ...rest }) => (
+  <Button
+    gap="medium"
+    alignSelf="start"
+    fill
+    icon={cloneElement(icon, {
+      color: selected ? "white" : undefined,
+    })}
+    label={label}
+    plain
+    {...rest}
+    style={{
+      ...rest.style,
+      whiteSpace: "nowrap",
+      height: "3rem",
+      flex: "unset",
+      background: selected ? BRAND_HEX : "transparent",
+      color: selected ? "white" : "unset",
+    }}
+  />
 );
 
 const SidebarFooter = () => (
@@ -62,21 +71,41 @@ const SidebarFooter = () => (
   </Nav>
 );
 
-const MainNavigation = () => {
+const MainNavigation = (props) => {
+  const { size } = props;
   const { pathname, push } = useRouter();
 
+  if (size === "small") {
+    return (
+      <Nav gap="small">
+        <Button
+          icon={<Book />}
+          hoverIndicator={pathname !== "/meus-sonhos"}
+          primary={pathname === "/meus-sonhos"}
+          onClick={() => push("/meus-sonhos")}
+        />
+        <Button
+          icon={<Magic />}
+          hoverIndicator={pathname !== "/descubra"}
+          primary={pathname === "/descubra"}
+          onClick={() => push("/descubra")}
+        />
+      </Nav>
+    );
+  }
+
   return (
-    <Nav gap="small" fill>
+    <Nav gap="medium" fill="vertical" responsive={false}>
       <SidebarButton
         icon={<Book />}
         label="Meus sonhos"
-        primary={pathname === "/meus-sonhos"}
+        selected={pathname === "/meus-sonhos"}
         onClick={() => push("/meus-sonhos")}
       />
       <SidebarButton
         icon={<Magic />}
         label="Descubra"
-        primary={pathname === "/descubra"}
+        selected={pathname === "/descubra"}
         onClick={() => push("/descubra")}
       />
       {/* Coming soon... */}
@@ -87,8 +116,61 @@ const MainNavigation = () => {
   );
 };
 
+function MobileSidebar(props) {
+  const { serverSession, size } = props;
+
+  return (
+    <SidebarBase
+      responsive={false}
+      background="light-1"
+      header={<SidebarHeader serverSession={serverSession} size={size} />}
+      style={{
+        minWidth: "4.5rem",
+        maxWidth: "4.5rem",
+        minHeight: "calc(100vh - 3.95rem)",
+        borderRight: `1px solid ${BRAND_HEX}`,
+      }}
+    >
+      <MainNavigation size={size} />
+    </SidebarBase>
+  );
+}
+
+function DesktopSidebar(props) {
+  const { serverSession, size } = props;
+
+  return (
+    <SidebarBase
+      responsive={false}
+      header={<SidebarHeader serverSession={serverSession} size={size} />}
+      footer={<SidebarFooter />}
+      pad={{ left: "unset", right: "unset", vertical: "large" }}
+      background="light-1"
+      style={{
+        minWidth: "15rem",
+        maxWidth: "15rem",
+        borderRight: `1px solid ${BRAND_HEX}`,
+        minHeight: "calc(100vh - 4.688rem)",
+      }}
+    >
+      <MainNavigation size={size} />
+    </SidebarBase>
+  );
+}
+
+function Sidebar(props) {
+  const { serverSession, size } = props;
+
+  if (size === "small") {
+    return <MobileSidebar serverSession={serverSession} size={size} />;
+  }
+
+  return <DesktopSidebar serverSession={serverSession} size={size} />;
+}
+
 export default function Dashboard(props) {
   const { serverSession, children } = props;
+  const size = useContext(ResponsiveContext);
 
   return (
     <>
@@ -115,19 +197,7 @@ export default function Dashboard(props) {
       </Header>
       <Page background="background-front" kind="full">
         <Box direction="row" height={{ min: "100%" }}>
-          <Sidebar
-            responsive
-            header={<SidebarHeader serverSession={serverSession} />}
-            footer={<SidebarFooter />}
-            pad={{ left: "unset", right: "unset", vertical: "large" }}
-            background="light-1"
-            style={{
-              borderRight: `1px solid ${BRAND_HEX}`,
-              minHeight: "calc(100vh - 4.688rem)",
-            }}
-          >
-            <MainNavigation />
-          </Sidebar>
+          <Sidebar serverSession={serverSession} size={size} />
           <PageContent>{children}</PageContent>
         </Box>
       </Page>

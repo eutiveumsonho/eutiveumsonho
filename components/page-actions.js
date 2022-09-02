@@ -1,19 +1,23 @@
-import { Avatar, Box, Button } from "grommet";
+import { Avatar, Box, Button, ResponsiveContext } from "grommet";
 import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
+import { useContext } from "react";
 
 export default function PageActions(props) {
   const { serverSession } = props;
+  const size = useContext(ResponsiveContext);
 
   if (serverSession) {
     return (
       <Box direction="row" gap="small">
-        <Avatar
-          src={
-            serverSession.user.image ||
-            `https://avatars.dicebear.com/v2/jdenticon/${serverSession.user.email}.svg`
-          }
-        />
+        {size === "small" ? null : (
+          <Avatar
+            src={
+              serverSession.user.image ||
+              `https://avatars.dicebear.com/v2/jdenticon/${serverSession.user.email}.svg`
+            }
+          />
+        )}
         <Link href="/publicar">
           <Button primary label="Adicionar sonho" />
         </Link>
