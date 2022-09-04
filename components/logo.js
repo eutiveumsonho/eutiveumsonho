@@ -3,19 +3,26 @@ import Image from "next/image";
 import Link from "next/link";
 
 export function Logo(props) {
-  const { color = "purple" } = props;
+  const { color = "purple", noTitle = false } = props;
 
   return (
-    <Link href="/">
+    <Link href={noTitle ? "/meus-sonhos" : "/"}>
       <Box align="center" gap="medium">
-        <Image src={`/${color}-cloud.svg`} height={50} width={50} />
-        <Text
-          alignSelf="center"
-          color={color === "purple" ? "brand" : color}
-          weight="bold"
-        >
-          Eu tive um sonho
-        </Text>
+        <Image
+          src={`/${color}-cloud.svg`}
+          height={50}
+          width={50}
+          alt={"Logo"}
+        />
+        {noTitle ? null : (
+          <Text
+            alignSelf="center"
+            color={color === "purple" ? "brand" : color}
+            weight="bold"
+          >
+            Eu tive um sonho
+          </Text>
+        )}
       </Box>
     </Link>
   );

@@ -30,7 +30,7 @@ export default function VerifyRequest() {
             minWidth: "24rem",
           }}
         >
-          <Logo color="black" />
+          <Logo />
           <Heading
             level={2}
             style={{

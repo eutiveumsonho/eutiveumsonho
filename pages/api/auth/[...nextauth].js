@@ -5,8 +5,8 @@ import EmailProvider from "next-auth/providers/email";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "../../../lib/mongodb";
 import { createTransport } from "nodemailer";
-import { html, BRAND_HEX } from "../../../lib/email";
-import { ALLOWED_HOST } from "../../../lib/config";
+import { html } from "../../../lib/email";
+import { ALLOWED_HOST, BRAND_HEX } from "../../../lib/config";
 
 async function sendVerificationRequest(params) {
   const { identifier, url, provider } = params;
