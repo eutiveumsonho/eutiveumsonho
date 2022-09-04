@@ -328,7 +328,8 @@ export default function Create(props) {
               </RadioButtonGroup>
             </Box>
             <Text size="small">
-              O seu sonho esta salvo como {VISIBILITY_TRANSLATIONS[visibility]}
+              O seu sonho esta salvo como{" "}
+              {VISIBILITY_TRANSLATIONS[data.visibility]}
             </Text>
             <Button
               onClick={() => saveVisibility()}
