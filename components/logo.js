@@ -8,7 +8,12 @@ export function Logo(props) {
   return (
     <Link href={noTitle ? "/meus-sonhos" : "/"}>
       <Box align="center" gap="medium">
-        <Image src={`/${color}-cloud.svg`} height={50} width={50} />
+        <Image
+          src={`/${color}-cloud.svg`}
+          height={50}
+          width={50}
+          alt={"Logo"}
+        />
         {noTitle ? null : (
           <Text
             alignSelf="center"

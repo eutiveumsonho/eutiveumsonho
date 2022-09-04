@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Head from "next/head";
 import {
   Box,
@@ -125,9 +125,9 @@ export default function Create(props) {
     }, SYNC_DELAY);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [html]);
+  }, [html, sync]);
 
-  const sync = async () => {
+  const sync = useCallback(async () => {
     if (!html) {
       return;
     }
@@ -160,7 +160,7 @@ export default function Create(props) {
         console.error(error);
       }
     }
-  };
+  }, [html, router]);
 
   const saveVisibility = async () => {
     const { postId } = router.query;

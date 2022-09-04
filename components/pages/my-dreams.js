@@ -22,6 +22,7 @@ export default function MyDreamsPage(props) {
           {data.map((item) => {
             return (
               <Box
+                key={item.createdAt}
                 direction="row"
                 justify="between"
                 style={{
