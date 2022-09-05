@@ -64,7 +64,7 @@ function LastSyncedAt(props) {
           paddingLeft: "0.5rem",
         }}
       >
-        Salvo pela ultima vez as{" "}
+        Salvo pela última vez às{" "}
         {dayjs(lastSynced).locale("pt-br").format("LTS")}
       </Text>
     </>
@@ -261,11 +261,11 @@ export default function Create(props) {
                     marginLeft: "0.6rem",
                   }}
                 >
-                  Publico
+                  Público
                 </strong>
               </Box>
-              O seu sonho fica disponivel para todas as pessoas logadas na
-              plataforma, junto as informacoes de seu perfil.
+              O seu sonho fica disponível para todas as pessoas logadas na
+              plataforma, junto às informacoes de seu perfil.
             </Text>
             <hr />
             <Text>
@@ -276,11 +276,11 @@ export default function Create(props) {
                     marginLeft: "0.6rem",
                   }}
                 >
-                  Anonimo
+                  Anônimo
                 </strong>
               </Box>
-              O seu sonho fica disponivel para todas as pessoas logadas na
-              plataforma, porem as informacoes de seu perfil nao sao exibidas.
+              O seu sonho fica disponível para todas as pessoas logadas na
+              plataforma, porem as informacoes de seu perfil não são exibidas.
             </Text>
             <hr />
             <Text>
@@ -294,7 +294,7 @@ export default function Create(props) {
                   Privado
                 </strong>
               </Box>
-              O seu sonho fica disponivel apenas para voce.
+              O seu sonho fica disponível apenas para você.
             </Text>
             <hr />
             <Box
@@ -328,11 +328,11 @@ export default function Create(props) {
               </RadioButtonGroup>
             </Box>
             <Text size="small">
-              O seu sonho esta salvo como{" "}
+              O seu sonho está salvo como{" "}
               {VISIBILITY_TRANSLATIONS[data.visibility]}
             </Text>
             <Button
-              onClick={() => saveVisibility()}
+              onClick={saveVisibility}
               disabled={updatingVisibility}
               icon={updatingVisibility ? <Spinner size="xsmall" /> : null}
               label={`Salvar visibilidade do sonho como ${VISIBILITY_TRANSLATIONS[visibility]}`}

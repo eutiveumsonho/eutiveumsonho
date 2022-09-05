@@ -86,7 +86,7 @@ export default function SignIn({ providers, csrfToken }) {
                       label={
                         emailSignInLoading
                           ? "Enviando..."
-                          : "Enviar email com link de login"
+                          : "Enviar e-mail com link de login"
                       }
                       type="submit"
                       fill="horizontal"
