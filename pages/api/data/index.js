@@ -58,6 +58,10 @@ async function patch(req, res) {
   }
 }
 
+/**
+ * This is called when a dream is saved
+ * for the very first time.
+ */
 async function post(req, res) {
   const session = await getServerSession(req, res);
 
