@@ -251,7 +251,7 @@ export default function Create(props) {
         >
           <Box pad="medium" gap="small" width="medium">
             <Heading level={3} margin="none">
-              Configuracao de visibilidade
+              Configurações de visibilidade
             </Heading>
             <Text>
               <Box background={"brand"} pad="xsmall" direction="row">
