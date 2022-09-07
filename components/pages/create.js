@@ -102,31 +102,6 @@ export default function Create(props) {
 
   const { postId } = router.query;
 
-  useEffect(() => {
-    const { postId } = router.query;
-
-    if (postId && !data) {
-      const storedHtmlKey = `created-dream-${postId}-html`;
-      const storedHtml = sessionStorage.getItem(storedHtmlKey);
-
-      if (storedHtml) {
-        setHtml(storedHtml);
-        sessionStorage.removeItem(storedHtmlKey);
-      }
-    } else if (data) {
-      setHtml(data.dream.html);
-      setVisibility(data.visibility);
-    }
-  }, [data, router.query]);
-
-  useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      sync();
-    }, SYNC_DELAY);
-
-    return () => clearTimeout(delayDebounceFn);
-  }, [html, sync]);
-
   const sync = useCallback(async () => {
     if (!html) {
       return;
@@ -161,6 +136,31 @@ export default function Create(props) {
       }
     }
   }, [html, router]);
+
+  useEffect(() => {
+    const { postId } = router.query;
+
+    if (postId && !data) {
+      const storedHtmlKey = `created-dream-${postId}-html`;
+      const storedHtml = sessionStorage.getItem(storedHtmlKey);
+
+      if (storedHtml) {
+        setHtml(storedHtml);
+        sessionStorage.removeItem(storedHtmlKey);
+      }
+    } else if (data) {
+      setHtml(data.dream.html);
+      setVisibility(data.visibility);
+    }
+  }, [data, router.query]);
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      sync();
+    }, SYNC_DELAY);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [html, sync]);
 
   const saveVisibility = async () => {
     const { postId } = router.query;

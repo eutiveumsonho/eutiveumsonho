@@ -40,11 +40,7 @@ async function patch(req, res) {
   }
 
   try {
-    await updateDream(
-      req.body.dreamId,
-      req.body.dreamData.dream,
-      session.user.email
-    );
+    await updateDream(req.body.dreamId, req.body.dreamData, session.user.email);
 
     res.setHeader("Content-Type", "application/json");
     res.status(200).end();
