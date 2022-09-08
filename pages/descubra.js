@@ -1,5 +1,5 @@
 import { getAuthProps } from "../lib/auth";
-import { getLatestPublicDreams, getUserByEmail } from "../lib/db/reads";
+import { getLatestPublicDreams, getUserById } from "../lib/db/reads";
 import PublicDreams from "../components/pages/public-dreams";
 
 export default function FindOut(props) {
@@ -25,13 +25,13 @@ export async function getServerSideProps(context) {
   const dreams = [];
 
   for (let dream of data) {
-    if (dream.visibility === "anonimous") {
-      delete dream.userEmail;
+    if (dream.visibility === "anonymous") {
+      delete dream.userId;
       dreams.push(dream);
       continue;
     }
 
-    const user = await getUserByEmail(dream.userEmail);
+    const user = await getUserById(dream.userId);
     dream.user = user;
     dreams.push(dream);
   }

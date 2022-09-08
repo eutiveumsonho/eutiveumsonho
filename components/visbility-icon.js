@@ -8,7 +8,7 @@ export default function VisibilityIcon(props) {
       return <Key {...iconProps} />;
     case "public":
       return <Group {...iconProps} />;
-    case "anonimous":
+    case "anonymous":
       return <Hide {...iconProps} />;
     default:
       <Key {...iconProps} />;

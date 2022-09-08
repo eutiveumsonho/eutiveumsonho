@@ -270,7 +270,7 @@ export default function Create(props) {
             <hr />
             <Text>
               <Box background={"brand"} pad="xsmall" direction="row">
-                <VisibilityIcon option={"anonimous"} />
+                <VisibilityIcon option={"anonymous"} />
                 <strong
                   style={{
                     marginLeft: "0.6rem",
@@ -308,7 +308,7 @@ export default function Create(props) {
                 name="radio"
                 direction="row"
                 gap="xsmall"
-                options={["public", "anonimous", "private"]}
+                options={["public", "anonymous", "private"]}
                 value={visibility}
                 onChange={(event) => setVisibility(event.target.value)}
               >

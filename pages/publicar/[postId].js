@@ -24,9 +24,6 @@ export async function getServerSideProps(context) {
   if (postId) {
     const data = await getDreamById(postId);
 
-    // This condition must exist to guarantee privacy on the `publicar` route
-    // authProps.props.serverSession.user.email !== data.userEmail
-
     return {
       props: { ...authProps.props, data: JSON.stringify(data) },
     };
