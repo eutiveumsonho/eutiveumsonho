@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import { grommet, Grommet } from "grommet";
 import Script from "next/script";
 import { useRouter } from "next/router";
@@ -6,6 +7,10 @@ import { SessionProvider } from "next-auth/react";
 import { DefaultSeo } from "next-seo";
 import * as gtag from "../lib/gtag";
 import SEO from "../next-seo.config.js";
+
+const WebPerformanceObserver = dynamic(() => import("../components/o11y"), {
+  ssr: false,
+});
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
@@ -56,6 +61,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <SessionProvider session={session}>
           <Component {...pageProps} />
         </SessionProvider>
+        <WebPerformanceObserver />
       </Grommet>
     </>
   );

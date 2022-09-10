@@ -33,6 +33,10 @@
 
 - [Iubenda](https://www.iubenda.com/pt-br/dashboard)
 
+### Observability (o11y)
+
+- [Honeycomb](https://ui.honeycomb.io/eutiveumsonho)
+
 ### Design system
 
 #### Grommet

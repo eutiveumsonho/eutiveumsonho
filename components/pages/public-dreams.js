@@ -42,7 +42,7 @@ export default function PublicDreams(props) {
                         {item.user.name}
                       </Box>
                     ) : (
-                      <VisibilityIcon option="anonimous" />
+                      <VisibilityIcon option="anonymous" />
                     )}
                   </Text>
                   <Text size="xsmall">
