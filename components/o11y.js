@@ -1,4 +1,4 @@
-// Borrowed from https://github.com/honeycombio/next-core-web-vitals-sample/tree/main
+// Adapted from https://github.com/honeycombio/next-core-web-vitals-sample/tree/main
 
 import {
   onCLS,
@@ -273,7 +273,7 @@ async function send(metric) {
   });
 }
 
-export default function () {
+export default function WebPerformanceObserver() {
   createRootSpan();
   onCLS(handleCLSEvent);
   onFID(reportScriptTiming);
