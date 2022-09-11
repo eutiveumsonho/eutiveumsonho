@@ -67,12 +67,11 @@ export default function MyAccount(props) {
                 pad={{ top: "medium", bottom: "small" }}
               >
                 <Button
+                  icon={deleting ? <Spinner size="xsmall" /> : null}
                   label={
                     <Text color="white">
                       {deleting ? (
-                        <strong>
-                          <Spinner size="small" /> Deletando...
-                        </strong>
+                        <strong>Deletando...</strong>
                       ) : (
                         <strong>Sim, deletar</strong>
                       )}
