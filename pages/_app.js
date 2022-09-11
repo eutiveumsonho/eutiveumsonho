@@ -5,8 +5,10 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { SessionProvider } from "next-auth/react";
 import { DefaultSeo } from "next-seo";
+import NextNProgress from "nextjs-progressbar";
 import * as gtag from "../lib/gtag";
 import SEO from "../next-seo.config.js";
+import { BRAND_HEX } from "../lib/config";
 
 const WebPerformanceObserver = dynamic(() => import("../components/o11y"), {
   ssr: false,
@@ -49,6 +51,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         }}
       />
       <DefaultSeo {...SEO} />
+      <NextNProgress color={BRAND_HEX} />
       <Grommet
         theme={grommet}
         style={{
