@@ -2,6 +2,7 @@
 
 import { getServerSession } from "../../lib/auth";
 import { METHOD_NOT_ALLOWED, SERVER_ERROR, FORBIDDEN } from "../../lib/errors";
+import { deleteAccount } from "../../lib/db/writes";
 
 export default async function handler(req, res) {
   switch (req.method) {
@@ -23,10 +24,10 @@ async function del(req, res) {
   }
 
   try {
-    await deleteAccount(session.user.email);
+    const response = await deleteAccount(session.user.email);
 
     res.setHeader("Content-Type", "application/json");
-    res.status(200).end();
+    res.status(200).send(response);
 
     return res;
   } catch (error) {

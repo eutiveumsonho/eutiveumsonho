@@ -58,7 +58,7 @@ export default function MyDreamsPage(props) {
                   />
                   <Button
                     icon={<Edit />}
-                    primary
+                    hoverIndicator
                     onClick={() => push(`/publicar/${item._id}`)}
                   />
                 </Box>

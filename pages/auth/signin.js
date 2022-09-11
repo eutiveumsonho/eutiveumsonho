@@ -1,4 +1,12 @@
-import { Box, Button, Card, FormField, Spinner, TextInput } from "grommet";
+import {
+  Box,
+  Button,
+  Card,
+  FormField,
+  Layer,
+  Spinner,
+  TextInput,
+} from "grommet";
 import { Facebook, Google } from "grommet-icons";
 import {
   getCsrfToken,
@@ -6,10 +14,12 @@ import {
   getSession,
   signIn,
 } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import isEmail from "validator/lib/isEmail";
 import Clouds from "../../components/clouds";
 import { Logo } from "../../components/logo";
+import { NEXT_AUTH_ERRORS } from "../../lib/errors";
 
 const icon = {
   Facebook: <Facebook />,
@@ -18,9 +28,27 @@ const icon = {
 
 export default function SignIn({ providers, csrfToken }) {
   const [emailSignInLoading, setEmailSignInLoading] = useState(false);
+  const { query } = useRouter();
+
+  const error = query["error"];
 
   return (
     <>
+      {error ? (
+        <Layer position="top" modal={false}>
+          <Box
+            gap="medium"
+            pad="medium"
+            width={"100vw"}
+            align="center"
+            background="status-critical"
+          >
+            {NEXT_AUTH_ERRORS[error]
+              ? NEXT_AUTH_ERRORS[error]
+              : NEXT_AUTH_ERRORS.Default}
+          </Box>
+        </Layer>
+      ) : null}
       <Clouds />
       <Box
         pad="large"

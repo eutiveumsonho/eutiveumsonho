@@ -11,7 +11,7 @@ import {
   PageContent,
   ResponsiveContext,
 } from "grommet";
-import { Book, Magic } from "grommet-icons";
+import { Book, Magic, UserSettings } from "grommet-icons";
 import { BRAND_HEX } from "../lib/config";
 import { Logo } from "./logo";
 import PageActions from "./page-actions";
@@ -28,16 +28,8 @@ const SidebarHeader = (props) => {
       margin={{ bottom: "large" }}
       justify="center"
     >
-      <Avatar
-        src={
-          serverSession.user.image
-            ? serverSession.user.image
-            : `https://avatars.dicebear.com/v2/jdenticon/${serverSession.user.email}.svg`
-        }
-      />
-      {size === "small" ? null : (
-        <Text>{serverSession.user.name ?? serverSession.user.email}</Text>
-      )}
+      <Avatar src={serverSession.user.image} />
+      {size === "small" ? null : <Text>{serverSession.user.name}</Text>}
     </Box>
   );
 };
@@ -64,12 +56,34 @@ const SidebarButton = ({ icon, label, selected, ...rest }) => (
   />
 );
 
-const SidebarFooter = () => (
-  <Nav>
-    {/* <SidebarButton icon={<Chat />} label="Fale conosco" /> */}
-    {/* <SidebarButton icon={<Help />} label="Ajuda" /> */}
-  </Nav>
-);
+const SidebarFooter = (props) => {
+  const { size } = props;
+  const { pathname, push } = useRouter();
+
+  if (size === "small") {
+    return (
+      <Nav gap="small">
+        <Button
+          icon={<UserSettings />}
+          hoverIndicator={pathname !== "/minha-conta"}
+          primary={pathname === "/minha-conta"}
+          onClick={() => push("/minha-conta")}
+        />
+      </Nav>
+    );
+  }
+
+  return (
+    <Nav>
+      <SidebarButton
+        icon={<UserSettings />}
+        label="Minha conta"
+        selected={pathname === "/minha-conta"}
+        onClick={() => push("/minha-conta")}
+      />
+    </Nav>
+  );
+};
 
 const MainNavigation = (props) => {
   const { size } = props;
@@ -111,7 +125,6 @@ const MainNavigation = (props) => {
       {/* Coming soon... */}
       {/* <SidebarButton icon={<Save />} label="Salvos" /> */}
       {/* <SidebarButton icon={<StatusInfoSmall />} label="Inbox" /> */}
-      {/* <SidebarButton icon={<Split />} label="Perfil" /> */}
     </Nav>
   );
 };
@@ -124,6 +137,7 @@ function MobileSidebar(props) {
       responsive={false}
       background="light-1"
       header={<SidebarHeader serverSession={serverSession} size={size} />}
+      footer={<SidebarFooter size={size} />}
       style={{
         minWidth: "4.5rem",
         maxWidth: "4.5rem",
