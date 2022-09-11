@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 import { getServerSession } from "../../../lib/auth";
-import { createDream, updateDream } from "../../../lib/db/writes";
+import { createDream, deleteDream, updateDream } from "../../../lib/db/writes";
 import {
   BAD_REQUEST,
   METHOD_NOT_ALLOWED,
@@ -15,8 +15,10 @@ export default async function handler(req, res) {
       return post(req, res);
     case "PATCH":
       return patch(req, res);
+    case "DELETE":
+      return del(req, res);
     default:
-      res.setHeader("Allow", ["POST", "PATCH"]);
+      res.setHeader("Allow", ["POST", "PATCH", "DELETE"]);
       res.status(405).end(METHOD_NOT_ALLOWED);
       return res;
   }
@@ -80,6 +82,34 @@ async function post(req, res) {
 
     res.setHeader("Content-Type", "application/json");
     res.status(201).send({ objectId });
+
+    return res;
+  } catch (error) {
+    console.error(error);
+    res.status(500).end(SERVER_ERROR);
+
+    return res;
+  }
+}
+
+async function del(req, res) {
+  const session = await getServerSession(req, res);
+
+  if (!session) {
+    res.status(403).end(FORBIDDEN);
+    return res;
+  }
+
+  if (!req.body?.dreamId) {
+    res.status(400).end(BAD_REQUEST);
+    return res;
+  }
+
+  try {
+    const result = await deleteDream(req.body.dreamId);
+
+    res.setHeader("Content-Type", "application/json");
+    res.status(201).send(result);
 
     return res;
   } catch (error) {
