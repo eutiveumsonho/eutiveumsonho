@@ -72,6 +72,8 @@ export const authOptions = {
       from: process.env.EMAIL_FROM,
       sendVerificationRequest,
     }),
+    // TODO: Create OAuth account linkage workflow
+    // https://stackoverflow.com/questions/71643948/nextauth-oauthaccountnotlinked-imported-data-from-another-website-autolink
     FacebookProvider({
       clientId: process.env.AUTH_FACEBOOK_ID,
       clientSecret: process.env.AUTH_FACEBOOK_SECRET,

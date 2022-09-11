@@ -13,7 +13,7 @@ import {
 function generateSelector(context) {
   let index, pathSelector;
 
-  if (context == "null") return;
+  if (context == "null" || !context) return;
   // call getIndex function
   index = getIndex(context);
 
@@ -30,6 +30,10 @@ function generateSelector(context) {
 
 // get index for nth of type element
 function getIndex(node) {
+  if (!node) {
+    return 0;
+  }
+
   let i = 1;
   let tagName = node.tagName;
 
@@ -37,7 +41,7 @@ function getIndex(node) {
     node = node.previousSibling;
     if (
       node.nodeType === 1 &&
-      tagName.toLowerCase() == node.tagName.toLowerCase()
+      tagName.toLowerCase() == node?.tagName.toLowerCase()
     ) {
       i++;
     }

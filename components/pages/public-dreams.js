@@ -30,19 +30,13 @@ export default function PublicDreams(props) {
                 </Box>
                 <Box justify="center" align="center">
                   <Text size="xsmall">
-                    {item?.user?.name ? (
+                    {item.visibility === "anonymous" ? (
+                      <VisibilityIcon option="anonymous" />
+                    ) : (
                       <Box direction="column" justify="center" align="center">
-                        <Avatar
-                          src={
-                            item.user.image ||
-                            `https://avatars.dicebear.com/v2/jdenticon/${item.user.email}.svg`
-                          }
-                          size="small"
-                        />
+                        <Avatar src={item.user.image} size="small" />
                         {item.user.name}
                       </Box>
-                    ) : (
-                      <VisibilityIcon option="anonymous" />
                     )}
                   </Text>
                   <Text size="xsmall">
