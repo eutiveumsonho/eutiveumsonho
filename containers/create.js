@@ -10,22 +10,21 @@ import {
   Spinner,
   Text,
 } from "grommet";
-
 import dynamic from "next/dynamic";
-import { createDream, saveDream, updateDreamVisibility } from "../../lib/api";
+import { createDream, saveDream, updateDreamVisibility } from "../lib/api";
 import { useRouter } from "next/router";
-import { stripHtml, VISIBILITY_TRANSLATIONS } from "../../lib/strings";
-import { BRAND_HEX } from "../../lib/config";
-import { Logo } from "../logo";
+import { stripHtml, VISIBILITY_TRANSLATIONS } from "../lib/strings";
+import { BRAND_HEX } from "../lib/config";
+import { Logo } from "../components/logo";
 import { StatusCritical, StatusGood } from "grommet-icons";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
+import VisibilityIcon from "../components/visbility-icon";
 import "dayjs/locale/pt-br";
-import VisibilityIcon from "../visbility-icon";
 
 dayjs.extend(LocalizedFormat);
 
-const Editor = dynamic(() => import("../editor"), {
+const Editor = dynamic(() => import("../components/editor"), {
   ssr: false,
   loading: () => <Spinner message="Carregando editor de texto..." />,
 });

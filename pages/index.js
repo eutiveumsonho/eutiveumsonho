@@ -1,6 +1,6 @@
 import { getAuthProps } from "../lib/auth";
 
-import Invite from "../components/pages/invite";
+import Invite from "../containers/invite";
 
 export default function Home() {
   return <Invite />;

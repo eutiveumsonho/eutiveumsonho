@@ -1,13 +1,13 @@
 import { Box, Button, Heading, Layer, Paragraph, Spinner, Text } from "grommet";
 import { Edit, Trash } from "grommet-icons";
 import { useRouter } from "next/router";
-import Dashboard from "../dashboard";
+import Dashboard from "../components/dashboard";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
-import { truncate } from "../../lib/strings";
-import VisibilityIcon from "../visbility-icon";
-import { BRAND_HEX } from "../../lib/config";
-import { deleteDream } from "../../lib/api";
+import { truncate } from "../lib/strings";
+import VisibilityIcon from "../components/visbility-icon";
+import { BRAND_HEX } from "../lib/config";
+import { deleteDream } from "../lib/api";
 import { useState } from "react";
 import "dayjs/locale/pt-br";
 

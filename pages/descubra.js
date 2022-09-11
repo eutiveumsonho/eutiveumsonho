@@ -1,6 +1,6 @@
 import { getAuthProps } from "../lib/auth";
 import { getLatestPublicDreams, getUserById } from "../lib/db/reads";
-import PublicDreams from "../components/pages/public-dreams";
+import PublicDreams from "../containers/public-dreams";
 
 export default function FindOut(props) {
   const { serverSession, data: rawData } = props;

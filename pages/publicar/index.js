@@ -1,6 +1,6 @@
 import { getAuthProps } from "../../lib/auth";
 
-import Create from "../../components/pages/create";
+import Create from "../../containers/create";
 
 export default function Home(props) {
   return <Create {...props} />;

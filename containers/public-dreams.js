@@ -1,9 +1,9 @@
-import { Avatar, Box, Button, Paragraph, Text } from "grommet";
-import Dashboard from "../dashboard";
+import { Avatar, Box, Paragraph, Text } from "grommet";
+import Dashboard from "../components/dashboard";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
-import { BRAND_HEX } from "../../lib/config";
-import VisibilityIcon from "../visbility-icon";
+import { BRAND_HEX } from "../lib/config";
+import VisibilityIcon from "../components/visbility-icon";
 import "dayjs/locale/pt-br";
 
 dayjs.extend(LocalizedFormat);

@@ -14,9 +14,8 @@ import {
 } from "grommet";
 import { Mail } from "grommet-icons";
 import isEmail from "validator/lib/isEmail";
-
-import Layout from "../layout";
-import { sendWaitListInviteMail } from "../../lib/api";
+import Layout from "../components/layout";
+import { sendWaitListInviteMail } from "../lib/api";
 
 export default function Invite() {
   const [loading, setLoading] = useState(false);

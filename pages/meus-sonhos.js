@@ -1,6 +1,6 @@
 import { getAuthProps } from "../lib/auth";
 import { getDreams } from "../lib/db/reads";
-import MyDreamsPage from "../components/pages/my-dreams";
+import MyDreamsPage from "../containers/my-dreams";
 
 export default function MyDreams(props) {
   const { serverSession, data: rawData } = props;
