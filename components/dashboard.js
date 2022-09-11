@@ -134,6 +134,7 @@ function MobileSidebar(props) {
 
   return (
     <SidebarBase
+      elevation="large"
       responsive={false}
       background="light-1"
       header={<SidebarHeader serverSession={serverSession} size={size} />}
@@ -143,6 +144,8 @@ function MobileSidebar(props) {
         maxWidth: "4.5rem",
         minHeight: "calc(100vh - 3.95rem)",
         borderRight: `1px solid ${BRAND_HEX}`,
+        // Trick to make the box-shadow from the sidebar and header look good
+        zIndex: "1001",
       }}
     >
       <MainNavigation size={size} />
@@ -156,6 +159,7 @@ function DesktopSidebar(props) {
   return (
     <SidebarBase
       responsive={false}
+      elevation="large"
       header={<SidebarHeader serverSession={serverSession} size={size} />}
       footer={<SidebarFooter />}
       pad={{ left: "unset", right: "unset", vertical: "large" }}
@@ -165,6 +169,8 @@ function DesktopSidebar(props) {
         maxWidth: "15rem",
         borderRight: `1px solid ${BRAND_HEX}`,
         minHeight: "calc(100vh - 4.688rem)",
+        // Trick to make the box-shadow from the sidebar and header look good
+        zIndex: "11",
       }}
     >
       <MainNavigation size={size} />
@@ -192,8 +198,10 @@ export default function Dashboard(props) {
         pad="small"
         style={{
           borderBottom: `1px solid ${BRAND_HEX}`,
+          zIndex: "10",
         }}
         background="light-1"
+        elevation="large"
       >
         <Box
           style={{
@@ -203,6 +211,8 @@ export default function Dashboard(props) {
             justifyContent: "space-between",
             margin: "auto",
             maxWidth: "96rem",
+            // Trick to make the box-shadow from the sidebar and header look good
+            zIndex: "9",
           }}
         >
           <Logo noTitle />
