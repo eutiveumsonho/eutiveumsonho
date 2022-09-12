@@ -42,6 +42,18 @@ export default function MyDreamsPage(props) {
     <Dashboard serverSession={serverSession}>
       <Box pad="medium">
         <div>
+          {data.length === 0 ? (
+            <Box gap="small" pad="xlarge" align="center">
+              <Text>Os seus sonhos serão listados aqui.</Text>
+              <Box>
+                <Button
+                  label="Adicione seu primeiro sonho"
+                  primary
+                  onClick={() => push("/publicar")}
+                />
+              </Box>
+            </Box>
+          ) : null}
           {data.map((item) => {
             return (
               <Box
