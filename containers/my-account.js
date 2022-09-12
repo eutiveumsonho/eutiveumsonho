@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { deleteAccount } from "../lib/api";
 import Dashboard from "../components/dashboard";
+import Search from "../components/search";
 
 export default function MyAccountPage(props) {
   const { serverSession, data: rawData } = props;
