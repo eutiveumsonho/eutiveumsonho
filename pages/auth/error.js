@@ -5,7 +5,7 @@ import { Logo } from "../../components/logo";
 import { NEXT_AUTH_ERRORS } from "../../lib/errors";
 
 export default function VerifyRequest() {
-  const { query } = useRouter();
+  const { query, push } = useRouter();
 
   const { error: errorCode } = query;
 

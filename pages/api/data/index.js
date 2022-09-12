@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 import { getServerSession } from "../../../lib/auth";
+import { getUserById, searchDreams } from "../../../lib/db/reads";
 import { createDream, deleteDream, updateDream } from "../../../lib/db/writes";
 import {
   BAD_REQUEST,
@@ -17,6 +18,8 @@ export default async function handler(req, res) {
       return patch(req, res);
     case "DELETE":
       return del(req, res);
+    case "GET":
+      return get(req, res);
     default:
       res.setHeader("Allow", ["POST", "PATCH", "DELETE"]);
       res.status(405).end(METHOD_NOT_ALLOWED);
@@ -110,6 +113,48 @@ async function del(req, res) {
 
     res.setHeader("Content-Type", "application/json");
     res.status(201).send(result);
+
+    return res;
+  } catch (error) {
+    console.error(error);
+    res.status(500).end(SERVER_ERROR);
+
+    return res;
+  }
+}
+
+async function get(req, res) {
+  const session = await getServerSession(req, res);
+
+  if (!session) {
+    res.status(403).end(FORBIDDEN);
+    return res;
+  }
+
+  if (!req.query?.query) {
+    res.status(400).end(BAD_REQUEST);
+    return res;
+  }
+
+  try {
+    const result = await searchDreams(req.query.query);
+
+    const dreams = [];
+
+    for (let dream of result) {
+      if (dream.visibility === "anonymous") {
+        delete dream.userId;
+        dreams.push(dream);
+        continue;
+      }
+
+      const user = await getUserById(dream.userId);
+      dream.user = user;
+      dreams.push(dream);
+    }
+
+    res.setHeader("Content-Type", "application/json");
+    res.status(201).send(dreams);
 
     return res;
   } catch (error) {
