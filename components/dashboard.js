@@ -222,7 +222,13 @@ export default function Dashboard(props) {
       <Page background="background-front" kind="full">
         <Box direction="row" height={{ min: "100%" }}>
           <Sidebar serverSession={serverSession} size={size} />
-          <PageContent>{children}</PageContent>
+          <PageContent
+            style={{
+              minWidth: "0px",
+            }}
+          >
+            {children}
+          </PageContent>
         </Box>
       </Page>
     </>

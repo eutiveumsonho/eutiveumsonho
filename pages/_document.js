@@ -34,6 +34,8 @@ class MyDocument extends Document {
       <Html
         style={{
           overflowX: "hidden",
+          margin: 0,
+          height: "100%",
         }}
       >
         <Head>

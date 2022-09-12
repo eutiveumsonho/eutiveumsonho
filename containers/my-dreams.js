@@ -1,4 +1,12 @@
-import { Box, Button, Heading, Layer, Paragraph, Spinner, Text } from "grommet";
+import {
+  Box,
+  Button,
+  Heading,
+  Layer,
+  ResponsiveContext,
+  Spinner,
+  Text,
+} from "grommet";
 import { Edit, Trash } from "grommet-icons";
 import { useRouter } from "next/router";
 import Dashboard from "../components/dashboard";
@@ -8,7 +16,7 @@ import { truncate } from "../lib/strings";
 import VisibilityIcon from "../components/visbility-icon";
 import { BRAND_HEX } from "../lib/config";
 import { deleteDream } from "../lib/api";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "dayjs/locale/pt-br";
 
 dayjs.extend(LocalizedFormat);
@@ -19,6 +27,7 @@ export default function MyDreamsPage(props) {
   const [open, setOpen] = useState(false);
   const [dreamIdToDelete, setDreamIdToDelete] = useState();
   const [deleting, setDeleting] = useState(false);
+  const size = useContext(ResponsiveContext);
 
   const delDream = async () => {
     setDeleting(true);
@@ -58,21 +67,20 @@ export default function MyDreamsPage(props) {
             return (
               <Box
                 key={item.createdAt}
-                direction="row"
-                justify="between"
+                direction="column"
                 style={{
                   borderBottom: `1px solid ${BRAND_HEX}`,
                 }}
               >
-                <Box direction="row" justify="center" align="center">
-                  <VisibilityIcon
-                    option={item.visibility}
-                    style={{
-                      marginRight: "1rem",
-                    }}
-                  />
-                  <Paragraph>
-                    <span
+                <Box justify="center" align="center" pad="small" gap="small">
+                  <VisibilityIcon option={item.visibility} />
+                  <Text size="xsmall">
+                    {dayjs(item.createdAt).locale("pt-br").format("LL")}
+                  </Text>
+                </Box>
+                <Box direction="row" justify="between" align="center">
+                  <Box direction="row" align="center" pad="medium">
+                    <Text
                       dangerouslySetInnerHTML={{
                         __html:
                           item.dream.text.length > 100
@@ -80,18 +88,8 @@ export default function MyDreamsPage(props) {
                             : item.dream.text,
                       }}
                     />
-                  </Paragraph>
-                </Box>
-                <Box justify="center" align="center">
-                  <Text size="xsmall">
-                    {dayjs(item.createdAt).locale("pt-br").format("LL")}
-                  </Text>
-                  <div
-                    style={{
-                      height: "0.2rem",
-                    }}
-                  />
-                  <Box direction="row">
+                  </Box>
+                  <Box direction={size === "small" ? "column" : "row"}>
                     <Button
                       icon={<Edit />}
                       hoverIndicator

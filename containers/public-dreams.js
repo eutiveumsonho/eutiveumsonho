@@ -51,16 +51,12 @@ export default function PublicDreams(props) {
           return (
             <Box
               key={item.createdAt}
-              direction="row"
-              justify="between"
+              direction="column"
               style={{
                 borderBottom: `1px solid ${BRAND_HEX}`,
               }}
             >
-              <Box direction="row" justify="center" align="center">
-                <Paragraph>{item.dream.text}</Paragraph>
-              </Box>
-              <Box justify="center" align="center">
+              <Box justify="center" align="center" pad="small" gap="small">
                 <Text size="xsmall">
                   {item.visibility === "anonymous" ? (
                     <VisibilityIcon option="anonymous" />
@@ -75,6 +71,9 @@ export default function PublicDreams(props) {
                   {dayjs(item.createdAt).locale("pt-br").format("LL")}
                 </Text>
               </Box>
+              <Box direction="row" align="center" pad="medium">
+                <Text>{item.dream.text}</Text>
+              </Box>
             </Box>
           );
         })}
@@ -86,16 +85,12 @@ export default function PublicDreams(props) {
             return (
               <Box
                 key={item.createdAt}
-                direction="row"
-                justify="between"
+                direction="column"
                 style={{
                   borderBottom: `1px solid ${BRAND_HEX}`,
                 }}
               >
-                <Box direction="row" justify="center" align="center">
-                  <Paragraph>{item.dream.text}</Paragraph>
-                </Box>
-                <Box justify="center" align="center">
+                <Box justify="center" align="center" pad="small" gap="small">
                   <Text size="xsmall">
                     {item.visibility === "anonymous" ? (
                       <VisibilityIcon option="anonymous" />
@@ -109,6 +104,9 @@ export default function PublicDreams(props) {
                   <Text size="xsmall">
                     {dayjs(item.createdAt).locale("pt-br").format("LL")}
                   </Text>
+                </Box>
+                <Box direction="row" align="center" pad="medium">
+                  <Text>{item.dream.text}</Text>
                 </Box>
               </Box>
             );
