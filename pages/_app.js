@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import { grommet, Grommet, Notification } from "grommet";
 import Script from "next/script";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { SessionProvider } from "next-auth/react";
 import { DefaultSeo } from "next-seo";
 import NextNProgress from "nextjs-progressbar";
@@ -16,7 +16,6 @@ const WebPerformanceObserver = dynamic(() => import("../components/o11y"), {
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
-  const [showGlobalNotification, setShowGlobalNotification] = useState(true);
 
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -63,20 +62,16 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         }}
       >
         <SessionProvider session={session}>
-          {showGlobalNotification ? (
-            <Notification
-              status="info"
-              message={"Esta é uma versão beta."}
-              onClose={() => setShowGlobalNotification(false)}
-              global
-              actions={[
-                {
-                  href: "https://github.com/eutiveumsonho#quer-contribuir",
-                  label: "Clique aqui para saber mais.",
-                },
-              ]}
-            />
-          ) : null}
+          <Notification
+            status="info"
+            message={"Esta é uma versão beta."}
+            actions={[
+              {
+                href: "https://github.com/eutiveumsonho#quer-contribuir",
+                label: "Clique aqui para saber mais.",
+              },
+            ]}
+          />
           <Component {...pageProps} />
         </SessionProvider>
         <WebPerformanceObserver />
