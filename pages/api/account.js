@@ -3,6 +3,7 @@
 import { getServerSession } from "../../lib/auth";
 import { METHOD_NOT_ALLOWED, SERVER_ERROR, FORBIDDEN } from "../../lib/errors";
 import { deleteAccount } from "../../lib/db/writes";
+import { logError } from "../../lib/o11y";
 
 export default async function handler(req, res) {
   switch (req.method) {
@@ -31,7 +32,7 @@ async function del(req, res) {
 
     return res;
   } catch (error) {
-    console.error(error);
+    logError({ ...error, from_api: true });
     res.status(500).end(SERVER_ERROR);
 
     return res;

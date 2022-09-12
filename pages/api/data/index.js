@@ -9,6 +9,7 @@ import {
   SERVER_ERROR,
   FORBIDDEN,
 } from "../../../lib/errors";
+import { logError } from "../../../lib/o11y";
 
 export default async function handler(req, res) {
   switch (req.method) {
@@ -52,7 +53,7 @@ async function patch(req, res) {
 
     return res;
   } catch (error) {
-    console.error(error);
+    logError({ ...error, from_api: true });
     res.status(500).end(SERVER_ERROR);
 
     return res;
@@ -88,7 +89,7 @@ async function post(req, res) {
 
     return res;
   } catch (error) {
-    console.error(error);
+    logError({ ...error, from_api: true });
     res.status(500).end(SERVER_ERROR);
 
     return res;
@@ -116,7 +117,7 @@ async function del(req, res) {
 
     return res;
   } catch (error) {
-    console.error(error);
+    logError({ ...error, from_api: true });
     res.status(500).end(SERVER_ERROR);
 
     return res;
@@ -158,7 +159,7 @@ async function get(req, res) {
 
     return res;
   } catch (error) {
-    console.error(error);
+    logError({ ...error, from_api: true });
     res.status(500).end(SERVER_ERROR);
 
     return res;

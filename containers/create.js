@@ -21,6 +21,7 @@ import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import VisibilityIcon from "../components/visbility-icon";
 import "dayjs/locale/pt-br";
+import { logError } from "../lib/o11y";
 
 dayjs.extend(LocalizedFormat);
 
@@ -131,7 +132,7 @@ export default function Create(props) {
         await saveDream(postId, dreamData);
         setSyncStatus(<LastSyncedAt lastSynced={new Date()} />);
       } catch (error) {
-        console.error(error);
+        logError(error);
       }
     }
   }, [html, router]);

@@ -1,4 +1,4 @@
-import honey from "../../lib/o11y";
+import honey, { logError } from "../../lib/o11y";
 
 function sendEvent(metric) {
   const evnt = honey.newEvent();
@@ -25,6 +25,7 @@ export default function handler(req, res) {
     res.status(200);
     res.end();
   } catch (error) {
+    logError({ ...error, from_api: true });
     return {
       statusCode: 500,
       body: JSON.stringify({ msg: error.message }),
