@@ -1,41 +1,10 @@
-import { useState } from "react";
 import Head from "next/head";
-import {
-  Box,
-  Button,
-  Form,
-  FormField,
-  Heading,
-  PageContent,
-  Spinner,
-  TextInput,
-  Notification,
-  WorldMap,
-} from "grommet";
-import { Mail } from "grommet-icons";
-import isEmail from "validator/lib/isEmail";
+import { Box, Button, Heading, PageContent, WorldMap } from "grommet";
 import Layout from "../components/layout";
-import { sendWaitListInviteMail } from "../lib/api";
+import { useRouter } from "next/router";
 
 export default function Invite() {
-  const [loading, setLoading] = useState(false);
-  const [feedbackMessage, setFeedbackMessage] = useState(null);
-
-  const handleSubmit = async ({ value }) => {
-    setLoading(true);
-    const { success } = await sendWaitListInviteMail(value);
-    setLoading(false);
-
-    setFeedbackMessage(
-      success
-        ? "Cheque o seu e-mail para saber mais sobre o lançamento da plataforma."
-        : "Em breve, você receberá um e-mail com mais detalhes sobre o lançamento da plataforma."
-    );
-  };
-
-  const onClose = () => {
-    setFeedbackMessage(null);
-  };
+  const { push } = useRouter();
 
   return (
     <Layout>
@@ -81,60 +50,20 @@ export default function Invite() {
           Vamos construir a maior comunidade de pessoas sonhadoras do Brasil e
           do mundo?
         </Heading>
-        <Heading
-          level={4}
-          style={{
-            zIndex: 1,
-          }}
-        >
-          Cadastre o seu e-mail na lista de espera!
-        </Heading>
         <Box
           style={{
             zIndex: 1,
           }}
         >
-          <Form validate="blur" onSubmit={handleSubmit}>
-            <FormField
-              name="email"
-              validate={[
-                (value) => {
-                  if (!isEmail(value ?? "")) {
-                    return {
-                      message: "Insira um e-mail válido",
-                    };
-                  }
-                },
-              ]}
-            >
-              <TextInput
-                name="email"
-                icon={<Mail />}
-                placeholder="Seu e-mail"
-              />
-            </FormField>
-            <div>
-              <Button
-                icon={loading ? <Spinner size="xsmall" /> : null}
-                type="submit"
-                primary
-                label="Quero fazer parte"
-              />
-            </div>
-          </Form>
+          <div>
+            <Button
+              primary
+              label="Quero fazer parte"
+              onClick={() => push("/auth/signin")}
+            />
+          </div>
         </Box>
       </PageContent>
-      {feedbackMessage && (
-        <Notification
-          toast={{
-            autoClose: false,
-          }}
-          title="Vamos construir a maior comunidade de pessoas sonhadoras, juntos!"
-          status={"normal"}
-          message={feedbackMessage}
-          onClose={onClose}
-        />
-      )}
     </Layout>
   );
 }
