@@ -20,8 +20,8 @@ import { StatusCritical, StatusGood } from "grommet-icons";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import VisibilityIcon from "../components/visbility-icon";
-import "dayjs/locale/pt-br";
 import { logError } from "../lib/o11y";
+import "dayjs/locale/pt-br";
 
 dayjs.extend(LocalizedFormat);
 
@@ -103,7 +103,7 @@ export default function Create(props) {
   const { postId } = router.query;
 
   const sync = useCallback(async () => {
-    if (!html) {
+    if (true || !html) {
       return;
     }
 

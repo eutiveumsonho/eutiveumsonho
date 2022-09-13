@@ -1,63 +1,158 @@
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import "./editor.module.css";
+import React from "react";
 
-/*
- * Simple editor componnt that takes placeholder text as a prop
- */
-export default function Editor(props) {
+import "@remirror/styles/all.css";
+import md from "refractor/lang/markdown.js";
+import { css } from "@emotion/css";
+import { createContextState } from "create-context-state";
+import { getThemeVar } from "remirror";
+import {
+  BlockquoteExtension,
+  BoldExtension,
+  BulletListExtension,
+  CodeBlockExtension,
+  CodeExtension,
+  HardBreakExtension,
+  HeadingExtension,
+  ItalicExtension,
+  LinkExtension,
+  ListItemExtension,
+  MarkdownExtension,
+  OrderedListExtension,
+  StrikeExtension,
+  TrailingNodeExtension,
+} from "remirror/extensions";
+import {
+  Remirror,
+  ThemeProvider,
+  useRemirror,
+  Toolbar,
+  CommandButtonGroup,
+  HeadingLevelButtonGroup,
+  HistoryButtonGroup,
+} from "@remirror/react";
+import { BRAND_HEX } from "../lib/config";
+import {
+  ToggleBoldButton,
+  ToggleItalicButton,
+  ToggleStrikeButton,
+  ToggleBlockquoteButton,
+} from "./editor/buttons";
+
+export const MarkdownToolbar = () => {
   return (
-    <ReactQuill
-      theme={"snow"}
-      modules={modules}
-      formats={formats}
-      {...props}
-      onChange={(value) => {
-        if (props.onChange) {
-          // See https://github.com/zenoamaro/react-quill/issues/311
-          props.onChange(value.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;"));
-        }
+    <Toolbar
+      style={{
+        width: "100vw",
+        backgroundColor: BRAND_HEX,
+        padding: "1rem",
+        display: "flex",
+        justifyContent: "center",
+        flexWrap: "wrap",
       }}
-    />
+    >
+      <CommandButtonGroup>
+        <ToggleBoldButton />
+        <ToggleItalicButton />
+        <ToggleStrikeButton />
+      </CommandButtonGroup>
+      <HeadingLevelButtonGroup showAll />
+      <CommandButtonGroup>
+        <ToggleBlockquoteButton />
+      </CommandButtonGroup>
+      <HistoryButtonGroup />
+    </Toolbar>
   );
-}
-
-/*
- * Quill modules to attach to editor
- * See https://quilljs.com/docs/modules/ for complete options
- */
-const modules = {
-  toolbar: [
-    [{ header: "1" }, { header: "2" }, { font: [] }],
-    [{ size: [] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
-    [{ list: "ordered" }, { indent: "-1" }, { indent: "+1" }],
-    ["link", "image", "video"],
-    ["clean"],
-  ],
-  clipboard: {
-    // toggle to add extra line breaks when pasting HTML:
-    matchVisual: false,
-  },
 };
 
-/*
- * Quill editor formats
- * See https://quilljs.com/docs/formats/
- */
-const formats = [
-  "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-  "image",
-  "video",
+const [EditorProvider, useEditor] = createContextState(({ props }) => {
+  return {
+    ...props,
+    setMarkdown: (text) => {
+      return props.markdown.getContext()?.setContent({
+        type: "doc",
+        content: [
+          {
+            type: "codeBlock",
+            attrs: { language: "markdown" },
+            content: text ? [{ type: "text", text }] : undefined,
+          },
+        ],
+      });
+    },
+  };
+});
+
+const MarkdownTextEditor = () => {
+  const { markdown, setVisual } = useEditor();
+
+  return (
+    <Remirror
+      manager={markdown.manager}
+      autoRender="end"
+      onChange={({ helpers, state }) => {
+        const text = helpers.getText({ state });
+      }}
+      classNames={[
+        css`
+          &.ProseMirror {
+            padding: 0;
+
+            pre {
+              height: 100%;
+              padding: ${getThemeVar("space", 3)};
+              margin: 0;
+            }
+          }
+        `,
+      ]}
+    >
+      <MarkdownToolbar />
+    </Remirror>
+  );
+};
+
+const extensions = () => [
+  new LinkExtension({ autoLink: true }),
+  new BoldExtension(),
+  new StrikeExtension(),
+  new ItalicExtension(),
+  new HeadingExtension(),
+  new LinkExtension(),
+  new BlockquoteExtension(),
+  new BulletListExtension({ enableSpine: true }),
+  new OrderedListExtension(),
+  new ListItemExtension({
+    priority: 10000,
+    enableCollapsible: true,
+  }),
+  new CodeExtension(),
+  new CodeBlockExtension({ supportedLanguages: [md] }),
+  new TrailingNodeExtension(),
+  new MarkdownExtension({ copyAsMarkdown: false }),
+  /**
+   * `HardBreakExtension` allows us to create a newline inside paragraphs.
+   * e.g. in a list item
+   */
+  new HardBreakExtension(),
 ];
+
+/**
+ * The editor which is used to create the annotation. Supports formatting.
+ */
+export const Editor = () => {
+  const markdown = useRemirror({
+    extensions,
+    stringHandler: "html",
+    content: "",
+  });
+
+  return (
+    <EditorProvider markdown={markdown}>
+      <ThemeProvider>
+        <MarkdownTextEditor />
+      </ThemeProvider>
+    </EditorProvider>
+  );
+};
+
+export default Editor;
