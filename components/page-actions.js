@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, ResponsiveContext } from "grommet";
-import { signIn, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useContext } from "react";
 
@@ -21,7 +21,6 @@ export default function PageActions(props) {
         <Link href="/publicar">
           <Button primary label="Adicionar sonho" />
         </Link>
-        <Button label="Sair" onClick={signOut} />
       </Box>
     );
   }

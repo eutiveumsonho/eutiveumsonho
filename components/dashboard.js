@@ -11,11 +11,17 @@ import {
   PageContent,
   ResponsiveContext,
 } from "grommet";
-import { Book, Magic, UserSettings } from "grommet-icons";
+import { Book, Logout, Magic, UserSettings } from "grommet-icons";
 import { BRAND_HEX } from "../lib/config";
 import { Logo } from "./logo";
 import PageActions from "./page-actions";
 import { useRouter } from "next/router";
+import { signOut } from "next-auth/react";
+
+const MOBILE_SIDEBAR_WIDTH = "4.5rem";
+const MOBILE_HEADER_HEIGHT = "3.95rem";
+const DESKTOP_SIDEBAR_WIDTH = "15rem";
+const DESKTOP_HEADER_HEIGHT = "4.688rem";
 
 const SidebarHeader = (props) => {
   const { serverSession, size } = props;
@@ -37,7 +43,7 @@ const SidebarHeader = (props) => {
 const SidebarButton = ({ icon, label, selected, ...rest }) => (
   <Button
     gap="medium"
-    alignSelf="start"
+    justify="start"
     fill
     icon={cloneElement(icon, {
       color: selected ? "white" : undefined,
@@ -49,6 +55,7 @@ const SidebarButton = ({ icon, label, selected, ...rest }) => (
       ...rest.style,
       whiteSpace: "nowrap",
       height: "3rem",
+      paddingLeft: "3rem",
       flex: "unset",
       background: selected ? BRAND_HEX : "transparent",
       color: selected ? "white" : "unset",
@@ -69,6 +76,7 @@ const SidebarFooter = (props) => {
           primary={pathname === "/minha-conta"}
           onClick={() => push("/minha-conta")}
         />
+        <Button icon={<Logout />} hoverIndicator onClick={signOut} />
       </Nav>
     );
   }
@@ -81,6 +89,7 @@ const SidebarFooter = (props) => {
         selected={pathname === "/minha-conta"}
         onClick={() => push("/minha-conta")}
       />
+      <SidebarButton icon={<Logout />} label="Sair" onClick={signOut} />
     </Nav>
   );
 };
@@ -140,12 +149,15 @@ function MobileSidebar(props) {
       header={<SidebarHeader serverSession={serverSession} size={size} />}
       footer={<SidebarFooter size={size} />}
       style={{
-        minWidth: "4.5rem",
-        maxWidth: "4.5rem",
-        minHeight: "calc(100vh - 3.95rem)",
+        top: MOBILE_HEADER_HEIGHT,
+        height: `calc(100vh - ${MOBILE_HEADER_HEIGHT})`,
+        minHeight: `calc(100vh - ${MOBILE_HEADER_HEIGHT})`,
+        position: "fixed",
+        minWidth: MOBILE_SIDEBAR_WIDTH,
+        maxWidth: MOBILE_SIDEBAR_WIDTH,
         borderRight: `1px solid ${BRAND_HEX}`,
         // Trick to make the box-shadow from the sidebar and header look good
-        zIndex: "1001",
+        zIndex: "11",
       }}
     >
       <MainNavigation size={size} />
@@ -165,10 +177,13 @@ function DesktopSidebar(props) {
       pad={{ left: "unset", right: "unset", vertical: "large" }}
       background="light-1"
       style={{
-        minWidth: "15rem",
-        maxWidth: "15rem",
+        position: "fixed",
+        top: DESKTOP_HEADER_HEIGHT,
+        height: `calc(100vh - ${DESKTOP_HEADER_HEIGHT})`,
+        minHeight: `calc(100vh - ${DESKTOP_HEADER_HEIGHT})`,
+        minWidth: DESKTOP_SIDEBAR_WIDTH,
+        maxWidth: DESKTOP_SIDEBAR_WIDTH,
         borderRight: `1px solid ${BRAND_HEX}`,
-        minHeight: "calc(100vh - 4.688rem)",
         // Trick to make the box-shadow from the sidebar and header look good
         zIndex: "11",
       }}
@@ -197,6 +212,8 @@ export default function Dashboard(props) {
       <Header
         pad="small"
         style={{
+          position: "fixed",
+          width: "100vw",
           borderBottom: `1px solid ${BRAND_HEX}`,
           zIndex: "10",
         }}
@@ -224,7 +241,19 @@ export default function Dashboard(props) {
           <Sidebar serverSession={serverSession} size={size} />
           <PageContent
             style={{
+              width:
+                size === "small"
+                  ? `calc(100vw - ${MOBILE_SIDEBAR_WIDTH})`
+                  : `calc(100vw - ${DESKTOP_SIDEBAR_WIDTH})`,
+              minHeight:
+                size === "small"
+                  ? `calc(100vh - ${MOBILE_HEADER_HEIGHT})`
+                  : `calc(100vh - ${DESKTOP_HEADER_HEIGHT})`,
               minWidth: "0px",
+              marginTop:
+                size === "small" ? MOBILE_HEADER_HEIGHT : DESKTOP_HEADER_HEIGHT,
+              marginLeft:
+                size === "small" ? MOBILE_SIDEBAR_WIDTH : DESKTOP_SIDEBAR_WIDTH,
             }}
           >
             {children}

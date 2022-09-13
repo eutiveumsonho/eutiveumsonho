@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { grommet, Grommet, Notification } from "grommet";
+import { grommet, Grommet } from "grommet";
 import Script from "next/script";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -62,16 +62,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         }}
       >
         <SessionProvider session={session}>
-          <Notification
-            status="info"
-            message={"Esta é uma versão beta."}
-            actions={[
-              {
-                href: "https://github.com/eutiveumsonho#quer-contribuir",
-                label: "Clique aqui para saber mais.",
-              },
-            ]}
-          />
           <Component {...pageProps} />
         </SessionProvider>
         <WebPerformanceObserver />

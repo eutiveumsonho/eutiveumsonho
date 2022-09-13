@@ -50,6 +50,7 @@ export default function MyDreamsPage(props) {
   return (
     <Dashboard serverSession={serverSession}>
       <Box pad="medium">
+        <Heading size="small">Meus sonhos</Heading>
         <div>
           {data.length === 0 ? (
             <Box gap="small" pad="xlarge" align="center">
@@ -63,13 +64,16 @@ export default function MyDreamsPage(props) {
               </Box>
             </Box>
           ) : null}
-          {data.map((item) => {
+          {data.map((item, index) => {
             return (
               <Box
                 key={item.createdAt}
                 direction="column"
                 style={{
-                  borderBottom: `1px solid ${BRAND_HEX}`,
+                  borderBottom:
+                    index + 1 === data.length
+                      ? "unset"
+                      : `1px solid ${BRAND_HEX}`,
                 }}
               >
                 <Box justify="center" align="center" pad="small" gap="small">
@@ -79,7 +83,14 @@ export default function MyDreamsPage(props) {
                   </Text>
                 </Box>
                 <Box direction="row" justify="between" align="center">
-                  <Box direction="row" align="center" pad="medium">
+                  <Box
+                    direction="row"
+                    align="center"
+                    pad="medium"
+                    style={{
+                      maxWidth: "calc(100% - 3rem)",
+                    }}
+                  >
                     <Text
                       dangerouslySetInnerHTML={{
                         __html:

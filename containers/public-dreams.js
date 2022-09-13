@@ -81,13 +81,16 @@ export default function PublicDreams(props) {
       <Box pad="medium">
         <div>
           <Heading size="small">Sonhos recentes</Heading>
-          {data.map((item) => {
+          {data.map((item, index) => {
             return (
               <Box
                 key={item.createdAt}
                 direction="column"
                 style={{
-                  borderBottom: `1px solid ${BRAND_HEX}`,
+                  borderBottom:
+                    index + 1 === data.length
+                      ? "unset"
+                      : `1px solid ${BRAND_HEX}`,
                 }}
               >
                 <Box justify="center" align="center" pad="small" gap="small">
