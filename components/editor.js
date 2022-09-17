@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "@remirror/styles/all.css";
 import md from "refractor/lang/markdown.js";
-import { css } from "@emotion/css";
 import { createContextState } from "create-context-state";
-import { getThemeVar } from "remirror";
 import {
   BlockquoteExtension,
   BoldExtension,
@@ -21,22 +19,18 @@ import {
   StrikeExtension,
   TrailingNodeExtension,
 } from "remirror/extensions";
-import {
-  Remirror,
-  ThemeProvider,
-  useRemirror,
-  Toolbar,
-  CommandButtonGroup,
-  HeadingLevelButtonGroup,
-  HistoryButtonGroup,
-} from "@remirror/react";
+import { Remirror, ThemeProvider, useRemirror, Toolbar } from "@remirror/react";
 import { BRAND_HEX } from "../lib/config";
 import {
   ToggleBoldButton,
   ToggleItalicButton,
   ToggleStrikeButton,
   ToggleBlockquoteButton,
+  HeadingLevelButtonGroup,
+  HistoryButtonGroup,
+  CommandButtonGroup,
 } from "./editor/buttons";
+import { css } from "@emotion/css";
 
 export const MarkdownToolbar = () => {
   return (
@@ -55,7 +49,7 @@ export const MarkdownToolbar = () => {
         <ToggleItalicButton />
         <ToggleStrikeButton />
       </CommandButtonGroup>
-      <HeadingLevelButtonGroup showAll />
+      <HeadingLevelButtonGroup />
       <CommandButtonGroup>
         <ToggleBlockquoteButton />
       </CommandButtonGroup>
@@ -82,26 +76,23 @@ const [EditorProvider, useEditor] = createContextState(({ props }) => {
   };
 });
 
-const MarkdownTextEditor = () => {
-  const { markdown, setVisual } = useEditor();
+const MarkdownTextEditor = (props) => {
+  const { html, setHtml } = props;
+  const { markdown } = useEditor();
 
   return (
     <Remirror
       manager={markdown.manager}
       autoRender="end"
       onChange={({ helpers, state }) => {
-        const text = helpers.getText({ state });
+        setHtml(helpers.getHTML(state));
       }}
+      placeholder="Eu tive um sonho..."
       classNames={[
         css`
           &.ProseMirror {
-            padding: 0;
-
-            pre {
-              height: 100%;
-              padding: ${getThemeVar("space", 3)};
-              margin: 0;
-            }
+            box-shadow: none !important;
+            overflow-y: unset !important;
           }
         `,
       ]}
@@ -140,6 +131,7 @@ const extensions = () => [
  * The editor which is used to create the annotation. Supports formatting.
  */
 export const Editor = () => {
+  const [html, setHtml] = useState("");
   const markdown = useRemirror({
     extensions,
     stringHandler: "html",
@@ -149,7 +141,7 @@ export const Editor = () => {
   return (
     <EditorProvider markdown={markdown}>
       <ThemeProvider>
-        <MarkdownTextEditor />
+        <MarkdownTextEditor setHtml={setHtml} html={html} />
       </ThemeProvider>
     </EditorProvider>
   );
