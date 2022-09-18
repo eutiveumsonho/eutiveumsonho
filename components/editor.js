@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import "@remirror/styles/all.css";
 import md from "refractor/lang/markdown.js";
@@ -32,7 +32,7 @@ import {
 } from "./editor/buttons";
 import { css } from "@emotion/css";
 
-export const MarkdownToolbar = () => {
+function MarkdownToolbar() {
   return (
     <Toolbar
       style={{
@@ -56,36 +56,27 @@ export const MarkdownToolbar = () => {
       <HistoryButtonGroup />
     </Toolbar>
   );
-};
+}
 
 const [EditorProvider, useEditor] = createContextState(({ props }) => {
   return {
     ...props,
-    setMarkdown: (text) => {
-      return props.markdown.getContext()?.setContent({
-        type: "doc",
-        content: [
-          {
-            type: "codeBlock",
-            attrs: { language: "markdown" },
-            content: text ? [{ type: "text", text }] : undefined,
-          },
-        ],
-      });
-    },
   };
 });
 
-const MarkdownTextEditor = (props) => {
-  const { html, setHtml } = props;
-  const { markdown } = useEditor();
+function MarkdownTextEditor(props) {
+  const { onChange } = props;
+
+  const { manager, state, setState } = useEditor();
 
   return (
     <Remirror
-      manager={markdown.manager}
+      manager={manager}
+      state={state}
       autoRender="end"
-      onChange={({ helpers, state }) => {
-        setHtml(helpers.getHTML(state));
+      onChange={({ state, helpers }) => {
+        setState(state);
+        onChange(helpers.getHTML(state));
       }}
       placeholder="Eu tive um sonho..."
       classNames={[
@@ -100,7 +91,7 @@ const MarkdownTextEditor = (props) => {
       <MarkdownToolbar />
     </Remirror>
   );
-};
+}
 
 const extensions = () => [
   new LinkExtension({ autoLink: true }),
@@ -120,31 +111,28 @@ const extensions = () => [
   new CodeBlockExtension({ supportedLanguages: [md] }),
   new TrailingNodeExtension(),
   new MarkdownExtension({ copyAsMarkdown: false }),
-  /**
-   * `HardBreakExtension` allows us to create a newline inside paragraphs.
-   * e.g. in a list item
-   */
   new HardBreakExtension(),
 ];
 
 /**
  * The editor which is used to create the annotation. Supports formatting.
  */
-export const Editor = () => {
-  const [html, setHtml] = useState("");
-  const markdown = useRemirror({
+function Editor(props) {
+  const { onChange, defaultValue } = props;
+
+  const { manager, state, setState } = useRemirror({
     extensions,
     stringHandler: "html",
-    content: "",
+    content: defaultValue,
   });
 
   return (
-    <EditorProvider markdown={markdown}>
+    <EditorProvider manager={manager} state={state} setState={setState}>
       <ThemeProvider>
-        <MarkdownTextEditor setHtml={setHtml} html={html} />
+        <MarkdownTextEditor onChange={onChange} />
       </ThemeProvider>
     </EditorProvider>
   );
-};
+}
 
 export default Editor;

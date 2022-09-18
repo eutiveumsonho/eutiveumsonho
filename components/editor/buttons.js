@@ -15,7 +15,7 @@ import {
 import { BRAND_HEX } from "../../lib/config";
 
 const iconProps = {
-  size: "small",
+  size: "15px",
 };
 
 const ICON_MAP = {
@@ -24,45 +24,47 @@ const ICON_MAP = {
   strikethrough: (props) => <StrikeThrough {...iconProps} {...props} />,
   doubleQuotesL: (props) => <BlockQuote {...iconProps} {...props} />,
   h1: (props) => (
-    <Text size="xsmall" color="white" {...props}>
-      H1
+    <Text size="11px" color="white" {...props}>
+      <strong>H1</strong>
     </Text>
   ),
   h2: (props) => (
-    <Text size="xsmall" color="white" {...props}>
-      H2
+    <Text size="11px" color="white" {...props}>
+      <strong>H2</strong>
     </Text>
   ),
   h3: (props) => (
-    <Text size="xsmall" color="white" {...props}>
-      H3
+    <Text size="11px" color="white" {...props}>
+      <strong>H3</strong>
     </Text>
   ),
   arrowGoBackFill: (props) => <Undo {...iconProps} {...props} />,
   arrowGoForwardFill: (props) => <Redo {...iconProps} {...props} />,
 };
 
-export const CommandButton = ({
-  commandName,
-  active = false,
-  enabled,
-  attrs,
-  onSelect,
-  onChange,
-  displayShortcut = true,
-  "aria-label": ariaLabel,
-  label,
-}) => {
+export function CommandButton(props) {
+  const {
+    commandName,
+    active = false,
+    enabled,
+    attrs,
+    onSelect,
+    onChange,
+    displayShortcut = true,
+    "aria-label": ariaLabel,
+    label,
+  } = props;
+
   const handleChange = useCallback(
-    (e, value) => {
+    (event, value) => {
       onSelect();
-      onChange?.(e, value);
+      onChange?.(event, value);
     },
     [onSelect, onChange]
   );
 
-  const handleMouseDown = useCallback((e) => {
-    e.preventDefault();
+  const handleMouseDown = useCallback((event) => {
+    event.preventDefault();
   }, []);
 
   const commandOptions = useCommandOptionValues({
@@ -115,9 +117,9 @@ export const CommandButton = ({
       />
     </Tip>
   );
-};
+}
 
-export const ToggleBoldButton = (props) => {
+export function ToggleBoldButton(props) {
   const { toggleBold } = useCommands();
 
   const handleSelect = useCallback(() => {
@@ -139,9 +141,9 @@ export const ToggleBoldButton = (props) => {
       label="Traços mais grossos"
     />
   );
-};
+}
 
-export const ToggleItalicButton = (props) => {
+export function ToggleItalicButton(props) {
   const { toggleItalic } = useCommands();
 
   const handleSelect = useCallback(() => {
@@ -163,9 +165,9 @@ export const ToggleItalicButton = (props) => {
       label="Itálico"
     />
   );
-};
+}
 
-export const ToggleStrikeButton = (props) => {
+export function ToggleStrikeButton(props) {
   const { toggleStrike } = useCommands();
 
   const handleSelect = useCallback(() => {
@@ -187,9 +189,9 @@ export const ToggleStrikeButton = (props) => {
       label="Riscar"
     />
   );
-};
+}
 
-export const ToggleBlockquoteButton = (props) => {
+export function ToggleBlockquoteButton(props) {
   const { toggleBlockquote } = useCommands();
 
   const handleSelect = useCallback(() => {
@@ -211,9 +213,10 @@ export const ToggleBlockquoteButton = (props) => {
       label="Bloco de citação"
     />
   );
-};
+}
 
-export const ToggleHeadingButton = ({ attrs, ...rest }) => {
+export function ToggleHeadingButton(props) {
+  const { attrs, ...rest } = props;
   const { toggleHeading } = useCommands();
 
   const handleSelect = useCallback(() => {
@@ -236,73 +239,57 @@ export const ToggleHeadingButton = ({ attrs, ...rest }) => {
       label={`Cabeçalho ${attrs.level}`}
     />
   );
-};
+}
 
 const LEVEL_1 = { level: 1 };
 const LEVEL_2 = { level: 2 };
 const LEVEL_3 = { level: 3 };
-const LEVEL_4 = { level: 4 };
-const LEVEL_5 = { level: 5 };
-const LEVEL_6 = { level: 6 };
 
-export const DropdownButton = ({
-  label,
-  "aria-label": ariaLabel,
-  icon,
-  children,
-  onClose,
-}) => {
+export function DropdownButton(props) {
+  const { label, "aria-label": ariaLabel, children, onClose } = props;
+
   const id = useRef(uniqueId());
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  const handleMouseDown = useCallback((e) => {
-    e.preventDefault();
+  const handleMouseDown = useCallback((event) => {
+    event.preventDefault();
   }, []);
 
   const handleClick = useCallback((event) => {
     setAnchorEl(event.currentTarget);
   }, []);
 
-  const handleClose = useCallback(
-    (e, reason) => {
-      setAnchorEl(null);
-      onClose?.(e, reason);
-    },
-    [onClose]
-  );
-
   return (
-    <>
-      <Tip
-        content={label ?? ariaLabel}
-        plain
-        dropProps={{
-          background: "white",
-          elevation: "large",
-          style: {
-            padding: "0.4rem",
-            borderRadius: "0.25rem",
-          },
-        }}
-      >
-        <DropButton
-          aria-label={ariaLabel}
-          aria-controls={open ? id.current : undefined}
-          aria-haspopup
-          aria-expanded={open ? "true" : undefined}
-          onMouseDown={handleMouseDown}
-          onClick={handleClick}
-          size="small"
-          dropContent={children}
-          icon={<Down {...iconProps} />}
-        />
-      </Tip>
-    </>
+    <Tip
+      content={label ?? ariaLabel}
+      plain
+      dropProps={{
+        background: "white",
+        elevation: "large",
+        style: {
+          padding: "0.4rem",
+          borderRadius: "0.25rem",
+        },
+      }}
+    >
+      <DropButton
+        aria-label={ariaLabel}
+        aria-controls={open ? id.current : undefined}
+        aria-haspopup
+        aria-expanded={open ? "true" : undefined}
+        onMouseDown={handleMouseDown}
+        onClick={handleClick}
+        size="small"
+        dropContent={children}
+        icon={<Down {...iconProps} />}
+      />
+    </Tip>
   );
-};
+}
 
-export const ToggleHeadingMenuItem = ({ attrs, ...rest }) => {
+export function ToggleHeadingMenuItem(props) {
+  const { attrs, ...rest } = props;
   const { toggleHeading } = useCommands();
 
   const handleSelect = useCallback(() => {
@@ -324,29 +311,22 @@ export const ToggleHeadingMenuItem = ({ attrs, ...rest }) => {
       onSelect={handleSelect}
     />
   );
-};
+}
 
-export const HeadingLevelButtonGroup = ({ showAll = false, children }) => {
+export function HeadingLevelButtonGroup(props) {
+  const { children } = props;
+
   return (
     <CommandButtonGroup>
       <ToggleHeadingButton attrs={LEVEL_1} />
       <ToggleHeadingButton attrs={LEVEL_2} />
-      {!showAll ? (
-        <ToggleHeadingButton attrs={LEVEL_3} />
-      ) : (
-        <DropdownButton aria-label="Mais opções de cabeçalho">
-          <ToggleHeadingMenuItem attrs={LEVEL_3} />
-          <ToggleHeadingMenuItem attrs={LEVEL_4} />
-          <ToggleHeadingMenuItem attrs={LEVEL_5} />
-          <ToggleHeadingMenuItem attrs={LEVEL_6} />
-        </DropdownButton>
-      )}
+      <ToggleHeadingButton attrs={LEVEL_3} />
       {children}
     </CommandButtonGroup>
   );
-};
+}
 
-export const RedoButton = (props) => {
+export function RedoButton(props) {
   const { redo } = useCommands();
   const { redoDepth } = useHelpers(true);
 
@@ -368,9 +348,9 @@ export const RedoButton = (props) => {
       label="Refazer"
     />
   );
-};
+}
 
-export const UndoButton = (props) => {
+export function UndoButton(props) {
   const { undo } = useCommands();
   const { undoDepth } = useHelpers(true);
 
@@ -392,9 +372,11 @@ export const UndoButton = (props) => {
       label="Desfazer"
     />
   );
-};
+}
 
-export const HistoryButtonGroup = ({ children }) => {
+export function HistoryButtonGroup(props) {
+  const { children } = props;
+
   return (
     <CommandButtonGroup>
       <UndoButton />
@@ -402,7 +384,7 @@ export const HistoryButtonGroup = ({ children }) => {
       {children}
     </CommandButtonGroup>
   );
-};
+}
 
 export function CommandButtonGroup(props) {
   const { children } = props;

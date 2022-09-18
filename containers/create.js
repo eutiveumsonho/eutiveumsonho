@@ -103,7 +103,7 @@ export default function Create(props) {
   const { postId } = router.query;
 
   const sync = useCallback(async () => {
-    if (true || !html) {
+    if (!html || html === "<p></p>") {
       return;
     }
 
@@ -211,8 +211,6 @@ export default function Create(props) {
       <Editor
         placeholder="Eu tive um sonho..."
         onChange={setHtml}
-        // See https://github.com/zenoamaro/react-quill/issues/311
-        // for the hacks below (defaultValue and value)
         defaultValue={data?.dream?.html ?? html}
         style={{
           width: "100%",
