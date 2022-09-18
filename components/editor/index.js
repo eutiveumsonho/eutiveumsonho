@@ -20,7 +20,7 @@ import {
   TrailingNodeExtension,
 } from "remirror/extensions";
 import { Remirror, ThemeProvider, useRemirror, Toolbar } from "@remirror/react";
-import { BRAND_HEX } from "../lib/config";
+import { BRAND_HEX } from "../../lib/config";
 import {
   ToggleBoldButton,
   ToggleItalicButton,
@@ -29,7 +29,7 @@ import {
   HeadingLevelButtonGroup,
   HistoryButtonGroup,
   CommandButtonGroup,
-} from "./editor/buttons";
+} from "./buttons";
 import { css } from "@emotion/css";
 
 function MarkdownToolbar() {

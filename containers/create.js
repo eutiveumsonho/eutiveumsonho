@@ -21,8 +21,8 @@ import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import VisibilityIcon from "../components/visbility-icon";
 import { logError } from "../lib/o11y";
-import "dayjs/locale/pt-br";
 import styled from "styled-components";
+import "dayjs/locale/pt-br";
 
 dayjs.extend(LocalizedFormat);
 
