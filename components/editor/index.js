@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 
 import "@remirror/styles/all.css";
 import {
@@ -53,15 +53,19 @@ function MarkdownToolbar() {
 }
 
 function MarkdownTextEditor(props) {
-  const { manager, state, onChange, children } = props;
+  const { manager, save, defaultValue } = props;
+  const [html, setHtml] = useState();
 
   return (
     <Remirror
       manager={manager}
-      state={state}
-      onChange={onChange}
+      onChange={({ helpers, state }) => {
+        const html = helpers.getHTML(state);
+        setHtml(html);
+      }}
       autoRender="end"
       placeholder="Eu tive um sonho..."
+      initialContent={defaultValue}
       classNames={[
         css`
           &.ProseMirror {
@@ -72,7 +76,7 @@ function MarkdownTextEditor(props) {
       ]}
     >
       <MarkdownToolbar />
-      {children}
+      <SyncManagerHook html={html} save={save} />
     </Remirror>
   );
 }
@@ -95,17 +99,17 @@ const extensions = () => [
 function Editor(props) {
   const { defaultValue, save } = props;
 
-  const { manager, state, onChange } = useRemirror({
+  const { manager } = useRemirror({
     extensions,
-    stringHandler: "html",
-    content: defaultValue,
   });
 
   return (
     <ThemeProvider>
-      <MarkdownTextEditor manager={manager} onChange={onChange} state={state}>
-        <SyncManagerHook state={state} save={save} />
-      </MarkdownTextEditor>
+      <MarkdownTextEditor
+        manager={manager}
+        save={save}
+        defaultValue={defaultValue}
+      />
     </ThemeProvider>
   );
 }
