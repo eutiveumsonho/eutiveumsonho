@@ -101,6 +101,7 @@ function Editor(props) {
 
   const { manager } = useRemirror({
     extensions,
+    stringHandler: "html",
   });
 
   return (
