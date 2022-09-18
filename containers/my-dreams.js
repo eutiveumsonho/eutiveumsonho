@@ -94,9 +94,9 @@ export default function MyDreamsPage(props) {
                     <Text
                       dangerouslySetInnerHTML={{
                         __html:
-                          item.dream.text.length > 100
-                            ? truncate(item.dream.text, 100, true)
-                            : item.dream.text,
+                          item.dream.html.length > 100
+                            ? truncate(item.dream.html, 100, true)
+                            : item.dream.html,
                       }}
                     />
                   </Box>

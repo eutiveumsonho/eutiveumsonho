@@ -16,18 +16,39 @@ import { useRouter } from "next/router";
 import { stripHtml, VISIBILITY_TRANSLATIONS } from "../lib/strings";
 import { BRAND_HEX } from "../lib/config";
 import { Logo } from "../components/logo";
-import { StatusCritical, StatusGood } from "grommet-icons";
+import { Favorite, StatusCritical, StatusGood } from "grommet-icons";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import VisibilityIcon from "../components/visbility-icon";
-import "dayjs/locale/pt-br";
 import { logError } from "../lib/o11y";
+import styled from "styled-components";
+import "dayjs/locale/pt-br";
 
 dayjs.extend(LocalizedFormat);
 
+const FavoriteFilled = styled(Favorite)`
+  path[fill="none"] {
+    fill: red;
+  }
+`;
+
 const Editor = dynamic(() => import("../components/editor"), {
   ssr: false,
-  loading: () => <Spinner message="Carregando editor de texto..." />,
+  loading: () => (
+    <Box fill>
+      <Box margin="large" align="center">
+        <Box direction="row" gap="large" pad="small">
+          <Spinner
+            animation={{ type: "pulse", duration: 650, size: "medium" }}
+            justify="center"
+          >
+            <FavoriteFilled color="red" size="large" />
+          </Spinner>
+          <Text margin={{ horizontal: "small" }}>Carregando com amor...</Text>
+        </Box>
+      </Box>
+    </Box>
+  ),
 });
 
 const SYNC_DELAY = 3000;
@@ -103,7 +124,7 @@ export default function Create(props) {
   const { postId } = router.query;
 
   const sync = useCallback(async () => {
-    if (!html) {
+    if (!html || html === "<p></p>") {
       return;
     }
 
@@ -211,8 +232,6 @@ export default function Create(props) {
       <Editor
         placeholder="Eu tive um sonho..."
         onChange={setHtml}
-        // See https://github.com/zenoamaro/react-quill/issues/311
-        // for the hacks below (defaultValue and value)
         defaultValue={data?.dream?.html ?? html}
         style={{
           width: "100%",

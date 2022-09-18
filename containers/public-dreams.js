@@ -72,7 +72,11 @@ export default function PublicDreams(props) {
                 </Text>
               </Box>
               <Box direction="row" align="center" pad="medium">
-                <Text>{item.dream.text}</Text>
+                <Text
+                  dangerouslySetInnerHTML={{
+                    __html: item.dream.html,
+                  }}
+                />
               </Box>
             </Box>
           );
@@ -109,7 +113,11 @@ export default function PublicDreams(props) {
                   </Text>
                 </Box>
                 <Box direction="row" align="center" pad="medium">
-                  <Text>{item.dream.text}</Text>
+                  <Text
+                    dangerouslySetInnerHTML={{
+                      __html: item.dream.html,
+                    }}
+                  />
                 </Box>
               </Box>
             );
