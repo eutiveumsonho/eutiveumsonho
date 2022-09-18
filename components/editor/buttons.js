@@ -288,31 +288,6 @@ export function DropdownButton(props) {
   );
 }
 
-export function ToggleHeadingMenuItem(props) {
-  const { attrs, ...rest } = props;
-  const { toggleHeading } = useCommands();
-
-  const handleSelect = useCallback(() => {
-    if (toggleHeading.enabled(attrs)) {
-      toggleHeading(attrs);
-    }
-  }, [toggleHeading, attrs]);
-
-  const active = useActive().heading(attrs);
-  const enabled = toggleHeading.enabled(attrs);
-
-  return (
-    <CommandMenuItem
-      {...rest}
-      commandName="toggleHeading"
-      active={active}
-      enabled={enabled}
-      attrs={attrs}
-      onSelect={handleSelect}
-    />
-  );
-}
-
 export function HeadingLevelButtonGroup(props) {
   const { children } = props;
 
