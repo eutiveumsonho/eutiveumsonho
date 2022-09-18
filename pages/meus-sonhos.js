@@ -13,7 +13,7 @@ export default function MyDreams(props) {
 export async function getServerSideProps(context) {
   const authProps = await getAuthProps(context);
 
-  if (!authProps.props.serverSession) {
+  if (!authProps.props.serverSession || !authProps.props.serverSession?.user) {
     const { res } = context;
     res.setHeader("location", "/auth/signin");
     res.statusCode = 302;

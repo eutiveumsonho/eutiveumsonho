@@ -65,7 +65,7 @@ const SidebarButton = ({ icon, label, selected, ...rest }) => (
 
 const SidebarFooter = (props) => {
   const { size } = props;
-  const { pathname, push } = useRouter();
+  const { pathname, push, reload } = useRouter();
 
   if (size === "small") {
     return (
@@ -76,7 +76,14 @@ const SidebarFooter = (props) => {
           primary={pathname === "/minha-conta"}
           onClick={() => push("/minha-conta")}
         />
-        <Button icon={<Logout />} hoverIndicator onClick={signOut} />
+        <Button
+          icon={<Logout />}
+          hoverIndicator
+          onClick={() => {
+            signOut();
+            reload();
+          }}
+        />
       </Nav>
     );
   }
@@ -89,7 +96,14 @@ const SidebarFooter = (props) => {
         selected={pathname === "/minha-conta"}
         onClick={() => push("/minha-conta")}
       />
-      <SidebarButton icon={<Logout />} label="Sair" onClick={signOut} />
+      <SidebarButton
+        icon={<Logout />}
+        label="Sair"
+        onClick={() => {
+          signOut();
+          reload();
+        }}
+      />
     </Nav>
   );
 };
