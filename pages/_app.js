@@ -9,6 +9,7 @@ import NextNProgress from "nextjs-progressbar";
 import * as gtag from "../lib/gtag";
 import SEO from "../next-seo.config.js";
 import { BRAND_HEX } from "../lib/config";
+import CustomScripts from "../components/custom-scripts";
 
 const WebPerformanceObserver = dynamic(() => import("../components/o11y"), {
   ssr: false,
@@ -51,6 +52,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         }}
       />
       <DefaultSeo {...SEO} />
+      <CustomScripts />
       <NextNProgress color={BRAND_HEX} />
       <Grommet
         theme={grommet}

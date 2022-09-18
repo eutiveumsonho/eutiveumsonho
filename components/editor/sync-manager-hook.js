@@ -1,5 +1,4 @@
-import { useRemirrorContext } from "@remirror/react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const SYNC_DELAY = 3000;
 

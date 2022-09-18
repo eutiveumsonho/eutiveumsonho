@@ -307,7 +307,7 @@ export default function Create(props) {
       />
       {syncStatus ? (
         <Layer
-          position="bottom-right"
+          position="bottom-left"
           modal={false}
           margin={{ vertical: "medium", horizontal: "small" }}
           responsive={false}
