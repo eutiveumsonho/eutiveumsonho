@@ -1,5 +1,5 @@
 import { useRemirrorContext } from "@remirror/react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const SYNC_DELAY = 3000;
 
@@ -9,7 +9,7 @@ export default function SyncManagerHook(props) {
   const [prevHtml, setPrevHtml] = useState(helpers.getHTML(state));
 
   useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
+    const debouncTimer = setTimeout(() => {
       const html = helpers.getHTML(state);
 
       if (html === prevHtml || !html || html === "<p></p>") {
@@ -20,7 +20,7 @@ export default function SyncManagerHook(props) {
       setPrevHtml(html);
     }, SYNC_DELAY);
 
-    return () => clearTimeout(delayDebounceFn);
+    return () => clearTimeout(debouncTimer);
   }, [state]);
 
   return <></>;

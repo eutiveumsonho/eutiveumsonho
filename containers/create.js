@@ -189,6 +189,16 @@ export default function Create(props) {
 
   const { postId } = router.query;
 
+  useEffect(() => {
+    if (syncStatus) {
+      const syncStatusTimer = setTimeout(() => {
+        setSyncStatus(null);
+      }, 3000);
+
+      return () => clearTimeout(syncStatusTimer);
+    }
+  }, [syncStatus]);
+
   const save = async (html) => {
     setSyncStatus(<Syncing />);
 

@@ -1,22 +1,16 @@
-import React from "react";
+import React, { memo } from "react";
 
 import "@remirror/styles/all.css";
-import md from "refractor/lang/markdown.js";
 import {
   BlockquoteExtension,
   BoldExtension,
   BulletListExtension,
-  CodeBlockExtension,
-  CodeExtension,
-  HardBreakExtension,
   HeadingExtension,
   ItalicExtension,
   LinkExtension,
-  ListItemExtension,
   MarkdownExtension,
   OrderedListExtension,
   StrikeExtension,
-  TrailingNodeExtension,
 } from "remirror/extensions";
 import { Remirror, ThemeProvider, useRemirror, Toolbar } from "@remirror/react";
 import { BRAND_HEX } from "../../lib/config";
@@ -65,8 +59,8 @@ function MarkdownTextEditor(props) {
     <Remirror
       manager={manager}
       state={state}
-      autoRender="end"
       onChange={onChange}
+      autoRender="end"
       placeholder="Eu tive um sonho..."
       classNames={[
         css`
@@ -89,19 +83,10 @@ const extensions = () => [
   new StrikeExtension(),
   new ItalicExtension(),
   new HeadingExtension(),
-  new LinkExtension(),
   new BlockquoteExtension(),
   new BulletListExtension({ enableSpine: true }),
   new OrderedListExtension(),
-  new ListItemExtension({
-    priority: 10000,
-    enableCollapsible: true,
-  }),
-  new CodeExtension(),
-  new CodeBlockExtension({ supportedLanguages: [md] }),
-  new TrailingNodeExtension(),
   new MarkdownExtension({ copyAsMarkdown: false }),
-  new HardBreakExtension(),
 ];
 
 /**
@@ -118,11 +103,11 @@ function Editor(props) {
 
   return (
     <ThemeProvider>
-      <MarkdownTextEditor manager={manager} state={state} onChange={onChange}>
+      <MarkdownTextEditor manager={manager} onChange={onChange} state={state}>
         <SyncManagerHook state={state} save={save} />
       </MarkdownTextEditor>
     </ThemeProvider>
   );
 }
 
-export default Editor;
+export default memo(Editor);
