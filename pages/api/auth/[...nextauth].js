@@ -74,14 +74,14 @@ export const authOptions = {
     }),
     // TODO: Create OAuth account linkage workflow
     // https://stackoverflow.com/questions/71643948/nextauth-oauthaccountnotlinked-imported-data-from-another-website-autolink
-    FacebookProvider({
-      clientId: process.env.AUTH_FACEBOOK_ID,
-      clientSecret: process.env.AUTH_FACEBOOK_SECRET,
-    }),
-    GoogleProvider({
-      clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET,
-    }),
+    // FacebookProvider({
+    //   clientId: process.env.AUTH_FACEBOOK_ID,
+    //   clientSecret: process.env.AUTH_FACEBOOK_SECRET,
+    // }),
+    // GoogleProvider({
+    //   clientId: process.env.AUTH_GOOGLE_ID,
+    //   clientSecret: process.env.AUTH_GOOGLE_SECRET,
+    // }),
   ],
   pages: {
     signIn: "/auth/signin",
