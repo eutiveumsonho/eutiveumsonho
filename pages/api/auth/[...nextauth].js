@@ -78,10 +78,10 @@ export const authOptions = {
     //   clientId: process.env.AUTH_FACEBOOK_ID,
     //   clientSecret: process.env.AUTH_FACEBOOK_SECRET,
     // }),
-    // GoogleProvider({
-    //   clientId: process.env.AUTH_GOOGLE_ID,
-    //   clientSecret: process.env.AUTH_GOOGLE_SECRET,
-    // }),
+    GoogleProvider({
+      clientId: process.env.AUTH_GOOGLE_ID,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+    }),
   ],
   pages: {
     signIn: "/auth/signin",
