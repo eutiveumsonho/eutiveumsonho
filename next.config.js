@@ -12,6 +12,8 @@ const nextConfig = {
         // Uses list to add this modules for server bundle and process.
         allowlist: ["@remirror/styles"],
       });
+
+      require("./scripts/generate-sitemap");
     }
 
     return config;

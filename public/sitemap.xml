@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+      <intl>sitemap:index</intl>
+      <loc>https://eutiveumsonho.com</loc>
+  </url>
+          
+  <url>
+      <intl>sitemap:politica-de-cookies</intl>
+      <loc>https://eutiveumsonho.com/politica-de-cookies</loc>
+  </url>
+          
+  <url>
+      <intl>sitemap:politica-de-privacidade</intl>
+      <loc>https://eutiveumsonho.com/politica-de-privacidade</loc>
+  </url>
+          
+  <url>
+      <intl>sitemap:termos-e-condicoes</intl>
+      <loc>https://eutiveumsonho.com/termos-e-condicoes</loc>
+  </url>
+          
+  <url>
+      <intl>sitemap:auth-signin</intl>
+      <loc>https://eutiveumsonho.com/auth/signin</loc>
+  </url>
+          
+</urlset>
+<!-- This is a generated file. Don't change this. -->
+<!-- For more information, visit this file at scripts/generate-sitemap.js -->
+    
