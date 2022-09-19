@@ -16,7 +16,6 @@ jobs:
           cache: npm
           node-version: 16
       - run: yarn
-      - run: yarn build
       - run: yarn semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
