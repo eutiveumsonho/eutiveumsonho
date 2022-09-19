@@ -28,7 +28,7 @@ dayjs.extend(LocalizedFormat);
 
 const FavoriteFilled = styled(Favorite)`
   path[fill="none"] {
-    fill: red;
+    fill: ${BRAND_HEX};
   }
 `;
 
@@ -42,7 +42,7 @@ const Editor = dynamic(() => import("../components/editor"), {
             animation={{ type: "pulse", duration: 650, size: "medium" }}
             justify="center"
           >
-            <FavoriteFilled color="red" size="large" />
+            <FavoriteFilled color={BRAND_HEX} size="large" />
           </Spinner>
           <Text margin={{ horizontal: "small" }}>Carregando com amor...</Text>
         </Box>
