@@ -22,7 +22,7 @@ const skipMatch = [
  * @param {string[]} pages - The set of filenames under the pages folder.
  */
 function generateUrlLoc(pages) {
-  const localizedRoutes = pages
+  const routes = pages
     .map((page) => {
       const path = page.replace("pages", "").replace(".js", "");
       const route = path === "/index" ? "" : path;
@@ -39,7 +39,7 @@ function generateUrlLoc(pages) {
     })
     .join("");
 
-  return localizedRoutes;
+  return routes;
 }
 
 (async () => {
