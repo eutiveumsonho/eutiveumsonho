@@ -345,6 +345,10 @@ export default function Create(props) {
             <Heading level={3} margin="none">
               Configurações de visibilidade
             </Heading>
+            <Heading level={4} fill margin="none">
+              Selecione a caixa que define como as pessoas irão ver os seus
+              sonhos.
+            </Heading>
             <VisiblityOption
               title={"Público"}
               description={
