@@ -225,7 +225,7 @@ export default function Create(props) {
         await saveDream(postId, dreamData);
         setSyncStatus(<LastSyncedAt lastSynced={new Date()} />);
       } catch (error) {
-        logError(error);
+        logError({ ...error, service: "web" });
       }
     }
   };

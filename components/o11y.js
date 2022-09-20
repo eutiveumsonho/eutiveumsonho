@@ -260,6 +260,7 @@ async function send(metric) {
   // generate these at the point of send
   metric.span_id = generateId();
   metric.timestamp = Date.now();
+  metric.service = "web";
 
   if (metric.span_event !== "root") {
     // first set the parent id of the current span

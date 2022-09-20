@@ -10,6 +10,7 @@ import * as gtag from "../lib/gtag";
 import SEO from "../next-seo.config.js";
 import { BRAND_HEX } from "../lib/config";
 import CustomScripts from "../components/custom-scripts";
+import ErrorBoundary from "../components/error-boundary";
 
 const WebPerformanceObserver = dynamic(() => import("../components/o11y"), {
   ssr: false,
@@ -54,20 +55,22 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       <DefaultSeo {...SEO} />
       <CustomScripts />
       <NextNProgress color={BRAND_HEX} />
-      <Grommet
-        theme={grommet}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          minHeight: "100vh",
-          backgroundColor: "transparent",
-        }}
-      >
-        <SessionProvider session={session}>
-          <Component {...pageProps} />
-        </SessionProvider>
-        <WebPerformanceObserver />
-      </Grommet>
+      <ErrorBoundary>
+        <Grommet
+          theme={grommet}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100vh",
+            backgroundColor: "transparent",
+          }}
+        >
+          <SessionProvider session={session}>
+            <Component {...pageProps} />
+          </SessionProvider>
+          <WebPerformanceObserver />
+        </Grommet>
+      </ErrorBoundary>
     </>
   );
 }

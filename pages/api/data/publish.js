@@ -46,7 +46,7 @@ async function patch(req, res) {
 
     return res;
   } catch (error) {
-    logError({ ...error, from_api: true });
+    logError({ ...error, service: "api", pathname: "/api/data/publish_patch" });
     res.status(500).end(SERVER_ERROR);
 
     return res;
