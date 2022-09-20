@@ -11,10 +11,10 @@
   },
   "dependencies": {
     "@next-auth/mongodb-adapter": "^1.0.3",
-    "@remirror/pm": "^2.0.2",
+    "@remirror/pm": "^2.0.0",
     "@remirror/react": "^2.0.2",
-    "@remirror/react-editors": "^2.0.2",
-    "@remirror/styles": "^2.0.2",
+    "@remirror/react-editors": "^1.0.2",
+    "@remirror/styles": "^2.0.0",
     "browserslist": "^4.21.3",
     "dayjs": "^1.11.5",
     "form-data": "^4.0.0",
