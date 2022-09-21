@@ -2,6 +2,7 @@ import { getAuthProps } from "../../lib/auth";
 
 import Create from "../../containers/create";
 import { getDreamById } from "../../lib/db/reads";
+import { logError } from "../../lib/o11y";
 
 export default function DreamEditor(props) {
   const { data, ...authProps } = props;
@@ -19,15 +20,24 @@ export async function getServerSideProps(context) {
     res.end();
   }
 
-  const { postId } = context.params;
+  try {
+    const { postId } = context.params;
 
-  if (postId) {
-    const data = await getDreamById(postId);
+    if (postId) {
+      const data = await getDreamById(postId);
 
-    return {
-      props: { ...authProps.props, data: JSON.stringify(data) },
-    };
+      return {
+        props: { ...authProps.props, data: JSON.stringify(data) },
+      };
+    }
+
+    return { props: { ...authProps.props, data: null } };
+  } catch (error) {
+    logError({
+      ...error,
+      service: "web",
+      pathname: "/publicar/[postId]",
+      component: "DreamEditor",
+    });
   }
-
-  return { props: { ...authProps.props, data: null } };
 }

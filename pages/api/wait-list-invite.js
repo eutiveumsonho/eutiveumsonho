@@ -41,7 +41,12 @@ export default async function handler(req, res) {
 
     return res;
   } catch (error) {
-    logError({ ...error, service: "api", pathname: "/api/wait-list-invite" });
+    logError({
+      ...error,
+      service: "api",
+      pathname: "/api/wait-list-invite",
+      method: "get",
+    });
     res.status(500).end(SERVER_ERROR);
 
     return res;

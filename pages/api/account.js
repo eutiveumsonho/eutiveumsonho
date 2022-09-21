@@ -32,7 +32,12 @@ async function del(req, res) {
 
     return res;
   } catch (error) {
-    logError({ ...error, service: "api", pathname: "/api/account_delete" });
+    logError({
+      ...error,
+      service: "api",
+      pathname: "/api/account",
+      method: "delete",
+    });
     res.status(500).end(SERVER_ERROR);
 
     return res;

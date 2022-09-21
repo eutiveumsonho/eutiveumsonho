@@ -3,11 +3,20 @@ import { useRouter } from "next/router";
 import Clouds from "../../components/clouds";
 import { Logo } from "../../components/logo";
 import { NEXT_AUTH_ERRORS } from "../../lib/errors";
+import { logError } from "../../lib/o11y";
 
 export default function VerifyRequest() {
   const { query, push } = useRouter();
 
   const { error: errorCode } = query;
+
+  logError({
+    ...error,
+    service: "web",
+    pathname: "/auth/error",
+    component: "VerifyRequest",
+    error_message: errorCode,
+  });
 
   return (
     <>

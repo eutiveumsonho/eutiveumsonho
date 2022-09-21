@@ -1,6 +1,7 @@
 import { getAuthProps } from "../lib/auth";
 import { getLatestPublicDreams, getUserById } from "../lib/db/reads";
 import PublicDreams from "../containers/public-dreams";
+import { logError } from "../lib/o11y";
 
 export default function FindOut(props) {
   const { serverSession, data: rawData } = props;
@@ -20,21 +21,30 @@ export async function getServerSideProps(context) {
     res.end();
   }
 
-  const data = await getLatestPublicDreams();
+  try {
+    const data = await getLatestPublicDreams();
 
-  const dreams = [];
+    const dreams = [];
 
-  for (let dream of data) {
-    if (dream.visibility === "anonymous") {
-      delete dream.userId;
+    for (let dream of data) {
+      if (dream.visibility === "anonymous") {
+        delete dream.userId;
+        dreams.push(dream);
+        continue;
+      }
+
+      const user = await getUserById(dream.userId);
+      dream.user = user;
       dreams.push(dream);
-      continue;
     }
 
-    const user = await getUserById(dream.userId);
-    dream.user = user;
-    dreams.push(dream);
+    return { props: { ...authProps.props, data: JSON.stringify(dreams) } };
+  } catch (error) {
+    logError({
+      ...error,
+      service: "web",
+      pathname: "/descubra",
+      component: "FindOut",
+    });
   }
-
-  return { props: { ...authProps.props, data: JSON.stringify(dreams) } };
 }

@@ -53,7 +53,12 @@ async function patch(req, res) {
 
     return res;
   } catch (error) {
-    logError({ ...error, service: "api", pathname: "/api/data_patch" });
+    logError({
+      ...error,
+      service: "api",
+      pathname: "/api/data",
+      method: "patch",
+    });
     res.status(500).end(SERVER_ERROR);
 
     return res;
@@ -89,7 +94,12 @@ async function post(req, res) {
 
     return res;
   } catch (error) {
-    logError({ ...error, service: "api", pathname: "/api/data_post" });
+    logError({
+      ...error,
+      service: "api",
+      pathname: "/api/data",
+      method: "post",
+    });
     res.status(500).end(SERVER_ERROR);
 
     return res;
@@ -117,7 +127,12 @@ async function del(req, res) {
 
     return res;
   } catch (error) {
-    logError({ ...error, service: "api", pathname: "/api/data_delete" });
+    logError({
+      ...error,
+      service: "api",
+      pathname: "/api/data",
+      method: "delete",
+    });
     res.status(500).end(SERVER_ERROR);
 
     return res;
@@ -159,7 +174,12 @@ async function get(req, res) {
 
     return res;
   } catch (error) {
-    logError({ ...error, service: "api", pathname: "/api/data_get" });
+    logError({
+      ...error,
+      service: "api",
+      pathname: "/api/data",
+      method: "get",
+    });
     res.status(500).end(SERVER_ERROR);
 
     return res;

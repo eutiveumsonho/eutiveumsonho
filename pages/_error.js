@@ -5,6 +5,7 @@ function Error({ statusCode }) {
     error_name: "error_component_rendered",
     error_message: statusCode,
     service: "web",
+    component: "Error",
   });
 
   return (

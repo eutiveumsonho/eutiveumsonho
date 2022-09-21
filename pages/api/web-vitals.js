@@ -25,7 +25,12 @@ export default function handler(req, res) {
     res.status(200);
     res.end();
   } catch (error) {
-    logError({ ...error, service: "api", pathname: "/api/web-vitals" });
+    logError({
+      ...error,
+      service: "api",
+      pathname: "/api/web-vitals",
+      method: "post",
+    });
     return {
       statusCode: 500,
       body: JSON.stringify({ msg: error.message }),
