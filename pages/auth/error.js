@@ -11,7 +11,6 @@ export default function VerifyRequest() {
   const { error: errorCode } = query;
 
   logError({
-    ...error,
     service: "web",
     pathname: "/auth/error",
     component: "VerifyRequest",
