@@ -79,9 +79,13 @@ const SidebarFooter = (props) => {
         <Button
           icon={<Logout />}
           hoverIndicator
-          onClick={() => {
-            signOut();
-            reload();
+          onClick={async () => {
+            const data = await signOut({
+              redirect: false,
+              callbackUrl: "/",
+            });
+
+            push(data.url);
           }}
         />
       </Nav>
@@ -99,9 +103,13 @@ const SidebarFooter = (props) => {
       <SidebarButton
         icon={<Logout />}
         label="Sair"
-        onClick={() => {
-          signOut();
-          reload();
+        onClick={async () => {
+          const data = await signOut({
+            redirect: false,
+            callbackUrl: "/",
+          });
+
+          push(data.url);
         }}
       />
     </Nav>
