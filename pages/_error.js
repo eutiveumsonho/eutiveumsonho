@@ -2,7 +2,7 @@ import { logError } from "../lib/o11y";
 
 function Error({ statusCode }) {
   logError({
-    error_name: "error_component_rendered",
+    error_name: "ErrorComponentRendered",
     error_message: statusCode,
     service: "web",
     component: "Error",
@@ -10,9 +10,8 @@ function Error({ statusCode }) {
 
   return (
     <p>
-      {statusCode
-        ? `Um erro de status ${statusCode} ocorreu no servidor`
-        : "Um erro ocorreu no cliente."}
+      Oooops! Ocorreu um erro! Nós fomos notificados, mas sinta-se a vontade
+      para recarregar a página e tentar novamente!
     </p>
   );
 }
