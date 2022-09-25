@@ -32,7 +32,7 @@ export default function DreamContainer(props) {
     return (
       <Layout serverSession={serverSession}>
         <PageContent justify="center" align="center" flex>
-          <Dream data={data} />
+          <Dream data={data} publicView />
           <Comments mustSignIn comments={comments} push={push} />
         </PageContent>
       </Layout>
@@ -66,10 +66,16 @@ export default function DreamContainer(props) {
 }
 
 function Dream(props) {
-  const { data } = props;
+  const { data, publicView } = props;
 
   return (
-    <Box key={data.createdAt} direction="column">
+    <Box
+      key={data.createdAt}
+      direction="column"
+      style={{
+        maxWidth: publicView ? "43rem" : "unset",
+      }}
+    >
       <Box justify="center" align="center" pad="small" gap="small">
         <Text size="xsmall">
           {data.visibility === "anonymous" || data.visibility === "private" ? (
@@ -116,7 +122,7 @@ function Comments(props) {
 
   const onClick = async () => {
     if (mustSignIn) {
-      push("/auth/sigin");
+      push("/auth/signin");
       return;
     }
 
@@ -190,7 +196,7 @@ function Comments(props) {
           <Button
             icon={commenting ? <Spinner size="xsmall" /> : null}
             label={mustSignIn ? "Entre para comentar" : "Comentar"}
-            disabled={!value || mustSignIn || commenting}
+            disabled={!value || commenting}
             onClick={onClick}
           />
         </Box>
@@ -202,7 +208,8 @@ function Comments(props) {
         }}
       >
         {eagerComments.map((comment, index) => {
-          const isCommentOwner = serverSession.user.email === comment.userEmail;
+          const isCommentOwner =
+            serverSession?.user?.email === comment.userEmail;
 
           return (
             <Box
