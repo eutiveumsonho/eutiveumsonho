@@ -123,7 +123,8 @@ function MyDream(props) {
           align="center"
           pad="medium"
           style={{
-            maxWidth: "calc(100% - 3rem)",
+            maxWidth:
+              size === "small" ? "calc(100% - 3rem)" : "calc(100% - 9rem)",
           }}
         >
           <Text

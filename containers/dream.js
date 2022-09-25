@@ -70,14 +70,7 @@ function Dream(props) {
         </Text>
       </Box>
       <Box direction="row" justify="between" align="center">
-        <Box
-          direction="row"
-          align="center"
-          pad="medium"
-          style={{
-            maxWidth: "calc(100% - 3rem)",
-          }}
-        >
+        <Box direction="row" align="center" pad="medium">
           <Text
             dangerouslySetInnerHTML={{
               __html: data.dream.html,
