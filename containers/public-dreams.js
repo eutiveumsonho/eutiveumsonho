@@ -8,6 +8,8 @@ import Search from "../components/search";
 import { useEffect, useState } from "react";
 import { searchDreams } from "../lib/api";
 import "dayjs/locale/pt-br";
+import { truncate } from "../lib/strings";
+import { useRouter } from "next/router";
 
 dayjs.extend(LocalizedFormat);
 
@@ -16,6 +18,7 @@ export default function PublicDreams(props) {
   const [selectedTags, setSelectedTags] = useState([]);
   const [searching, setSearching] = useState(false);
   const [dreams, setDreams] = useState([]);
+  const { push } = useRouter();
 
   useEffect(() => {
     if (!selectedTags || selectedTags.length === 0) {
@@ -48,14 +51,18 @@ export default function PublicDreams(props) {
           setSelectedTags={setSelectedTags}
         />
         {dreams.map((item, index) => {
-          return <PublicDream item={item} index={index} data={data} />;
+          return (
+            <PublicDream item={item} index={index} data={data} push={push} />
+          );
         })}
       </Box>
       <Box pad="medium">
         <div>
           <Heading size="small">Sonhos recentes</Heading>
           {data.map((item, index) => {
-            return <PublicDream item={item} index={index} data={data} />;
+            return (
+              <PublicDream item={item} index={index} data={data} push={push} />
+            );
           })}
         </div>
       </Box>
@@ -64,7 +71,7 @@ export default function PublicDreams(props) {
 }
 
 function PublicDream(props) {
-  const { item, index, data } = props;
+  const { item, index, data, push } = props;
 
   return (
     <Box
@@ -72,7 +79,14 @@ function PublicDream(props) {
       direction="column"
       style={{
         borderBottom:
-          index + 1 === data.length ? "unset" : `1px solid ${BRAND_HEX}`,
+          index + 1 === data.length ? "unset" : `1px solid rgba(0, 0, 0, 0.33)`,
+      }}
+      hoverIndicator={{
+        background: "background-contrast",
+        elevation: "medium",
+      }}
+      onClick={() => {
+        push(`/sonhos/${item._id}`);
       }}
     >
       <Box justify="center" align="center" pad="small" gap="small">
@@ -93,7 +107,10 @@ function PublicDream(props) {
       <Box direction="row" align="center" pad="medium">
         <Text
           dangerouslySetInnerHTML={{
-            __html: item.dream.html,
+            __html:
+              item.dream.html.length > 400
+                ? truncate(item.dream.html, 400, true)
+                : item.dream.html,
           }}
         />
       </Box>

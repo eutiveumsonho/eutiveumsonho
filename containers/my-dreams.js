@@ -68,6 +68,7 @@ export default function MyDreamsPage(props) {
           {data.map((item, index) => {
             return (
               <MyDream
+                key={item.createdAt}
                 item={item}
                 index={index}
                 data={data}
@@ -128,8 +129,8 @@ function MyDream(props) {
           <Text
             dangerouslySetInnerHTML={{
               __html:
-                item.dream.html.length > 100
-                  ? truncate(item.dream.html, 100, true)
+                item.dream.html.length > 400
+                  ? truncate(item.dream.html, 400, true)
                   : item.dream.html,
             }}
           />
