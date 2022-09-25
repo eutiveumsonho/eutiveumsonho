@@ -51,7 +51,7 @@ export default function DreamContainer(props) {
           align="center"
         >
           <Button icon={<Return />} hoverIndicator onClick={() => back()} />
-          <Heading size="small">Retonar</Heading>
+          <Heading size="small">Retornar</Heading>
         </Box>
         <Dream data={data} />
         <Comments
