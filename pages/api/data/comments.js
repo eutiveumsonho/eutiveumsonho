@@ -81,16 +81,16 @@ async function del(req, res) {
     return res;
   }
 
-  if (!req.body?.commentId) {
+  if (!req.body?.commentId || !req.body?.dreamId) {
     res.status(400).end(BAD_REQUEST);
     return res;
   }
 
   try {
-    const result = await deleteComment(req.body.commentId);
+    const result = await deleteComment(req.body.commentId, req.body.dreamId);
 
     res.setHeader("Content-Type", "application/json");
-    res.status(201).send(result);
+    res.status(200).send(result);
 
     return res;
   } catch (error) {

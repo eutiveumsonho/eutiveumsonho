@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Heading,
+  Layer,
   PageContent,
   Spinner,
   Text,
@@ -15,9 +16,10 @@ import Dashboard from "../components/dashboard";
 import { truncate } from "../lib/strings";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import { useRouter } from "next/router";
-import { Return } from "grommet-icons";
+import { Return, Trash } from "grommet-icons";
 import { useState } from "react";
-import { createComment } from "../lib/api";
+import { createComment, deleteComment } from "../lib/api";
+import Tip from "../components/tip";
 import "dayjs/locale/pt-br";
 
 dayjs.extend(LocalizedFormat);
@@ -106,6 +108,9 @@ function Comments(props) {
   const [value, setValue] = useState("");
   const [commenting, setCommenting] = useState(false);
   const [eagerComments, setEagerComments] = useState(comments);
+  const [open, setOpen] = useState(false);
+  const [commentIdToDelete, setCommentIdToDelete] = useState();
+  const [deleting, setDeleting] = useState(false);
 
   const onChange = (event) => setValue(event.target.value);
 
@@ -132,6 +137,28 @@ function Comments(props) {
 
     setCommenting(false);
     setValue(undefined);
+  };
+
+  const onOpen = (commentId) => {
+    setOpen(true);
+    setCommentIdToDelete(commentId);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+    setCommentIdToDelete(undefined);
+  };
+
+  const delComment = async () => {
+    setDeleting(true);
+    await deleteComment(commentIdToDelete, dreamId);
+    setDeleting(false);
+
+    setEagerComments(
+      eagerComments.filter((comment) => comment._id !== commentIdToDelete)
+    );
+
+    onClose();
   };
 
   return (
@@ -174,6 +201,8 @@ function Comments(props) {
         }}
       >
         {eagerComments.map((comment, index) => {
+          const isCommentOwner = serverSession.user.email === comment.userEmail;
+
           return (
             <Box
               key={truncate(comment.text, 10, false)}
@@ -192,12 +221,79 @@ function Comments(props) {
                     : "1px solid rgba(0, 0, 0, 0.33)",
               }}
             >
-              <Box gap="small">
-                <Box direction="row" gap="small">
-                  <Avatar src={comment.userImage} size="small" />
-                  <Text>
-                    <b>{comment.userName}</b>
-                  </Text>
+              <Box
+                gap="small"
+                style={{
+                  minWidth: "100%",
+                }}
+              >
+                <Box
+                  direction="row"
+                  gap="small"
+                  justify={isCommentOwner ? "between" : "start"}
+                  align="center"
+                >
+                  <Box direction="row" gap="small">
+                    <Avatar src={comment.userImage} size="small" />
+                    <Text>
+                      <b>{comment.userName}</b>
+                    </Text>
+                  </Box>
+                  {isCommentOwner ? (
+                    <Box>
+                      <Tip content="Deletar comentário">
+                        <Button
+                          icon={<Trash />}
+                          hoverIndicator
+                          onClick={() => onOpen(comment._id)}
+                        />
+                      </Tip>
+                      {open ? (
+                        <Layer
+                          id="comment-deletion-modal"
+                          position="center"
+                          onClickOutside={onClose}
+                          onEsc={onClose}
+                        >
+                          <Box pad="medium" gap="small" width="medium">
+                            <Heading level={3} margin="none">
+                              Confirmar
+                            </Heading>
+                            <Text>
+                              Tem certeza que deseja deletar este comentário?
+                            </Text>
+                            <Box
+                              as="footer"
+                              gap="small"
+                              direction="row"
+                              align="center"
+                              justify="end"
+                              pad={{ top: "medium", bottom: "small" }}
+                            >
+                              <Button
+                                icon={
+                                  deleting ? <Spinner size="xsmall" /> : null
+                                }
+                                label={
+                                  <Text color="white">
+                                    {deleting ? (
+                                      <strong>Deletando...</strong>
+                                    ) : (
+                                      <strong>Sim, deletar</strong>
+                                    )}
+                                  </Text>
+                                }
+                                onClick={delComment}
+                                primary
+                                disabled={deleting}
+                                color="status-critical"
+                              />
+                            </Box>
+                          </Box>
+                        </Layer>
+                      ) : null}
+                    </Box>
+                  ) : null}
                 </Box>
                 <Text size="xsmall">
                   {dayjs(comment.createdAt).locale("pt-br").format("LL")}

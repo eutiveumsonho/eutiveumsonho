@@ -123,7 +123,7 @@ async function del(req, res) {
     const result = await deleteDream(req.body.dreamId);
 
     res.setHeader("Content-Type", "application/json");
-    res.status(201).send(result);
+    res.status(200).send(result);
 
     return res;
   } catch (error) {
