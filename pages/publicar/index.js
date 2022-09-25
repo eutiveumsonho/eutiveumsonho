@@ -1,9 +1,17 @@
 import { getAuthProps } from "../../lib/auth";
 
 import Create from "../../containers/create";
+import Head from "next/head";
 
 export default function Home(props) {
-  return <Create {...props} />;
+  return (
+    <>
+      <Head>
+        <title>Criar sonho</title>
+      </Head>
+      <Create {...props} />
+    </>
+  );
 }
 
 export async function getServerSideProps(context) {

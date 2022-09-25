@@ -260,11 +260,6 @@ export default function Create(props) {
 
   return (
     <>
-      <Head>
-        <title>Eu tive um sonho</title>
-        <meta name="description" content="O seu repositório de sonhos." />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Header
         pad="small"
         style={{

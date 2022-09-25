@@ -14,6 +14,7 @@ import {
   getSession,
   signIn,
 } from "next-auth/react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import isEmail from "validator/lib/isEmail";
@@ -34,6 +35,9 @@ export default function SignIn({ providers, csrfToken }) {
 
   return (
     <>
+      <Head>
+        <title>Entrar</title>
+      </Head>
       {error ? (
         <Layer position="top" modal={false}>
           <Box

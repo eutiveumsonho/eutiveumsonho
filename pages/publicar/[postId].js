@@ -3,11 +3,19 @@ import { getAuthProps } from "../../lib/auth";
 import Create from "../../containers/create";
 import { getDreamById } from "../../lib/db/reads";
 import { logError } from "../../lib/o11y";
+import Head from "next/head";
 
 export default function DreamEditor(props) {
   const { data, ...authProps } = props;
 
-  return <Create {...authProps} data={data ? JSON.parse(data) : null} />;
+  return (
+    <>
+      <Head>
+        <title>Editar sonho</title>
+      </Head>
+      <Create {...authProps} data={data ? JSON.parse(data) : null} />
+    </>
+  );
 }
 
 export async function getServerSideProps(context) {
