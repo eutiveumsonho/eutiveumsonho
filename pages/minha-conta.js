@@ -1,10 +1,18 @@
+import Head from "next/head";
 import MyAccountPage from "../containers/my-account";
 import { getAuthProps } from "../lib/auth";
 import { getUserByEmail } from "../lib/db/reads";
 import { logError } from "../lib/o11y";
 
 export default function MyAccount(props) {
-  return <MyAccountPage {...props} />;
+  return (
+    <>
+      <Head>
+        <title>Minha conta</title>
+      </Head>
+      <MyAccountPage {...props} />
+    </>
+  );
 }
 
 export async function getServerSideProps(context) {

@@ -57,7 +57,11 @@ export default function Layout(props) {
 
   return (
     <>
-      <Page>
+      <Page
+        style={{
+          minHeight: "100vh",
+        }}
+      >
         <PageContent>
           <PageHeader
             title={

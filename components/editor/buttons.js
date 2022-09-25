@@ -2,7 +2,8 @@ import React, { useCallback, useRef, useState } from "react";
 import { isString, uniqueId } from "@remirror/core";
 import { useCommandOptionValues } from "./use-command-option-values";
 import { useCommands, useActive, useHelpers } from "@remirror/react";
-import { Box, Button, DropButton, Tip, Text } from "grommet";
+import { Box, Button, DropButton, Text } from "grommet";
+import Tip from "../tip";
 import {
   BlockQuote,
   Bold,
@@ -90,18 +91,7 @@ export function CommandButton(props) {
       : "";
 
   return (
-    <Tip
-      content={`${tooltipText}${shortcutText}`}
-      plain
-      dropProps={{
-        background: "white",
-        elevation: "large",
-        style: {
-          padding: "0.4rem",
-          borderRadius: "0.25rem",
-        },
-      }}
-    >
+    <Tip content={`${tooltipText}${shortcutText}`}>
       <Button
         aria-label={labelText}
         onMouseDown={handleMouseDown}
@@ -261,18 +251,7 @@ export function DropdownButton(props) {
   }, []);
 
   return (
-    <Tip
-      content={label ?? ariaLabel}
-      plain
-      dropProps={{
-        background: "white",
-        elevation: "large",
-        style: {
-          padding: "0.4rem",
-          borderRadius: "0.25rem",
-        },
-      }}
-    >
+    <Tip content={label ?? ariaLabel}>
       <DropButton
         aria-label={ariaLabel}
         aria-controls={open ? id.current : undefined}

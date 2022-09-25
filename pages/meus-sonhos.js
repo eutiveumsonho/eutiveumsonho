@@ -2,13 +2,21 @@ import { getAuthProps } from "../lib/auth";
 import { getDreams } from "../lib/db/reads";
 import MyDreamsPage from "../containers/my-dreams";
 import { logError } from "../lib/o11y";
+import Head from "next/head";
 
 export default function MyDreams(props) {
   const { serverSession, data: rawData } = props;
 
   const data = JSON.parse(rawData);
 
-  return <MyDreamsPage serverSession={serverSession} data={data} />;
+  return (
+    <>
+      <Head>
+        <title>Meus sonhos</title>
+      </Head>
+      <MyDreamsPage serverSession={serverSession} data={data} />
+    </>
+  );
 }
 
 export async function getServerSideProps(context) {

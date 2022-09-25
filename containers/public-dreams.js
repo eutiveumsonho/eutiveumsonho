@@ -8,6 +8,8 @@ import Search from "../components/search";
 import { useEffect, useState } from "react";
 import { searchDreams } from "../lib/api";
 import "dayjs/locale/pt-br";
+import { truncate } from "../lib/strings";
+import { useRouter } from "next/router";
 
 dayjs.extend(LocalizedFormat);
 
@@ -16,6 +18,7 @@ export default function PublicDreams(props) {
   const [selectedTags, setSelectedTags] = useState([]);
   const [searching, setSearching] = useState(false);
   const [dreams, setDreams] = useState([]);
+  const { push } = useRouter();
 
   useEffect(() => {
     if (!selectedTags || selectedTags.length === 0) {
@@ -47,38 +50,9 @@ export default function PublicDreams(props) {
           selectedTags={selectedTags}
           setSelectedTags={setSelectedTags}
         />
-        {dreams.map((item) => {
+        {dreams.map((item, index) => {
           return (
-            <Box
-              key={item.createdAt}
-              direction="column"
-              style={{
-                borderBottom: `1px solid ${BRAND_HEX}`,
-              }}
-            >
-              <Box justify="center" align="center" pad="small" gap="small">
-                <Text size="xsmall">
-                  {item.visibility === "anonymous" ? (
-                    <VisibilityIcon option="anonymous" />
-                  ) : (
-                    <Box direction="column" justify="center" align="center">
-                      <Avatar src={item.user.image} size="small" />
-                      {item.user.name}
-                    </Box>
-                  )}
-                </Text>
-                <Text size="xsmall">
-                  {dayjs(item.createdAt).locale("pt-br").format("LL")}
-                </Text>
-              </Box>
-              <Box direction="row" align="center" pad="medium">
-                <Text
-                  dangerouslySetInnerHTML={{
-                    __html: item.dream.html,
-                  }}
-                />
-              </Box>
-            </Box>
+            <PublicDream item={item} index={index} data={data} push={push} />
           );
         })}
       </Box>
@@ -87,43 +61,59 @@ export default function PublicDreams(props) {
           <Heading size="small">Sonhos recentes</Heading>
           {data.map((item, index) => {
             return (
-              <Box
-                key={item.createdAt}
-                direction="column"
-                style={{
-                  borderBottom:
-                    index + 1 === data.length
-                      ? "unset"
-                      : `1px solid ${BRAND_HEX}`,
-                }}
-              >
-                <Box justify="center" align="center" pad="small" gap="small">
-                  <Text size="xsmall">
-                    {item.visibility === "anonymous" ? (
-                      <VisibilityIcon option="anonymous" />
-                    ) : (
-                      <Box direction="column" justify="center" align="center">
-                        <Avatar src={item.user.image} size="small" />
-                        {item.user.name}
-                      </Box>
-                    )}
-                  </Text>
-                  <Text size="xsmall">
-                    {dayjs(item.createdAt).locale("pt-br").format("LL")}
-                  </Text>
-                </Box>
-                <Box direction="row" align="center" pad="medium">
-                  <Text
-                    dangerouslySetInnerHTML={{
-                      __html: item.dream.html,
-                    }}
-                  />
-                </Box>
-              </Box>
+              <PublicDream item={item} index={index} data={data} push={push} />
             );
           })}
         </div>
       </Box>
     </Dashboard>
+  );
+}
+
+function PublicDream(props) {
+  const { item, index, data, push } = props;
+
+  return (
+    <Box
+      key={item.createdAt}
+      direction="column"
+      style={{
+        borderBottom:
+          index + 1 === data.length ? "unset" : `1px solid rgba(0, 0, 0, 0.33)`,
+      }}
+      hoverIndicator={{
+        background: "background-contrast",
+        elevation: "medium",
+      }}
+      onClick={() => {
+        push(`/sonhos/${item._id}`);
+      }}
+    >
+      <Box justify="center" align="center" pad="small" gap="small">
+        <Text size="xsmall">
+          {item.visibility === "anonymous" ? (
+            <VisibilityIcon option="anonymous" />
+          ) : (
+            <Box direction="column" justify="center" align="center">
+              <Avatar src={item.user.image} size="small" />
+              {item.user.name}
+            </Box>
+          )}
+        </Text>
+        <Text size="xsmall">
+          {dayjs(item.createdAt).locale("pt-br").format("LL")}
+        </Text>
+      </Box>
+      <Box direction="row" align="center" pad="medium">
+        <Text
+          dangerouslySetInnerHTML={{
+            __html:
+              item.dream.html.length > 400
+                ? truncate(item.dream.html, 400, true)
+                : item.dream.html,
+          }}
+        />
+      </Box>
+    </Box>
   );
 }

@@ -2,13 +2,21 @@ import { getAuthProps } from "../lib/auth";
 import { getLatestPublicDreams, getUserById } from "../lib/db/reads";
 import PublicDreams from "../containers/public-dreams";
 import { logError } from "../lib/o11y";
+import Head from "next/head";
 
 export default function FindOut(props) {
   const { serverSession, data: rawData } = props;
 
   const data = JSON.parse(rawData);
 
-  return <PublicDreams serverSession={serverSession} data={data} />;
+  return (
+    <>
+      <Head>
+        <title>Descubra</title>
+      </Head>
+      <PublicDreams serverSession={serverSession} data={data} />
+    </>
+  );
 }
 
 export async function getServerSideProps(context) {

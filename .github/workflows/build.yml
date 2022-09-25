@@ -12,9 +12,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Create mocked .env.local with required variables
         run: |
-          echo MONGODB_URI=mongodb                 > .env.local
-          echo MONGODB_DB=mongodb                  >> .env.local
-          echo ENCRYPTION_KEY=encryption_key       >> .env.local
+          echo MONGODB_URI=mongodb://mongo                 > .env.local
+          echo MONGODB_DB=mongodb                          >> .env.local
+          echo ENCRYPTION_KEY=encryption_key               >> .env.local
       - uses: actions/setup-node@v2
         with:
           cache: npm

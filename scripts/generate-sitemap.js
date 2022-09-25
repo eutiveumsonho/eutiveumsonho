@@ -11,6 +11,7 @@ const skipMatch = [
   "!pages/api",
   "!pages/auth/error.js",
   "!pages/auth/verify-request.js",
+  "!pages/sonhos",
 ];
 
 // Important! The following issue has useful information on

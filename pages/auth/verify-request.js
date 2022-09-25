@@ -1,4 +1,5 @@
 import { Box, Button, Card, Heading, Text } from "grommet";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import Clouds from "../../components/clouds";
 import { Logo } from "../../components/logo";
@@ -8,6 +9,9 @@ export default function VerifyRequest() {
 
   return (
     <>
+      <Head>
+        <title>Verificar e-mail</title>
+      </Head>
       <Clouds />
       <Box
         pad="large"
