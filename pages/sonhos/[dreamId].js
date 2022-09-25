@@ -1,10 +1,10 @@
 import Dream from "../../containers/dream";
 import { getAuthProps } from "../../lib/auth";
 
-import { getDreamById, getUserByEmail } from "../../lib/db/reads";
+import { getDreamById, getUserByEmail, getUserById } from "../../lib/db/reads";
 import { logError } from "../../lib/o11y";
 
-export default function DreamEditor(props) {
+export default function DreamPage(props) {
   const { data: rawData, ...authProps } = props;
 
   const data = JSON.parse(rawData);
@@ -31,10 +31,9 @@ export async function getServerSideProps(context) {
         getUserByEmail(authProps.props.serverSession.user.email),
       ]);
 
-      if (
-        data.visibility === "private" &&
-        user._id.toString() !== data.userId.toString()
-      ) {
+      const isDreamOwner = user._id.toString() === data.userId.toString();
+
+      if (data.visibility === "private" && !isDreamOwner) {
         res.setHeader("location", "/meus-sonhos");
         res.statusCode = 302;
         res.end();
@@ -47,7 +46,12 @@ export async function getServerSideProps(context) {
       if (data.visibility === "anonymous") {
         delete data.userId;
       } else {
-        data.user = user;
+        if (isDreamOwner) {
+          data.user = user;
+        } else {
+          const user = await getUserById(data.userId);
+          data.user = user;
+        }
       }
 
       return {
@@ -61,7 +65,7 @@ export async function getServerSideProps(context) {
       ...error,
       service: "web",
       pathname: "/sonhos/[dreamId]",
-      component: "Dream",
+      component: "DreamPage",
     });
   }
 }
