@@ -47,83 +47,56 @@ export default function PublicDreams(props) {
           selectedTags={selectedTags}
           setSelectedTags={setSelectedTags}
         />
-        {dreams.map((item) => {
-          return (
-            <Box
-              key={item.createdAt}
-              direction="column"
-              style={{
-                borderBottom: `1px solid ${BRAND_HEX}`,
-              }}
-            >
-              <Box justify="center" align="center" pad="small" gap="small">
-                <Text size="xsmall">
-                  {item.visibility === "anonymous" ? (
-                    <VisibilityIcon option="anonymous" />
-                  ) : (
-                    <Box direction="column" justify="center" align="center">
-                      <Avatar src={item.user.image} size="small" />
-                      {item.user.name}
-                    </Box>
-                  )}
-                </Text>
-                <Text size="xsmall">
-                  {dayjs(item.createdAt).locale("pt-br").format("LL")}
-                </Text>
-              </Box>
-              <Box direction="row" align="center" pad="medium">
-                <Text
-                  dangerouslySetInnerHTML={{
-                    __html: item.dream.html,
-                  }}
-                />
-              </Box>
-            </Box>
-          );
+        {dreams.map((item, index) => {
+          return <PublicDream item={item} index={index} data={data} />;
         })}
       </Box>
       <Box pad="medium">
         <div>
           <Heading size="small">Sonhos recentes</Heading>
           {data.map((item, index) => {
-            return (
-              <Box
-                key={item.createdAt}
-                direction="column"
-                style={{
-                  borderBottom:
-                    index + 1 === data.length
-                      ? "unset"
-                      : `1px solid ${BRAND_HEX}`,
-                }}
-              >
-                <Box justify="center" align="center" pad="small" gap="small">
-                  <Text size="xsmall">
-                    {item.visibility === "anonymous" ? (
-                      <VisibilityIcon option="anonymous" />
-                    ) : (
-                      <Box direction="column" justify="center" align="center">
-                        <Avatar src={item.user.image} size="small" />
-                        {item.user.name}
-                      </Box>
-                    )}
-                  </Text>
-                  <Text size="xsmall">
-                    {dayjs(item.createdAt).locale("pt-br").format("LL")}
-                  </Text>
-                </Box>
-                <Box direction="row" align="center" pad="medium">
-                  <Text
-                    dangerouslySetInnerHTML={{
-                      __html: item.dream.html,
-                    }}
-                  />
-                </Box>
-              </Box>
-            );
+            return <PublicDream item={item} index={index} data={data} />;
           })}
         </div>
       </Box>
     </Dashboard>
+  );
+}
+
+function PublicDream(props) {
+  const { item, index, data } = props;
+
+  return (
+    <Box
+      key={item.createdAt}
+      direction="column"
+      style={{
+        borderBottom:
+          index + 1 === data.length ? "unset" : `1px solid ${BRAND_HEX}`,
+      }}
+    >
+      <Box justify="center" align="center" pad="small" gap="small">
+        <Text size="xsmall">
+          {item.visibility === "anonymous" ? (
+            <VisibilityIcon option="anonymous" />
+          ) : (
+            <Box direction="column" justify="center" align="center">
+              <Avatar src={item.user.image} size="small" />
+              {item.user.name}
+            </Box>
+          )}
+        </Text>
+        <Text size="xsmall">
+          {dayjs(item.createdAt).locale("pt-br").format("LL")}
+        </Text>
+      </Box>
+      <Box direction="row" align="center" pad="medium">
+        <Text
+          dangerouslySetInnerHTML={{
+            __html: item.dream.html,
+          }}
+        />
+      </Box>
+    </Box>
   );
 }
