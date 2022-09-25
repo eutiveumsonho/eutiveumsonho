@@ -24,50 +24,57 @@ export async function getServerSideProps(context) {
   const authProps = await getAuthProps(context);
   const { res } = context;
 
-  if (!authProps.props.serverSession) {
-    res.setHeader("location", "/auth/signin");
-    res.statusCode = 302;
-    res.end();
-  }
-
   try {
     const { dreamId } = context.params;
 
-    if (dreamId) {
-      let [data, user] = await Promise.all([
-        getDreamById(dreamId),
-        getUserByEmail(authProps.props.serverSession.user.email),
-      ]);
+    if (!authProps.props.serverSession) {
+      const data = await getDreamById(dreamId);
 
-      const isDreamOwner = user._id.toString() === data.userId.toString();
-
-      if (data.visibility === "private" && !isDreamOwner) {
-        res.setHeader("location", "/meus-sonhos");
+      if (data.visibility === "private") {
+        res.setHeader("location", "/");
         res.statusCode = 302;
         res.end();
 
-        return {
-          props: { ...authProps.props, data: null },
-        };
+        return { props: {} };
       }
 
-      if (data.visibility === "anonymous") {
-        delete data.userId;
-      } else {
-        if (isDreamOwner) {
-          data.user = user;
-        } else {
-          const user = await getUserById(data.userId);
-          data.user = user;
-        }
-      }
+      const user = await getUserById(data.userId);
+      data.user = user;
+
+      return { props: { ...authProps.props, data: JSON.stringify(data) } };
+    }
+
+    let [data, user] = await Promise.all([
+      getDreamById(dreamId),
+      getUserByEmail(authProps.props.serverSession.user.email),
+    ]);
+
+    const isDreamOwner = user._id.toString() === data.userId.toString();
+
+    if (data.visibility === "private" && !isDreamOwner) {
+      res.setHeader("location", "/meus-sonhos");
+      res.statusCode = 302;
+      res.end();
 
       return {
-        props: { ...authProps.props, data: JSON.stringify(data) },
+        props: {},
       };
     }
 
-    return { props: { ...authProps.props, data: null } };
+    if (data.visibility === "anonymous") {
+      delete data.userId;
+    } else {
+      if (isDreamOwner) {
+        data.user = user;
+      } else {
+        const user = await getUserById(data.userId);
+        data.user = user;
+      }
+    }
+
+    return {
+      props: { ...authProps.props, data: JSON.stringify(data) },
+    };
   } catch (error) {
     logError({
       ...error,
