@@ -1,6 +1,7 @@
+import Head from "next/head";
 import Dream from "../../containers/dream";
 import { getAuthProps } from "../../lib/auth";
-
+import { truncate } from "../../lib/strings";
 import { getDreamById, getUserByEmail, getUserById } from "../../lib/db/reads";
 import { logError } from "../../lib/o11y";
 
@@ -9,7 +10,14 @@ export default function DreamPage(props) {
 
   const data = JSON.parse(rawData);
 
-  return <Dream data={data} {...authProps} />;
+  return (
+    <>
+      <Head>
+        <title>{truncate(data.dream.text, 50, true)}</title>
+      </Head>
+      <Dream data={data} {...authProps} />
+    </>
+  );
 }
 
 export async function getServerSideProps(context) {
