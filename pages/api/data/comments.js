@@ -1,8 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 import { getServerSession } from "../../../lib/auth";
-import { getUserById, searchDreams } from "../../../lib/db/reads";
-import { createDream, deleteDream, updateDream } from "../../../lib/db/writes";
+import { getComments } from "../../../lib/db/reads";
+import { createComment, deleteComment } from "../../../lib/db/writes";
 import {
   BAD_REQUEST,
   METHOD_NOT_ALLOWED,
@@ -15,8 +15,6 @@ export default async function handler(req, res) {
   switch (req.method) {
     case "POST":
       return post(req, res);
-    case "PATCH":
-      return patch(req, res);
     case "DELETE":
       return del(req, res);
     case "GET":
@@ -28,46 +26,8 @@ export default async function handler(req, res) {
   }
 }
 
-async function patch(req, res) {
-  const session = await getServerSession(req, res);
-
-  if (!session) {
-    res.status(403).end(FORBIDDEN);
-    return res;
-  }
-
-  if (
-    !req.body?.dreamData?.dream?.text ||
-    !req.body?.dreamData?.dream?.html ||
-    !req.body?.dreamId
-  ) {
-    res.status(400).end(BAD_REQUEST);
-    return res;
-  }
-
-  try {
-    await updateDream(req.body.dreamId, req.body.dreamData, session.user.email);
-
-    res.setHeader("Content-Type", "application/json");
-    res.status(200).end();
-
-    return res;
-  } catch (error) {
-    logError({
-      ...error,
-      service: "api",
-      pathname: "/api/data",
-      method: "patch",
-    });
-    res.status(500).end(SERVER_ERROR);
-
-    return res;
-  }
-}
-
 /**
- * This is called when a dream is saved
- * for the very first time.
+ * @private
  */
 async function post(req, res) {
   const session = await getServerSession(req, res);
@@ -77,15 +37,19 @@ async function post(req, res) {
     return res;
   }
 
-  if (!req.body?.dream?.text || !req.body?.dream?.html) {
+  if (!req.body?.comment || !req.body.dreamId) {
     res.status(400).end(BAD_REQUEST);
     return res;
   }
 
-  const data = { dream: req.body, session };
+  const data = {
+    comment: req.body.comment,
+    dreamId: req.body.dreamId,
+    session,
+  };
 
   try {
-    const result = await createDream(data);
+    const result = await createComment(data);
 
     const objectId = result.insertedId.toString();
 
@@ -97,7 +61,7 @@ async function post(req, res) {
     logError({
       ...error,
       service: "api",
-      pathname: "/api/data",
+      pathname: "/api/data/comments",
       method: "post",
     });
     res.status(500).end(SERVER_ERROR);
@@ -106,6 +70,9 @@ async function post(req, res) {
   }
 }
 
+/**
+ * @private
+ */
 async function del(req, res) {
   const session = await getServerSession(req, res);
 
@@ -114,13 +81,13 @@ async function del(req, res) {
     return res;
   }
 
-  if (!req.body?.dreamId) {
+  if (!req.body?.commentId || !req.body?.dreamId) {
     res.status(400).end(BAD_REQUEST);
     return res;
   }
 
   try {
-    const result = await deleteDream(req.body.dreamId);
+    const result = await deleteComment(req.body.commentId, req.body.dreamId);
 
     res.setHeader("Content-Type", "application/json");
     res.status(200).send(result);
@@ -130,7 +97,7 @@ async function del(req, res) {
     logError({
       ...error,
       service: "api",
-      pathname: "/api/data",
+      pathname: "/api/data/comments",
       method: "delete",
     });
     res.status(500).end(SERVER_ERROR);
@@ -139,45 +106,27 @@ async function del(req, res) {
   }
 }
 
+/**
+ * @public
+ */
 async function get(req, res) {
-  const session = await getServerSession(req, res);
-
-  if (!session) {
-    res.status(403).end(FORBIDDEN);
-    return res;
-  }
-
-  if (!req.query?.query) {
+  if (!req.query?.dreamId) {
     res.status(400).end(BAD_REQUEST);
     return res;
   }
 
   try {
-    const result = await searchDreams(req.query.query);
-
-    const dreams = [];
-
-    for (let dream of result) {
-      if (dream.visibility === "anonymous") {
-        delete dream.userId;
-        dreams.push(dream);
-        continue;
-      }
-
-      const user = await getUserById(dream.userId);
-      dream.user = user;
-      dreams.push(dream);
-    }
+    const result = await getComments(req.query.dreamId);
 
     res.setHeader("Content-Type", "application/json");
-    res.status(201).send(dreams);
+    res.status(200).send(result);
 
     return res;
   } catch (error) {
     logError({
       ...error,
       service: "api",
-      pathname: "/api/data",
+      pathname: "/api/data/comments",
       method: "get",
     });
     res.status(500).end(SERVER_ERROR);

@@ -1,15 +1,25 @@
-import { Avatar, Box, Heading, Paragraph, Spinner, Text } from "grommet";
+import {
+  Avatar,
+  Box,
+  Button,
+  Heading,
+  Paragraph,
+  ResponsiveContext,
+  Spinner,
+  Text,
+} from "grommet";
 import Dashboard from "../components/dashboard";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import { BRAND_HEX } from "../lib/config";
 import VisibilityIcon from "../components/visbility-icon";
 import Search from "../components/search";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { searchDreams } from "../lib/api";
 import "dayjs/locale/pt-br";
 import { truncate } from "../lib/strings";
 import { useRouter } from "next/router";
+import { Chat, Tip } from "grommet-icons";
 
 dayjs.extend(LocalizedFormat);
 
@@ -19,6 +29,7 @@ export default function PublicDreams(props) {
   const [searching, setSearching] = useState(false);
   const [dreams, setDreams] = useState([]);
   const { push } = useRouter();
+  const size = useContext(ResponsiveContext);
 
   useEffect(() => {
     if (!selectedTags || selectedTags.length === 0) {
@@ -52,7 +63,13 @@ export default function PublicDreams(props) {
         />
         {dreams.map((item, index) => {
           return (
-            <PublicDream item={item} index={index} data={data} push={push} />
+            <PublicDream
+              item={item}
+              index={index}
+              data={data}
+              push={push}
+              size={size}
+            />
           );
         })}
       </Box>
@@ -61,7 +78,13 @@ export default function PublicDreams(props) {
           <Heading size="small">Sonhos recentes</Heading>
           {data.map((item, index) => {
             return (
-              <PublicDream item={item} index={index} data={data} push={push} />
+              <PublicDream
+                item={item}
+                index={index}
+                data={data}
+                push={push}
+                size={size}
+              />
             );
           })}
         </div>
@@ -71,7 +94,7 @@ export default function PublicDreams(props) {
 }
 
 function PublicDream(props) {
-  const { item, index, data, push } = props;
+  const { item, index, data, push, size } = props;
 
   return (
     <Box
@@ -104,7 +127,16 @@ function PublicDream(props) {
           {dayjs(item.createdAt).locale("pt-br").format("LL")}
         </Text>
       </Box>
-      <Box direction="row" align="center" pad="medium">
+      <Box
+        direction="column"
+        align="center"
+        pad={{
+          top: "medium",
+          bottom: "medium",
+          right: size,
+          left: size,
+        }}
+      >
         <Text
           dangerouslySetInnerHTML={{
             __html:
@@ -113,6 +145,12 @@ function PublicDream(props) {
                 : item.dream.html,
           }}
         />
+        {item.dream.html.length > 400 ? (
+          <Text size="small">Clique para ler mais</Text>
+        ) : null}
+      </Box>
+      <Box pad="medium" direction="row" gap="small">
+        <Button plain icon={<Tip />} badge={item?.commentCount ?? 0} />
       </Box>
     </Box>
   );

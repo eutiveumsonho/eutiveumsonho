@@ -2,20 +2,26 @@ import Head from "next/head";
 import Dream from "../../containers/dream";
 import { getAuthProps } from "../../lib/auth";
 import { truncate } from "../../lib/strings";
-import { getDreamById, getUserByEmail, getUserById } from "../../lib/db/reads";
+import {
+  getDreamById,
+  getUserByEmail,
+  getUserById,
+  getComments,
+} from "../../lib/db/reads";
 import { logError } from "../../lib/o11y";
 
 export default function DreamPage(props) {
-  const { data: rawData, ...authProps } = props;
+  const { data: rawData, comments: rawComments, ...authProps } = props;
 
   const data = JSON.parse(rawData);
+  const comments = JSON.parse(rawComments);
 
   return (
     <>
       <Head>
         <title>{truncate(data.dream.text, 50, true)}</title>
       </Head>
-      <Dream data={data} {...authProps} />
+      <Dream data={data} comments={comments} {...authProps} />
     </>
   );
 }
@@ -41,7 +47,15 @@ export async function getServerSideProps(context) {
       const user = await getUserById(data.userId);
       data.user = user;
 
-      return { props: { ...authProps.props, data: JSON.stringify(data) } };
+      const comments = await getComments(dreamId);
+
+      return {
+        props: {
+          ...authProps.props,
+          data: JSON.stringify(data),
+          comments: JSON.stringify(comments),
+        },
+      };
     }
 
     let [data, user] = await Promise.all([
@@ -72,8 +86,14 @@ export async function getServerSideProps(context) {
       }
     }
 
+    const comments = await getComments(dreamId);
+
     return {
-      props: { ...authProps.props, data: JSON.stringify(data) },
+      props: {
+        ...authProps.props,
+        data: JSON.stringify(data),
+        comments: JSON.stringify(comments),
+      },
     };
   } catch (error) {
     logError({
