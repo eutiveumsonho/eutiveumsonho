@@ -138,6 +138,7 @@ function PublicDream(props) {
         }}
       >
         <Text
+          alignSelf="start"
           dangerouslySetInnerHTML={{
             __html:
               item.dream.html.length > 400
