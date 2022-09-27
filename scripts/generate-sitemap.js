@@ -30,10 +30,6 @@ function generateUrlLoc(pages) {
 
       return `
   <url>
-      <intl>sitemap:${path
-        .replace("/", "")
-        .replace(/\//g, "-")
-        .replace()}</intl>
       <loc>${`https://eutiveumsonho.com${route}`}</loc>
   </url>
           `;
