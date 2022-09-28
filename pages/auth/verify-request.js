@@ -48,7 +48,9 @@ export default function VerifyRequest() {
               marginBottom: "1.5rem",
             }}
           >
-            Um link para login foi enviado ao seu e-mail.
+            Um link para login foi enviado ao seu e-mail. Se o e-mail não se
+            encontrar na sua caixa principal, cheque nas caixas secundárias e/ou
+            na caixa de spam 😉.
           </Text>
           <Button
             key={"back-to-site"}
