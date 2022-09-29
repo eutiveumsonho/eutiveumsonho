@@ -336,6 +336,7 @@ export default function Create(props) {
             gap="small"
             width="medium"
             fill={size === "small" ? "horizontal" : "unset"}
+            overflow="auto"
           >
             <Heading level={3} margin="none">
               Configurações de visibilidade
