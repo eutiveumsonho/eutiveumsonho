@@ -49,6 +49,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           gtag('config', '${gtag.GA_MEASUREMENT_ID}', {
             page_path: window.location.pathname,
           });
+          gtag('config', '${gtag.GA_ADS_ID}', {
+            page_path: window.location.pathname,
+          });
           `,
         }}
       />
