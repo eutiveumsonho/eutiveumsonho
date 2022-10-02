@@ -1,4 +1,13 @@
-import { Box, Button, Heading, Layer, Spinner, Text } from "grommet";
+import {
+  Box,
+  Button,
+  Collapsible,
+  Distribution,
+  Heading,
+  Layer,
+  Spinner,
+  Text,
+} from "grommet";
 import { Edit, Trash, View } from "grommet-icons";
 import { useRouter } from "next/router";
 import Dashboard from "../components/dashboard";
@@ -202,7 +211,7 @@ function MyDream(props) {
           ) : null}
         </Box>
       </Box>
-      {/* {wordFrequencyData ? (
+      {wordFrequencyData ? (
         <Box pad="small">
           <Button
             hoverIndicator="background"
@@ -234,7 +243,7 @@ function MyDream(props) {
             </Box>
           </Collapsible>
         </Box>
-      ) : null} */}
+      ) : null}
     </Box>
   );
 }
