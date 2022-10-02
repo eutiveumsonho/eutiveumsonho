@@ -191,6 +191,7 @@ function Comments(props) {
           onChange={onChange}
           placeholder="Escreva um comentário"
           maxLength={140}
+          id="comentar"
         />
         <Box direction="row" gap="small">
           <Button
