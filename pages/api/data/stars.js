@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 import { getServerSession } from "../../../lib/auth";
-import { createComment, deleteComment } from "../../../lib/db/writes";
+import { starDream, unstarDream } from "../../../lib/db/writes";
 import {
   BAD_REQUEST,
   METHOD_NOT_ALLOWED,
@@ -34,19 +34,18 @@ async function post(req, res) {
     return res;
   }
 
-  if (!req.body?.comment || !req.body.dreamId) {
+  if (!req.body.dreamId) {
     res.status(400).end(BAD_REQUEST);
     return res;
   }
 
   const data = {
-    comment: req.body.comment,
     dreamId: req.body.dreamId,
     session,
   };
 
   try {
-    const result = await createComment(data);
+    const result = await starDream(data);
 
     const objectId = result.insertedId.toString();
 
@@ -58,7 +57,7 @@ async function post(req, res) {
     logError({
       ...error,
       service: "api",
-      pathname: "/api/data/comments",
+      pathname: "/api/data/stars",
       method: "post",
     });
     res.status(500).end(SERVER_ERROR);
@@ -78,13 +77,18 @@ async function del(req, res) {
     return res;
   }
 
-  if (!req.body?.commentId || !req.body?.dreamId) {
+  if (!req.body?.dreamId) {
     res.status(400).end(BAD_REQUEST);
     return res;
   }
 
+  const data = {
+    dreamId: req.body.dreamId,
+    session,
+  };
+
   try {
-    const result = await deleteComment(req.body.commentId, req.body.dreamId);
+    const result = await unstarDream(data);
 
     res.setHeader("Content-Type", "application/json");
     res.status(200).send(result);
@@ -94,7 +98,7 @@ async function del(req, res) {
     logError({
       ...error,
       service: "api",
-      pathname: "/api/data/comments",
+      pathname: "/api/data/stars",
       method: "delete",
     });
     res.status(500).end(SERVER_ERROR);

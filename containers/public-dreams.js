@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Heading,
-  Paragraph,
   ResponsiveContext,
   Spinner,
   Text,
@@ -11,25 +10,27 @@ import {
 import Dashboard from "../components/dashboard";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
-import { BRAND_HEX } from "../lib/config";
 import VisibilityIcon from "../components/visbility-icon";
 import Search from "../components/search";
 import { useContext, useEffect, useState } from "react";
-import { searchDreams } from "../lib/api";
-import "dayjs/locale/pt-br";
+import { searchDreams, starDream, unstarDream } from "../lib/api";
 import { truncate } from "../lib/strings";
 import { useRouter } from "next/router";
-import { Chat, Tip } from "grommet-icons";
+import { Star, Tip } from "grommet-icons";
+import { BRAND_HEX } from "../lib/config";
+import "dayjs/locale/pt-br";
 
 dayjs.extend(LocalizedFormat);
 
 export default function PublicDreams(props) {
-  const { serverSession, data } = props;
+  const { serverSession, data, stars } = props;
   const [selectedTags, setSelectedTags] = useState([]);
   const [searching, setSearching] = useState(false);
   const [dreams, setDreams] = useState([]);
   const { push } = useRouter();
   const size = useContext(ResponsiveContext);
+
+  console.log({ stars });
 
   useEffect(() => {
     if (!selectedTags || selectedTags.length === 0) {
@@ -69,6 +70,7 @@ export default function PublicDreams(props) {
               data={data}
               push={push}
               size={size}
+              starred={stars.find((star) => star.dreamId === item._id)}
             />
           );
         })}
@@ -84,6 +86,7 @@ export default function PublicDreams(props) {
                 data={data}
                 push={push}
                 size={size}
+                starred={stars.find((star) => star.dreamId === item._id)}
               />
             );
           })}
@@ -95,6 +98,25 @@ export default function PublicDreams(props) {
 
 function PublicDream(props) {
   const { item, index, data, push, size } = props;
+  const [eagerStarCount, setEagerStarCount] = useState(item?.starCount ?? 0);
+  const [starred, setStarred] = useState(props.starred);
+  const [updatingStarCount, setUpdatingStarCount] = useState(false);
+
+  const star = async () => {
+    setUpdatingStarCount(true);
+    await starDream({ dreamId: item._id });
+    setStarred(true);
+    setEagerStarCount(eagerStarCount + 1);
+    setUpdatingStarCount(false);
+  };
+
+  const unstar = async () => {
+    setUpdatingStarCount(true);
+    await unstarDream({ dreamId: item._id });
+    setStarred(false);
+    setEagerStarCount(eagerStarCount - 1);
+    setUpdatingStarCount(false);
+  };
 
   return (
     <Box
@@ -103,13 +125,6 @@ function PublicDream(props) {
       style={{
         borderBottom:
           index + 1 === data.length ? "unset" : `1px solid rgba(0, 0, 0, 0.33)`,
-      }}
-      hoverIndicator={{
-        background: "background-contrast",
-        elevation: "medium",
-      }}
-      onClick={() => {
-        push(`/sonhos/${item._id}`);
       }}
     >
       <Box justify="center" align="center" pad="small" gap="small">
@@ -136,6 +151,13 @@ function PublicDream(props) {
           right: size,
           left: size,
         }}
+        hoverIndicator={{
+          background: "background-contrast",
+          elevation: "medium",
+        }}
+        onClick={() => {
+          push(`/sonhos/${item._id}`);
+        }}
       >
         <Text
           alignSelf="start"
@@ -150,8 +172,22 @@ function PublicDream(props) {
           <Text size="small">Clique para ler mais</Text>
         ) : null}
       </Box>
-      <Box pad="medium" direction="row" gap="small">
-        <Button plain icon={<Tip />} badge={item?.commentCount ?? 0} />
+      <Box pad="medium" direction="row" gap="large">
+        <Button
+          plain
+          icon={<Tip />}
+          badge={item?.commentCount ?? 0}
+          onClick={() => {
+            push(`/sonhos/${item._id}#comentar`);
+          }}
+        />
+        <Button
+          plain
+          icon={<Star color={starred ? BRAND_HEX : null} />}
+          badge={eagerStarCount}
+          disabled={updatingStarCount}
+          onClick={() => (starred ? unstar() : star())}
+        />
       </Box>
     </Box>
   );
