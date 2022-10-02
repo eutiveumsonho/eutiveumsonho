@@ -11,7 +11,14 @@ import {
   PageContent,
   ResponsiveContext,
 } from "grommet";
-import { Book, Logout, Magic, Star, UserSettings } from "grommet-icons";
+import {
+  Book,
+  Logout,
+  Magic,
+  Star,
+  UserSettings,
+  BarChart,
+} from "grommet-icons";
 import { BRAND_HEX } from "../lib/config";
 import { Logo } from "./logo";
 import PageActions from "./page-actions";
@@ -142,6 +149,12 @@ const MainNavigation = (props) => {
           onClick={() => push("/sonhos-salvos")}
         />
         {/* Coming soon... */}
+        <Button
+          icon={<BarChart />}
+          hoverIndicator={pathname !== "/insights"}
+          primary={pathname === "/insights"}
+          onClick={() => push("/insights")}
+        />
       </Nav>
     );
   }
@@ -165,6 +178,12 @@ const MainNavigation = (props) => {
         label="Salvos"
         selected={pathname === "/sonhos-salvos"}
         onClick={() => push("/sonhos-salvos")}
+      />
+      <SidebarButton
+        icon={<BarChart />}
+        label="Insights"
+        selected={pathname === "/insights"}
+        onClick={() => push("/insights")}
       />
       {/* Coming soon... */}
       {/* <SidebarButton icon={<StatusInfoSmall />} label="Inbox" /> */}

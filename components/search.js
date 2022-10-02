@@ -1,7 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { FormClose } from "grommet-icons";
 import { Box, Button, Keyboard, Text, TextInput } from "grommet";
-import { searchDreams } from "../lib/api";
 
 const Tag = ({ children, onRemove, ...rest }) => {
   const tag = (

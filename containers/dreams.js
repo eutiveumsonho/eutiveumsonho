@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Heading,
-  Layer,
-  ResponsiveContext,
-  Spinner,
-  Text,
-} from "grommet";
+import { Box, Button, Heading, Layer, Spinner, Text } from "grommet";
 import { Edit, Trash, View } from "grommet-icons";
 import { useRouter } from "next/router";
 import Dashboard from "../components/dashboard";
@@ -29,7 +21,6 @@ export default function DreamsContainer(props) {
   const [open, setOpen] = useState(false);
   const [dreamIdToDelete, setDreamIdToDelete] = useState();
   const [deleting, setDeleting] = useState(false);
-  const size = useContext(ResponsiveContext);
 
   const delDream = async () => {
     setDeleting(true);
@@ -63,7 +54,6 @@ export default function DreamsContainer(props) {
                 item={item}
                 index={index}
                 data={data}
-                size={size}
                 deleting={deleting}
                 open={open}
                 onOpen={onOpen}
@@ -79,19 +69,40 @@ export default function DreamsContainer(props) {
   );
 }
 
+const colors = [
+  "light-3",
+  "light-1",
+  "light-1",
+  "light-1",
+  "light-1",
+  "light-1",
+  "light-1",
+  "light-1",
+  "light-1",
+  "light-1",
+];
+
 function MyDream(props) {
-  const {
-    item,
-    index,
-    data,
-    size,
-    deleting,
-    open,
-    onOpen,
-    delDream,
-    onClose,
-    push,
-  } = props;
+  const { item, index, data, deleting, open, onOpen, delDream, onClose, push } =
+    props;
+
+  const [openInsights, setOpenInsights] = useState(false);
+
+  const wordFrequencyData = (() => {
+    if (!item?.wordFrequency) {
+      return null;
+    }
+
+    const freqSet = item.wordFrequency.slice(0, 9);
+
+    const total = freqSet.reduce((acc, cur) => acc + cur.frequency, 0);
+
+    return freqSet.map((freqObj, index) => ({
+      ...freqObj,
+      color: colors[index],
+      value: (freqObj.frequency / total) * 100,
+    }));
+  })();
 
   return (
     <Box
@@ -114,8 +125,7 @@ function MyDream(props) {
           align="center"
           pad="medium"
           style={{
-            maxWidth:
-              size === "small" ? "calc(100% - 3rem)" : "calc(100% - 9rem)",
+            maxWidth: "calc(100% - 3rem)",
           }}
         >
           <Text
@@ -127,7 +137,7 @@ function MyDream(props) {
             }}
           />
         </Box>
-        <Box direction={size === "small" ? "column" : "row"}>
+        <Box direction={"column"}>
           <Tip content="Ver sonho">
             <Button
               icon={<View />}
@@ -192,6 +202,39 @@ function MyDream(props) {
           ) : null}
         </Box>
       </Box>
+      {/* {wordFrequencyData ? (
+        <Box pad="small">
+          <Button
+            hoverIndicator="background"
+            onClick={() => setOpenInsights(!openInsights)}
+          >
+            <Box
+              pad="small"
+              direction="row"
+              align="center"
+              justify="center"
+              gap="small"
+            >
+              <Text>
+                {openInsights ? "Esconder" : "Expandir"} insights deste sonho
+              </Text>
+            </Box>
+          </Button>
+          <Collapsible open={openInsights}>
+            <Box pad="small">
+              <Distribution fill values={wordFrequencyData}>
+                {(value) => (
+                  <Box pad="xsmall" background={value.color} fill>
+                    <Text size="xsmall">
+                      {value.word}: {value.frequency}
+                    </Text>
+                  </Box>
+                )}
+              </Distribution>
+            </Box>
+          </Collapsible>
+        </Box>
+      ) : null} */}
     </Box>
   );
 }
