@@ -19,12 +19,15 @@ export default function SavedDreams(props) {
   const { serverSession, data, title, empty } = props;
   const { push } = useRouter();
   const size = useContext(ResponsiveContext);
+  const [unstarreds, setUnstarreds] = useState([]);
 
   return (
     <Dashboard serverSession={serverSession}>
       <Box pad="medium">
         <Heading size="small">{title}</Heading>
-        {data.length === 0 ? <Empty empty={empty} /> : null}
+        {data.length === 0 || unstarreds.length === data.length ? (
+          <Empty empty={empty} />
+        ) : null}
         {data.map((item, index) => {
           return (
             <SavedDream
@@ -33,6 +36,8 @@ export default function SavedDreams(props) {
               data={data}
               push={push}
               size={size}
+              unstarreds={unstarreds}
+              setUnstarreds={setUnstarreds}
             />
           );
         })}
@@ -42,20 +47,19 @@ export default function SavedDreams(props) {
 }
 
 function SavedDream(props) {
-  const { item, index, data, push, size } = props;
+  const { item, index, data, push, size, unstarreds, setUnstarreds } = props;
   const [eagerStarCount, setEagerStarCount] = useState(item?.starCount ?? 0);
   const [updatingStarCount, setUpdatingStarCount] = useState(false);
-  const [unstarred, setUnstarred] = useState(false);
 
   const unstar = async () => {
     setUpdatingStarCount(true);
     await unstarDream({ dreamId: item._id });
     setEagerStarCount(eagerStarCount - 1);
     setUpdatingStarCount(false);
-    setUnstarred(true);
+    setUnstarreds([...unstarreds, item._id]);
   };
 
-  if (unstarred) {
+  if (unstarreds.includes(item._id)) {
     return null;
   }
 
