@@ -19,11 +19,12 @@ import { BRAND_HEX } from "../lib/config";
 import { deleteDream } from "../lib/api";
 import { useContext, useState } from "react";
 import "dayjs/locale/pt-br";
+import Empty from "../components/empty";
 
 dayjs.extend(LocalizedFormat);
 
-export default function MyDreamsPage(props) {
-  const { serverSession, data } = props;
+export default function DreamsContainer(props) {
+  const { serverSession, data, title, empty, page } = props;
   const { push, reload } = useRouter();
   const [open, setOpen] = useState(false);
   const [dreamIdToDelete, setDreamIdToDelete] = useState();
@@ -43,6 +44,7 @@ export default function MyDreamsPage(props) {
     setOpen(true);
     setDreamIdToDelete(dreamId);
   };
+
   const onClose = () => {
     setOpen(false);
     setDreamIdToDelete(undefined);
@@ -51,20 +53,9 @@ export default function MyDreamsPage(props) {
   return (
     <Dashboard serverSession={serverSession}>
       <Box pad="medium">
-        <Heading size="small">Meus sonhos</Heading>
+        <Heading size="small">{title}</Heading>
         <div>
-          {data.length === 0 ? (
-            <Box gap="small" pad="xlarge" align="center">
-              <Text>Os seus sonhos serão listados aqui.</Text>
-              <Box>
-                <Button
-                  label="Adicione seu primeiro sonho"
-                  primary
-                  onClick={() => push("/publicar")}
-                />
-              </Box>
-            </Box>
-          ) : null}
+          {data.length === 0 ? <Empty empty={empty} /> : null}
           {data.map((item, index) => {
             return (
               <MyDream

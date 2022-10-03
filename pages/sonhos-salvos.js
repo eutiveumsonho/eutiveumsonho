@@ -1,29 +1,30 @@
 import { getAuthProps } from "../lib/auth";
-import {
-  getLatestPublicDreams,
-  getStarsByUserEmail,
-  getUserById,
-} from "../lib/db/reads";
-import PublicDreams from "../containers/public-dreams";
 import { logError } from "../lib/o11y";
 import Head from "next/head";
+import SavedDreams from "../containers/saved-dreams";
+import { getStarredDreams, getUserById } from "../lib/db/reads";
 
-export default function FindOut(props) {
-  const { serverSession, data: rawData, stars: rawStars } = props;
+export default function Saved(props) {
+  const { serverSession, data: rawData } = props;
 
   const data = JSON.parse(rawData);
-  const stars = JSON.parse(rawStars);
 
   return (
     <>
       <Head>
-        <title>Descubra</title>
+        <title>Sonhos salvos</title>
       </Head>
-      <PublicDreams
+      <SavedDreams
         serverSession={serverSession}
         data={data}
-        stars={stars}
-        title="Sonhos recentes"
+        title="Sonhos salvos"
+        page="sonhos-salvos"
+        empty={{
+          label: "Descubra sonhos",
+          actionRoute: "/descubra",
+          description:
+            "Os sonhos que você salvar (clicando na ⭐), serão listados aqui.",
+        }}
       />
     </>
   );
@@ -40,8 +41,7 @@ export async function getServerSideProps(context) {
   }
 
   try {
-    const data = await getLatestPublicDreams();
-    const stars = await getStarsByUserEmail(
+    const data = await getStarredDreams(
       authProps.props.serverSession.user.email
     );
 
@@ -63,15 +63,14 @@ export async function getServerSideProps(context) {
       props: {
         ...authProps.props,
         data: JSON.stringify(dreams),
-        stars: JSON.stringify(stars),
       },
     };
   } catch (error) {
     logError({
       ...error,
       service: "web",
-      pathname: "/descubra",
-      component: "FindOut",
+      pathname: "/sonhos-salvos",
+      component: "SavedDreams",
     });
   }
 }
