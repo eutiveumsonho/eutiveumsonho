@@ -1,120 +1,63 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Heading,
-  ResponsiveContext,
-  Spinner,
-  Text,
-} from "grommet";
+import { Avatar, Box, Button, Heading, ResponsiveContext, Text } from "grommet";
 import Dashboard from "../components/dashboard";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import VisibilityIcon from "../components/visbility-icon";
-import Search from "../components/search";
-import { useContext, useEffect, useState } from "react";
-import { searchDreams, starDream, unstarDream } from "../lib/api";
+import { useContext, useState } from "react";
+import { unstarDream } from "../lib/api";
 import { truncate } from "../lib/strings";
 import { useRouter } from "next/router";
+import { Star, Tip } from "grommet-icons";
 import { BRAND_HEX } from "../lib/config";
+import Empty from "../components/empty";
 import "dayjs/locale/pt-br";
 import DreamFooter from "../components/dream/footer";
 
 dayjs.extend(LocalizedFormat);
 
-export default function PublicDreams(props) {
-  const { serverSession, data, stars, title } = props;
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [searching, setSearching] = useState(false);
-  const [dreams, setDreams] = useState([]);
+export default function SavedDreams(props) {
+  const { serverSession, data, title, empty } = props;
   const { push } = useRouter();
   const size = useContext(ResponsiveContext);
-
-  useEffect(() => {
-    if (!selectedTags || selectedTags.length === 0) {
-      setDreams([]);
-      return;
-    }
-
-    search(selectedTags);
-  }, [selectedTags]);
-
-  const search = async (query) => {
-    setSearching(true);
-    const result = await searchDreams(query);
-    setSearching(false);
-
-    setDreams(result);
-  };
 
   return (
     <Dashboard serverSession={serverSession}>
       <Box pad="medium">
-        <Heading size="small">
-          <Box direction="row" gap="small" align="center">
-            Pesquisar {searching ? <Spinner /> : null}
-          </Box>
-        </Heading>
-        <Search
-          suggestions={[]}
-          selectedTags={selectedTags}
-          setSelectedTags={setSelectedTags}
-        />
-        {dreams.map((item, index) => {
+        <Heading size="small">{title}</Heading>
+        {data.length === 0 ? <Empty empty={empty} /> : null}
+        {data.map((item, index) => {
           return (
-            <PublicDream
+            <SavedDream
               item={item}
               index={index}
               data={data}
               push={push}
               size={size}
-              starred={stars.find((star) => star.dreamId === item._id)}
             />
           );
         })}
-      </Box>
-      <Box pad="medium">
-        <div>
-          <Heading size="small">{title}</Heading>
-          {data.map((item, index) => {
-            return (
-              <PublicDream
-                item={item}
-                index={index}
-                data={data}
-                push={push}
-                size={size}
-                starred={stars.find((star) => star.dreamId === item._id)}
-              />
-            );
-          })}
-        </div>
       </Box>
     </Dashboard>
   );
 }
 
-function PublicDream(props) {
+function SavedDream(props) {
   const { item, index, data, push, size } = props;
   const [eagerStarCount, setEagerStarCount] = useState(item?.starCount ?? 0);
-  const [starred, setStarred] = useState(props.starred);
   const [updatingStarCount, setUpdatingStarCount] = useState(false);
-
-  const star = async () => {
-    setUpdatingStarCount(true);
-    await starDream({ dreamId: item._id });
-    setStarred(true);
-    setEagerStarCount(eagerStarCount + 1);
-    setUpdatingStarCount(false);
-  };
+  const [unstarred, setUnstarred] = useState(false);
 
   const unstar = async () => {
     setUpdatingStarCount(true);
     await unstarDream({ dreamId: item._id });
-    setStarred(false);
     setEagerStarCount(eagerStarCount - 1);
     setUpdatingStarCount(false);
+    setUnstarred(true);
   };
+
+  if (unstarred) {
+    return null;
+  }
 
   return (
     <Box
@@ -171,13 +114,12 @@ function PublicDream(props) {
         ) : null}
       </Box>
       <DreamFooter
-        commentCount={item?.commentCount ?? 0}
-        starCount={eagerStarCount}
+        item={item}
+        commentCount={0}
         updatingStarCount={updatingStarCount}
         unstar={unstar}
-        star={star}
-        canUnstar={starred}
-        color={starred ? BRAND_HEX : "dark-2"}
+        canUnstar={true}
+        color={BRAND_HEX}
       />
     </Box>
   );

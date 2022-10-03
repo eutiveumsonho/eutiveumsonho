@@ -1,7 +1,7 @@
 import { getAuthProps } from "../lib/auth";
 import { getDreams } from "../lib/db/reads";
-import MyDreamsPage from "../containers/my-dreams";
 import { logError } from "../lib/o11y";
+import Dreams from "../containers/dreams";
 import Head from "next/head";
 
 export default function MyDreams(props) {
@@ -14,7 +14,17 @@ export default function MyDreams(props) {
       <Head>
         <title>Meus sonhos</title>
       </Head>
-      <MyDreamsPage serverSession={serverSession} data={data} />
+      <Dreams
+        serverSession={serverSession}
+        data={data}
+        title="Meus sonhos"
+        page="meus-sonhos"
+        empty={{
+          label: "Adicione seu primeiro sonho",
+          actionRoute: "/publicar",
+          description: "Os seus sonhos serão listados aqui.",
+        }}
+      />
     </>
   );
 }

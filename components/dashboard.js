@@ -135,13 +135,13 @@ const MainNavigation = (props) => {
           primary={pathname === "/descubra"}
           onClick={() => push("/descubra")}
         />
-        {/* Coming soon... */}
-        {/* <Button
+        <Button
           icon={<Star />}
-          hoverIndicator={pathname !== "/salvos"}
-          primary={pathname === "/salvos"}
-          onClick={() => push("/salvos")}
-        /> */}
+          hoverIndicator={pathname !== "/sonhos-salvos"}
+          primary={pathname === "/sonhos-salvos"}
+          onClick={() => push("/sonhos-salvos")}
+        />
+        {/* Coming soon... */}
       </Nav>
     );
   }
@@ -160,13 +160,13 @@ const MainNavigation = (props) => {
         selected={pathname === "/descubra"}
         onClick={() => push("/descubra")}
       />
-      {/* Coming soon... */}
-      {/* <SidebarButton
+      <SidebarButton
         icon={<Star />}
         label="Salvos"
-        selected={pathname === "/salvos"}
-        onClick={() => push("/salvos")}
-      /> */}
+        selected={pathname === "/sonhos-salvos"}
+        onClick={() => push("/sonhos-salvos")}
+      />
+      {/* Coming soon... */}
       {/* <SidebarButton icon={<StatusInfoSmall />} label="Inbox" /> */}
     </Nav>
   );
