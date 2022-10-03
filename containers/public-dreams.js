@@ -175,6 +175,7 @@ function PublicDream(props) {
         starCount={eagerStarCount}
         updatingStarCount={updatingStarCount}
         unstar={unstar}
+        item={item}
         star={star}
         canUnstar={starred}
         color={starred ? BRAND_HEX : "dark-2"}

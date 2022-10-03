@@ -11,13 +11,14 @@ export default function DreamFooter(props) {
     color,
     canUnstar,
     star,
+    item,
   } = props;
   const { push } = useRouter();
 
   return (
     <Box pad="medium" direction="row" gap="large">
       <Button
-        plain
+        hoverIndicator
         icon={<Tip />}
         badge={commentCount}
         onClick={() => {
@@ -25,7 +26,7 @@ export default function DreamFooter(props) {
         }}
       />
       <Button
-        plain
+        hoverIndicator
         icon={<Star color={color} />}
         badge={starCount}
         disabled={updatingStarCount}
