@@ -12,7 +12,7 @@ const skipMatch = [
   "!pages/auth/error.js",
   "!pages/auth/verify-request.js",
   "!pages/sonhos",
-  "!pages/sonhos-salvos",
+  "!pages/sonhos-salvos.js",
 ];
 
 // Important! The following issue has useful information on
