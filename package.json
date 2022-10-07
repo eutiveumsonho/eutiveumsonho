@@ -16,6 +16,7 @@
     "@remirror/react-editors": "^1.0.2",
     "@remirror/styles": "^2.0.0",
     "browserslist": "^4.21.3",
+    "date-fns": "^2.29.3",
     "dayjs": "^1.11.5",
     "form-data": "^4.0.0",
     "grommet": "^2.25.0",

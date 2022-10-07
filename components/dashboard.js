@@ -137,6 +137,12 @@ const MainNavigation = (props) => {
           onClick={() => push("/meus-sonhos")}
         />
         <Button
+          icon={<BarChart />}
+          hoverIndicator={pathname !== "/insights"}
+          primary={pathname === "/insights"}
+          onClick={() => push("/insights")}
+        />
+        <Button
           icon={<Magic />}
           hoverIndicator={pathname !== "/descubra"}
           primary={pathname === "/descubra"}
@@ -149,12 +155,6 @@ const MainNavigation = (props) => {
           onClick={() => push("/sonhos-salvos")}
         />
         {/* Coming soon... */}
-        <Button
-          icon={<BarChart />}
-          hoverIndicator={pathname !== "/insights"}
-          primary={pathname === "/insights"}
-          onClick={() => push("/insights")}
-        />
       </Nav>
     );
   }
@@ -168,6 +168,12 @@ const MainNavigation = (props) => {
         onClick={() => push("/meus-sonhos")}
       />
       <SidebarButton
+        icon={<BarChart />}
+        label="Insights"
+        selected={pathname === "/insights"}
+        onClick={() => push("/insights")}
+      />
+      <SidebarButton
         icon={<Magic />}
         label="Descubra"
         selected={pathname === "/descubra"}
@@ -178,12 +184,6 @@ const MainNavigation = (props) => {
         label="Salvos"
         selected={pathname === "/sonhos-salvos"}
         onClick={() => push("/sonhos-salvos")}
-      />
-      <SidebarButton
-        icon={<BarChart />}
-        label="Insights"
-        selected={pathname === "/insights"}
-        onClick={() => push("/insights")}
       />
       {/* Coming soon... */}
       {/* <SidebarButton icon={<StatusInfoSmall />} label="Inbox" /> */}
