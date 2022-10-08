@@ -8,8 +8,9 @@ export const DEFAULT_THEME = {
   grade0: "#ebedf0",
 };
 
-export const NAMESPACE = "react-github-heatmap";
+export const NAMESPACE = "heatmap";
 
 export const LINE_HEIGHT = 1.5;
 export const MIN_DISTANCE_MONTH_LABELS = 2;
 export const TITLE_SCALE_FACTOR = 1.25;
+export const DATE_FORMAT = "yyyy-MM-dd";

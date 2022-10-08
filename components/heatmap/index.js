@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import format from "date-fns/format";
 import parseISO from "date-fns/parseISO";
-import getYear from "date-fns/getYear";
 
 import styles from "./heatmap.module.css";
 
@@ -11,32 +10,35 @@ import {
   MIN_DISTANCE_MONTH_LABELS,
 } from "./constants";
 import { usePrevious } from "../../lib/hooks/use-previous";
-import { getGraphData, locales } from "./contributions";
+import { getGraphData, locales } from "./records";
 import { createCalendarTheme, getClassName } from "./utils";
 import { Box, Text } from "grommet";
 import Tip from "../tip";
+import { BRAND_HEX } from "../../lib/config";
 
-export const Heatmap = ({
-  blockSize = 12,
-  blockMargin = 2,
-  children,
-  color = undefined,
-  dateFormat = "d MMMM, yyyy",
-  fontSize = 14,
-  fullYear = false,
-  theme = undefined,
-  data,
-  i18n = {
-    loading: "Carregando...",
-    lastYear: "Último ano",
-    soFar: "até agora ",
-    error: "Algo deu errado...",
-    contributions: { plural: "sonhos", singular: "sonho" },
-    on: "em",
-    locale: "ptBR",
-  },
-  years = [Number(format(new Date(), "yyyy"))],
-}) => {
+export const Heatmap = (props) => {
+  const {
+    blockSize = 12,
+    blockMargin = 2,
+    children,
+    color = undefined,
+    dateFormat = "d MMMM, yyyy",
+    fontSize = 14,
+    fullYear = false,
+    theme = undefined,
+    data,
+    i18n = {
+      loading: "Carregando...",
+      lastYear: "Último ano",
+      soFar: "até agora ",
+      error: "Algo deu errado...",
+      records: { plural: "sonhos", singular: "sonho" },
+      on: "em",
+      locale: "ptBR",
+    },
+    years = [Number(format(new Date(), "yyyy"))],
+  } = props;
+
   const [graphs, setGraphs] = useState(null);
   const [error, setError] = useState(null);
 
@@ -96,9 +98,7 @@ export const Heatmap = ({
   function getTooltipMessage(day) {
     const date = parseISO(day.date);
     return `${day.info.count} ${
-      day.info.count === 1
-        ? i18n.contributions.singular
-        : i18n.contributions.singular
+      day.info.count === 1 ? i18n.records.singular : i18n.records.plural
     } ${i18n.on} ${format(date, dateFormat, {
       locale: locales[i18n.locale],
     })}`;
@@ -149,13 +149,13 @@ export const Heatmap = ({
           }
 
           return (
-            <Tip content={getTooltipMessage(day)}>
+            <Tip content={getTooltipMessage(day)} key={day.date}>
               <rect
                 x="0"
                 y={textHeight + (blockSize + blockMargin) * y}
                 width={blockSize}
                 height={blockSize}
-                fill={theme[`grade${day.info ? day.info.intensity : 0}`]}
+                fill={BRAND_HEX}
                 key={day.date}
               />
             </Tip>
@@ -170,22 +170,28 @@ export const Heatmap = ({
   }
 
   function renderMeta(year, totalCount) {
-    const isCurrentYear = getYear(new Date()) === year;
+    const isCurrentYear = new Date().getFullYear() === year;
 
     return (
       <Text>
         {isCurrentYear && fullYear ? i18n.lastYear : year}
-        {" – "}
+        {" - "}
         {isCurrentYear && !fullYear ? i18n.soFar : null}
         {totalCount}{" "}
-        {totalCount === 1
-          ? i18n.contributions.singular
-          : i18n.contributions.plural}
+        {totalCount === 1 ? i18n.records.singular : i18n.records.plural}
       </Text>
     );
   }
 
   const { width, height } = getDimensions();
+
+  const boxRef = useRef(null);
+
+  useEffect(() => {
+    if (boxRef.current) {
+      boxRef.current.scrollLeft = (width / 12) * (new Date().getMonth() - 1.5);
+    }
+  }, []);
 
   if (error) {
     console.error(error);
@@ -202,6 +208,7 @@ export const Heatmap = ({
         overflowX: "auto",
       }}
       pad="medium"
+      ref={boxRef}
     >
       {graphs.map((graph) => {
         const { year, blocks, monthLabels, totalCount } = graph;

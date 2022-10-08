@@ -11,20 +11,19 @@ import setDay from "date-fns/setDay";
 import subYears from "date-fns/subYears";
 
 import { ptBR } from "date-fns/locale";
+import { DATE_FORMAT } from "./constants";
 
-const DATE_FORMAT = "yyyy-MM-dd";
-
-function getContributionsForDate(data, date) {
-  return data.contributions.find((contrib) => contrib.date === date);
+function getRecordsForDate(data, date) {
+  return data.records.find((record) => record.date === date);
 }
 
-function getContributionCountForLastYear(data) {
-  const { contributions } = data;
+function getRecordCountForLastYear(data) {
+  const { records } = data;
   const now = new Date();
 
   // Start date for accumulating the values
-  const begin = contributions.findIndex(
-    (contrib) => contrib.date === format(now, DATE_FORMAT)
+  const begin = records.findIndex(
+    (record) => record.date === format(now, DATE_FORMAT)
   );
 
   // No data for today given
@@ -33,22 +32,20 @@ function getContributionCountForLastYear(data) {
   }
 
   // Check if there is data for the day one year past
-  let end = contributions.findIndex((contrib) => {
-    return contrib.date === format(subYears(now, 1), DATE_FORMAT);
+  let end = records.findIndex((record) => {
+    return record.date === format(subYears(now, 1), DATE_FORMAT);
   });
 
-  // Take the oldest contribution otherwise, if not enough data exists
+  // Take the oldest record otherwise, if not enough data exists
   if (end === -1) {
-    end = contributions.length - 1;
+    end = records.length - 1;
   }
 
-  return contributions
-    .slice(begin, end)
-    .reduce((acc, contrib) => acc + contrib.count, 0);
+  return records.slice(begin, end).reduce((acc, cur) => acc + cur.count, 0);
 }
 
-function getContributionCountForYear(data, year) {
-  const yearEntry = data.years.find((entry) => entry.year === String(year));
+function getRecordCountForYear(data, year) {
+  const yearEntry = data.years.find((entry) => entry.year === year);
 
   return yearEntry ? yearEntry.total : 0;
 }
@@ -72,7 +69,7 @@ function getBlocksForYear(year, data, fullYear) {
 
     firstRowDates.push({
       date,
-      info: getContributionsForDate(data, date),
+      info: getRecordsForDate(data, date),
     });
 
     weekStart = setDay(weekStart, 7);
@@ -90,7 +87,7 @@ function getBlocksForYear(year, data, fullYear) {
 
       dates.push({
         date,
-        info: getContributionsForDate(data, date),
+        info: getRecordsForDate(data, date),
       });
     }
 
@@ -102,7 +99,6 @@ export const locales = {
   ptBR: ptBR,
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getMonthLabels(blocks, fullYear, locale) {
   const weeks = blocks.slice(0, fullYear ? blocks.length - 1 : blocks.length);
   let previousMonth = 0; // January
@@ -129,8 +125,8 @@ function getGraphDataForYear(year, data, fullYear, locale) {
   const blocks = getBlocksForYear(year, data, fullYear);
   const monthLabels = getMonthLabels(blocks, fullYear, locale);
   const totalCount = fullYear
-    ? getContributionCountForLastYear(data)
-    : getContributionCountForYear(data, year);
+    ? getRecordCountForLastYear(data)
+    : getRecordCountForYear(data, year);
 
   return {
     year,
