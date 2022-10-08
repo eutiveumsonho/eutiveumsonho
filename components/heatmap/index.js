@@ -188,9 +188,14 @@ export const Heatmap = (props) => {
   const boxRef = useRef(null);
 
   useEffect(() => {
-    if (boxRef.current) {
-      boxRef.current.scrollLeft = (width / 12) * (new Date().getMonth() - 1.5);
-    }
+    const timeout = setTimeout(() => {
+      if (boxRef.current) {
+        boxRef.current.scrollLeft =
+          (width / 12) * (new Date().getMonth() - 1.5);
+      }
+    }, 100);
+
+    return () => clearTimeout(timeout);
   }, []);
 
   if (error) {
