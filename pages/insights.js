@@ -149,7 +149,7 @@ export async function getServerSideProps(context) {
         }
 
         // wordFrequency data handling
-        const topRelevantFreqObjs = cur.wordFrequency.slice(0, 9);
+        const topRelevantFreqObjs = cur.wordFrequency;
 
         for (const topRelevantFreqObj of topRelevantFreqObjs) {
           const freqObjIndex = acc.wordFrequencyDistribution.findIndex(
