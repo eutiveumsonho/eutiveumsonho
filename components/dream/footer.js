@@ -16,7 +16,7 @@ export default function DreamFooter(props) {
   const { push } = useRouter();
 
   return (
-    <Box pad="medium" direction="row" gap="large">
+    <Box pad="medium" direction="row" gap={"xsmall"}>
       <Button
         hoverIndicator
         icon={<Tip />}
