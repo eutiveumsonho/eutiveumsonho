@@ -6,9 +6,12 @@ import {
   Page,
   PageContent,
   PageHeader,
+  ResponsiveContext,
   Text,
 } from "grommet";
+import { Github, Instagram } from "grommet-icons";
 import Link from "next/link";
+import { useContext } from "react";
 import { Logo } from "./logo";
 import PageActions from "./page-actions";
 
@@ -19,41 +22,85 @@ const footerData = [
       {
         title: "Termos e Condiçōes",
         path: "/termos-e-condicoes",
+        props: {},
       },
       {
         title: "Política de Privacidade",
         path: "/politica-de-privacidade",
+        props: {},
       },
       {
         title: "Política de Cookies",
         path: "/politica-de-cookies",
+        props: {},
+      },
+    ],
+  },
+  {
+    title: "Nas redes sociais",
+    items: [
+      {
+        title: "icon__Github",
+        path: "https://github.com/eutiveumsonho/eutiveumsonho",
+        props: { target: "_blank" },
+      },
+      {
+        title: "icon__Instagram",
+        path: "https://www.instagram.com/_eutiveumsonho/",
+        props: { target: "_blank" },
       },
     ],
   },
 ];
 
-const FooterAnchor = ({ ...rest }) => (
-  <Anchor size="small" color="white" {...rest} />
-);
+const FooterAnchor = (props) => {
+  return <Anchor size="small" color="white" {...props} />;
+};
 
-const FooterContent = () =>
-  footerData.map((item) => (
-    <Box gap="medium" key={item.title}>
-      <Text weight="bold" size="medium">
-        {item.title}
-      </Text>
-      <Box>
-        {item.items.map((item) => (
-          <FooterAnchor key={item.title} href={item.path}>
+const footerIconsMap = {
+  icon__Github: <Github />,
+  icon__Instagram: <Instagram />,
+};
+
+const FooterContent = (props) => {
+  const { size } = props;
+  const iconPrefix = "icon__";
+
+  return (
+    <Box
+      direction={size === "small" ? "column" : "row"}
+      gap="large"
+      justify={"end"}
+      align={size === "small" ? "center" : "flex-start"}
+      fill
+    >
+      {footerData.map((item) => (
+        <Box gap="medium" key={item.title}>
+          <Text
+            weight="bold"
+            size="medium"
+            alignSelf={size === "small" ? "center" : "flex-start"}
+          >
             {item.title}
-          </FooterAnchor>
-        ))}
-      </Box>
+          </Text>
+          <Box align={size === "small" ? "center" : "flex-start"}>
+            {item.items.map((item) => (
+              <FooterAnchor key={item.title} href={item.path} {...item.props}>
+                {item.title.includes(iconPrefix)
+                  ? footerIconsMap[item.title]
+                  : item.title}
+              </FooterAnchor>
+            ))}
+          </Box>
+        </Box>
+      ))}
     </Box>
-  ));
+  );
+};
 
 export default function Layout(props) {
   const { children, serverSession } = props;
+  const size = useContext(ResponsiveContext);
 
   return (
     <>
@@ -106,15 +153,17 @@ export default function Layout(props) {
           <Footer
             background="dark-1"
             pad="xlarge"
+            gap="xlarge"
             style={{
               maxWidth: "99rem",
               width: "100%",
             }}
+            direction={size === "small" ? "column" : "row"}
           >
             <Box direction="row-responsive" gap="xsmall">
               <Logo />
             </Box>
-            <FooterContent />
+            <FooterContent size={size} />
           </Footer>
         </PageContent>
       </Page>

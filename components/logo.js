@@ -19,6 +19,9 @@ export function Logo(props) {
             alignSelf="center"
             color={color === "purple" ? "brand" : color}
             weight="bold"
+            style={{
+              whiteSpace: "nowrap",
+            }}
           >
             Eu tive um sonho
           </Text>
