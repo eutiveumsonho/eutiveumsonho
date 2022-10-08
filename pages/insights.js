@@ -15,8 +15,6 @@ export default function InsightsPage(props) {
 
   const data = JSON.parse(rawData);
 
-  console.log({ data });
-
   return (
     <>
       <Head>
