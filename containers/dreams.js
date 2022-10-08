@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Collapsible,
-  Distribution,
-  Heading,
-  Layer,
-  Spinner,
-  Text,
-} from "grommet";
+import { Box, Button, Heading, Layer, Spinner, Text } from "grommet";
 import { Edit, Trash, View } from "grommet-icons";
 import { useRouter } from "next/router";
 import Dashboard from "../components/dashboard";
@@ -18,7 +9,7 @@ import { truncate } from "../lib/strings";
 import VisibilityIcon from "../components/visbility-icon";
 import { BRAND_HEX } from "../lib/config";
 import { deleteDream } from "../lib/api";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import "dayjs/locale/pt-br";
 import Empty from "../components/empty";
 
@@ -78,40 +69,9 @@ export default function DreamsContainer(props) {
   );
 }
 
-const colors = [
-  "light-3",
-  "light-1",
-  "light-1",
-  "light-1",
-  "light-1",
-  "light-1",
-  "light-1",
-  "light-1",
-  "light-1",
-  "light-1",
-];
-
 function MyDream(props) {
   const { item, index, data, deleting, open, onOpen, delDream, onClose, push } =
     props;
-
-  const [openInsights, setOpenInsights] = useState(false);
-
-  const wordFrequencyData = (() => {
-    if (!item?.wordFrequency) {
-      return null;
-    }
-
-    const freqSet = item.wordFrequency.slice(0, 9);
-
-    const total = freqSet.reduce((acc, cur) => acc + cur.frequency, 0);
-
-    return freqSet.map((freqObj, index) => ({
-      ...freqObj,
-      color: colors[index],
-      value: (freqObj.frequency / total) * 100,
-    }));
-  })();
 
   return (
     <Box
@@ -211,39 +171,6 @@ function MyDream(props) {
           ) : null}
         </Box>
       </Box>
-      {wordFrequencyData ? (
-        <Box pad="small">
-          <Button
-            hoverIndicator="background"
-            onClick={() => setOpenInsights(!openInsights)}
-          >
-            <Box
-              pad="small"
-              direction="row"
-              align="center"
-              justify="center"
-              gap="small"
-            >
-              <Text>
-                {openInsights ? "Esconder" : "Expandir"} insights deste sonho
-              </Text>
-            </Box>
-          </Button>
-          <Collapsible open={openInsights}>
-            <Box pad="small">
-              <Distribution fill values={wordFrequencyData}>
-                {(value) => (
-                  <Box pad="xsmall" background={value.color} fill>
-                    <Text size="xsmall">
-                      {value.word}: {value.frequency}
-                    </Text>
-                  </Box>
-                )}
-              </Distribution>
-            </Box>
-          </Collapsible>
-        </Box>
-      ) : null}
     </Box>
   );
 }
