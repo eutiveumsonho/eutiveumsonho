@@ -33,6 +33,7 @@ import { css } from "@emotion/css";
 import SyncManagerHook from "./sync-manager-hook";
 import { ExtensionPriority } from "remirror";
 import { CommandsExtension } from "@remirror/core";
+import { Box } from "grommet";
 
 const extensions = () => [
   new CommandsExtension(),
@@ -72,13 +73,15 @@ function Editor(props) {
   });
 
   return (
-    <ThemeProvider>
-      <MarkdownTextEditor
-        manager={manager}
-        save={save}
-        defaultValue={defaultValue}
-      />
-    </ThemeProvider>
+    <>
+      <ThemeProvider>
+        <MarkdownTextEditor
+          manager={manager}
+          save={save}
+          defaultValue={defaultValue}
+        />
+      </ThemeProvider>
+    </>
   );
 }
 
@@ -113,26 +116,35 @@ function MarkdownTextEditor(props) {
   const [html, setHtml] = useState();
 
   return (
-    <Remirror
-      manager={manager}
-      onChange={({ helpers, state }) => {
-        const html = helpers.getHTML(state);
-        setHtml(html);
-      }}
-      autoRender="end"
-      initialContent={defaultValue}
-      classNames={[
-        css`
-          &.ProseMirror {
-            box-shadow: none !important;
-            overflow-y: unset !important;
-          }
-        `,
-      ]}
-    >
-      <MarkdownToolbar />
-      <SyncManagerHook html={html} save={save} />
-    </Remirror>
+    <>
+      <Remirror
+        manager={manager}
+        onChange={({ helpers, state }) => {
+          const html = helpers.getHTML(state);
+          setHtml(html);
+        }}
+        autoRender="end"
+        initialContent={defaultValue}
+        classNames={[
+          css`
+            &.ProseMirror {
+              box-shadow: none !important;
+              overflow-y: unset !important;
+            }
+          `,
+        ]}
+      >
+        <MarkdownToolbar />
+        <SyncManagerHook html={html} save={save} />
+      </Remirror>
+      <Box
+        style={{
+          position: "absolute",
+          height: "22rem",
+          width: "100vw",
+        }}
+      />
+    </>
   );
 }
 
