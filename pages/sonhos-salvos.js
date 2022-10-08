@@ -23,7 +23,7 @@ export default function Saved(props) {
           label: "Descubra sonhos",
           actionRoute: "/descubra",
           description:
-            "Os sonhos que você salvar (clicando na ⭐), serão listados aqui.",
+            "Os sonhos que você salvar (clicando na ⭐), serão listados aqui",
         }}
       />
     </>

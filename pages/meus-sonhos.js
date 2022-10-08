@@ -20,9 +20,9 @@ export default function MyDreams(props) {
         title="Meus sonhos"
         page="meus-sonhos"
         empty={{
-          label: "Adicione seu primeiro sonho ➕",
+          label: "Adicione seu primeiro sonho",
           actionRoute: "/publicar",
-          description: "Os seus sonhos serão listados aqui.",
+          description: "Os seus sonhos serão listados aqui 📚",
         }}
       />
     </>
