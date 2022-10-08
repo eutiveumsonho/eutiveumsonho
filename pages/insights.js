@@ -1,6 +1,7 @@
 import { getAuthProps } from "../lib/auth";
 import { logError } from "../lib/o11y";
 import Head from "next/head";
+import Empty from "../components/empty";
 import Dashboard from "../components/dashboard";
 import { Box, Heading } from "grommet";
 import { Heatmap } from "../components/heatmap";
@@ -10,9 +11,11 @@ import format from "date-fns/format";
 import { DATE_FORMAT } from "../components/heatmap/constants";
 
 export default function InsightsPage(props) {
-  const { serverSession, records: rawRecords } = props;
+  const { serverSession, data: rawData } = props;
 
-  const records = JSON.parse(rawRecords);
+  const data = JSON.parse(rawData);
+
+  console.log({ data });
 
   return (
     <>
@@ -24,16 +27,28 @@ export default function InsightsPage(props) {
           <Heading size="small" level={1}>
             Insights
           </Heading>
-          <Heading size="small" level={2}>
-            A sua frequência de sonhos
-          </Heading>
-          <Heatmap
-            data={records}
-            blockSize={14}
-            blockMargin={8}
-            color={BRAND_HEX}
-            fontSize={14}
-          />
+          {data?.years && data?.records ? (
+            <>
+              <Heading size="small" level={2}>
+                A sua frequência de sonhos
+              </Heading>
+              <Heatmap
+                data={data}
+                blockSize={14}
+                blockMargin={8}
+                color={BRAND_HEX}
+                fontSize={14}
+              />
+            </>
+          ) : (
+            <Empty
+              empty={{
+                label: "Adicione seu primeiro sonho",
+                description: "Os insights dos seus sonhos aparecerão aqui 💡",
+                actionRoute: "/publicar",
+              }}
+            />
+          )}
         </Box>
       </Dashboard>
     </>
@@ -107,7 +122,7 @@ export async function getServerSideProps(context) {
       }
     );
 
-    return { props: { ...authProps.props, records: JSON.stringify(records) } };
+    return { props: { ...authProps.props, data: JSON.stringify(records) } };
   } catch (error) {
     logError({
       ...error,
