@@ -139,7 +139,7 @@ function getGraphDataForYear(year, data, fullYear, locale) {
 export function getGraphData(options) {
   const { fullYear, years, data, locale } = options;
 
-  if (!data.years.length) {
+  if (!data?.years) {
     throw Error("No data available");
   }
 

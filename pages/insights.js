@@ -27,7 +27,7 @@ export default function InsightsPage(props) {
           <Heading size="small" level={1}>
             Insights
           </Heading>
-          {data?.years && data?.records ? (
+          {data?.years?.length > 0 && data?.records?.length > 0 ? (
             <>
               <Heading size="small" level={2}>
                 A sua frequência de sonhos
