@@ -79,7 +79,7 @@ const FooterContent = (props) => {
           <Text
             weight="bold"
             size="medium"
-            alignSelf={size === "small" ? "center" : "flex-start"}
+            alignSelf={size === "small" ? "center" : "start"}
           >
             {item.title}
           </Text>
