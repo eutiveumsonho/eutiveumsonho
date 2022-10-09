@@ -73,7 +73,7 @@ export default function Invite() {
         flex
         pad="xlarge"
         style={{
-          minHeight: "calc(90vh - 11.75rem)",
+          minHeight: "70vh",
         }}
       >
         <Box
