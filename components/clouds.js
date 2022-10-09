@@ -1,3 +1,4 @@
+import { Box } from "grommet";
 import styles from "./clouds.module.css";
 
 export default function Clouds() {
@@ -20,6 +21,14 @@ export default function Clouds() {
       </div>
 
       <div className={styles.x5}>
+        <div className={styles.cloud}></div>
+      </div>
+
+      <div className={styles.x6}>
+        <div className={styles.cloud}></div>
+      </div>
+
+      <div className={styles.x7}>
         <div className={styles.cloud}></div>
       </div>
     </div>

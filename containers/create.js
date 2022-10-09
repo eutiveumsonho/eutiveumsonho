@@ -1,5 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
-import Head from "next/head";
+import { useContext, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -16,39 +15,19 @@ import { useRouter } from "next/router";
 import { stripHtml, VISIBILITY_TRANSLATIONS } from "../lib/strings";
 import { BRAND_HEX } from "../lib/config";
 import { Logo } from "../components/logo";
-import { Favorite, StatusCritical, StatusGood } from "grommet-icons";
-import dayjs from "dayjs";
+import { Close, StatusCritical, StatusGood } from "grommet-icons";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import VisibilityIcon from "../components/visbility-icon";
 import { logError } from "../lib/o11y";
-import styled from "styled-components";
+import Loading from "../components/editor/loading";
+import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
 
 dayjs.extend(LocalizedFormat);
 
-const FavoriteFilled = styled(Favorite)`
-  path[fill="none"] {
-    fill: ${BRAND_HEX};
-  }
-`;
-
 const Editor = dynamic(() => import("../components/editor"), {
   ssr: false,
-  loading: () => (
-    <Box fill>
-      <Box margin="large" align="center">
-        <Box direction="row" gap="large" pad="small">
-          <Spinner
-            animation={{ type: "pulse", duration: 650, size: "medium" }}
-            justify="center"
-          >
-            <FavoriteFilled color={BRAND_HEX} size="large" />
-          </Spinner>
-          <Text margin={{ horizontal: "small" }}>Carregando com amor...</Text>
-        </Box>
-      </Box>
-    </Box>
-  ),
+  loading: () => <Loading />,
 });
 
 function Syncing() {
@@ -338,10 +317,23 @@ export default function Create(props) {
             fill={size === "small" ? "horizontal" : "unset"}
             overflow="auto"
           >
-            <Heading level={3} margin="none">
-              Configurações de visibilidade
-            </Heading>
-            <Heading level={4} fill margin="none">
+            <Box direction="row" justify="between" width="100%">
+              <Heading level={2} margin="none">
+                Configurações de visibilidade
+              </Heading>
+              <Button
+                icon={<Close />}
+                onClick={() => setOpenVisibilitySettings(false)}
+              />
+            </Box>
+            <Heading
+              level={4}
+              fill
+              margin="none"
+              style={{
+                textAlign: "center",
+              }}
+            >
               Selecione a caixa que define como as pessoas irão ver os seus
               sonhos.
             </Heading>

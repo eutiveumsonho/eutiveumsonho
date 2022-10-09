@@ -1,0 +1,25 @@
+.wave:before {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 100%;
+  width: 400vw;
+  height: 20rem;
+  background-color: #7e4cdb;
+  right: -20%;
+  bottom: 0;
+  z-index: -1;
+}
+
+.wave:after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 100%;
+  width: 200vw;
+  height: 20rem;
+  background-color: #333;
+  left: -25%;
+  bottom: -10rem;
+  z-index: -2;
+}
