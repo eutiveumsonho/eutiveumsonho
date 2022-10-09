@@ -28,30 +28,16 @@ const Editor = dynamic(() => import("../components/editor"), {
 export default function Invite() {
   const { push } = useRouter();
   const control = useAnimation();
+  const control2 = useAnimation();
+  const control3 = useAnimation();
   const [ref, inView] = useInView();
+  const [ref2, inView2] = useInView();
+  const [ref3, inView3] = useInView();
+
   const size = useContext(ResponsiveContext);
   const [openSignIn, setOpenSignIn] = useState(false);
 
-  const titleVariant = {
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.9 },
-    },
-    hidden: { opacity: 0, scale: 0 },
-  };
-
-  const boxVariant = {
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.7 } },
-    hidden: { opacity: 0, scale: 0, x: 100 },
-  };
-
-  const boxVariant2 = {
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.7 } },
-    hidden: { opacity: 0, scale: 0, x: -40 },
-  };
-
-  const boxVariant3 = {
+  const variant = {
     visible: { opacity: 1, scale: 1, transition: { duration: 0.7 } },
     hidden: { opacity: 0, scale: 0, x: 0 },
   };
@@ -61,6 +47,18 @@ export default function Invite() {
       control.start("visible");
     }
   }, [control, inView]);
+
+  useEffect(() => {
+    if (inView2) {
+      control2.start("visible");
+    }
+  }, [control2, inView2]);
+
+  useEffect(() => {
+    if (inView3) {
+      control3.start("visible");
+    }
+  }, [control3, inView3]);
 
   return (
     <Layout>
@@ -148,36 +146,27 @@ export default function Invite() {
                   direction={size === "large" ? "row" : "column"}
                   align="center"
                   justify="center"
+                  gap="medium"
                 >
-                  <motion.span
-                    variants={titleVariant}
-                    animate={control}
+                  <Heading
+                    size="xxlarge"
+                    color="white"
                     style={{
-                      position: "relative",
-                      marginBottom: "2rem",
+                      textAlign: size === "large" ? "start" : "center",
                     }}
                   >
-                    <Heading
-                      size="xxlarge"
-                      color="white"
-                      style={{
-                        textAlign: size === "small" ? "center" : "start",
-                      }}
-                    >
-                      Compartilhe os seus sonhos e veja o que outras pessoas
-                      estão sonhando
-                    </Heading>
-                  </motion.span>
+                    Compartilhe os seus sonhos e veja o que outras pessoas estão
+                    sonhando
+                  </Heading>
                   <motion.img
-                    variants={boxVariant}
+                    variants={variant}
                     initial="hidden"
                     animate={control}
                     style={{
-                      maxWidth: "40rem",
+                      maxWidth: size === "small" ? "22rem" : "40rem",
                       border: "1px solid rgb(126, 76, 219)",
                       borderRadius: "0.5rem",
                       boxShadow: "rgb(0 0 0 / 20%) 0px 8px 16px",
-                      marginBottom: "2rem",
                     }}
                     src="/images/home/descubra.png"
                   />
@@ -189,42 +178,35 @@ export default function Invite() {
           <Box pad="xsmall" direction="row">
             <NoSSR>
               <Box
-                direction={size === "small" ? "column-reverse" : "row"}
+                ref={ref2}
+                direction={size === "large" ? "row" : "column-reverse"}
                 align="center"
                 justify="center"
+                gap="medium"
               >
                 <motion.img
-                  variants={boxVariant2}
+                  variants={variant}
                   initial="hidden"
-                  animate={control}
+                  animate={control2}
                   style={{
-                    maxWidth: size === "small" ? "30rem" : "40rem",
+                    maxWidth: size === "small" ? "20rem" : "40rem",
                     border: "1px solid rgb(126, 76, 219)",
                     borderRadius: "0.5rem",
                     boxShadow: "rgb(0 0 0 / 20%) 0px 8px 16px",
-                    marginBottom: "2rem",
                   }}
                   src="/images/home/pesquisar.png"
                 />
-                <motion.span
-                  variants={titleVariant}
-                  animate={control}
+
+                <Heading
+                  size="xxlarge"
+                  color="white"
                   style={{
-                    position: "relative",
-                    marginBottom: "2rem",
+                    textAlign: size === "large" ? "start" : "center",
                   }}
                 >
-                  <Heading
-                    size="xxlarge"
-                    color="white"
-                    style={{
-                      textAlign: size === "small" ? "center" : "start",
-                    }}
-                  >
-                    Encontre sonhos de outras pessoas baseado em termos que são
-                    relevantes para você
-                  </Heading>
-                </motion.span>
+                  Encontre sonhos de outras pessoas baseado em termos que são
+                  relevantes para você
+                </Heading>
               </Box>
             </NoSSR>
           </Box>
@@ -232,40 +214,31 @@ export default function Invite() {
           <Box pad="xsmall" direction="row">
             <NoSSR>
               <Box
+                ref={ref3}
                 direction={size === "large" ? "row" : "column"}
                 align="center"
                 justify="center"
+                gap="medium"
               >
-                <motion.span
-                  variants={titleVariant}
-                  animate={control}
+                <Heading
+                  size="xxlarge"
+                  color="white"
                   style={{
-                    position: "relative",
-                    marginBottom: "2rem",
+                    textAlign: size === "large" ? "start" : "center",
                   }}
                 >
-                  <Heading
-                    size="xxlarge"
-                    color="white"
-                    style={{
-                      textAlign: size === "small" ? "center" : "start",
-                      marginRight: "30px",
-                    }}
-                  >
-                    Armazene os seus sonhos em segurança, e visualize os seus
-                    padrões
-                  </Heading>
-                </motion.span>
+                  Armazene os seus sonhos em segurança, e visualize os seus
+                  padrões
+                </Heading>
                 <motion.img
-                  variants={boxVariant3}
+                  variants={variant}
                   initial="hidden"
-                  animate={control}
+                  animate={control3}
                   style={{
                     maxWidth: "15rem",
                     border: "1px solid rgb(126, 76, 219)",
                     borderRadius: "0.5rem",
                     boxShadow: "rgb(0 0 0 / 20%) 0px 8px 16px",
-                    marginBottom: "2rem",
                   }}
                   src="/images/home/insights.png"
                 />
