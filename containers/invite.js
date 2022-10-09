@@ -227,7 +227,7 @@ export default function Invite() {
                     textAlign: size === "large" ? "start" : "center",
                   }}
                 >
-                  Armazene os seus sonhos em segurança, e visualize os seus
+                  Armazene os seus sonhos em segurança e visualize os seus
                   padrões
                 </Heading>
                 <motion.img
