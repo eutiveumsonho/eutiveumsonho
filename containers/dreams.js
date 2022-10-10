@@ -16,7 +16,7 @@ import Empty from "../components/empty";
 dayjs.extend(LocalizedFormat);
 
 export default function DreamsContainer(props) {
-  const { serverSession, data, title, empty, page } = props;
+  const { serverSession, data, title, empty } = props;
   const { push, reload } = useRouter();
   const [open, setOpen] = useState(false);
   const [dreamIdToDelete, setDreamIdToDelete] = useState();

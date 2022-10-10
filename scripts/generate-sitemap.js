@@ -14,6 +14,8 @@ const skipMatch = [
   "!pages/sonhos",
   "!pages/sonhos-salvos.js",
   "!pages/insights.js",
+  "!pages/404.js",
+  "!pages/500.js",
 ];
 
 // Important! The following issue has useful information on

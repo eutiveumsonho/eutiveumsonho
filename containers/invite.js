@@ -113,7 +113,9 @@ export default function Invite() {
             <Button
               primary
               label="Quero fazer parte"
-              onClick={() => push("/auth/signin")}
+              onClick={() => {
+                push("/auth/signin");
+              }}
             />
           </div>
         </Box>
