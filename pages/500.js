@@ -40,7 +40,7 @@ export default function Custom500() {
           onClick={() => reload()}
         />
 
-        <Image src={"/images/states/500.svg"} width={540} height={540} />
+        <Image src={"/images/states/500.svg"} width={600} height={400} />
       </PageContent>
     </Layout>
   );
