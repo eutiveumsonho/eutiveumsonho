@@ -69,7 +69,9 @@ function LastSyncedAt(props) {
   );
 }
 
-function SyncFailed() {
+function SyncFailed(props) {
+  const { error } = props;
+
   return (
     <>
       <StatusCritical />
@@ -79,7 +81,7 @@ function SyncFailed() {
           paddingLeft: "0.5rem",
         }}
       >
-        Ocorreu um erro
+        {error ? error : "Ocorreu um erro"}
       </Text>
     </>
   );
@@ -181,9 +183,20 @@ export default function Create(props) {
   const save = async (html) => {
     setSyncStatus(<Syncing />);
 
+    const text = stripHtml(html);
+
+    if (text.length > 10000) {
+      setSyncStatus(
+        <SyncFailed
+          error={`Seu sonho deve ter no máximo 10000 caracteres, mas ele tem ${text.length}`}
+        />
+      );
+      return;
+    }
+
     const { postId } = router.query;
     const dreamData = {
-      dream: { html, text: stripHtml(html) },
+      dream: { html, text },
     };
 
     if (!postId) {
