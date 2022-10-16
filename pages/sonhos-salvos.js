@@ -5,8 +5,9 @@ import SavedDreams from "../containers/saved-dreams";
 import { getStarredDreams, getUserById } from "../lib/db/reads";
 
 export default function Saved(props) {
-  const { serverSession, data: rawData } = props;
+  const { serverSession: rawServerSession, data: rawData } = props;
 
+  const serverSession = JSON.parse(rawServerSession);
   const data = JSON.parse(rawData);
 
   return (
@@ -61,7 +62,7 @@ export async function getServerSideProps(context) {
 
     return {
       props: {
-        ...authProps.props,
+        serverSession: JSON.stringify(authProps.props.serverSession),
         data: JSON.stringify(dreams),
       },
     };

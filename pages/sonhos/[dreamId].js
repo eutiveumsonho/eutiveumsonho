@@ -66,7 +66,7 @@ export async function getServerSideProps(context) {
     const isDreamOwner = user._id.toString() === data.userId.toString();
 
     if (data.visibility === "private" && !isDreamOwner) {
-      res.setHeader("location", "/meus-sonhos");
+      res.setHeader("location", "/descubra");
       res.statusCode = 302;
       res.end();
 

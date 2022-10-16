@@ -7,7 +7,13 @@ export default function Empty(props) {
 
   return (
     <Box gap="small" pad="xlarge" align="center">
-      <Text>{empty.description}</Text>
+      <Text
+        style={{
+          textAlign: "center",
+        }}
+      >
+        {empty.description}
+      </Text>
       <Box>
         <Button
           label={empty.label}

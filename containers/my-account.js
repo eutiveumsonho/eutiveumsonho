@@ -10,9 +10,6 @@ export default function MyAccountPage(props) {
   const { push } = useRouter();
   const [deleting, setDeleting] = useState(false);
 
-  // TODO: Edit account/profile details
-  const data = JSON.parse(rawData);
-
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
 
