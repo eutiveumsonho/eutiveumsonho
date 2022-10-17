@@ -20,12 +20,10 @@ jobs:
           echo MONGODB_URI=mongodb://mongo                 > .env.test.local
           echo MONGODB_DB=mongodb                          >> .env.test.local
           echo ENCRYPTION_KEY=encryption_key               >> .env.test.local
-      - name: setup node
       - uses: actions/setup-node@v2
         with:
           cache: npm
           node-version: 16
-      - name: install dependencies and collect size
       - uses: preactjs/compressed-size-action@v2
         with:
           pattern: ".next/**/*.{js,css,html,json}"
