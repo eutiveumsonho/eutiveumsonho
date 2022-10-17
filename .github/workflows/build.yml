@@ -33,3 +33,6 @@ jobs:
         run: yarn test:ci --coverage
       - name: upload coverage to codecov
         uses: codecov/codecov-action@v3
+        with:
+          fail_ci_if_error: true
+          verbose: true
