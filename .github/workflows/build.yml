@@ -8,6 +8,8 @@ jobs:
   build:
     name: build
     runs-on: ubuntu-latest
+    env:
+      CI_JOB_NUMBER: 1
     steps:
       - uses: actions/checkout@v2
       - name: Create mocked .env.local with required variables
@@ -19,5 +21,8 @@ jobs:
         with:
           cache: npm
           node-version: 16
-      - run: yarn
-      - run: yarn build
+      - uses: preactjs/compressed-size-action@v2
+        with:
+          pattern: ".next/**/*.{js,css,html,json}"
+          # always ignore chunks
+          exclude: "{.next/chunks/**}"

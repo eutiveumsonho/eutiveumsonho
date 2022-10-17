@@ -18,6 +18,7 @@ import {
   Star,
   UserSettings,
   BarChart,
+  Inbox,
 } from "grommet-icons";
 import { BRAND_HEX } from "../lib/config";
 import { Logo } from "./logo";
@@ -38,7 +39,7 @@ const SidebarHeader = (props) => {
       align="center"
       gap="small"
       direction="row"
-      margin={{ bottom: "large" }}
+      margin={{ bottom: "xxsmall" }}
       justify="center"
     >
       <Avatar src={serverSession.user.image} />
@@ -72,7 +73,7 @@ const SidebarButton = ({ icon, label, selected, ...rest }) => (
 
 const SidebarFooter = (props) => {
   const { size } = props;
-  const { pathname, push, reload } = useRouter();
+  const { pathname, push } = useRouter();
 
   if (size === "small") {
     return (
@@ -123,13 +124,23 @@ const SidebarFooter = (props) => {
   );
 };
 
+/**
+ * Navigation items are organized by
+ * usage order (data from G.A.)
+ */
 const MainNavigation = (props) => {
-  const { size } = props;
+  const { size, serverSession } = props;
   const { pathname, push } = useRouter();
 
   if (size === "small") {
     return (
       <Nav gap="small">
+        <Button
+          icon={<Magic />}
+          hoverIndicator={pathname !== "/descubra"}
+          primary={pathname === "/descubra"}
+          onClick={() => push("/descubra")}
+        />
         <Button
           icon={<Book />}
           hoverIndicator={pathname !== "/meus-sonhos"}
@@ -143,10 +154,20 @@ const MainNavigation = (props) => {
           onClick={() => push("/insights")}
         />
         <Button
-          icon={<Magic />}
-          hoverIndicator={pathname !== "/descubra"}
-          primary={pathname === "/descubra"}
-          onClick={() => push("/descubra")}
+          icon={<Inbox />}
+          hoverIndicator={pathname !== "/inbox"}
+          primary={pathname === "/inbox"}
+          onClick={() => push("/inbox")}
+          badge={
+            serverSession?.inboxCount
+              ? {
+                  value: serverSession?.inboxCount,
+                  background: {
+                    color: pathname === "/inbox" ? "#6FFFB0" : BRAND_HEX,
+                  },
+                }
+              : 0
+          }
         />
         <Button
           icon={<Star />}
@@ -162,6 +183,12 @@ const MainNavigation = (props) => {
   return (
     <Nav gap="medium" fill="vertical" responsive={false}>
       <SidebarButton
+        icon={<Magic />}
+        label="Descubra"
+        selected={pathname === "/descubra"}
+        onClick={() => push("/descubra")}
+      />
+      <SidebarButton
         icon={<Book />}
         label="Meus sonhos"
         selected={pathname === "/meus-sonhos"}
@@ -174,10 +201,25 @@ const MainNavigation = (props) => {
         onClick={() => push("/insights")}
       />
       <SidebarButton
-        icon={<Magic />}
-        label="Descubra"
-        selected={pathname === "/descubra"}
-        onClick={() => push("/descubra")}
+        icon={
+          <Button
+            plain
+            icon={<Inbox color={pathname === "/inbox" ? "white" : undefined} />}
+            badge={
+              serverSession?.inboxCount
+                ? {
+                    value: serverSession?.inboxCount,
+                    background: {
+                      color: pathname === "/inbox" ? "#6FFFB0" : BRAND_HEX,
+                    },
+                  }
+                : 0
+            }
+          />
+        }
+        label="Inbox"
+        selected={pathname === "/inbox"}
+        onClick={() => push("/inbox")}
       />
       <SidebarButton
         icon={<Star />}
@@ -213,7 +255,7 @@ function MobileSidebar(props) {
         zIndex: "11",
       }}
     >
-      <MainNavigation size={size} />
+      <MainNavigation size={size} serverSession={serverSession} />
     </SidebarBase>
   );
 }
@@ -241,7 +283,7 @@ function DesktopSidebar(props) {
         zIndex: "11",
       }}
     >
-      <MainNavigation size={size} />
+      <MainNavigation size={size} serverSession={serverSession} />
     </SidebarBase>
   );
 }

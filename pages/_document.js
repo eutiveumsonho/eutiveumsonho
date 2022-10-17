@@ -1,3 +1,4 @@
+const newrelic = require("newrelic");
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 import "../lib/utils/development";
@@ -16,8 +17,13 @@ class MyDocument extends Document {
         });
 
       const initialProps = await Document.getInitialProps(ctx);
+      const browserTimingHeader = newrelic.getBrowserTimingHeader({
+        hasToRemoveScriptWrapper: true,
+      });
+
       return {
         ...initialProps,
+        browserTimingHeader,
         styles: (
           <>
             {initialProps.styles}
@@ -70,6 +76,10 @@ class MyDocument extends Document {
               <script type="text/javascript" src="//cdn.iubenda.com/cs/ccpa/stub.js"></script>
               <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>`,
             }}
+          />
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{ __html: this.props.browserTimingHeader }}
           />
         </Head>
         <body

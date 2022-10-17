@@ -9,7 +9,14 @@ import { logError } from "../lib/o11y";
 import Head from "next/head";
 
 export default function FindOut(props) {
-  const { serverSession, data: rawData, stars: rawStars } = props;
+  const {
+    serverSession: rawServerSession,
+    data: rawData,
+    stars: rawStars,
+  } = props;
+
+  const serverSession = JSON.parse(rawServerSession);
+  console.log({ serverSession });
 
   const data = JSON.parse(rawData);
   const stars = JSON.parse(rawStars);
@@ -61,7 +68,7 @@ export async function getServerSideProps(context) {
 
     return {
       props: {
-        ...authProps.props,
+        serverSession: JSON.stringify(authProps.props.serverSession),
         data: JSON.stringify(dreams),
         stars: JSON.stringify(stars),
       },

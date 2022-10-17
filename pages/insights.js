@@ -12,8 +12,9 @@ import { DATE_FORMAT } from "../components/heatmap/constants";
 import Tip from "../components/tip";
 
 export default function InsightsPage(props) {
-  const { serverSession, data: rawData } = props;
+  const { serverSession: rawServerSession, data: rawData } = props;
 
+  const serverSession = JSON.parse(rawServerSession);
   const data = JSON.parse(rawData);
 
   return (
@@ -203,7 +204,7 @@ export async function getServerSideProps(context) {
 
     return {
       props: {
-        ...authProps.props,
+        serverSession: JSON.stringify(authProps.props.serverSession),
         data: JSON.stringify({
           heatmap,
           wordFrequencyDistribution: wordFrequencyDistributionData.slice(0, 14),

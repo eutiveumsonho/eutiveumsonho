@@ -5,8 +5,9 @@ import Dreams from "../containers/dreams";
 import Head from "next/head";
 
 export default function MyDreams(props) {
-  const { serverSession, data: rawData } = props;
+  const { serverSession: rawServerSession, data: rawData } = props;
 
+  const serverSession = JSON.parse(rawServerSession);
   const data = JSON.parse(rawData);
 
   return (
@@ -44,7 +45,12 @@ export async function getServerSideProps(context) {
 
     const data = await getDreams(email);
 
-    return { props: { ...authProps.props, data: JSON.stringify(data) } };
+    return {
+      props: {
+        serverSession: JSON.stringify(authProps.props.serverSession),
+        data: JSON.stringify(data),
+      },
+    };
   } catch (error) {
     logError({
       ...error,

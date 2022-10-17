@@ -4,7 +4,9 @@ import Layout from "../components/layout";
 import { getAuthProps } from "../lib/auth";
 
 export default function Home(props) {
-  const { serverSession } = props;
+  const { serverSession: rawServerSession } = props;
+
+  const serverSession = JSON.parse(rawServerSession);
 
   return (
     <Layout serverSession={serverSession}>
@@ -35,5 +37,15 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps(context) {
-  return getAuthProps(context);
+  const authProps = await getAuthProps(context);
+
+  if (authProps.props.serverSession) {
+    return { props: {} };
+  }
+
+  return {
+    props: {
+      serverSession: JSON.stringify(authProps.props.serverSession),
+    },
+  };
 }

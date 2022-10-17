@@ -5,12 +5,17 @@ import { getUserByEmail } from "../lib/db/reads";
 import { logError } from "../lib/o11y";
 
 export default function MyAccount(props) {
+  const { serverSession: rawServerSession, data: rawData } = props;
+
+  const serverSession = JSON.parse(rawServerSession);
+  const data = JSON.parse(rawData);
+
   return (
     <>
       <Head>
         <title>Minha conta</title>
       </Head>
-      <MyAccountPage {...props} />
+      <MyAccountPage serverSession={serverSession} data={data} />
     </>
   );
 }
@@ -30,7 +35,12 @@ export async function getServerSideProps(context) {
 
     const data = await getUserByEmail(email);
 
-    return { props: { ...authProps.props, data: JSON.stringify(data) } };
+    return {
+      props: {
+        serverSession: JSON.stringify(authProps.props.serverSession),
+        data: JSON.stringify(data),
+      },
+    };
   } catch (error) {
     logError({
       ...error,

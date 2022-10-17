@@ -16,6 +16,7 @@ const skipMatch = [
   "!pages/insights.js",
   "!pages/404.js",
   "!pages/500.js",
+  "!pages/inbox.js",
 ];
 
 // Important! The following issue has useful information on
