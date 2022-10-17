@@ -32,4 +32,4 @@ jobs:
       - name: run tests and collect coverage
         run: yarn test:ci
       - name: upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v3
