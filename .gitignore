@@ -30,3 +30,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# newrelic
+newrelic_agent.log*

@@ -39,7 +39,7 @@ const SidebarHeader = (props) => {
       align="center"
       gap="small"
       direction="row"
-      margin={{ bottom: "large" }}
+      margin={{ bottom: "xxsmall" }}
       justify="center"
     >
       <Avatar src={serverSession.user.image} />
@@ -73,7 +73,7 @@ const SidebarButton = ({ icon, label, selected, ...rest }) => (
 
 const SidebarFooter = (props) => {
   const { size } = props;
-  const { pathname, push, reload } = useRouter();
+  const { pathname, push } = useRouter();
 
   if (size === "small") {
     return (
