@@ -24,3 +24,5 @@ jobs:
       - uses: preactjs/compressed-size-action@v2
         with:
           pattern: ".next/**/*.{js,css,html,json}"
+          # always ignore chunks
+          exclude: "{.next/chunks/**}"
