@@ -1,4 +1,3 @@
-require("@newrelic/next");
 const { patchWebpackConfig } = require("next-global-css");
 const webpackNodeExternals = require("webpack-node-externals");
 
