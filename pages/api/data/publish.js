@@ -8,9 +8,10 @@ import {
   SERVER_ERROR,
   FORBIDDEN,
 } from "../../../lib/errors";
+import { withTracing } from "../../../lib/middleware";
 import { logError } from "../../../lib/o11y";
 
-export default async function handler(req, res) {
+function handler(req, res) {
   switch (req.method) {
     case "PATCH":
       return patch(req, res);
@@ -57,3 +58,5 @@ async function patch(req, res) {
     return res;
   }
 }
+
+export default withTracing(handler);

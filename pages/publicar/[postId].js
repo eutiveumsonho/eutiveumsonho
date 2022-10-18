@@ -4,6 +4,7 @@ import Create from "../../containers/create";
 import { getDreamById } from "../../lib/db/reads";
 import { logError } from "../../lib/o11y";
 import Head from "next/head";
+import { logReq } from "../../lib/middleware";
 
 export default function DreamEditor(props) {
   const { data, ...authProps } = props;
@@ -20,6 +21,7 @@ export default function DreamEditor(props) {
 
 export async function getServerSideProps(context) {
   const authProps = await getAuthProps(context);
+  logReq(context.req, context.res);
   const { res } = context;
 
   if (!authProps.props.serverSession) {

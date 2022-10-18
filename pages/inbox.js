@@ -23,6 +23,7 @@ import { Checkmark, StatusGoodSmall, Trash } from "grommet-icons";
 import { markInboxMessagesAsRead, deleteInboxMessages } from "../lib/api";
 import "dayjs/locale/pt-br";
 import { BRAND_HEX } from "../lib/config";
+import { logReq } from "../lib/middleware";
 
 dayjs.extend(LocalizedFormat);
 dayjs.extend(relativeTime);
@@ -271,6 +272,7 @@ export default function Inbox(props) {
 
 export async function getServerSideProps(context) {
   const authProps = await getAuthProps(context);
+  logReq(context.req, context.res);
 
   if (!authProps.props.serverSession || !authProps.props.serverSession?.user) {
     const { res } = context;

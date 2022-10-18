@@ -3,6 +3,7 @@ import { logError } from "../lib/o11y";
 import Head from "next/head";
 import SavedDreams from "../containers/saved-dreams";
 import { getStarredDreams, getUserById } from "../lib/db/reads";
+import { logReq } from "../lib/middleware";
 
 export default function Saved(props) {
   const { serverSession: rawServerSession, data: rawData } = props;
@@ -33,6 +34,7 @@ export default function Saved(props) {
 
 export async function getServerSideProps(context) {
   const authProps = await getAuthProps(context);
+  logReq(context.req, context.res);
 
   if (!authProps.props.serverSession) {
     const { res } = context;

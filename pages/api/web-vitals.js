@@ -1,12 +1,17 @@
+import { withTracing } from "../../lib/middleware";
 import honey, { logError } from "../../lib/o11y";
 
 function sendEvent(metric) {
+  if (process.env.NODE_ENV !== "production") {
+    return;
+  }
+
   const evnt = honey.newEvent();
   evnt.add(metric);
   evnt.send();
 }
 
-export default function handler(req, res) {
+function handler(req, res) {
   const metric = req.body;
   const allowedList = [
     "FCP",
@@ -37,3 +42,5 @@ export default function handler(req, res) {
     };
   }
 }
+
+export default withTracing(handler);

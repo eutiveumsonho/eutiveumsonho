@@ -2,6 +2,7 @@ import { getAuthProps } from "../../lib/auth";
 
 import Create from "../../containers/create";
 import Head from "next/head";
+import { logReq } from "../../lib/middleware";
 
 export default function Home(props) {
   return (
@@ -16,6 +17,7 @@ export default function Home(props) {
 
 export async function getServerSideProps(context) {
   const authProps = await getAuthProps(context);
+  logReq(context.req, context.res);
 
   if (!authProps.props.serverSession) {
     const { res } = context;

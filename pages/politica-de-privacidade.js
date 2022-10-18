@@ -2,6 +2,7 @@ import { PageContent } from "grommet";
 import Head from "next/head";
 import Layout from "../components/layout";
 import { getAuthProps } from "../lib/auth";
+import { logReq } from "../lib/middleware";
 
 export default function Home(props) {
   const { serverSession: rawServerSession } = props;
@@ -38,6 +39,7 @@ export default function Home(props) {
 
 export async function getServerSideProps(context) {
   const authProps = await getAuthProps(context);
+  logReq(context.req, context.res);
 
   if (authProps.props.serverSession) {
     return { props: {} };

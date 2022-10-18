@@ -3,6 +3,7 @@ import { getDreams } from "../lib/db/reads";
 import { logError } from "../lib/o11y";
 import Dreams from "../containers/dreams";
 import Head from "next/head";
+import { logReq } from "../lib/middleware";
 
 export default function MyDreams(props) {
   const { serverSession: rawServerSession, data: rawData } = props;
@@ -32,6 +33,7 @@ export default function MyDreams(props) {
 
 export async function getServerSideProps(context) {
   const authProps = await getAuthProps(context);
+  logReq(context.req, context.res);
 
   if (!authProps.props.serverSession || !authProps.props.serverSession?.user) {
     const { res } = context;

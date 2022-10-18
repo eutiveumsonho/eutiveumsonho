@@ -21,6 +21,7 @@ import isEmail from "validator/lib/isEmail";
 import Clouds from "../../components/clouds";
 import { Logo } from "../../components/logo";
 import { NEXT_AUTH_ERRORS } from "../../lib/errors";
+import { logReq } from "../../lib/middleware";
 
 const icon = {
   Facebook: <Facebook />,
@@ -153,6 +154,7 @@ export default function SignIn({ providers, csrfToken }) {
 export async function getServerSideProps(context) {
   const providers = await getProviders();
   const session = await getSession(context);
+  logReq(context.req, context.res);
 
   if (session) {
     context.res.writeHead(302, { Location: "/" });

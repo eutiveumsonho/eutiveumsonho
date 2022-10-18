@@ -7,6 +7,7 @@ import {
 import PublicDreams from "../containers/public-dreams";
 import { logError } from "../lib/o11y";
 import Head from "next/head";
+import { logReq } from "../lib/middleware";
 
 export default function FindOut(props) {
   const {
@@ -16,7 +17,6 @@ export default function FindOut(props) {
   } = props;
 
   const serverSession = JSON.parse(rawServerSession);
-  console.log({ serverSession });
 
   const data = JSON.parse(rawData);
   const stars = JSON.parse(rawStars);
@@ -38,6 +38,7 @@ export default function FindOut(props) {
 
 export async function getServerSideProps(context) {
   const authProps = await getAuthProps(context);
+  logReq(context.req, context.res);
 
   if (!authProps.props.serverSession) {
     const { res } = context;

@@ -1,4 +1,3 @@
-const newrelic = require("newrelic");
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 import "../lib/utils/development";
@@ -17,13 +16,9 @@ class MyDocument extends Document {
         });
 
       const initialProps = await Document.getInitialProps(ctx);
-      const browserTimingHeader = newrelic.getBrowserTimingHeader({
-        hasToRemoveScriptWrapper: true,
-      });
 
       return {
         ...initialProps,
-        browserTimingHeader,
         styles: (
           <>
             {initialProps.styles}
