@@ -9,9 +9,10 @@ import {
   SERVER_ERROR,
   FORBIDDEN,
 } from "../../../lib/errors";
+import { withTracing } from "../../../lib/middleware";
 import { logError } from "../../../lib/o11y";
 
-export default async function handler(req, res) {
+function handler(req, res) {
   switch (req.method) {
     case "POST":
       return post(req, res);
@@ -22,7 +23,7 @@ export default async function handler(req, res) {
     case "GET":
       return get(req, res);
     default:
-      res.setHeader("Allow", ["POST", "PATCH", "DELETE"]);
+      res.setHeader("Allow", ["GET", "POST", "PATCH", "DELETE"]);
       res.status(405).end(METHOD_NOT_ALLOWED);
       return res;
   }
@@ -185,3 +186,5 @@ async function get(req, res) {
     return res;
   }
 }
+
+export default withTracing(handler);

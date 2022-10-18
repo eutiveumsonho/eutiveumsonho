@@ -9,6 +9,7 @@ import {
   getComments,
 } from "../../lib/db/reads";
 import { logError } from "../../lib/o11y";
+import { logReq } from "../../lib/middleware";
 
 export default function DreamPage(props) {
   const { data: rawData, comments: rawComments, ...authProps } = props;
@@ -28,6 +29,7 @@ export default function DreamPage(props) {
 
 export async function getServerSideProps(context) {
   const authProps = await getAuthProps(context);
+  logReq(context.req, context.res);
   const { res } = context;
 
   try {

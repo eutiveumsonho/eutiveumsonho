@@ -1,3 +1,4 @@
+import { logError } from "../lib/o11y";
 import Custom404 from "./404";
 import Custom500 from "./500";
 
@@ -10,12 +11,7 @@ function Error({ statusCode }) {
 }
 
 Error.getInitialProps = ({ res, err }) => {
-  if (typeof window == "undefined") {
-    const newrelic = require("newrelic");
-    newrelic.noticeError(err);
-  } else {
-    window.newrelic.noticeError(err);
-  }
+  logError({ ...err, res });
 
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
   return { statusCode };

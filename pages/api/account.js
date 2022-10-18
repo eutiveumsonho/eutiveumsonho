@@ -4,8 +4,9 @@ import { getServerSession } from "../../lib/auth";
 import { METHOD_NOT_ALLOWED, SERVER_ERROR, FORBIDDEN } from "../../lib/errors";
 import { deleteAccount } from "../../lib/db/writes";
 import { logError } from "../../lib/o11y";
+import { withTracing } from "../../lib/middleware";
 
-export default async function handler(req, res) {
+function handler(req, res) {
   switch (req.method) {
     case "DELETE":
       return del(req, res);
@@ -43,3 +44,5 @@ async function del(req, res) {
     return res;
   }
 }
+
+export default withTracing(handler);
