@@ -1,5 +1,4 @@
 import NextAuth from "next-auth";
-// import FacebookProvider from "next-auth/providers/facebook";
 import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
@@ -75,15 +74,13 @@ export const authOptions = {
     }),
     // TODO: Create OAuth account linkage workflow
     // https://stackoverflow.com/questions/71643948/nextauth-oauthaccountnotlinked-imported-data-from-another-website-autolink
-    // FacebookProvider({
-    //   clientId: process.env.AUTH_FACEBOOK_ID,
-    //   clientSecret: process.env.AUTH_FACEBOOK_SECRET,
-    // }),
-    GoogleProvider({
-      clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET,
-    }),
-  ],
+    process.env.NODE_ENV === "production"
+      ? GoogleProvider({
+          clientId: process.env.AUTH_GOOGLE_ID,
+          clientSecret: process.env.AUTH_GOOGLE_SECRET,
+        })
+      : null,
+  ].filter(Boolean),
   pages: {
     signIn: "/auth/signin",
     // signOut: '/auth/signout',
