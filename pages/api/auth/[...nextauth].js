@@ -4,28 +4,26 @@ import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "../../../lib/mongodb";
-import { createTransport } from "nodemailer";
 import { html } from "../../../lib/email";
 import { ALLOWED_HOST, BRAND_HEX } from "../../../lib/config";
 import { withTracing } from "../../../lib/middleware";
+import { sendEmail } from "../../../lib/clients/ses";
+import { logError } from "../../../lib/o11y";
 
 async function sendVerificationRequest(params) {
   const { identifier, url, provider } = params;
   const { host } = new URL(url);
-  const transport = createTransport(provider.server);
 
-  const result = await transport.sendMail({
-    to: identifier,
-    from: provider.from,
-    subject: `Entrar no Eu tive um sonho`,
-    text: text({ url, host }),
-    html: formatMagicLinkHtml({ url, host }),
-  });
-
-  const failed = result.rejected.concat(result.pending).filter(Boolean);
-
-  if (failed.length) {
-    throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`);
+  try {
+    sendEmail({
+      to: identifier,
+      from: provider.from,
+      subject: `Entrar no Eu tive um sonho`,
+      text: text({ url, host }),
+      html: formatMagicLinkHtml({ url, host }),
+    });
+  } catch (error) {
+    logError(error);
   }
 }
 
