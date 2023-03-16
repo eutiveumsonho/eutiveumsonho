@@ -31,7 +31,7 @@
     "mongodb": "^4.7.0",
     "multilingual-stemmer": "^1.0.2",
     "next": "^12.3.1",
-    "next-auth": "^4.10.2",
+    "next-auth": "^4.20.1",
     "next-seo": "^5.5.0",
     "nextjs-progressbar": "^0.0.14",
     "nodemailer": "^6.7.7",
