@@ -11,13 +11,13 @@ import { sendEmail } from "../../../lib/clients/ses";
 import { logError } from "../../../lib/o11y";
 
 async function sendVerificationRequest(params) {
-  const { identifier, url, provider } = params;
+  const { identifier, url } = params;
   const { host } = new URL(url);
 
   try {
     sendEmail({
       to: identifier,
-      from: provider.from,
+      from: "marcelo@eutiveumsonho.com",
       subject: `Entrar no Eu tive um sonho`,
       text: text({ url, host }),
       html: formatMagicLinkHtml({ url, host }),
