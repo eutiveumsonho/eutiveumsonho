@@ -55,11 +55,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           `,
         }}
       />
-      <Script
-        id="splitbee"
-        strategy="beforeInteractive"
-        src="https://cdn.splitbee.io/sb.js"
-      />
       <DefaultSeo {...SEO} />
       <CustomScripts />
       <NextNProgress color={BRAND_HEX} />

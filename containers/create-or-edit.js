@@ -10,7 +10,12 @@ import {
   Text,
 } from "grommet";
 import dynamic from "next/dynamic";
-import { createDream, saveDream, updateDreamVisibility } from "../lib/api";
+import {
+  createAIComment,
+  createDream,
+  saveDream,
+  updateDreamVisibility,
+} from "../lib/api";
 import { useRouter } from "next/router";
 import { stripHtml, VISIBILITY_TRANSLATIONS } from "../lib/strings";
 import { BRAND_HEX } from "../lib/config";
@@ -154,7 +159,7 @@ function VisiblityOption(props) {
   );
 }
 
-export default function Create(props) {
+export default function CreateOrEdit(props) {
   const { data } = props;
   const [initialHtml, setInitialHtml] = useState();
   const router = useRouter();
@@ -171,6 +176,23 @@ export default function Create(props) {
   const { postId } = router.query;
 
   useEffect(() => {
+    const exitingFunction = async () => {
+      await createAIComment({ text: data?.dream?.text, dreamId: postId });
+    };
+
+    if (router.pathname === "/publicar/[postId]") {
+      router.events.on("routeChangeStart", exitingFunction);
+      window.onbeforeunload = exitingFunction;
+    }
+
+    return () => {
+      if (router.pathname === "/publicar/[postId]") {
+        router.events.off("routeChangeStart", exitingFunction);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     if (syncStatus) {
       const syncStatusTimer = setTimeout(() => {
         setSyncStatus(null);
@@ -181,6 +203,10 @@ export default function Create(props) {
   }, [syncStatus]);
 
   const save = async (html) => {
+    if (!html || data?.dream?.html === html || initialHtml === html) {
+      return;
+    }
+
     setSyncStatus(<Syncing />);
 
     const text = stripHtml(html);
@@ -200,7 +226,7 @@ export default function Create(props) {
     };
 
     if (!postId) {
-      const { success, data } = await createDream(dreamData);
+      const { success, data } = await createDream({ dreamId: postId });
 
       if (!success && !data) {
         setSyncStatus(<SyncFailed />);

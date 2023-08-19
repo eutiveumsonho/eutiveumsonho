@@ -1,3 +1,4 @@
+// Not in use right now
 export const chatwoot = (d, t) => {
   const baseUrl = "https://app.chatwoot.com";
   const g = d.createElement(t);

@@ -1,6 +1,6 @@
 import { getAuthProps } from "../../lib/auth";
 
-import Create from "../../containers/create";
+import CreateOrEdit from "../../containers/create-or-edit";
 import Head from "next/head";
 import { logReq } from "../../lib/middleware";
 
@@ -10,7 +10,7 @@ export default function Home(props) {
       <Head>
         <title>Criar sonho</title>
       </Head>
-      <Create {...props} />
+      <CreateOrEdit {...props} />
     </>
   );
 }
