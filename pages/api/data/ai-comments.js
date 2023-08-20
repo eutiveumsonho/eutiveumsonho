@@ -2,7 +2,7 @@
 
 import { getServerSession } from "../../../lib/auth";
 import { hasCommentedOnDream } from "../../../lib/db/reads";
-import { createComment } from "../../../lib/db/writes";
+import { createComment, saveCompletion } from "../../../lib/db/writes";
 import {
   BAD_REQUEST,
   METHOD_NOT_ALLOWED,
@@ -58,6 +58,9 @@ async function post(req, res) {
   };
 
   const completion = await openai.chat.completions.create(params);
+
+  // Dispatch to save completion
+  saveCompletion(completion, session.user.email);
 
   const comment = completion.choices[0].message.content;
 
