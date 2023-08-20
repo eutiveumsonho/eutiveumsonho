@@ -226,7 +226,7 @@ export default function CreateOrEdit(props) {
     };
 
     if (!postId) {
-      const { success, data } = await createDream({ dreamId: postId });
+      const { success, data } = await createDream(dreamData);
 
       if (!success && !data) {
         setSyncStatus(<SyncFailed />);
