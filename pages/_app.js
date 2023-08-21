@@ -11,6 +11,7 @@ import SEO from "../next-seo.config.js";
 import { BRAND_HEX } from "../lib/config";
 import CustomScripts from "../components/custom-scripts";
 import ErrorBoundary from "../components/error-boundary";
+import { Analytics } from "@vercel/analytics/react";
 
 const WebPerformanceObserver = dynamic(() => import("../components/o11y"), {
   ssr: false,
@@ -72,6 +73,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             <Component {...pageProps} />
           </SessionProvider>
           <WebPerformanceObserver />
+          <Analytics />
         </Grommet>
       </ErrorBoundary>
     </>
