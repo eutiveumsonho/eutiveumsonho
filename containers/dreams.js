@@ -111,14 +111,14 @@ function MyDream(props) {
             <Button
               icon={<View />}
               hoverIndicator
-              onClick={() => push(`/sonhos/${item._id}`)}
+              onClick={() => push(`/dreams/${item._id}`)}
             />
           </Tip>
           <Tip content="Editar sonho">
             <Button
               icon={<Edit />}
               hoverIndicator
-              onClick={() => push(`/publicar/${item._id}`)}
+              onClick={() => push(`/publish/${item._id}`)}
             />
           </Tip>
           <Tip content="Deletar sonho">

@@ -32,7 +32,7 @@ const empty = {
   description:
     "Quando alguém comentar em algum sonho seu, ou salvá-lo, aparecerá uma notificação aqui 😉",
   label: "Descubra sonhos",
-  actionRoute: "/descubra",
+  actionRoute: "/dreams",
 };
 
 export default function Inbox(props) {
@@ -181,7 +181,7 @@ export default function Inbox(props) {
       align: "start",
       size: "3/4",
       render: (inbox) => {
-        const path = `/sonhos/${inbox.dreamId}${
+        const path = `/dreams/${inbox.dreamId}${
           inbox.type === "star" ? "" : "#comentar"
         }`;
 

@@ -21,17 +21,17 @@ const footerData = [
     items: [
       {
         title: "Termos e Condiçōes",
-        path: "/termos-e-condicoes",
+        path: "/terms-and-conditions",
         props: {},
       },
       {
         title: "Política de Privacidade",
-        path: "/politica-de-privacidade",
+        path: "/privacy-policy",
         props: {},
       },
       {
         title: "Política de Cookies",
-        path: "/politica-de-cookies",
+        path: "/cookies-policy",
         props: {},
       },
     ],

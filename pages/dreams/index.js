@@ -1,13 +1,13 @@
-import { getAuthProps } from "../lib/auth";
+import { getAuthProps } from "../../lib/auth";
 import {
   getLatestPublicDreams,
   getStarsByUserEmail,
   getUserById,
-} from "../lib/db/reads";
-import PublicDreams from "../containers/public-dreams";
-import { logError } from "../lib/o11y";
+} from "../../lib/db/reads";
+import PublicDreams from "../../containers/public-dreams";
+import { logError } from "../../lib/o11y";
 import Head from "next/head";
-import { logReq } from "../lib/middleware";
+import { logReq } from "../../lib/middleware";
 
 export default function FindOut(props) {
   const {
@@ -78,7 +78,7 @@ export async function getServerSideProps(context) {
     logError({
       error,
       service: "web",
-      pathname: "/descubra",
+      pathname: "/dreams",
       component: "FindOut",
     });
   }

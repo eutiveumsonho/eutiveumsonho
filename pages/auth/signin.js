@@ -132,18 +132,22 @@ export default function SignIn({ providers, csrfToken }) {
               );
             }
 
-            return (
-              <Button
-                key={provider.name}
-                style={{
-                  width: "100%",
-                }}
-                onClick={() => signIn(provider.id)}
-                icon={icon[provider.name]}
-                label={`Entre com ${provider.name}`}
-                primary
-              />
-            );
+            if (process.env.NODE_ENV === "production") {
+              return (
+                <Button
+                  key={provider.name}
+                  style={{
+                    width: "100%",
+                  }}
+                  onClick={() => signIn(provider.id)}
+                  icon={icon[provider.name]}
+                  label={`Entre com ${provider.name}`}
+                  primary
+                />
+              );
+            }
+
+            return null;
           })}
         </Card>
       </Box>

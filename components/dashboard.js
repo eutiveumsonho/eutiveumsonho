@@ -80,9 +80,9 @@ const SidebarFooter = (props) => {
       <Nav gap="small">
         <Button
           icon={<UserSettings />}
-          hoverIndicator={pathname !== "/minha-conta"}
-          primary={pathname === "/minha-conta"}
-          onClick={() => push("/minha-conta")}
+          hoverIndicator={pathname !== "/account"}
+          primary={pathname === "/account"}
+          onClick={() => push("/account")}
         />
         <Button
           icon={<Logout />}
@@ -105,8 +105,8 @@ const SidebarFooter = (props) => {
       <SidebarButton
         icon={<UserSettings />}
         label="Minha conta"
-        selected={pathname === "/minha-conta"}
-        onClick={() => push("/minha-conta")}
+        selected={pathname === "/account"}
+        onClick={() => push("/account")}
       />
       <SidebarButton
         icon={<Logout />}
@@ -137,15 +137,15 @@ const MainNavigation = (props) => {
       <Nav gap="small">
         <Button
           icon={<Magic />}
-          hoverIndicator={pathname !== "/descubra"}
-          primary={pathname === "/descubra"}
-          onClick={() => push("/descubra")}
+          hoverIndicator={pathname !== "/dreams"}
+          primary={pathname === "/dreams"}
+          onClick={() => push("/dreams")}
         />
         <Button
           icon={<Book />}
-          hoverIndicator={pathname !== "/meus-sonhos"}
-          primary={pathname === "/meus-sonhos"}
-          onClick={() => push("/meus-sonhos")}
+          hoverIndicator={pathname !== "/my-dreams"}
+          primary={pathname === "/my-dreams"}
+          onClick={() => push("/my-dreams")}
         />
         <Button
           icon={<BarChart />}
@@ -171,9 +171,9 @@ const MainNavigation = (props) => {
         />
         <Button
           icon={<Star />}
-          hoverIndicator={pathname !== "/sonhos-salvos"}
-          primary={pathname === "/sonhos-salvos"}
-          onClick={() => push("/sonhos-salvos")}
+          hoverIndicator={pathname !== "/saved-dreams"}
+          primary={pathname === "/saved-dreams"}
+          onClick={() => push("/saved-dreams")}
         />
         {/* Coming soon... */}
       </Nav>
@@ -185,14 +185,14 @@ const MainNavigation = (props) => {
       <SidebarButton
         icon={<Magic />}
         label="Descubra"
-        selected={pathname === "/descubra"}
-        onClick={() => push("/descubra")}
+        selected={pathname === "/dreams"}
+        onClick={() => push("/dreams")}
       />
       <SidebarButton
         icon={<Book />}
         label="Meus sonhos"
-        selected={pathname === "/meus-sonhos"}
-        onClick={() => push("/meus-sonhos")}
+        selected={pathname === "/my-dreams"}
+        onClick={() => push("/my-dreams")}
       />
       <SidebarButton
         icon={<BarChart />}
@@ -224,8 +224,8 @@ const MainNavigation = (props) => {
       <SidebarButton
         icon={<Star />}
         label="Salvos"
-        selected={pathname === "/sonhos-salvos"}
-        onClick={() => push("/sonhos-salvos")}
+        selected={pathname === "/saved-dreams"}
+        onClick={() => push("/saved-dreams")}
       />
       {/* Coming soon... */}
       {/* <SidebarButton icon={<StatusInfoSmall />} label="Inbox" /> */}

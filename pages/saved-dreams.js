@@ -20,10 +20,10 @@ export default function Saved(props) {
         serverSession={serverSession}
         data={data}
         title="Sonhos salvos"
-        page="sonhos-salvos"
+        page="saved-dreams"
         empty={{
           label: "Descubra sonhos",
-          actionRoute: "/descubra",
+          actionRoute: "/dreams",
           description:
             "Os sonhos que você salvar (clicando na ⭐), serão listados aqui",
         }}
@@ -72,7 +72,7 @@ export async function getServerSideProps(context) {
     logError({
       error,
       service: "web",
-      pathname: "/sonhos-salvos",
+      pathname: "/saved-dreams",
       component: "SavedDreams",
     });
   }

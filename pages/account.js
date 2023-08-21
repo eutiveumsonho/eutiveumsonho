@@ -1,11 +1,11 @@
-import { getAuthProps } from "../lib/auth";
-import { getDreams } from "../lib/db/reads";
-import { logError } from "../lib/o11y";
-import Dreams from "../containers/dreams";
 import Head from "next/head";
+import MyAccountPage from "../containers/my-account";
+import { getAuthProps } from "../lib/auth";
+import { getUserByEmail } from "../lib/db/reads";
 import { logReq } from "../lib/middleware";
+import { logError } from "../lib/o11y";
 
-export default function MyDreams(props) {
+export default function MyAccount(props) {
   const { serverSession: rawServerSession, data: rawData } = props;
 
   const serverSession = JSON.parse(rawServerSession);
@@ -14,19 +14,9 @@ export default function MyDreams(props) {
   return (
     <>
       <Head>
-        <title>Meus sonhos</title>
+        <title>Minha conta</title>
       </Head>
-      <Dreams
-        serverSession={serverSession}
-        data={data}
-        title="Meus sonhos"
-        page="meus-sonhos"
-        empty={{
-          label: "Adicione seu primeiro sonho",
-          actionRoute: "/publicar",
-          description: "Os seus sonhos serão listados aqui 📚",
-        }}
-      />
+      <MyAccountPage serverSession={serverSession} data={data} />
     </>
   );
 }
@@ -35,7 +25,7 @@ export async function getServerSideProps(context) {
   const authProps = await getAuthProps(context);
   logReq(context.req, context.res);
 
-  if (!authProps.props.serverSession || !authProps.props.serverSession?.user) {
+  if (!authProps.props.serverSession) {
     const { res } = context;
     res.setHeader("location", "/auth/signin");
     res.statusCode = 302;
@@ -45,7 +35,7 @@ export async function getServerSideProps(context) {
   try {
     const { email } = authProps.props.serverSession.user;
 
-    const data = await getDreams(email);
+    const data = await getUserByEmail(email);
 
     return {
       props: {
@@ -57,8 +47,8 @@ export async function getServerSideProps(context) {
     logError({
       error,
       service: "web",
-      pathname: "/meus-sonhos",
-      component: "MyDreams",
+      pathname: "/account",
+      component: "MyAccount",
     });
   }
 }

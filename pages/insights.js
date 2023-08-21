@@ -80,7 +80,7 @@ export default function InsightsPage(props) {
               empty={{
                 label: "Adicione seu primeiro sonho",
                 description: "Os insights dos seus sonhos aparecerão aqui 💡",
-                actionRoute: "/publicar",
+                actionRoute: "/publish",
               }}
             />
           )}

@@ -6,7 +6,7 @@ export function Logo(props) {
   const { color = "purple", noTitle = false } = props;
 
   return (
-    <Link href={noTitle ? "/descubra" : "/"}>
+    <Link href={noTitle ? "/dreams" : "/"}>
       <Box align="center" gap="medium">
         <Image
           src={`/${color}-cloud.svg`}

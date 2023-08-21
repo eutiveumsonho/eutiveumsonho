@@ -22,7 +22,7 @@ export default function DreamFooter(props) {
         icon={<Tip />}
         badge={commentCount}
         onClick={() => {
-          push(`/sonhos/${item._id}#comentar`);
+          push(`/dreams/${item._id}#comentar`);
         }}
       />
       <Button

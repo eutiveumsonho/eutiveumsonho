@@ -45,7 +45,7 @@ export async function getServerSideProps(context) {
     logError({
       error,
       service: "web",
-      pathname: "/publicar/[postId]",
+      pathname: "/publish/[postId]",
       component: "DreamEditor",
     });
   }

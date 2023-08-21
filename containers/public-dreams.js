@@ -154,7 +154,7 @@ function PublicDream(props) {
           elevation: "medium",
         }}
         onClick={() => {
-          push(`/sonhos/${item._id}`);
+          push(`/dreams/${item._id}`);
         }}
       >
         <Text

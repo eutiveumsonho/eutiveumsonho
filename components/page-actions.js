@@ -18,7 +18,7 @@ export default function PageActions(props) {
             }
           />
         )}
-        <Link href="/publicar">
+        <Link href="/publish">
           <Button primary label="Adicionar sonho" />
         </Link>
       </Box>
