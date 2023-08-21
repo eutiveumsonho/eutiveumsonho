@@ -30,9 +30,11 @@ export default function Invite() {
   const control = useAnimation();
   const control2 = useAnimation();
   const control3 = useAnimation();
+  const control4 = useAnimation();
   const [ref, inView] = useInView();
   const [ref2, inView2] = useInView();
   const [ref3, inView3] = useInView();
+  const [ref4, inView4] = useInView();
 
   const size = useContext(ResponsiveContext);
   const [openSignIn, setOpenSignIn] = useState(false);
@@ -59,6 +61,12 @@ export default function Invite() {
       control3.start("visible");
     }
   }, [control3, inView3]);
+
+  useEffect(() => {
+    if (inView4) {
+      control4.start("visible");
+    }
+  }, [control4, inView4]);
 
   return (
     <Layout>
@@ -243,6 +251,41 @@ export default function Invite() {
                     boxShadow: "rgb(0 0 0 / 20%) 0px 8px 16px",
                   }}
                   src="/images/home/insights.png"
+                />
+              </Box>
+            </NoSSR>
+          </Box>
+
+          <Box pad="xsmall" direction="row">
+            <NoSSR>
+              <Box
+                ref={ref4}
+                direction={size === "large" ? "row" : "column"}
+                align="center"
+                justify="center"
+                gap="medium"
+              >
+                <Heading
+                  size="xxlarge"
+                  color="white"
+                  style={{
+                    textAlign: size === "large" ? "start" : "center",
+                  }}
+                >
+                  Desfrute do poder de Sonio, nossa I.A., para aprofundar sua
+                  relação com seus sonhos
+                </Heading>
+                <motion.img
+                  variants={variant}
+                  initial="hidden"
+                  animate={control4}
+                  style={{
+                    maxWidth: "18rem",
+                    border: "1px solid rgb(126, 76, 219)",
+                    borderRadius: "0.5rem",
+                    boxShadow: "rgb(0 0 0 / 20%) 0px 8px 16px",
+                  }}
+                  src="/images/home/ai.png"
                 />
               </Box>
             </NoSSR>
