@@ -215,7 +215,7 @@ export async function getServerSideProps(context) {
     };
   } catch (error) {
     logError({
-      ...error,
+      error,
       service: "web",
       pathname: "/insights",
       component: "InsightsPage",

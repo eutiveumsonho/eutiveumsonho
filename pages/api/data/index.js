@@ -55,7 +55,7 @@ async function patch(req, res) {
     return res;
   } catch (error) {
     logError({
-      ...error,
+      error,
       service: "api",
       pathname: "/api/data",
       method: "patch",
@@ -96,7 +96,7 @@ async function post(req, res) {
     return res;
   } catch (error) {
     logError({
-      ...error,
+      error,
       service: "api",
       pathname: "/api/data",
       method: "post",
@@ -129,7 +129,7 @@ async function del(req, res) {
     return res;
   } catch (error) {
     logError({
-      ...error,
+      error,
       service: "api",
       pathname: "/api/data",
       method: "delete",
@@ -176,7 +176,7 @@ async function get(req, res) {
     return res;
   } catch (error) {
     logError({
-      ...error,
+      error,
       service: "api",
       pathname: "/api/data",
       method: "get",

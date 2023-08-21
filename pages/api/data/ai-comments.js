@@ -105,8 +105,11 @@ function generatePrompt(dream) {
   Do not provide personal opinions or assumptions about the dreamer. 
   Provide only factual interpretations based on the information given. 
   Keep your answer short and concise, with 5000 characters at most.
+  If the dream looks incomplete, never complete it.
   Always respond in the language in which the dream narrative is presented, even if it differs from the initial instruction language (English).
-  Dream: ${dream}`;
+  Here is the dream: 
+  
+  ${dream}`;
 }
 
 export default withTracing(handler);

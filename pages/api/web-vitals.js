@@ -31,7 +31,7 @@ function handler(req, res) {
     res.end();
   } catch (error) {
     logError({
-      ...error,
+      error,
       service: "api",
       pathname: "/api/web-vitals",
       method: "post",

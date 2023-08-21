@@ -243,7 +243,7 @@ export default function CreateOrEdit(props) {
         await saveDream(postId, dreamData);
         setSyncStatus(<LastSyncedAt lastSynced={new Date()} />);
       } catch (error) {
-        logError({ ...error, service: "web" });
+        logError({ error, service: "web" });
       }
     }
   };

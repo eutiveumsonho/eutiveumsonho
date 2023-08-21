@@ -11,7 +11,7 @@ function Error({ statusCode }) {
 }
 
 Error.getInitialProps = ({ res, err }) => {
-  logError({ ...err, res });
+  logError({ error: err, res });
 
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
   return { statusCode };

@@ -76,7 +76,7 @@ export async function getServerSideProps(context) {
     };
   } catch (error) {
     logError({
-      ...error,
+      error,
       service: "web",
       pathname: "/descubra",
       component: "FindOut",

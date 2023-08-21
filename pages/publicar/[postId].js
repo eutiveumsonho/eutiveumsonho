@@ -43,7 +43,7 @@ export async function getServerSideProps(context) {
     return { props: { ...authProps.props, data: null } };
   } catch (error) {
     logError({
-      ...error,
+      error,
       service: "web",
       pathname: "/publicar/[postId]",
       component: "DreamEditor",

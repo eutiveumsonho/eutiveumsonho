@@ -34,7 +34,7 @@ async function del(req, res) {
     return res;
   } catch (error) {
     logError({
-      ...error,
+      error,
       service: "api",
       pathname: "/api/account",
       method: "delete",

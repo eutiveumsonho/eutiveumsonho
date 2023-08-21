@@ -48,7 +48,7 @@ async function patch(req, res) {
     return res;
   } catch (error) {
     logError({
-      ...error,
+      error,
       service: "api",
       pathname: "/api/data/publish",
       method: "patch",

@@ -56,7 +56,7 @@ async function post(req, res) {
     return res;
   } catch (error) {
     logError({
-      ...error,
+      error,
       service: "api",
       pathname: "/api/data/stars",
       method: "post",
@@ -97,7 +97,7 @@ async function del(req, res) {
     return res;
   } catch (error) {
     logError({
-      ...error,
+      error,
       service: "api",
       pathname: "/api/data/stars",
       method: "delete",

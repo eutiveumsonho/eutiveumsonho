@@ -70,7 +70,7 @@ export async function getServerSideProps(context) {
     };
   } catch (error) {
     logError({
-      ...error,
+      error,
       service: "web",
       pathname: "/sonhos-salvos",
       component: "SavedDreams",
