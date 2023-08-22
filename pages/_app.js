@@ -22,12 +22,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-      const str = navigator.userAgent;
-      const instagram = str.indexOf("Instagram");
-      const facebook = str.indexOf("FB");
+      const userAgent = navigator.userAgent;
+      const instagram = userAgent.indexOf("Instagram");
+      const facebook = userAgent.indexOf("FB");
 
-      if (/android/i.test(userAgent) && (instagram != -1 || facebook != -1)) {
+      if (instagram != -1 || facebook != -1) {
         document.write(
           '<a target="_blank" href="https://eutiveumsonho.com" download id="open-browser-url">Please wait. Proceed to Chrome</a>'
         );
