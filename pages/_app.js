@@ -22,22 +22,23 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
 
   useEffect(() => {
-    function inIframe() {
+    function isInWebView() {
       if (typeof window !== "undefined") {
-        try {
-          return window.self !== window.top;
-        } catch (error) {
-          logWarn({
-            message: "inIframe",
-            error,
-          });
-          return true;
-        }
+        const ua = window.navigator.userAgent;
+
+        // iOS WebView check
+        const isiOSWebView =
+          /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(ua);
+
+        // Android WebView check
+        const isAndroidWebView = ua.indexOf("wv") > -1;
+
+        return isiOSWebView || isAndroidWebView;
       }
     }
 
-    // If its inside an iframe (WebView) then open the default browser
-    if (inIframe()) {
+    // If its inside a WebView, open app in the default browser
+    if (isInWebView()) {
       window.open(window.location.href, "_system");
     }
   }, []);
