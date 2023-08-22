@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (navigator.userAgent.includes("Instagram")) {
-        window.open("https://eutiveumsonho.com", "_system");
+        window.open("https://eutiveumsonho.com", "_system", "location=yes");
       }
     }
   }, []);
