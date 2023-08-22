@@ -12,6 +12,7 @@ import { BRAND_HEX } from "../lib/config";
 import CustomScripts from "../components/custom-scripts";
 import ErrorBoundary from "../components/error-boundary";
 import { Analytics } from "@vercel/analytics/react";
+import { logWarn } from "../lib/o11y";
 
 const WebPerformanceObserver = dynamic(() => import("../components/o11y"), {
   ssr: false,
@@ -19,6 +20,27 @@ const WebPerformanceObserver = dynamic(() => import("../components/o11y"), {
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
+
+  useEffect(() => {
+    function inIframe() {
+      if (typeof window !== "undefined") {
+        try {
+          return window.self !== window.top;
+        } catch (error) {
+          logWarn({
+            message: "inIframe",
+            error,
+          });
+          return true;
+        }
+      }
+    }
+
+    // If its inside an iframe (WebView) then open the default browser
+    if (inIframe()) {
+      window.open(window.location.href, "_system");
+    }
+  }, []);
 
   useEffect(() => {
     const handleRouteChange = (url) => {
