@@ -1,8 +1,8 @@
 import dynamic from "next/dynamic";
-import { grommet, Grommet } from "grommet";
+import { Box, Button, grommet, Grommet, Heading, Layer } from "grommet";
 import Script from "next/script";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SessionProvider } from "next-auth/react";
 import { DefaultSeo } from "next-seo";
 import NextNProgress from "nextjs-progressbar";
@@ -12,6 +12,7 @@ import { BRAND_HEX } from "../lib/config";
 import CustomScripts from "../components/custom-scripts";
 import ErrorBoundary from "../components/error-boundary";
 import { Analytics } from "@vercel/analytics/react";
+import { Close } from "grommet-icons";
 
 const WebPerformanceObserver = dynamic(() => import("../components/o11y"), {
   ssr: false,
@@ -19,6 +20,7 @@ const WebPerformanceObserver = dynamic(() => import("../components/o11y"), {
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
+  const [openWebViewAlert, setOpenWebViewAlert] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -27,14 +29,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       const facebook = userAgent.indexOf("FB");
 
       if (instagram != -1 || facebook != -1) {
-        document.write(
-          '<a target="_blank" href="https://eutiveumsonho.com" download id="open-browser-url">Please wait. Proceed to Chrome</a>'
-        );
-        window.stop();
-        const input = document.getElementById("open-browser-url");
-        if (input) {
-          input.click();
-        }
+        setOpenWebViewAlert(true);
       }
     }
   }, []);
@@ -90,6 +85,54 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         >
           <SessionProvider session={session}>
             <Component {...pageProps} />
+            {openWebViewAlert ? (
+              <Layer
+                position="center"
+                onClickOutside={() => setOpenWebViewAlert(false)}
+                onEsc={() => setOpenWebViewAlert(false)}
+                modal
+              >
+                <Box
+                  pad="medium"
+                  gap="small"
+                  width="large"
+                  overflow="auto"
+                  justify="center"
+                  align="center"
+                >
+                  <Box direction="row" justify="between" width="100%">
+                    <Heading
+                      level={2}
+                      margin="none"
+                      style={{
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      🚨 Alerta 🚨
+                    </Heading>
+                    <Button
+                      icon={<Close />}
+                      onClick={() => setOpenWebViewAlert(false)}
+                    />
+                  </Box>
+                  <Heading
+                    level={3}
+                    margin="none"
+                    style={{
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    Abra o site no navegador do seu celular para ter a melhor
+                    experiência
+                  </Heading>
+                  <Button
+                    primary
+                    label="Entrar"
+                    onClick={() => push("/auth/signin")}
+                  />
+                </Box>
+              </Layer>
+            ) : null}
           </SessionProvider>
           <WebPerformanceObserver />
           <Analytics />
