@@ -1,3 +1,4 @@
+import Invite from "../containers/invite";
 import { logError } from "../lib/o11y";
 import Custom404 from "./404";
 import Custom500 from "./500";
@@ -7,7 +8,11 @@ function Error({ statusCode }) {
     return <Custom404 />;
   }
 
-  return <Custom500 />;
+  if (statusCode === 500) {
+    return <Custom500 />;
+  }
+
+  return <Invite />;
 }
 
 Error.getInitialProps = ({ res, err }) => {

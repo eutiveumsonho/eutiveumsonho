@@ -12,7 +12,6 @@ import { BRAND_HEX } from "../lib/config";
 import CustomScripts from "../components/custom-scripts";
 import ErrorBoundary from "../components/error-boundary";
 import { Analytics } from "@vercel/analytics/react";
-import { logWarn } from "../lib/o11y";
 
 const WebPerformanceObserver = dynamic(() => import("../components/o11y"), {
   ssr: false,
@@ -22,24 +21,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
 
   useEffect(() => {
-    function isInWebView() {
-      if (typeof window !== "undefined") {
-        const ua = window.navigator.userAgent;
-
-        // iOS WebView check
-        const isiOSWebView =
-          /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(ua);
-
-        // Android WebView check
-        const isAndroidWebView = ua.indexOf("wv") > -1;
-
-        return isiOSWebView || isAndroidWebView;
+    if (typeof window !== "undefined") {
+      if (navigator.userAgent.includes("Instagram")) {
+        window.location.href = "https://eutiveumsonho.com";
       }
-    }
-
-    // If its inside a WebView, open app in the default browser
-    if (isInWebView()) {
-      window.open(window.location.href, "_system");
     }
   }, []);
 
