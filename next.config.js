@@ -1,10 +1,12 @@
 const { patchWebpackConfig } = require("next-global-css");
 const webpackNodeExternals = require("webpack-node-externals");
-const path = require("path");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  compiler: {
+    styledComponents: true,
+  },
   webpack: (config, options) => {
     patchWebpackConfig(config, options);
 
