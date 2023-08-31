@@ -21,7 +21,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           cache: npm
-          node-version: 16
+          node-version: 18
       - run: yarn
       - run: yarn test:ci --coverage
       - name: upload coverage to codecov
