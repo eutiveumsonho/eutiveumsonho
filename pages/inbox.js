@@ -24,6 +24,7 @@ import { markInboxMessagesAsRead, deleteInboxMessages } from "../lib/api";
 import "dayjs/locale/pt-br";
 import { BRAND_HEX } from "../lib/config";
 import { logReq } from "../lib/middleware";
+import { getUserAgentProps } from "../lib/user-agent";
 
 dayjs.extend(LocalizedFormat);
 dayjs.extend(relativeTime);
@@ -36,7 +37,7 @@ const empty = {
 };
 
 export default function Inbox(props) {
-  const { serverSession: rawServerSession, data: rawData } = props;
+  const { serverSession: rawServerSession, data: rawData, deviceType } = props;
 
   const serverSession = JSON.parse(rawServerSession);
   const data = JSON.parse(rawData);
@@ -221,7 +222,7 @@ export default function Inbox(props) {
       <Head>
         <title>Inbox</title>
       </Head>
-      <Dashboard serverSession={serverSession}>
+      <Dashboard serverSession={serverSession} deviceType={deviceType}>
         <Box pad="medium">
           <Heading size="small" level={1}>
             Inbox
@@ -288,6 +289,7 @@ export async function getServerSideProps(context) {
       props: {
         serverSession: JSON.stringify(authProps.props.serverSession),
         data: JSON.stringify(data),
+        ...getUserAgentProps(context),
       },
     };
   } catch (error) {

@@ -10,6 +10,7 @@ import {
 } from "../../lib/db/reads";
 import { logError } from "../../lib/o11y";
 import { logReq } from "../../lib/middleware";
+import { getUserAgentProps } from "../../lib/user-agent";
 
 export default function DreamPage(props) {
   const { data: rawData, comments: rawComments, ...authProps } = props;
@@ -56,6 +57,7 @@ export async function getServerSideProps(context) {
           ...authProps.props,
           data: JSON.stringify(data),
           comments: JSON.stringify(comments),
+          ...getUserAgentProps(context),
         },
       };
     }
@@ -73,7 +75,9 @@ export async function getServerSideProps(context) {
       res.end();
 
       return {
-        props: {},
+        props: {
+          ...getUserAgentProps(context),
+        },
       };
     }
 
@@ -95,6 +99,7 @@ export async function getServerSideProps(context) {
         ...authProps.props,
         data: JSON.stringify(data),
         comments: JSON.stringify(comments),
+        ...getUserAgentProps(context),
       },
     };
   } catch (error) {

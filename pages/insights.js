@@ -11,9 +11,10 @@ import format from "date-fns/format";
 import { DATE_FORMAT } from "../components/heatmap/constants";
 import Tip from "../components/tip";
 import { logReq } from "../lib/middleware";
+import { getUserAgentProps } from "../lib/user-agent";
 
 export default function InsightsPage(props) {
-  const { serverSession: rawServerSession, data: rawData } = props;
+  const { serverSession: rawServerSession, data: rawData, deviceType } = props;
 
   const serverSession = JSON.parse(rawServerSession);
   const data = JSON.parse(rawData);
@@ -23,7 +24,7 @@ export default function InsightsPage(props) {
       <Head>
         <title>Insights</title>
       </Head>
-      <Dashboard serverSession={serverSession}>
+      <Dashboard serverSession={serverSession} deviceType={deviceType}>
         <Box pad="medium">
           <Heading size="small" level={1}>
             Insights
@@ -211,6 +212,7 @@ export async function getServerSideProps(context) {
           heatmap,
           wordFrequencyDistribution: wordFrequencyDistributionData.slice(0, 14),
         }),
+        ...getUserAgentProps(context),
       },
     };
   } catch (error) {

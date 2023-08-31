@@ -2,9 +2,12 @@ import { getAuthProps } from "../lib/auth";
 
 import Invite from "../containers/invite";
 import { logReq } from "../lib/middleware";
+import { getUserAgentProps } from "../lib/user-agent";
 
-export default function Home() {
-  return <Invite />;
+export default function Home(props) {
+  const { deviceType } = props;
+
+  return <Invite deviceType={deviceType} />;
 }
 
 export async function getServerSideProps(context) {
@@ -18,5 +21,9 @@ export async function getServerSideProps(context) {
     res.end();
   }
 
-  return { props: {} };
+  return {
+    props: {
+      ...getUserAgentProps(context),
+    },
+  };
 }

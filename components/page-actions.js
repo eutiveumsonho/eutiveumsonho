@@ -1,16 +1,20 @@
 import { Avatar, Box, Button, ResponsiveContext } from "grommet";
 import { signIn } from "next-auth/react";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import { useContext } from "react";
 
 export default function PageActions(props) {
-  const { serverSession } = props;
+  const { serverSession, deviceType } = props;
   const size = useContext(ResponsiveContext);
+  const { push } = useRouter();
+
+  const isSmall =
+    deviceType === "mobile" || deviceType === "tablet" || size === "small";
 
   if (serverSession) {
     return (
       <Box direction="row" gap="small">
-        {size === "small" ? null : (
+        {isSmall ? null : (
           <Avatar
             src={
               serverSession.user.image ||
@@ -18,9 +22,13 @@ export default function PageActions(props) {
             }
           />
         )}
-        <Link href="/publish">
-          <Button primary label="Adicionar sonho" />
-        </Link>
+        <Button
+          primary
+          label="Adicionar sonho"
+          onClick={() => {
+            push("/publish");
+          }}
+        />
       </Box>
     );
   }

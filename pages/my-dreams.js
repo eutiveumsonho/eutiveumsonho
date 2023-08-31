@@ -4,6 +4,7 @@ import { logError } from "../lib/o11y";
 import Dreams from "../containers/dreams";
 import Head from "next/head";
 import { logReq } from "../lib/middleware";
+import { getUserAgentProps } from "../lib/user-agent";
 
 export default function MyDreams(props) {
   const { serverSession: rawServerSession, data: rawData } = props;
@@ -51,6 +52,7 @@ export async function getServerSideProps(context) {
       props: {
         serverSession: JSON.stringify(authProps.props.serverSession),
         data: JSON.stringify(data),
+        ...getUserAgentProps(context),
       },
     };
   } catch (error) {

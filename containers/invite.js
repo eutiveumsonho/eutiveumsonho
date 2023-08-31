@@ -25,7 +25,8 @@ const Editor = dynamic(() => import("../components/editor"), {
   loading: () => <Loading />,
 });
 
-export default function Invite() {
+export default function Invite(props) {
+  const { deviceType } = props;
   const { push } = useRouter();
   const control = useAnimation();
   const control2 = useAnimation();
@@ -43,6 +44,10 @@ export default function Invite() {
     visible: { opacity: 1, scale: 1, transition: { duration: 0.7 } },
     hidden: { opacity: 0, scale: 0, x: 0 },
   };
+
+  const isSmall = deviceType === "mobile" || size === "small";
+  const isLarge =
+    deviceType === "desktop" || deviceType === "tablet" || size === "large";
 
   useEffect(() => {
     if (inView) {
@@ -69,7 +74,7 @@ export default function Invite() {
   }, [control4, inView4]);
 
   return (
-    <Layout>
+    <Layout deviceType={deviceType}>
       <Head>
         <title>Eu tive um sonho</title>
         <meta name="description" content="O seu repositório de sonhos." />
@@ -104,9 +109,9 @@ export default function Invite() {
         <Heading
           level={2}
           size="large"
+          textAlign={isSmall ? "center" : "start"}
           style={{
             zIndex: 1,
-            textAlign: size === "small" ? "center" : "start",
           }}
         >
           Vamos construir a maior comunidade de pessoas sonhadoras do Brasil e
@@ -151,95 +156,87 @@ export default function Invite() {
             }}
           >
             <Box pad="xsmall" justify="center" align="center">
-              <NoSSR>
-                <Box
-                  direction={size === "large" ? "row" : "column"}
-                  align="center"
-                  justify="center"
-                  gap="medium"
+              <Box
+                direction={isLarge ? "row" : "column"}
+                align="center"
+                justify="center"
+                gap="medium"
+              >
+                <Heading
+                  size="xxlarge"
+                  color="white"
+                  textAlign={isLarge ? "start" : "center"}
                 >
-                  <Heading
-                    size="xxlarge"
-                    color="white"
-                    style={{
-                      textAlign: size === "large" ? "start" : "center",
-                    }}
-                  >
-                    Compartilhe os seus sonhos e veja o que outras pessoas estão
-                    sonhando
-                  </Heading>
+                  Compartilhe os seus sonhos e veja o que outras pessoas estão
+                  sonhando
+                </Heading>
+                <NoSSR>
                   <motion.img
                     variants={variant}
                     initial="hidden"
                     animate={control}
                     style={{
-                      maxWidth: size === "small" ? "22rem" : "40rem",
+                      maxWidth: isSmall ? "22rem" : "40rem",
                       border: "1px solid rgb(126, 76, 219)",
                       borderRadius: "0.5rem",
                       boxShadow: "rgb(0 0 0 / 20%) 0px 8px 16px",
                     }}
                     src="/images/home/descubra.png"
                   />
-                </Box>
-              </NoSSR>
+                </NoSSR>
+              </Box>
             </Box>
           </Box>
 
           <Box pad="xsmall" direction="row">
-            <NoSSR>
-              <Box
-                ref={ref2}
-                direction={size === "large" ? "row" : "column-reverse"}
-                align="center"
-                justify="center"
-                gap="medium"
-              >
+            <Box
+              ref={ref2}
+              direction={isLarge ? "row" : "column-reverse"}
+              align="center"
+              justify="center"
+              gap="medium"
+            >
+              <NoSSR>
                 <motion.img
                   variants={variant}
                   initial="hidden"
                   animate={control2}
                   style={{
-                    maxWidth: size === "small" ? "20rem" : "40rem",
+                    maxWidth: isSmall ? "20rem" : "40rem",
                     border: "1px solid rgb(126, 76, 219)",
                     borderRadius: "0.5rem",
                     boxShadow: "rgb(0 0 0 / 20%) 0px 8px 16px",
                   }}
                   src="/images/home/pesquisar.png"
                 />
-
-                <Heading
-                  size="xxlarge"
-                  color="white"
-                  style={{
-                    textAlign: size === "large" ? "start" : "center",
-                  }}
-                >
-                  Encontre sonhos de outras pessoas baseado em termos que são
-                  relevantes para você
-                </Heading>
-              </Box>
-            </NoSSR>
+              </NoSSR>
+              <Heading
+                size="xxlarge"
+                color="white"
+                textAlign={isLarge ? "start" : "center"}
+              >
+                Encontre sonhos de outras pessoas baseado em termos que são
+                relevantes para você
+              </Heading>
+            </Box>
           </Box>
 
           <Box pad="xsmall" direction="row">
-            <NoSSR>
-              <Box
-                ref={ref3}
-                direction={size === "large" ? "row" : "column"}
-                align="center"
-                justify="center"
-                gap="medium"
+            <Box
+              ref={ref3}
+              direction={isLarge ? "row" : "column"}
+              align="center"
+              justify="center"
+              gap="medium"
+            >
+              <Heading
+                size="xxlarge"
+                color="white"
+                textAlign={isLarge ? "start" : "center"}
               >
-                <Heading
-                  size="xxlarge"
-                  color="white"
-                  style={{
-                    textAlign: size === "large" ? "start" : "center",
-                  }}
-                >
-                  Armazene os seus sonhos em segurança e visualize os seus
-                  padrões
-                </Heading>
+                Armazene os seus sonhos em segurança e visualize os seus padrões
+              </Heading>
+              <NoSSR>
                 <motion.img
                   variants={variant}
                   initial="hidden"
@@ -252,29 +249,27 @@ export default function Invite() {
                   }}
                   src="/images/home/insights.png"
                 />
-              </Box>
-            </NoSSR>
+              </NoSSR>
+            </Box>
           </Box>
 
           <Box pad="xsmall" direction="row">
-            <NoSSR>
-              <Box
-                ref={ref4}
-                direction={size === "large" ? "row" : "column"}
-                align="center"
-                justify="center"
-                gap="medium"
+            <Box
+              ref={ref4}
+              direction={isLarge ? "row" : "column"}
+              align="center"
+              justify="center"
+              gap="medium"
+            >
+              <Heading
+                size="xxlarge"
+                color="white"
+                textAlign={isLarge ? "start" : "center"}
               >
-                <Heading
-                  size="xxlarge"
-                  color="white"
-                  style={{
-                    textAlign: size === "large" ? "start" : "center",
-                  }}
-                >
-                  Desfrute do poder de Sonio, nossa I.A., para aprofundar sua
-                  relação com seus sonhos
-                </Heading>
+                Desfrute do poder de Sonio, nossa I.A., para aprofundar sua
+                relação com seus sonhos
+              </Heading>
+              <NoSSR>
                 <motion.img
                   variants={variant}
                   initial="hidden"
@@ -287,8 +282,8 @@ export default function Invite() {
                   }}
                   src="/images/home/ai.png"
                 />
-              </Box>
-            </NoSSR>
+              </NoSSR>
+            </Box>
           </Box>
         </Box>
       </PageContent>
@@ -312,19 +307,14 @@ export default function Invite() {
               width: "100%",
             }}
           >
-            <Heading
-              size="xxlarge"
-              style={{
-                textAlign: "center",
-              }}
-            >
+            <Heading size="xxlarge" textAlign="center">
               Quer fazer parte da maior comunidade de pessoas sonhadoras do
               Brasil?
             </Heading>
             <Text
               size="xxlarge"
+              textAlign={isSmall ? "center" : "start"}
               style={{
-                textAlign: size === "small" ? "center" : "start",
                 marginBottom: "2rem",
               }}
             >

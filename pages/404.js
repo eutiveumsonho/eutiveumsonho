@@ -1,11 +1,12 @@
 import { Button, Heading, PageContent } from "grommet";
 import Head from "next/head";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useRouter } from "next/router";
 import Layout from "../components/layout";
 import { logWarn } from "../lib/o11y";
 
-export default function Custom404() {
+export default function Custom404(props) {
+  const { deviceType } = props;
   const { push } = useRouter();
 
   logWarn({
@@ -15,7 +16,7 @@ export default function Custom404() {
   });
 
   return (
-    <Layout>
+    <Layout deviceType={deviceType}>
       <Head>
         <title>Não encontrado</title>
       </Head>

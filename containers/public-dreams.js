@@ -1,7 +1,6 @@
 import {
   Avatar,
   Box,
-  Button,
   Heading,
   ResponsiveContext,
   Spinner,
@@ -23,7 +22,7 @@ import DreamFooter from "../components/dream/footer";
 dayjs.extend(LocalizedFormat);
 
 export default function PublicDreams(props) {
-  const { serverSession, data, stars, title } = props;
+  const { serverSession, data, stars, title, deviceType } = props;
   const [selectedTags, setSelectedTags] = useState([]);
   const [searching, setSearching] = useState(false);
   const [dreams, setDreams] = useState([]);
@@ -48,7 +47,7 @@ export default function PublicDreams(props) {
   };
 
   return (
-    <Dashboard serverSession={serverSession}>
+    <Dashboard serverSession={serverSession} deviceType={deviceType}>
       <Box pad="medium">
         <Heading size="small">
           <Box direction="row" gap="small" align="center">
@@ -63,6 +62,7 @@ export default function PublicDreams(props) {
         {dreams.map((item, index) => {
           return (
             <PublicDream
+              key={item.createdAt}
               item={item}
               index={index}
               data={data}
@@ -79,6 +79,7 @@ export default function PublicDreams(props) {
           {data.map((item, index) => {
             return (
               <PublicDream
+                key={item.createdAt}
                 item={item}
                 index={index}
                 data={data}
@@ -157,8 +158,10 @@ function PublicDream(props) {
           push(`/dreams/${item._id}`);
         }}
       >
-        <Text
-          alignSelf="start"
+        <div
+          style={{
+            alignSelf: "start",
+          }}
           dangerouslySetInnerHTML={{
             __html:
               item.dream.html.length > 400

@@ -5,7 +5,7 @@ import { deleteAccount } from "../lib/api";
 import Dashboard from "../components/dashboard";
 
 export default function MyAccountPage(props) {
-  const { serverSession, data: rawData } = props;
+  const { serverSession, data: rawData, deviceType } = props;
   const [open, setOpen] = useState(false);
   const { push } = useRouter();
   const [deleting, setDeleting] = useState(false);
@@ -26,7 +26,7 @@ export default function MyAccountPage(props) {
   };
 
   return (
-    <Dashboard serverSession={serverSession}>
+    <Dashboard serverSession={serverSession} deviceType={deviceType}>
       <Box pad="medium">
         <Heading size="small">Deletar conta</Heading>
         <Text>

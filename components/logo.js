@@ -1,12 +1,12 @@
 import { Box, Text } from "grommet";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 
 export function Logo(props) {
   const { color = "purple", noTitle = false } = props;
 
   return (
-    <Link href={noTitle ? "/dreams" : "/"}>
+    <Link href={noTitle ? "/dreams" : "/"} legacyBehavior>
       <Box align="center" gap="medium">
         <Image
           src={`/${color}-cloud.svg`}

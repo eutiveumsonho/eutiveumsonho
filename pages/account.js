@@ -4,6 +4,7 @@ import { getAuthProps } from "../lib/auth";
 import { getUserByEmail } from "../lib/db/reads";
 import { logReq } from "../lib/middleware";
 import { logError } from "../lib/o11y";
+import { getUserAgentProps } from "../lib/user-agent";
 
 export default function MyAccount(props) {
   const { serverSession: rawServerSession, data: rawData } = props;
@@ -41,6 +42,7 @@ export async function getServerSideProps(context) {
       props: {
         serverSession: JSON.stringify(authProps.props.serverSession),
         data: JSON.stringify(data),
+        ...getUserAgentProps(context),
       },
     };
   } catch (error) {

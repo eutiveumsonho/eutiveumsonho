@@ -16,12 +16,13 @@ import {
 } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import isEmail from "validator/lib/isEmail";
 import Clouds from "../../components/clouds";
 import { Logo } from "../../components/logo";
 import { NEXT_AUTH_ERRORS } from "../../lib/errors";
 import { logReq } from "../../lib/middleware";
+import { getUserAgentProps } from "../../lib/user-agent";
 
 const icon = {
   Facebook: <Facebook />,
@@ -81,7 +82,7 @@ export default function SignIn({ providers, csrfToken }) {
           {Object.values(providers).map((provider) => {
             if (provider.type === "email") {
               return (
-                <>
+                <Fragment key={provider.type}>
                   {/* https://next-auth.js.org/configuration/pages#email-sign-in */}
                   <form method="post" action="/api/auth/signin/email">
                     <input
@@ -128,7 +129,7 @@ export default function SignIn({ providers, csrfToken }) {
                     />
                   </form>
                   <hr />
-                </>
+                </Fragment>
               );
             }
 
@@ -164,10 +165,14 @@ export async function getServerSideProps(context) {
     context.res.writeHead(302, { Location: "/" });
     context.res.end();
 
-    return { props: {} };
+    return { props: { ...getUserAgentProps(context) } };
   }
 
   return {
-    props: { providers, csrfToken: await getCsrfToken(context) },
+    props: {
+      providers,
+      csrfToken: await getCsrfToken(context),
+      ...getUserAgentProps(context),
+    },
   };
 }

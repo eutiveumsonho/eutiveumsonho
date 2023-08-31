@@ -32,7 +32,9 @@ const DESKTOP_SIDEBAR_WIDTH = "15rem";
 const DESKTOP_HEADER_HEIGHT = "4.688rem";
 
 const SidebarHeader = (props) => {
-  const { serverSession, size } = props;
+  const { serverSession, size, deviceType } = props;
+
+  const isSmall = deviceType === "mobile" || size === "small";
 
   return (
     <Box
@@ -43,7 +45,7 @@ const SidebarHeader = (props) => {
       justify="center"
     >
       <Avatar src={serverSession.user.image} />
-      {size === "small" ? null : <Text>{serverSession.user.name}</Text>}
+      {isSmall ? null : <Text>{serverSession.user.name}</Text>}
     </Box>
   );
 };
@@ -72,10 +74,10 @@ const SidebarButton = ({ icon, label, selected, ...rest }) => (
 );
 
 const SidebarFooter = (props) => {
-  const { size } = props;
+  const { size, deviceType } = props;
   const { pathname, push } = useRouter();
 
-  if (size === "small") {
+  if (deviceType === "mobile" || size === "small") {
     return (
       <Nav gap="small">
         <Button
@@ -129,10 +131,10 @@ const SidebarFooter = (props) => {
  * usage order (data from G.A.)
  */
 const MainNavigation = (props) => {
-  const { size, serverSession } = props;
+  const { size, serverSession, deviceType } = props;
   const { pathname, push } = useRouter();
 
-  if (size === "small") {
+  if (deviceType === "small" || size === "small") {
     return (
       <Nav gap="small">
         <Button
@@ -203,6 +205,7 @@ const MainNavigation = (props) => {
       <SidebarButton
         icon={
           <Button
+            as="span"
             plain
             icon={<Inbox color={pathname === "/inbox" ? "white" : undefined} />}
             badge={
@@ -241,8 +244,14 @@ function MobileSidebar(props) {
       elevation="large"
       responsive={false}
       background="light-1"
-      header={<SidebarHeader serverSession={serverSession} size={size} />}
-      footer={<SidebarFooter size={size} />}
+      header={
+        <SidebarHeader
+          serverSession={serverSession}
+          size={size}
+          deviceType={"mobile"}
+        />
+      }
+      footer={<SidebarFooter size={size} deviceType="mobile" />}
       style={{
         top: MOBILE_HEADER_HEIGHT,
         height: `calc(100vh - ${MOBILE_HEADER_HEIGHT})`,
@@ -255,7 +264,11 @@ function MobileSidebar(props) {
         zIndex: "11",
       }}
     >
-      <MainNavigation size={size} serverSession={serverSession} />
+      <MainNavigation
+        size={size}
+        serverSession={serverSession}
+        deviceType={"mobile"}
+      />
     </SidebarBase>
   );
 }
@@ -267,8 +280,14 @@ function DesktopSidebar(props) {
     <SidebarBase
       responsive={false}
       elevation="large"
-      header={<SidebarHeader serverSession={serverSession} size={size} />}
-      footer={<SidebarFooter />}
+      header={
+        <SidebarHeader
+          serverSession={serverSession}
+          size={size}
+          deviceType={"desktop"}
+        />
+      }
+      footer={<SidebarFooter deviceType="desktop" />}
       pad={{ left: "unset", right: "unset", vertical: "large" }}
       background="light-1"
       style={{
@@ -289,18 +308,32 @@ function DesktopSidebar(props) {
 }
 
 function Sidebar(props) {
-  const { serverSession, size } = props;
+  const { serverSession, size, deviceType } = props;
 
-  if (size === "small") {
-    return <MobileSidebar serverSession={serverSession} size={size} />;
+  if (deviceType === "mobile" || size === "small") {
+    return (
+      <MobileSidebar
+        serverSession={serverSession}
+        size={size}
+        deviceType={deviceType}
+      />
+    );
   }
 
-  return <DesktopSidebar serverSession={serverSession} size={size} />;
+  return (
+    <DesktopSidebar
+      serverSession={serverSession}
+      size={size}
+      deviceType={deviceType}
+    />
+  );
 }
 
 export default function Dashboard(props) {
-  const { serverSession, children } = props;
+  const { serverSession, children, deviceType } = props;
   const size = useContext(ResponsiveContext);
+
+  const isSmall = deviceType === "mobile" || size === "small";
 
   return (
     <>
@@ -333,22 +366,24 @@ export default function Dashboard(props) {
       </Header>
       <Page background="background-front" kind="full">
         <Box direction="row" height={{ min: "100%" }}>
-          <Sidebar serverSession={serverSession} size={size} />
+          <Sidebar
+            serverSession={serverSession}
+            size={size}
+            deviceType={deviceType}
+          />
           <PageContent
             style={{
-              width:
-                size === "small"
-                  ? `calc(100vw - ${MOBILE_SIDEBAR_WIDTH})`
-                  : `calc(100vw - ${DESKTOP_SIDEBAR_WIDTH})`,
-              minHeight:
-                size === "small"
-                  ? `calc(100vh - ${MOBILE_HEADER_HEIGHT})`
-                  : `calc(100vh - ${DESKTOP_HEADER_HEIGHT})`,
+              width: isSmall
+                ? `calc(100vw - ${MOBILE_SIDEBAR_WIDTH})`
+                : `calc(100vw - ${DESKTOP_SIDEBAR_WIDTH})`,
+              minHeight: isSmall
+                ? `calc(100vh - ${MOBILE_HEADER_HEIGHT})`
+                : `calc(100vh - ${DESKTOP_HEADER_HEIGHT})`,
               minWidth: "0px",
-              marginTop:
-                size === "small" ? MOBILE_HEADER_HEIGHT : DESKTOP_HEADER_HEIGHT,
-              marginLeft:
-                size === "small" ? MOBILE_SIDEBAR_WIDTH : DESKTOP_SIDEBAR_WIDTH,
+              marginTop: isSmall ? MOBILE_HEADER_HEIGHT : DESKTOP_HEADER_HEIGHT,
+              marginLeft: isSmall
+                ? MOBILE_SIDEBAR_WIDTH
+                : DESKTOP_SIDEBAR_WIDTH,
             }}
           >
             {children}

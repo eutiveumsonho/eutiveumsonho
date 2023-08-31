@@ -99,8 +99,10 @@ const FooterContent = (props) => {
 };
 
 export default function Layout(props) {
-  const { children, serverSession } = props;
+  const { children, serverSession, deviceType } = props;
   const size = useContext(ResponsiveContext);
+
+  const isSmall = deviceType === "mobile" || size === "small";
 
   return (
     <>
@@ -117,7 +119,7 @@ export default function Layout(props) {
                   maxWidth: "24rem",
                 }}
               >
-                <Link href="/">
+                <Link href="/" legacyBehavior>
                   <a
                     style={{
                       color: "inherit",
@@ -136,7 +138,12 @@ export default function Layout(props) {
               </Box>
             }
             responsive
-            actions={<PageActions serverSession={serverSession} />}
+            actions={
+              <PageActions
+                serverSession={serverSession}
+                deviceType={deviceType}
+              />
+            }
           />
         </PageContent>
         {children}
@@ -158,7 +165,7 @@ export default function Layout(props) {
               maxWidth: "99rem",
               width: "100%",
             }}
-            direction={size === "small" ? "column" : "row"}
+            direction={isSmall ? "column" : "row"}
           >
             <Box direction="row-responsive" gap="xsmall">
               <Logo />

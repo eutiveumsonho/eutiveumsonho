@@ -8,6 +8,7 @@ import PublicDreams from "../../containers/public-dreams";
 import { logError } from "../../lib/o11y";
 import Head from "next/head";
 import { logReq } from "../../lib/middleware";
+import { getUserAgentProps } from "../../lib/user-agent";
 
 export default function FindOut(props) {
   const {
@@ -72,6 +73,7 @@ export async function getServerSideProps(context) {
         serverSession: JSON.stringify(authProps.props.serverSession),
         data: JSON.stringify(dreams),
         stars: JSON.stringify(stars),
+        ...getUserAgentProps(context),
       },
     };
   } catch (error) {

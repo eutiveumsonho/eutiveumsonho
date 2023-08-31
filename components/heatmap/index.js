@@ -199,7 +199,6 @@ export const Heatmap = (props) => {
   }, []);
 
   if (error) {
-    console.error(error);
     return <Text>{i18n.error}</Text>;
   }
 

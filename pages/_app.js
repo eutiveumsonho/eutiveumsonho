@@ -101,13 +101,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                   align="center"
                 >
                   <Box direction="row" justify="between" width="100%">
-                    <Heading
-                      level={2}
-                      margin="none"
-                      style={{
-                        whiteSpace: "nowrap",
-                      }}
-                    >
+                    <Heading level={2} margin="none" alignSelf="center">
                       🚨 Alerta 🚨
                     </Heading>
                     <Button
@@ -115,21 +109,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                       onClick={() => setOpenWebViewAlert(false)}
                     />
                   </Box>
-                  <Heading
-                    level={3}
-                    margin="none"
-                    style={{
-                      whiteSpace: "nowrap",
-                    }}
-                  >
+                  <Heading level={3} margin="none">
                     Abra o site no navegador do seu celular para ter a melhor
-                    experiência
+                    experiência. Agora, você está usando o navegador do app do
+                    Instagram ou Facebook (Meta).
                   </Heading>
-                  <Button
-                    primary
-                    label="Entrar"
-                    onClick={() => push("/auth/signin")}
-                  />
                 </Box>
               </Layer>
             ) : null}

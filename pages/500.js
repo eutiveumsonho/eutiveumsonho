@@ -1,11 +1,12 @@
 import { Button, Heading, PageContent } from "grommet";
 import Head from "next/head";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useRouter } from "next/router";
 import Layout from "../components/layout";
 import { logError } from "../lib/o11y";
 
-export default function Custom500() {
+export default function Custom500(props) {
+  const { deviceType } = props;
   const { reload } = useRouter();
 
   logError({
@@ -15,7 +16,7 @@ export default function Custom500() {
   });
 
   return (
-    <Layout>
+    <Layout deviceType={deviceType}>
       <Head>
         <title>Erro</title>
       </Head>

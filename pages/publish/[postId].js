@@ -4,6 +4,7 @@ import { getDreamById } from "../../lib/db/reads";
 import { logError } from "../../lib/o11y";
 import Head from "next/head";
 import { logReq } from "../../lib/middleware";
+import { getUserAgentProps } from "../../lib/user-agent";
 
 export default function DreamEditor(props) {
   const { data, ...authProps } = props;
@@ -36,11 +37,17 @@ export async function getServerSideProps(context) {
       const data = await getDreamById(postId);
 
       return {
-        props: { ...authProps.props, data: JSON.stringify(data) },
+        props: {
+          ...authProps.props,
+          data: JSON.stringify(data),
+          ...getUserAgentProps(context),
+        },
       };
     }
 
-    return { props: { ...authProps.props, data: null } };
+    return {
+      props: { ...authProps.props, data: null, ...getUserAgentProps(context) },
+    };
   } catch (error) {
     logError({
       error,

@@ -25,12 +25,12 @@ import "dayjs/locale/pt-br";
 dayjs.extend(LocalizedFormat);
 
 export default function DreamContainer(props) {
-  const { serverSession, data, comments } = props;
+  const { serverSession, data, comments, deviceType } = props;
   const { back, push } = useRouter();
 
   if (!serverSession) {
     return (
-      <Layout serverSession={serverSession}>
+      <Layout serverSession={serverSession} deviceType={deviceType}>
         <PageContent justify="center" align="center" flex>
           <Dream data={data} publicView />
           <Comments mustSignIn comments={comments} push={push} />
@@ -40,7 +40,7 @@ export default function DreamContainer(props) {
   }
 
   return (
-    <Dashboard serverSession={serverSession}>
+    <Dashboard serverSession={serverSession} deviceType={deviceType}>
       <Box pad="medium">
         <Box
           style={{
@@ -98,7 +98,7 @@ function Dream(props) {
       </Box>
       <Box direction="row" justify="between" align="center">
         <Box direction="row" align="center" pad="medium">
-          <Text
+          <div
             dangerouslySetInnerHTML={{
               __html: data.dream.html,
             }}

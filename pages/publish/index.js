@@ -3,6 +3,7 @@ import { getAuthProps } from "../../lib/auth";
 import CreateOrEdit from "../../containers/create-or-edit";
 import Head from "next/head";
 import { logReq } from "../../lib/middleware";
+import { getUserAgentProps } from "../../lib/user-agent";
 
 export default function Home(props) {
   return (
@@ -27,5 +28,5 @@ export async function getServerSideProps(context) {
     res.end();
   }
 
-  return authProps;
+  return { props: { ...authProps.props, ...getUserAgentProps(context) } };
 }

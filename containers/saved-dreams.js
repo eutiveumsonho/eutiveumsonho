@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Heading, ResponsiveContext, Text } from "grommet";
+import { Avatar, Box, Heading, ResponsiveContext, Text } from "grommet";
 import Dashboard from "../components/dashboard";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
@@ -7,7 +7,6 @@ import { useContext, useState } from "react";
 import { unstarDream } from "../lib/api";
 import { truncate } from "../lib/strings";
 import { useRouter } from "next/router";
-import { Star, Tip } from "grommet-icons";
 import { BRAND_HEX } from "../lib/config";
 import Empty from "../components/empty";
 import "dayjs/locale/pt-br";
@@ -16,13 +15,13 @@ import DreamFooter from "../components/dream/footer";
 dayjs.extend(LocalizedFormat);
 
 export default function SavedDreams(props) {
-  const { serverSession, data, title, empty } = props;
+  const { serverSession, data, title, empty, deviceType } = props;
   const { push } = useRouter();
   const size = useContext(ResponsiveContext);
   const [unstarreds, setUnstarreds] = useState([]);
 
   return (
-    <Dashboard serverSession={serverSession}>
+    <Dashboard serverSession={serverSession} deviceType={deviceType}>
       <Box pad="medium">
         <Heading size="small">{title}</Heading>
         {data.length === 0 || unstarreds.length === data.length ? (
@@ -31,6 +30,7 @@ export default function SavedDreams(props) {
         {data.map((item, index) => {
           return (
             <SavedDream
+              key={item.createdAt}
               item={item}
               index={index}
               data={data}
@@ -104,8 +104,10 @@ function SavedDream(props) {
           push(`/dreams/${item._id}`);
         }}
       >
-        <Text
-          alignSelf="start"
+        <div
+          style={{
+            alignSelf: "start",
+          }}
           dangerouslySetInnerHTML={{
             __html:
               item.dream.html.length > 400

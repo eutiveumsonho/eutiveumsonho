@@ -16,7 +16,7 @@ import Empty from "../components/empty";
 dayjs.extend(LocalizedFormat);
 
 export default function DreamsContainer(props) {
-  const { serverSession, data, title, empty } = props;
+  const { serverSession, data, title, empty, deviceType } = props;
   const { push, reload } = useRouter();
   const [open, setOpen] = useState(false);
   const [dreamIdToDelete, setDreamIdToDelete] = useState();
@@ -28,6 +28,7 @@ export default function DreamsContainer(props) {
     setDeleting(false);
     onClose();
 
+    // TODO: refetch data
     reload(window.location.pathname);
   };
 
@@ -42,7 +43,7 @@ export default function DreamsContainer(props) {
   };
 
   return (
-    <Dashboard serverSession={serverSession}>
+    <Dashboard serverSession={serverSession} deviceType={deviceType}>
       <Box pad="medium">
         <Heading size="small">{title}</Heading>
         <div>
@@ -97,7 +98,7 @@ function MyDream(props) {
             maxWidth: "calc(100% - 3rem)",
           }}
         >
-          <Text
+          <div
             dangerouslySetInnerHTML={{
               __html:
                 item.dream.html.length > 400
