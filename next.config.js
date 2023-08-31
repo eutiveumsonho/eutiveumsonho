@@ -19,9 +19,6 @@ const nextConfig = {
 
     return config;
   },
-  experimental: {
-    outputFileTracingRoot: path.join(__dirname, "../../"),
-  },
 };
 
 module.exports = nextConfig;
