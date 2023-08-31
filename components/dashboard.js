@@ -134,7 +134,7 @@ const MainNavigation = (props) => {
   const { size, serverSession, deviceType } = props;
   const { pathname, push } = useRouter();
 
-  if (deviceType === "small" || size === "small") {
+  if (deviceType === "mobile" || size === "small") {
     return (
       <Nav gap="small">
         <Button

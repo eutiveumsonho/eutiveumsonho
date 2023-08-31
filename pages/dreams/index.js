@@ -15,6 +15,7 @@ export default function FindOut(props) {
     serverSession: rawServerSession,
     data: rawData,
     stars: rawStars,
+    deviceType,
   } = props;
 
   const serverSession = JSON.parse(rawServerSession);
@@ -32,6 +33,7 @@ export default function FindOut(props) {
         data={data}
         stars={stars}
         title="Sonhos recentes"
+        deviceType={deviceType}
       />
     </>
   );

@@ -261,28 +261,49 @@ export default function Invite(props) {
               justify="center"
               gap="medium"
             >
-              <Heading
-                size="xxlarge"
-                color="white"
-                textAlign={isLarge ? "start" : "center"}
-              >
-                Desfrute do poder de Sonio, nossa I.A., para aprofundar sua
-                relação com seus sonhos
-              </Heading>
-              <NoSSR>
-                <motion.img
-                  variants={variant}
-                  initial="hidden"
-                  animate={control4}
-                  style={{
-                    maxWidth: "18rem",
-                    border: "1px solid rgb(126, 76, 219)",
-                    borderRadius: "0.5rem",
-                    boxShadow: "rgb(0 0 0 / 20%) 0px 8px 16px",
-                  }}
-                  src="/images/home/ai.png"
-                />
-              </NoSSR>
+              {isLarge ? (
+                <>
+                  <NoSSR>
+                    <motion.img
+                      variants={variant}
+                      initial="hidden"
+                      animate={control4}
+                      style={{
+                        maxWidth: "18rem",
+                        border: "1px solid rgb(126, 76, 219)",
+                        borderRadius: "0.5rem",
+                        boxShadow: "rgb(0 0 0 / 20%) 0px 8px 16px",
+                      }}
+                      src="/images/home/ai.png"
+                    />
+                  </NoSSR>
+                  <Heading size="xxlarge" color="white" textAlign={"center"}>
+                    Desfrute do poder de Sonio, nossa I.A., para aprofundar sua
+                    relação com seus sonhos
+                  </Heading>
+                </>
+              ) : (
+                <>
+                  <Heading size="xxlarge" color="white" textAlign={"center"}>
+                    Desfrute do poder de Sonio, nossa I.A., para aprofundar sua
+                    relação com seus sonhos
+                  </Heading>
+                  <NoSSR>
+                    <motion.img
+                      variants={variant}
+                      initial="hidden"
+                      animate={control4}
+                      style={{
+                        maxWidth: "18rem",
+                        border: "1px solid rgb(126, 76, 219)",
+                        borderRadius: "0.5rem",
+                        boxShadow: "rgb(0 0 0 / 20%) 0px 8px 16px",
+                      }}
+                      src="/images/home/ai.png"
+                    />
+                  </NoSSR>
+                </>
+              )}
             </Box>
           </Box>
         </Box>
