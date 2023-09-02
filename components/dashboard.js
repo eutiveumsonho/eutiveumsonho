@@ -75,16 +75,19 @@ const SidebarButton = ({ icon, label, selected, ...rest }) => (
 
 const SidebarFooter = (props) => {
   const { size, deviceType } = props;
-  const { pathname, push } = useRouter();
+  const { pathname, push, locale } = useRouter();
+
+  const account = `/${locale}/account`;
+  const callback = `/${locale}`;
 
   if (deviceType === "mobile" || size === "small") {
     return (
       <Nav gap="small">
         <Button
           icon={<UserSettings />}
-          hoverIndicator={pathname !== "/account"}
-          primary={pathname === "/account"}
-          onClick={() => push("/account")}
+          hoverIndicator={pathname !== account}
+          primary={pathname === account}
+          onClick={() => push(account)}
         />
         <Button
           icon={<Logout />}
@@ -92,10 +95,10 @@ const SidebarFooter = (props) => {
           onClick={async () => {
             const data = await signOut({
               redirect: false,
-              callbackUrl: "/",
+              callbackUrl: callback,
             });
 
-            push(data.url);
+            push(`/${locale}${data.url}`);
           }}
         />
       </Nav>
@@ -107,8 +110,8 @@ const SidebarFooter = (props) => {
       <SidebarButton
         icon={<UserSettings />}
         label="Minha conta"
-        selected={pathname === "/account"}
-        onClick={() => push("/account")}
+        selected={pathname === account}
+        onClick={() => push(account)}
       />
       <SidebarButton
         icon={<Logout />}
@@ -116,10 +119,10 @@ const SidebarFooter = (props) => {
         onClick={async () => {
           const data = await signOut({
             redirect: false,
-            callbackUrl: "/",
+            callbackUrl: callback,
           });
 
-          push(data.url);
+          push(`/${locale}${data.url}`);
         }}
       />
     </Nav>
@@ -132,40 +135,46 @@ const SidebarFooter = (props) => {
  */
 const MainNavigation = (props) => {
   const { size, serverSession, deviceType } = props;
-  const { pathname, push } = useRouter();
+  const { pathname, push, locale } = useRouter();
+
+  const dreams = `/${locale}/dreams`;
+  const myDreams = `/${locale}/my-dreams`;
+  const insights = `/${locale}/insights`;
+  const inbox = `/${locale}/inbox`;
+  const savedDreams = `/${locale}/saved-dreams`;
 
   if (deviceType === "mobile" || size === "small") {
     return (
       <Nav gap="small">
         <Button
           icon={<Magic />}
-          hoverIndicator={pathname !== "/dreams"}
-          primary={pathname === "/dreams"}
-          onClick={() => push("/dreams")}
+          hoverIndicator={pathname !== dreams}
+          primary={pathname === dreams}
+          onClick={() => push(dreams)}
         />
         <Button
           icon={<Book />}
-          hoverIndicator={pathname !== "/my-dreams"}
-          primary={pathname === "/my-dreams"}
-          onClick={() => push("/my-dreams")}
+          hoverIndicator={pathname !== myDreams}
+          primary={pathname === myDreams}
+          onClick={() => push(myDreams)}
         />
         <Button
           icon={<BarChart />}
-          hoverIndicator={pathname !== "/insights"}
-          primary={pathname === "/insights"}
-          onClick={() => push("/insights")}
+          hoverIndicator={pathname !== insights}
+          primary={pathname === insights}
+          onClick={() => push(insights)}
         />
         <Button
           icon={<Inbox />}
-          hoverIndicator={pathname !== "/inbox"}
-          primary={pathname === "/inbox"}
-          onClick={() => push("/inbox")}
+          hoverIndicator={pathname !== inbox}
+          primary={pathname === inbox}
+          onClick={() => push(inbox)}
           badge={
             serverSession?.inboxCount
               ? {
                   value: serverSession?.inboxCount,
                   background: {
-                    color: pathname === "/inbox" ? "#6FFFB0" : BRAND_HEX,
+                    color: pathname === inbox ? "#6FFFB0" : BRAND_HEX,
                   },
                 }
               : 0
@@ -173,11 +182,10 @@ const MainNavigation = (props) => {
         />
         <Button
           icon={<Star />}
-          hoverIndicator={pathname !== "/saved-dreams"}
-          primary={pathname === "/saved-dreams"}
-          onClick={() => push("/saved-dreams")}
+          hoverIndicator={pathname !== savedDreams}
+          primary={pathname === savedDreams}
+          onClick={() => push(savedDreams)}
         />
-        {/* Coming soon... */}
       </Nav>
     );
   }
@@ -187,33 +195,33 @@ const MainNavigation = (props) => {
       <SidebarButton
         icon={<Magic />}
         label="Descubra"
-        selected={pathname === "/dreams"}
-        onClick={() => push("/dreams")}
+        selected={pathname === dreams}
+        onClick={() => push(dreams)}
       />
       <SidebarButton
         icon={<Book />}
         label="Meus sonhos"
-        selected={pathname === "/my-dreams"}
-        onClick={() => push("/my-dreams")}
+        selected={pathname === myDreams}
+        onClick={() => push(myDreams)}
       />
       <SidebarButton
         icon={<BarChart />}
         label="Insights"
-        selected={pathname === "/insights"}
-        onClick={() => push("/insights")}
+        selected={pathname === insights}
+        onClick={() => push(insights)}
       />
       <SidebarButton
         icon={
           <Button
             as="span"
             plain
-            icon={<Inbox color={pathname === "/inbox" ? "white" : undefined} />}
+            icon={<Inbox color={pathname === inbox ? "white" : undefined} />}
             badge={
               serverSession?.inboxCount
                 ? {
                     value: serverSession?.inboxCount,
                     background: {
-                      color: pathname === "/inbox" ? "#6FFFB0" : BRAND_HEX,
+                      color: pathname === inbiox ? "#6FFFB0" : BRAND_HEX,
                     },
                   }
                 : 0
@@ -221,17 +229,15 @@ const MainNavigation = (props) => {
           />
         }
         label="Inbox"
-        selected={pathname === "/inbox"}
-        onClick={() => push("/inbox")}
+        selected={pathname === inbox}
+        onClick={() => push(inbox)}
       />
       <SidebarButton
         icon={<Star />}
         label="Salvos"
-        selected={pathname === "/saved-dreams"}
-        onClick={() => push("/saved-dreams")}
+        selected={pathname === savedDreams}
+        onClick={() => push(savedDreams)}
       />
-      {/* Coming soon... */}
-      {/* <SidebarButton icon={<StatusInfoSmall />} label="Inbox" /> */}
     </Nav>
   );
 };

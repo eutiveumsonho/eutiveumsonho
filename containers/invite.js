@@ -19,6 +19,8 @@ import dynamic from "next/dynamic";
 import Loading from "../components/editor/loading";
 import { Close } from "grommet-icons";
 import styles from "./invite.module.css";
+import { useTranslation } from "react-i18next";
+import { signIn } from "next-auth/react";
 
 const Editor = dynamic(() => import("../components/editor"), {
   ssr: false,
@@ -27,7 +29,8 @@ const Editor = dynamic(() => import("../components/editor"), {
 
 export default function Invite(props) {
   const { deviceType } = props;
-  const { push } = useRouter();
+  const { t } = useTranslation("layout");
+  const { push, locale } = useRouter();
   const control = useAnimation();
   const control2 = useAnimation();
   const control3 = useAnimation();
@@ -114,8 +117,7 @@ export default function Invite(props) {
             zIndex: 1,
           }}
         >
-          Vamos construir a maior comunidade de pessoas sonhadoras do Brasil e
-          do mundo?
+          {t("lets-build")}
         </Heading>
         <Box
           style={{
@@ -125,9 +127,11 @@ export default function Invite(props) {
           <div>
             <Button
               primary
-              label="Quero fazer parte"
+              label={t("join")}
               onClick={() => {
-                push("/auth/signin");
+                const callbackUrl = `${window.location.origin}/${locale}/dreams`;
+                const encodedURI = encodeURIComponent(callbackUrl);
+                push(`/${locale}/auth/signin?callbackUrl=${encodedURI}`);
               }}
             />
           </div>
@@ -167,8 +171,7 @@ export default function Invite(props) {
                   color="white"
                   textAlign={isLarge ? "start" : "center"}
                 >
-                  Compartilhe os seus sonhos e veja o que outras pessoas estão
-                  sonhando
+                  {t("share")}
                 </Heading>
                 <NoSSR>
                   <motion.img
@@ -215,8 +218,7 @@ export default function Invite(props) {
                 color="white"
                 textAlign={isLarge ? "start" : "center"}
               >
-                Encontre sonhos de outras pessoas baseado em termos que são
-                relevantes para você
+                {t("find")}
               </Heading>
             </Box>
           </Box>
@@ -234,7 +236,7 @@ export default function Invite(props) {
                 color="white"
                 textAlign={isLarge ? "start" : "center"}
               >
-                Armazene os seus sonhos em segurança e visualize os seus padrões
+                {t("store")}
               </Heading>
               <NoSSR>
                 <motion.img
@@ -278,15 +280,13 @@ export default function Invite(props) {
                     />
                   </NoSSR>
                   <Heading size="xxlarge" color="white" textAlign={"center"}>
-                    Desfrute do poder de Sonio, nossa I.A., para aprofundar sua
-                    relação com seus sonhos
+                    {t("ai")}
                   </Heading>
                 </>
               ) : (
                 <>
                   <Heading size="xxlarge" color="white" textAlign={"center"}>
-                    Desfrute do poder de Sonio, nossa I.A., para aprofundar sua
-                    relação com seus sonhos
+                    {t("ai")}
                   </Heading>
                   <NoSSR>
                     <motion.img
@@ -329,8 +329,7 @@ export default function Invite(props) {
             }}
           >
             <Heading size="xxlarge" textAlign="center">
-              Quer fazer parte da maior comunidade de pessoas sonhadoras do
-              Brasil?
+              {t("want-to-build")}
             </Heading>
             <Text
               size="xxlarge"
@@ -339,11 +338,11 @@ export default function Invite(props) {
                 marginBottom: "2rem",
               }}
             >
-              Compartilhe seu sonho!
+              {t("share-short")}
             </Text>
           </Box>
           <Editor
-            placeholder="Eu tive um sonho..."
+            placeholder={t("i-had-a-dream")}
             defaultValue={
               typeof window !== "undefined"
                 ? localStorage.getItem("eutiveumsonho__publicEditorData") ??
@@ -390,7 +389,7 @@ export default function Invite(props) {
                       whiteSpace: "nowrap",
                     }}
                   >
-                    Entrar
+                    {t("login")}
                   </Heading>
                   <Button
                     icon={<Close />}
@@ -419,8 +418,12 @@ export default function Invite(props) {
                 </Heading>
                 <Button
                   primary
-                  label="Entrar"
-                  onClick={() => push("/auth/signin")}
+                  label={t("login")}
+                  onClick={() => {
+                    const callbackUrl = `${window.location.origin}/${locale}/dreams`;
+                    const encodedURI = encodeURIComponent(callbackUrl);
+                    push(`/${locale}/auth/signin?callbackUrl=${encodedURI}`);
+                  }}
                 />
               </Box>
             </Layer>

@@ -39,6 +39,7 @@ class MyDocument extends Document {
           margin: 0,
           height: "100%",
         }}
+        lang="pt"
       >
         <Head>
           <link

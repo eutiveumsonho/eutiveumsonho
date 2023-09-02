@@ -4,16 +4,19 @@ import Layout from "../components/layout";
 import { getAuthProps } from "../lib/auth";
 import { logReq } from "../lib/middleware";
 import { getUserAgentProps } from "../lib/user-agent";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
-export default function Home(props) {
+export default function CookiesPolicy(props) {
   const { serverSession: rawServerSession, deviceType } = props;
+  const { t } = useTranslation("footer");
 
   const serverSession = JSON.parse(rawServerSession);
 
   return (
     <Layout serverSession={serverSession} deviceType={deviceType}>
       <Head>
-        <title>Política de Cookies</title>
+        <title>{t("cookies")}</title>
         <meta
           name="description"
           content="Política de Cookies de eutiveumsonho"
@@ -46,6 +49,7 @@ export async function getServerSideProps(context) {
     return {
       props: {
         ...getUserAgentProps(context),
+        ...(await serverSideTranslations(context.locale, ["footer", "layout"])),
       },
     };
   }
@@ -54,6 +58,7 @@ export async function getServerSideProps(context) {
     props: {
       serverSession: JSON.stringify(authProps.props.serverSession),
       ...getUserAgentProps(context),
+      ...(await serverSideTranslations(context.locale, ["footer", "layout"])),
     },
   };
 }

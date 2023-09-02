@@ -31,7 +31,7 @@ const icon = {
 
 export default function SignIn({ providers, csrfToken }) {
   const [emailSignInLoading, setEmailSignInLoading] = useState(false);
-  const { query } = useRouter();
+  const { query, locale } = useRouter();
 
   const error = query["error"];
 
@@ -140,7 +140,11 @@ export default function SignIn({ providers, csrfToken }) {
                   style={{
                     width: "100%",
                   }}
-                  onClick={() => signIn(provider.id)}
+                  onClick={() =>
+                    signIn(provider.id, {
+                      callbackUrl: `${window.location.origin}/${locale}/dreams`,
+                    })
+                  }
                   icon={icon[provider.name]}
                   label={`Entre com ${provider.name}`}
                   primary
