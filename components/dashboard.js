@@ -25,6 +25,7 @@ import { Logo } from "./logo";
 import PageActions from "./page-actions";
 import { useRouter } from "next/router";
 import { signOut } from "next-auth/react";
+import { useTranslation } from "next-i18next";
 
 const MOBILE_SIDEBAR_WIDTH = "4.5rem";
 const MOBILE_HEADER_HEIGHT = "3.95rem";
@@ -74,11 +75,12 @@ const SidebarButton = ({ icon, label, selected, ...rest }) => (
 );
 
 const SidebarFooter = (props) => {
-  const { size, deviceType } = props;
-  const { pathname, push, locale } = useRouter();
+  const { size, deviceType, t } = props;
+  const { pathname: rawPathname, push, locale } = useRouter();
 
   const account = `/${locale}/account`;
   const callback = `/${locale}`;
+  const pathname = `/${locale}${rawPathname}`;
 
   if (deviceType === "mobile" || size === "small") {
     return (
@@ -98,7 +100,7 @@ const SidebarFooter = (props) => {
               callbackUrl: callback,
             });
 
-            push(`/${locale}${data.url}`);
+            push(data.url);
           }}
         />
       </Nav>
@@ -109,20 +111,20 @@ const SidebarFooter = (props) => {
     <Nav>
       <SidebarButton
         icon={<UserSettings />}
-        label="Minha conta"
+        label={t("my-account")}
         selected={pathname === account}
         onClick={() => push(account)}
       />
       <SidebarButton
         icon={<Logout />}
-        label="Sair"
+        label={t("logout")}
         onClick={async () => {
           const data = await signOut({
             redirect: false,
             callbackUrl: callback,
           });
 
-          push(`/${locale}${data.url}`);
+          push(data.url);
         }}
       />
     </Nav>
@@ -134,14 +136,15 @@ const SidebarFooter = (props) => {
  * usage order (data from G.A.)
  */
 const MainNavigation = (props) => {
-  const { size, serverSession, deviceType } = props;
-  const { pathname, push, locale } = useRouter();
+  const { size, serverSession, deviceType, t } = props;
+  const { pathname: rawPathname, push, locale } = useRouter();
 
   const dreams = `/${locale}/dreams`;
   const myDreams = `/${locale}/my-dreams`;
   const insights = `/${locale}/insights`;
   const inbox = `/${locale}/inbox`;
   const savedDreams = `/${locale}/saved-dreams`;
+  const pathname = `/${locale}${rawPathname}`;
 
   if (deviceType === "mobile" || size === "small") {
     return (
@@ -194,19 +197,19 @@ const MainNavigation = (props) => {
     <Nav gap="medium" fill="vertical" responsive={false}>
       <SidebarButton
         icon={<Magic />}
-        label="Descubra"
+        label={t("discover")}
         selected={pathname === dreams}
         onClick={() => push(dreams)}
       />
       <SidebarButton
         icon={<Book />}
-        label="Meus sonhos"
+        label={t("my-dreams")}
         selected={pathname === myDreams}
         onClick={() => push(myDreams)}
       />
       <SidebarButton
         icon={<BarChart />}
-        label="Insights"
+        label={t("insights")}
         selected={pathname === insights}
         onClick={() => push(insights)}
       />
@@ -228,13 +231,13 @@ const MainNavigation = (props) => {
             }
           />
         }
-        label="Inbox"
+        label={t("inbox")}
         selected={pathname === inbox}
         onClick={() => push(inbox)}
       />
       <SidebarButton
         icon={<Star />}
-        label="Salvos"
+        label={t("saved")}
         selected={pathname === savedDreams}
         onClick={() => push(savedDreams)}
       />
@@ -243,7 +246,7 @@ const MainNavigation = (props) => {
 };
 
 function MobileSidebar(props) {
-  const { serverSession, size } = props;
+  const { serverSession, size, t } = props;
 
   return (
     <SidebarBase
@@ -255,9 +258,10 @@ function MobileSidebar(props) {
           serverSession={serverSession}
           size={size}
           deviceType={"mobile"}
+          t={t}
         />
       }
-      footer={<SidebarFooter size={size} deviceType="mobile" />}
+      footer={<SidebarFooter size={size} deviceType="mobile" t={t} />}
       style={{
         top: MOBILE_HEADER_HEIGHT,
         height: `calc(100vh - ${MOBILE_HEADER_HEIGHT})`,
@@ -274,13 +278,14 @@ function MobileSidebar(props) {
         size={size}
         serverSession={serverSession}
         deviceType={"mobile"}
+        t={t}
       />
     </SidebarBase>
   );
 }
 
 function DesktopSidebar(props) {
-  const { serverSession, size } = props;
+  const { serverSession, size, t } = props;
 
   return (
     <SidebarBase
@@ -291,9 +296,10 @@ function DesktopSidebar(props) {
           serverSession={serverSession}
           size={size}
           deviceType={"desktop"}
+          t={t}
         />
       }
-      footer={<SidebarFooter deviceType="desktop" />}
+      footer={<SidebarFooter deviceType="desktop" t={t} />}
       pad={{ left: "unset", right: "unset", vertical: "large" }}
       background="light-1"
       style={{
@@ -308,13 +314,13 @@ function DesktopSidebar(props) {
         zIndex: "11",
       }}
     >
-      <MainNavigation size={size} serverSession={serverSession} />
+      <MainNavigation size={size} serverSession={serverSession} t={t} />
     </SidebarBase>
   );
 }
 
 function Sidebar(props) {
-  const { serverSession, size, deviceType } = props;
+  const { serverSession, size, deviceType, t } = props;
 
   if (deviceType === "mobile" || size === "small") {
     return (
@@ -322,6 +328,7 @@ function Sidebar(props) {
         serverSession={serverSession}
         size={size}
         deviceType={deviceType}
+        t={t}
       />
     );
   }
@@ -331,6 +338,7 @@ function Sidebar(props) {
       serverSession={serverSession}
       size={size}
       deviceType={deviceType}
+      t={t}
     />
   );
 }
@@ -338,6 +346,7 @@ function Sidebar(props) {
 export default function Dashboard(props) {
   const { serverSession, children, deviceType } = props;
   const size = useContext(ResponsiveContext);
+  const { t } = useTranslation("dashboard");
 
   const isSmall = deviceType === "mobile" || size === "small";
 
@@ -376,6 +385,7 @@ export default function Dashboard(props) {
             serverSession={serverSession}
             size={size}
             deviceType={deviceType}
+            t={t}
           />
           <PageContent
             style={{

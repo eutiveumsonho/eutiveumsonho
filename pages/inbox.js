@@ -25,6 +25,7 @@ import "dayjs/locale/pt-br";
 import { BRAND_HEX } from "../lib/config";
 import { logReq } from "../lib/middleware";
 import { getUserAgentProps } from "../lib/user-agent";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 dayjs.extend(LocalizedFormat);
 dayjs.extend(relativeTime);
@@ -290,6 +291,7 @@ export async function getServerSideProps(context) {
         serverSession: JSON.stringify(authProps.props.serverSession),
         data: JSON.stringify(data),
         ...getUserAgentProps(context),
+        ...(await serverSideTranslations(context.locale, ["dashboard"])),
       },
     };
   } catch (error) {

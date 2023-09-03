@@ -180,13 +180,13 @@ export default function CreateOrEdit(props) {
       await createAIComment({ text: data?.dream?.text, dreamId: postId });
     };
 
-    if (router.pathname === "/publish/[postId]") {
+    if (router.pathname === `${router.locale}/publish/[postId]`) {
       router.events.on("routeChangeStart", exitingFunction);
       window.onbeforeunload = exitingFunction;
     }
 
     return () => {
-      if (router.pathname === "/publish/[postId]") {
+      if (router.pathname === `${router.locale}/publish/[postId]`) {
         router.events.off("routeChangeStart", exitingFunction);
       }
     };
@@ -233,7 +233,7 @@ export default function CreateOrEdit(props) {
         return;
       }
 
-      const url = `/publish/${data.objectId}`;
+      const url = `${router.locale}/publish/${data.objectId}`;
 
       sessionStorage.setItem(`created-dream-${data.objectId}-html`, html);
 

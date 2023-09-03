@@ -117,12 +117,13 @@ function Comments(props) {
   const [open, setOpen] = useState(false);
   const [commentIdToDelete, setCommentIdToDelete] = useState();
   const [deleting, setDeleting] = useState(false);
+  const { locale } = useRouter();
 
   const onChange = (event) => setValue(event.target.value);
 
   const onClick = async () => {
     if (mustSignIn) {
-      push("/auth/signin");
+      push(`/${locale}/auth/signin`);
       return;
     }
 

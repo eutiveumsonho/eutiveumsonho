@@ -23,6 +23,8 @@ import { Logo } from "../../components/logo";
 import { NEXT_AUTH_ERRORS } from "../../lib/errors";
 import { logReq } from "../../lib/middleware";
 import { getUserAgentProps } from "../../lib/user-agent";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const icon = {
   Facebook: <Facebook />,
@@ -31,14 +33,31 @@ const icon = {
 
 export default function SignIn({ providers, csrfToken }) {
   const [emailSignInLoading, setEmailSignInLoading] = useState(false);
-  const { query, locale } = useRouter();
+  const [email, setEmail] = useState("");
+  const { query, locale, push } = useRouter();
+  const { t } = useTranslation("signin");
 
   const error = query["error"];
+
+  const handleOnSubmit = async (event) => {
+    event.preventDefault();
+    setEmailSignInLoading(true);
+    const callbackUrl = `${window.location.origin}/${locale}/auth/verify-request`;
+
+    const { error, ok } = await signIn("email", {
+      email,
+      redirect: false,
+    });
+
+    if (ok && !error) {
+      push(callbackUrl);
+    }
+  };
 
   return (
     <>
       <Head>
-        <title>Entrar</title>
+        <title>{t("enter")}</title>
       </Head>
       {error ? (
         <Layer position="top" modal={false}>
@@ -84,7 +103,7 @@ export default function SignIn({ providers, csrfToken }) {
               return (
                 <Fragment key={provider.type}>
                   {/* https://next-auth.js.org/configuration/pages#email-sign-in */}
-                  <form method="post" action="/api/auth/signin/email">
+                  <form onSubmit={handleOnSubmit}>
                     <input
                       name="csrfToken"
                       type="hidden"
@@ -97,7 +116,7 @@ export default function SignIn({ providers, csrfToken }) {
                         (value) => {
                           if (!isEmail(value ?? "")) {
                             return {
-                              message: "Insira um e-mail válido",
+                              message: t("valid-email"),
                             };
                           }
                         },
@@ -107,7 +126,10 @@ export default function SignIn({ providers, csrfToken }) {
                         type="email"
                         id="email"
                         name="email"
-                        placeholder="Seu e-email"
+                        placeholder={t("email")}
+                        onChange={(event) => {
+                          setEmail(event.target.value);
+                        }}
                       />
                     </FormField>
                     <Button
@@ -117,11 +139,7 @@ export default function SignIn({ providers, csrfToken }) {
                       icon={
                         emailSignInLoading ? <Spinner size="xsmall" /> : null
                       }
-                      label={
-                        emailSignInLoading
-                          ? "Enviando..."
-                          : "Enviar e-mail com link de login"
-                      }
+                      label={emailSignInLoading ? t("sending") : t("send")}
                       type="submit"
                       fill="horizontal"
                       primary
@@ -133,20 +151,30 @@ export default function SignIn({ providers, csrfToken }) {
               );
             }
 
-            if (process.env.NODE_ENV === "production") {
+            if (
+              process.env.NODE_ENV === "production" ||
+              process.env.NODE_ENV === "test"
+            ) {
               return (
                 <Button
                   key={provider.name}
                   style={{
                     width: "100%",
                   }}
-                  onClick={() =>
+                  onClick={() => {
+                    if (process.env.NODE_ENV === "test") {
+                      console.warn(
+                        "Test mode, skipping OAuth flow. Use magic links."
+                      );
+                      return;
+                    }
+
                     signIn(provider.id, {
                       callbackUrl: `${window.location.origin}/${locale}/dreams`,
-                    })
-                  }
+                    });
+                  }}
                   icon={icon[provider.name]}
-                  label={`Entre com ${provider.name}`}
+                  label={`${t("enter-with")} ${provider.name}`}
                   primary
                 />
               );
@@ -169,7 +197,12 @@ export async function getServerSideProps(context) {
     context.res.writeHead(302, { Location: "/" });
     context.res.end();
 
-    return { props: { ...getUserAgentProps(context) } };
+    return {
+      props: {
+        ...getUserAgentProps(context),
+        ...(await serverSideTranslations(context.locale, ["signin"])),
+      },
+    };
   }
 
   return {
@@ -177,6 +210,7 @@ export async function getServerSideProps(context) {
       providers,
       csrfToken: await getCsrfToken(context),
       ...getUserAgentProps(context),
+      ...(await serverSideTranslations(context.locale, ["signin"])),
     },
   };
 }

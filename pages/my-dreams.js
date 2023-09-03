@@ -5,6 +5,7 @@ import Dreams from "../containers/dreams";
 import Head from "next/head";
 import { logReq } from "../lib/middleware";
 import { getUserAgentProps } from "../lib/user-agent";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function MyDreams(props) {
   const { serverSession: rawServerSession, data: rawData } = props;
@@ -53,6 +54,7 @@ export async function getServerSideProps(context) {
         serverSession: JSON.stringify(authProps.props.serverSession),
         data: JSON.stringify(data),
         ...getUserAgentProps(context),
+        ...(await serverSideTranslations(context.locale, ["dashboard"])),
       },
     };
   } catch (error) {

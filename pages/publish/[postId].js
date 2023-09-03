@@ -5,6 +5,7 @@ import { logError } from "../../lib/o11y";
 import Head from "next/head";
 import { logReq } from "../../lib/middleware";
 import { getUserAgentProps } from "../../lib/user-agent";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function DreamEditor(props) {
   const { data, ...authProps } = props;

@@ -5,6 +5,7 @@ import { getUserByEmail } from "../lib/db/reads";
 import { logReq } from "../lib/middleware";
 import { logError } from "../lib/o11y";
 import { getUserAgentProps } from "../lib/user-agent";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function MyAccount(props) {
   const { serverSession: rawServerSession, data: rawData } = props;
@@ -43,6 +44,7 @@ export async function getServerSideProps(context) {
         serverSession: JSON.stringify(authProps.props.serverSession),
         data: JSON.stringify(data),
         ...getUserAgentProps(context),
+        ...(await serverSideTranslations(context.locale, ["dashboard"])),
       },
     };
   } catch (error) {

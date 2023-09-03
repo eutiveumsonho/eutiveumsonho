@@ -7,7 +7,7 @@ import { logWarn } from "../lib/o11y";
 
 export default function Custom404(props) {
   const { deviceType } = props;
-  const { push } = useRouter();
+  const { push, locale } = useRouter();
 
   logWarn({
     error_name: "404ComponentRendered",
@@ -35,7 +35,7 @@ export default function Custom404(props) {
           style={{
             marginBottom: "2rem",
           }}
-          onClick={() => push("/")}
+          onClick={() => push(`/${locale}`)}
         />
 
         <Image src={"/images/states/404.svg"} width={540} height={540} />

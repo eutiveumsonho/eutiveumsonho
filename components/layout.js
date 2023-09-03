@@ -124,7 +124,7 @@ export default function Layout(props) {
                 }}
               >
                 <Link
-                  href={`${router.locale}/`}
+                  href={`/${router.locale}`}
                   legacyBehavior
                   locale={router.locale}
                 >

@@ -12,6 +12,7 @@ import { DATE_FORMAT } from "../components/heatmap/constants";
 import Tip from "../components/tip";
 import { logReq } from "../lib/middleware";
 import { getUserAgentProps } from "../lib/user-agent";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function InsightsPage(props) {
   const { serverSession: rawServerSession, data: rawData, deviceType } = props;
@@ -213,6 +214,7 @@ export async function getServerSideProps(context) {
           wordFrequencyDistribution: wordFrequencyDistributionData.slice(0, 14),
         }),
         ...getUserAgentProps(context),
+        ...(await serverSideTranslations(context.locale, ["dashboard"])),
       },
     };
   } catch (error) {

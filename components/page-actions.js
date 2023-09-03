@@ -1,5 +1,4 @@
 import { Avatar, Box, Button, ResponsiveContext } from "grommet";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { useTranslation } from "next-i18next";
@@ -26,7 +25,7 @@ export default function PageActions(props) {
         )}
         <Button
           primary
-          label={t("add-dream")}
+          label={t("dashboard:add-dream")}
           onClick={() => {
             push(`/${locale}/publish`);
           }}

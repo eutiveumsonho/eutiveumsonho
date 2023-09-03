@@ -7,7 +7,7 @@ import { NEXT_AUTH_ERRORS } from "../../lib/errors";
 import { logError } from "../../lib/o11y";
 
 export default function VerifyRequest() {
-  const { query, push } = useRouter();
+  const { query, push, locale } = useRouter();
 
   const { error: errorCode } = query;
 
@@ -66,7 +66,7 @@ export default function VerifyRequest() {
             style={{
               width: "100%",
             }}
-            onClick={() => push("/")}
+            onClick={() => push(`/${locale}`)}
             label={"Voltar à tela inicial"}
             primary
           />

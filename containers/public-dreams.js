@@ -18,6 +18,7 @@ import { useRouter } from "next/router";
 import { BRAND_HEX } from "../lib/config";
 import "dayjs/locale/pt-br";
 import DreamFooter from "../components/dream/footer";
+import { useTranslation } from "next-i18next";
 
 dayjs.extend(LocalizedFormat);
 
@@ -28,6 +29,7 @@ export default function PublicDreams(props) {
   const [dreams, setDreams] = useState([]);
   const { push } = useRouter();
   const size = useContext(ResponsiveContext);
+  const { t } = useTranslation("dashboard");
 
   useEffect(() => {
     if (!selectedTags || selectedTags.length === 0) {
@@ -51,7 +53,7 @@ export default function PublicDreams(props) {
       <Box pad="medium">
         <Heading size="small">
           <Box direction="row" gap="small" align="center">
-            Pesquisar {searching ? <Spinner /> : null}
+            {t("search")} {searching ? <Spinner /> : null}
           </Box>
         </Heading>
         <Search
@@ -100,6 +102,7 @@ function PublicDream(props) {
   const [eagerStarCount, setEagerStarCount] = useState(item?.starCount ?? 0);
   const [starred, setStarred] = useState(props.starred);
   const [updatingStarCount, setUpdatingStarCount] = useState(false);
+  const { locale } = useRouter();
 
   const star = async () => {
     setUpdatingStarCount(true);
@@ -155,7 +158,7 @@ function PublicDream(props) {
           elevation: "medium",
         }}
         onClick={() => {
-          push(`/dreams/${item._id}`);
+          push(`/${locale}/dreams/${item._id}`);
         }}
       >
         <div

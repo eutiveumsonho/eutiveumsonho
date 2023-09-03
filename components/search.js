@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { FormClose } from "grommet-icons";
 import { Box, Button, Keyboard, Text, TextInput } from "grommet";
+import { useTranslation } from "react-i18next";
 
 const Tag = ({ children, onRemove, ...rest }) => {
   const tag = (
@@ -91,6 +92,7 @@ const TagInput = ({ value = [], onAdd, onChange, onRemove, ...rest }) => {
 export default function Search(props) {
   const { suggestions: allSuggestions, selectedTags, setSelectedTags } = props;
   const [suggestions, setSuggestions] = useState(allSuggestions);
+  const { t } = useTranslation("dashboard");
 
   const onRemoveTag = (tag) => {
     const removeIndex = selectedTags.indexOf(tag);
@@ -113,7 +115,7 @@ export default function Search(props) {
 
   return (
     <TagInput
-      placeholder="Busque por sentenças ou palavras-chave"
+      placeholder={t("search-by")}
       suggestions={suggestions}
       value={selectedTags}
       onRemove={onRemoveTag}

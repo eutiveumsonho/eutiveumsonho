@@ -16,7 +16,7 @@ dayjs.extend(LocalizedFormat);
 
 export default function SavedDreams(props) {
   const { serverSession, data, title, empty, deviceType } = props;
-  const { push } = useRouter();
+  const { push, locale } = useRouter();
   const size = useContext(ResponsiveContext);
   const [unstarreds, setUnstarreds] = useState([]);
 
@@ -38,6 +38,7 @@ export default function SavedDreams(props) {
               size={size}
               unstarreds={unstarreds}
               setUnstarreds={setUnstarreds}
+              locale={locale}
             />
           );
         })}
@@ -47,7 +48,8 @@ export default function SavedDreams(props) {
 }
 
 function SavedDream(props) {
-  const { item, index, data, push, size, unstarreds, setUnstarreds } = props;
+  const { item, index, data, push, size, unstarreds, setUnstarreds, locale } =
+    props;
   const [eagerStarCount, setEagerStarCount] = useState(item?.starCount ?? 0);
   const [updatingStarCount, setUpdatingStarCount] = useState(false);
 
@@ -101,7 +103,7 @@ function SavedDream(props) {
           elevation: "medium",
         }}
         onClick={() => {
-          push(`/dreams/${item._id}`);
+          push(`/${locale}/dreams/${item._id}`);
         }}
       >
         <div

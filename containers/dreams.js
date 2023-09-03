@@ -17,7 +17,7 @@ dayjs.extend(LocalizedFormat);
 
 export default function DreamsContainer(props) {
   const { serverSession, data, title, empty, deviceType } = props;
-  const { push, reload } = useRouter();
+  const { push, reload, locale } = useRouter();
   const [open, setOpen] = useState(false);
   const [dreamIdToDelete, setDreamIdToDelete] = useState();
   const [deleting, setDeleting] = useState(false);
@@ -61,6 +61,7 @@ export default function DreamsContainer(props) {
                 delDream={delDream}
                 onClose={onClose}
                 push={push}
+                locale={locale}
               />
             );
           })}
@@ -71,8 +72,18 @@ export default function DreamsContainer(props) {
 }
 
 function MyDream(props) {
-  const { item, index, data, deleting, open, onOpen, delDream, onClose, push } =
-    props;
+  const {
+    item,
+    index,
+    data,
+    deleting,
+    open,
+    onOpen,
+    delDream,
+    onClose,
+    push,
+    locale,
+  } = props;
 
   return (
     <Box
@@ -112,14 +123,14 @@ function MyDream(props) {
             <Button
               icon={<View />}
               hoverIndicator
-              onClick={() => push(`/dreams/${item._id}`)}
+              onClick={() => push(`/${locale}/dreams/${item._id}`)}
             />
           </Tip>
           <Tip content="Editar sonho">
             <Button
               icon={<Edit />}
               hoverIndicator
-              onClick={() => push(`/publish/${item._id}`)}
+              onClick={() => push(`/${locale}/publish/${item._id}`)}
             />
           </Tip>
           <Tip content="Deletar sonho">

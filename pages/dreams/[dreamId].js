@@ -11,6 +11,7 @@ import {
 import { logError } from "../../lib/o11y";
 import { logReq } from "../../lib/middleware";
 import { getUserAgentProps } from "../../lib/user-agent";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function DreamPage(props) {
   const { data: rawData, comments: rawComments, ...authProps } = props;
@@ -58,6 +59,10 @@ export async function getServerSideProps(context) {
           data: JSON.stringify(data),
           comments: JSON.stringify(comments),
           ...getUserAgentProps(context),
+          ...(await serverSideTranslations(context.locale, [
+            "layout",
+            "footer",
+          ])),
         },
       };
     }
@@ -77,6 +82,7 @@ export async function getServerSideProps(context) {
       return {
         props: {
           ...getUserAgentProps(context),
+          ...(await serverSideTranslations(context.locale, ["dashboard"])),
         },
       };
     }
@@ -100,6 +106,7 @@ export async function getServerSideProps(context) {
         data: JSON.stringify(data),
         comments: JSON.stringify(comments),
         ...getUserAgentProps(context),
+        ...(await serverSideTranslations(context.locale, ["dashboard"])),
       },
     };
   } catch (error) {

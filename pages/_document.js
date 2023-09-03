@@ -31,6 +31,33 @@ class MyDocument extends Document {
     }
   }
 
+  privacyControlBanner = {
+    pt: `<script type="text/javascript">
+    var _iub = _iub || [];
+    _iub.csConfiguration = {"askConsentAtCookiePolicyUpdate":true,"countryDetection":true,"enableFadp":true,"enableLgpd":true,"enableUspr":true,"floatingPreferencesButtonCaptionColor":"#333333","floatingPreferencesButtonColor":"#FFFFFF","floatingPreferencesButtonDisplay":"anchored-bottom-right","floatingPreferencesButtonIcon":false,"gdprAppliesGlobally":false,"lang":"pt-BR","perPurposeConsent":true,"siteId":2762124,"whitelabel":false,"cookiePolicyId":26392272,"floatingPreferencesButtonCaption":true, "banner":{ "acceptButtonCaptionColor":"#FFFFFF","acceptButtonColor":"#7D4CDB","acceptButtonDisplay":true,"backgroundColor":"#FFFFFF","brandBackgroundColor":"#FFFFFF","brandTextColor":"#000000","closeButtonDisplay":false,"customizeButtonCaptionColor":"#4D4D4D","customizeButtonColor":"#DADADA","customizeButtonDisplay":true,"explicitWithdrawal":true,"listPurposes":true,"logo":"https://eutiveumsonho.com/purple-cloud.svg","position":"float-center","rejectButtonCaptionColor":"#FFFFFF","rejectButtonColor":"#7D4CDB","rejectButtonDisplay":true,"textColor":"#000000" }};
+    </script>
+    <script type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
+    <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>`,
+    es: `<script type="text/javascript">
+    var _iub = _iub || [];
+    _iub.csConfiguration = {"askConsentAtCookiePolicyUpdate":true,"countryDetection":true,"enableFadp":true,"enableLgpd":true,"enableUspr":true,"floatingPreferencesButtonCaptionColor":"#333333","floatingPreferencesButtonColor":"#FFFFFF","floatingPreferencesButtonDisplay":"anchored-bottom-right","floatingPreferencesButtonIcon":false,"gdprAppliesGlobally":false,"lang":"es","perPurposeConsent":true,"siteId":2762124,"whitelabel":false,"cookiePolicyId":63047876,"floatingPreferencesButtonCaption":true, "banner":{ "acceptButtonCaptionColor":"#FFFFFF","acceptButtonColor":"#7D4CDB","acceptButtonDisplay":true,"backgroundColor":"#FFFFFF","brandBackgroundColor":"#FFFFFF","brandTextColor":"#000000","closeButtonDisplay":false,"customizeButtonCaptionColor":"#4D4D4D","customizeButtonColor":"#DADADA","customizeButtonDisplay":true,"explicitWithdrawal":true,"listPurposes":true,"logo":"https://eutiveumsonho.com/purple-cloud.svg","position":"float-center","rejectButtonCaptionColor":"#FFFFFF","rejectButtonColor":"#7D4CDB","rejectButtonDisplay":true,"textColor":"#000000" }};
+    </script>
+    <script type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
+    <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>`,
+    en: `<script type="text/javascript">
+    var _iub = _iub || [];
+    _iub.csConfiguration = {"askConsentAtCookiePolicyUpdate":true,"countryDetection":true,"enableFadp":true,"enableLgpd":true,"enableUspr":true,"floatingPreferencesButtonCaptionColor":"#333333","floatingPreferencesButtonColor":"#FFFFFF","floatingPreferencesButtonDisplay":"anchored-bottom-right","floatingPreferencesButtonIcon":false,"gdprAppliesGlobally":false,"lang":"en","perPurposeConsent":true,"siteId":2762124,"whitelabel":false,"cookiePolicyId":70195735,"floatingPreferencesButtonCaption":true, "banner":{ "acceptButtonCaptionColor":"#FFFFFF","acceptButtonColor":"#7D4CDB","acceptButtonDisplay":true,"backgroundColor":"#FFFFFF","brandBackgroundColor":"#FFFFFF","brandTextColor":"#000000","closeButtonDisplay":false,"customizeButtonCaptionColor":"#4D4D4D","customizeButtonColor":"#DADADA","customizeButtonDisplay":true,"explicitWithdrawal":true,"listPurposes":true,"logo":"https://eutiveumsonho.com/purple-cloud.svg","position":"float-center","rejectButtonCaptionColor":"#FFFFFF","rejectButtonColor":"#7D4CDB","rejectButtonDisplay":true,"textColor":"#000000" }};
+    </script>
+    <script type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
+    <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>`,
+    undefined: `<script type="text/javascript">
+    var _iub = _iub || [];
+    _iub.csConfiguration = {"askConsentAtCookiePolicyUpdate":true,"countryDetection":true,"enableFadp":true,"enableLgpd":true,"enableUspr":true,"floatingPreferencesButtonCaptionColor":"#333333","floatingPreferencesButtonColor":"#FFFFFF","floatingPreferencesButtonDisplay":"anchored-bottom-right","floatingPreferencesButtonIcon":false,"gdprAppliesGlobally":false,"lang":"en","perPurposeConsent":true,"siteId":2762124,"whitelabel":false,"cookiePolicyId":70195735,"floatingPreferencesButtonCaption":true, "banner":{ "acceptButtonCaptionColor":"#FFFFFF","acceptButtonColor":"#7D4CDB","acceptButtonDisplay":true,"backgroundColor":"#FFFFFF","brandBackgroundColor":"#FFFFFF","brandTextColor":"#000000","closeButtonDisplay":false,"customizeButtonCaptionColor":"#4D4D4D","customizeButtonColor":"#DADADA","customizeButtonDisplay":true,"explicitWithdrawal":true,"listPurposes":true,"logo":"https://eutiveumsonho.com/purple-cloud.svg","position":"float-center","rejectButtonCaptionColor":"#FFFFFF","rejectButtonColor":"#7D4CDB","rejectButtonDisplay":true,"textColor":"#000000" }};
+    </script>
+    <script type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
+    <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>`,
+  };
+
   render() {
     return (
       <Html
@@ -39,7 +66,7 @@ class MyDocument extends Document {
           margin: 0,
           height: "100%",
         }}
-        lang="pt"
+        lang={this.props.locale}
       >
         <Head>
           <link
@@ -69,12 +96,9 @@ class MyDocument extends Document {
           />
           <div
             dangerouslySetInnerHTML={{
-              __html: `<script type="text/javascript">
-              var _iub = _iub || [];
-              _iub.csConfiguration = {"ccpaAcknowledgeOnDisplay":true,"consentOnContinuedBrowsing":false,"countryDetection":true,"enableCcpa":true,"floatingPreferencesButtonDisplay":"bottom-right","floatingPreferencesButtonIcon":false,"gdprAppliesGlobally":false,"invalidateConsentWithoutLog":true,"lang":"pt-BR","perPurposeConsent":true,"siteId":2762124,"whitelabel":false,"cookiePolicyId":26392272,"floatingPreferencesButtonCaption":true, "banner":{ "acceptButtonCaptionColor":"#FFFFFF","acceptButtonColor":"#7D4CDB","acceptButtonDisplay":true,"backgroundColor":"#FFFFFF","brandBackgroundColor":"#FFFFFF","brandTextColor":"#000000","closeButtonDisplay":false,"customizeButtonCaptionColor":"#4D4D4D","customizeButtonColor":"#DADADA","customizeButtonDisplay":true,"explicitWithdrawal":true,"listPurposes":true,"logo":null,"position":"float-bottom-left","rejectButtonCaptionColor":"#FFFFFF","rejectButtonColor":"#7D4CDB","rejectButtonDisplay":true,"textColor":"#000000" }};
-              </script>
-              <script type="text/javascript" src="//cdn.iubenda.com/cs/ccpa/stub.js"></script>
-              <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>`,
+              __html: this.privacyControlBanner[this.props.locale]
+                ? this.privacyControlBanner[this.props.locale]
+                : this.privacyControlBanner["en"],
             }}
           />
           <script

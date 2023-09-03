@@ -4,12 +4,16 @@ import CreateOrEdit from "../../containers/create-or-edit";
 import Head from "next/head";
 import { logReq } from "../../lib/middleware";
 import { getUserAgentProps } from "../../lib/user-agent";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export default function Home(props) {
+  const { t } = useTranslation("editor");
+
   return (
     <>
       <Head>
-        <title>Criar sonho</title>
+        <title>{t("create-dream")}</title>
       </Head>
       <CreateOrEdit {...props} />
     </>
@@ -28,5 +32,11 @@ export async function getServerSideProps(context) {
     res.end();
   }
 
-  return { props: { ...authProps.props, ...getUserAgentProps(context) } };
+  return {
+    props: {
+      ...authProps.props,
+      ...getUserAgentProps(context),
+      ...(await serverSideTranslations(context.locale, ["editor"])),
+    },
+  };
 }
