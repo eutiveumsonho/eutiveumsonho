@@ -42,12 +42,18 @@ export async function getServerSideProps(context) {
           ...authProps.props,
           data: JSON.stringify(data),
           ...getUserAgentProps(context),
+          ...(await serverSideTranslations(context.locale, ["dashboard"])),
         },
       };
     }
 
     return {
-      props: { ...authProps.props, data: null, ...getUserAgentProps(context) },
+      props: {
+        ...authProps.props,
+        data: null,
+        ...getUserAgentProps(context),
+        ...(await serverSideTranslations(context.locale, ["dashboard"])),
+      },
     };
   } catch (error) {
     logError({
