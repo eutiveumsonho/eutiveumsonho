@@ -27,6 +27,9 @@ import { logError } from "../lib/o11y";
 import Loading from "../components/editor/loading";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
+import "dayjs/locale/en";
+import "dayjs/locale/es";
+import "dayjs/locale/fr";
 
 dayjs.extend(LocalizedFormat);
 
@@ -53,6 +56,7 @@ function Syncing() {
 
 function LastSyncedAt(props) {
   const { lastSynced } = props;
+  const { locale } = useRouter();
 
   if (!lastSynced) {
     return null;
@@ -68,7 +72,7 @@ function LastSyncedAt(props) {
         }}
       >
         Salvo pela última vez às{" "}
-        {dayjs(lastSynced).locale("pt-br").format("LTS")}
+        {dayjs(lastSynced).locale(locale).format("LTS")}
       </Text>
     </>
   );
@@ -180,13 +184,20 @@ export default function CreateOrEdit(props) {
       await createAIComment({ text: data?.dream?.text, dreamId: postId });
     };
 
-    if (router.pathname === `${router.locale}/publish/[postId]`) {
+    console.log({ routerPathname: router.pathname });
+    if (
+      router.pathname === `/${router.locale}/publish/[postId]` ||
+      router.pathname === "/publish/[postId]"
+    ) {
       router.events.on("routeChangeStart", exitingFunction);
       window.onbeforeunload = exitingFunction;
     }
 
     return () => {
-      if (router.pathname === `${router.locale}/publish/[postId]`) {
+      if (
+        router.pathname === `/${router.locale}/publish/[postId]` ||
+        router.pathname === "/publish/[postId]"
+      ) {
         router.events.off("routeChangeStart", exitingFunction);
       }
     };

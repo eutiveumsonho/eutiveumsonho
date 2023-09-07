@@ -2,7 +2,7 @@
 
 import { getServerSession } from "../../../lib/auth";
 import { hasCommentedOnDream } from "../../../lib/db/reads";
-import { createComment, saveCompletion } from "../../../lib/db/writes";
+import { generateComment } from "../../../lib/db/writes";
 import {
   BAD_REQUEST,
   METHOD_NOT_ALLOWED,
@@ -11,11 +11,6 @@ import {
 } from "../../../lib/errors";
 import { withTracing } from "../../../lib/middleware";
 import { logError } from "../../../lib/o11y";
-import OpenAI from "openai";
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_TOKEN,
-});
 
 function handler(req, res) {
   switch (req.method) {
@@ -52,35 +47,12 @@ async function post(req, res) {
     return res;
   }
 
-  const params = {
-    messages: [{ role: "user", content: generatePrompt(req.body.text) }],
-    model: "gpt-3.5-turbo",
-  };
-
-  const completion = await openai.chat.completions.create(params);
-
-  // Dispatch to save completion
-  saveCompletion(completion, session.user.email);
-
-  const comment = completion.choices[0].message.content;
-
-  const data = {
-    comment,
-    dreamId: req.body.dreamId,
-    session: {
-      user: {
-        name: "Sonio",
-        email: "marcelo@eutiveumsonho.com",
-        image: "https://eutiveumsonho.com/android-chrome-192x192.png",
-      },
-      expires: new Date(8640000000000000), // Maximum timestamp,
-    },
-  };
-
   try {
-    const result = await createComment(data);
-
-    const objectId = result.insertedId?.toString();
+    const objectId = await generateComment(
+      req.body.dreamId,
+      req.body.text,
+      session
+    );
 
     res.setHeader("Content-Type", "application/json");
     res.status(201).send({ objectId });
@@ -97,19 +69,6 @@ async function post(req, res) {
 
     return res;
   }
-}
-
-function generatePrompt(dream) {
-  return `Act as a psychotherapist specializing in dream interpretation with a deep knowledge of archetypes and mythology. 
-  When presented with a dream narrative, provide insightful analysis and open-ended questions to help the dreamer gain a deeper understanding of their dream.
-  Do not provide personal opinions or assumptions about the dreamer. 
-  Provide only factual interpretations based on the information given. 
-  Keep your answer short and concise, with 5000 characters at most.
-  If the dream looks incomplete, never complete it.
-  Always respond in the language in which the dream narrative is presented, even if it differs from the initial instruction language (English).
-  Here is the dream: 
-  
-  ${dream}`;
 }
 
 export default withTracing(handler);

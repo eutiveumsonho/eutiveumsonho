@@ -27,10 +27,7 @@ export default function PrivacyPolicy(props) {
     <Layout serverSession={serverSession} deviceType={deviceType}>
       <Head>
         <title>{t("privacy")}</title>
-        <meta
-          name="description"
-          content="Política de Privacidade de eutiveumosho"
-        />
+        <meta name="description" content={t("privacy")} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PageContent

@@ -20,13 +20,18 @@ import { Return, Trash } from "grommet-icons";
 import { useState } from "react";
 import { createComment, deleteComment } from "../lib/api";
 import Tip from "../components/tip";
+import { useTranslation } from "next-i18next";
 import "dayjs/locale/pt-br";
+import "dayjs/locale/en";
+import "dayjs/locale/es";
+import "dayjs/locale/fr";
 
 dayjs.extend(LocalizedFormat);
 
 export default function DreamContainer(props) {
   const { serverSession, data, comments, deviceType } = props;
   const { back, push } = useRouter();
+  const { t } = useTranslation("dashboard");
 
   if (!serverSession) {
     return (
@@ -51,7 +56,7 @@ export default function DreamContainer(props) {
           align="center"
         >
           <Button icon={<Return />} hoverIndicator onClick={() => back()} />
-          <Heading size="small">Retornar</Heading>
+          <Heading size="small">{t("back")}</Heading>
         </Box>
         <Dream data={data} />
         <Comments
@@ -67,6 +72,7 @@ export default function DreamContainer(props) {
 
 function Dream(props) {
   const { data, publicView } = props;
+  const { locale } = useRouter();
 
   return (
     <Box
@@ -89,11 +95,11 @@ function Dream(props) {
         </Text>
         {data.visibility === "private" ? (
           <Text size="xsmall">
-            <i>Só você pode ver este sonho.</i>
+            <i>{t("only-you-can-see")}.</i>
           </Text>
         ) : null}
         <Text size="xsmall">
-          {dayjs(data.createdAt).locale("pt-br").format("LL")}
+          {dayjs(data.createdAt).locale(locale).format("LL")}
         </Text>
       </Box>
       <Box direction="row" justify="between" align="center">
@@ -118,6 +124,7 @@ function Comments(props) {
   const [commentIdToDelete, setCommentIdToDelete] = useState();
   const [deleting, setDeleting] = useState(false);
   const { locale } = useRouter();
+  const { t } = useTranslation("dashboard");
 
   const onChange = (event) => setValue(event.target.value);
 
@@ -178,7 +185,7 @@ function Comments(props) {
       }}
     >
       <Heading size="small" level={2}>
-        Comentários
+        {t("comments")}
       </Heading>
       <Box
         gap="small"
@@ -190,14 +197,14 @@ function Comments(props) {
         <TextArea
           value={value}
           onChange={onChange}
-          placeholder="Escreva um comentário"
+          placeholder={t("write-a-comment")}
           maxLength={3000}
-          id="comentar"
+          id="comment"
         />
         <Box direction="row" gap="small">
           <Button
             icon={commenting ? <Spinner size="xsmall" /> : null}
-            label={mustSignIn ? "Entre para comentar" : "Comentar"}
+            label={mustSignIn ? t("sign-in-to-comment") : t("comment")}
             disabled={!value || commenting}
             onClick={onClick}
           />
@@ -267,11 +274,9 @@ function Comments(props) {
                         >
                           <Box pad="medium" gap="small" width="medium">
                             <Heading level={3} margin="none">
-                              Confirmar
+                              {t("confirm")}
                             </Heading>
-                            <Text>
-                              Tem certeza que deseja deletar este comentário?
-                            </Text>
+                            <Text>{t("confirm-comment-deletion")}</Text>
                             <Box
                               as="footer"
                               gap="small"
@@ -287,9 +292,9 @@ function Comments(props) {
                                 label={
                                   <Text color="white">
                                     {deleting ? (
-                                      <strong>Deletando...</strong>
+                                      <strong>{t("deleting")}</strong>
                                     ) : (
-                                      <strong>Sim, deletar</strong>
+                                      <strong>{t("yes-delete")}</strong>
                                     )}
                                   </Text>
                                 }
@@ -306,7 +311,7 @@ function Comments(props) {
                   ) : null}
                 </Box>
                 <Text size="xsmall">
-                  {dayjs(comment.createdAt).locale("pt-br").format("LL")}
+                  {dayjs(comment.createdAt).locale(locale).format("LL")}
                 </Text>
               </Box>
               <Text>{comment.text}</Text>

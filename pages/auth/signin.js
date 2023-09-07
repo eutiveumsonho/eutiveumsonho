@@ -194,7 +194,7 @@ export async function getServerSideProps(context) {
   logReq(context.req, context.res);
 
   if (session) {
-    context.res.writeHead(302, { Location: "/" });
+    context.res.writeHead(302, { Location: `/${context.locale}` });
     context.res.end();
 
     return {

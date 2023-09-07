@@ -6,6 +6,8 @@ import Head from "next/head";
 import { logReq } from "../lib/middleware";
 import { getUserAgentProps } from "../lib/user-agent";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 
 export default function MyDreams(props) {
   const { serverSession: rawServerSession, data: rawData } = props;
@@ -13,20 +15,23 @@ export default function MyDreams(props) {
   const serverSession = JSON.parse(rawServerSession);
   const data = JSON.parse(rawData);
 
+  const { t } = useTranslation("dashboard");
+  const { locale } = useRouter();
+
   return (
     <>
       <Head>
-        <title>Meus sonhos</title>
+        <title>{t("my-dreams")}</title>
       </Head>
       <Dreams
         serverSession={serverSession}
         data={data}
-        title="Meus sonhos"
+        title={t("my-dreams")}
         page="my-dreams"
         empty={{
-          label: "Adicione seu primeiro sonho",
-          actionRoute: "/publish",
-          description: "Os seus sonhos serão listados aqui 📚",
+          label: t("add-first-dream"),
+          actionRoute: `/${locale}/publish`,
+          description: `${t("dreams-listed-here")} 📚`,
         }}
       />
     </>
@@ -39,7 +44,7 @@ export async function getServerSideProps(context) {
 
   if (!authProps.props.serverSession || !authProps.props.serverSession?.user) {
     const { res } = context;
-    res.setHeader("location", "/auth/signin");
+    res.setHeader("location", `/${context.locale}/auth/signin`);
     res.statusCode = 302;
     res.end();
   }

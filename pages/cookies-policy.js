@@ -27,10 +27,7 @@ export default function CookiesPolicy(props) {
     <Layout serverSession={serverSession} deviceType={deviceType}>
       <Head>
         <title>{t("cookies")}</title>
-        <meta
-          name="description"
-          content="Política de Cookies de eutiveumsonho"
-        />
+        <meta name="description" content={t("cookies")} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PageContent

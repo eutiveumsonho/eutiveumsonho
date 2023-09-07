@@ -10,8 +10,11 @@ import VisibilityIcon from "../components/visbility-icon";
 import { BRAND_HEX } from "../lib/config";
 import { deleteDream } from "../lib/api";
 import { useState } from "react";
-import "dayjs/locale/pt-br";
 import Empty from "../components/empty";
+import "dayjs/locale/pt-br";
+import "dayjs/locale/en";
+import "dayjs/locale/es";
+import "dayjs/locale/fr";
 
 dayjs.extend(LocalizedFormat);
 
@@ -97,7 +100,7 @@ function MyDream(props) {
       <Box justify="center" align="center" pad="small" gap="small">
         <VisibilityIcon option={item.visibility} />
         <Text size="xsmall">
-          {dayjs(item.createdAt).locale("pt-br").format("LL")}
+          {dayjs(item.createdAt).locale(locale).format("LL")}
         </Text>
       </Box>
       <Box direction="row" justify="between" align="center">

@@ -27,10 +27,7 @@ export default function TermsAndConditions(props) {
     <Layout serverSession={serverSession} deviceType={deviceType}>
       <Head>
         <title>{t("terms")}</title>
-        <meta
-          name="description"
-          content="Termos e Condições de eutiveumsonho"
-        />
+        <meta name="description" content={t("terms")} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PageContent

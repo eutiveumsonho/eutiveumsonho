@@ -224,7 +224,7 @@ const MainNavigation = (props) => {
                 ? {
                     value: serverSession?.inboxCount,
                     background: {
-                      color: pathname === inbiox ? "#6FFFB0" : BRAND_HEX,
+                      color: pathname === inbox ? "#6FFFB0" : BRAND_HEX,
                     },
                   }
                 : 0

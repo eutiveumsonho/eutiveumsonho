@@ -6,17 +6,19 @@ import { logReq } from "../lib/middleware";
 import { logError } from "../lib/o11y";
 import { getUserAgentProps } from "../lib/user-agent";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export default function MyAccount(props) {
   const { serverSession: rawServerSession, data: rawData } = props;
 
+  const { t } = useTranslation("dashboard");
   const serverSession = JSON.parse(rawServerSession);
   const data = JSON.parse(rawData);
 
   return (
     <>
       <Head>
-        <title>Minha conta</title>
+        <title>{t("my-account")}</title>
       </Head>
       <MyAccountPage serverSession={serverSession} data={data} />
     </>
@@ -29,7 +31,7 @@ export async function getServerSideProps(context) {
 
   if (!authProps.props.serverSession) {
     const { res } = context;
-    res.setHeader("location", "/auth/signin");
+    res.setHeader("location", `/${context.locale}/auth/signin`);
     res.statusCode = 302;
     res.end();
   }

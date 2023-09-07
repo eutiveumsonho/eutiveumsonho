@@ -26,7 +26,7 @@ export async function getServerSideProps(context) {
   const { res } = context;
 
   if (!authProps.props.serverSession) {
-    res.setHeader("location", "/auth/signin");
+    res.setHeader("location", `/${context.locale}/auth/signin`);
     res.statusCode = 302;
     res.end();
   }

@@ -26,16 +26,14 @@ import { BRAND_HEX } from "../lib/config";
 import { logReq } from "../lib/middleware";
 import { getUserAgentProps } from "../lib/user-agent";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import "dayjs/locale/pt-br";
+import "dayjs/locale/en";
+import "dayjs/locale/es";
+import "dayjs/locale/fr";
 
 dayjs.extend(LocalizedFormat);
 dayjs.extend(relativeTime);
-
-const empty = {
-  description:
-    "Quando alguém comentar em algum sonho seu, ou salvá-lo, aparecerá uma notificação aqui 😉",
-  label: "Descubra sonhos",
-  actionRoute: "/dreams",
-};
 
 export default function Inbox(props) {
   const { serverSession: rawServerSession, data: rawData, deviceType } = props;
@@ -43,10 +41,16 @@ export default function Inbox(props) {
   const serverSession = JSON.parse(rawServerSession);
   const data = JSON.parse(rawData);
 
-  const { push } = useRouter();
+  const { push, locale } = useRouter();
+  const { t } = useTranslation("dashboard");
   const [eagerData, setEagerData] = useState(data);
-
   const [checked, setChecked] = useState([]);
+
+  const empty = {
+    description: `${t("no-comments")} 😉`,
+    label: t("discover-dreams"),
+    actionRoute: `/${locale}/dreams`,
+  };
 
   const onCheck = (event, value) => {
     if (event.target.checked) {
@@ -183,16 +187,16 @@ export default function Inbox(props) {
       align: "start",
       size: "3/4",
       render: (inbox) => {
-        const path = `/dreams/${inbox.dreamId}${
-          inbox.type === "star" ? "" : "#comentar"
+        const path = `/${locale}/dreams/${inbox.dreamId}${
+          inbox.type === "star" ? "" : "#comment"
         }`;
 
         const message = (
           <>
             {inbox.userName ? inbox.userName : ""}{" "}
             {inbox.type === "star"
-              ? "salvou seu sonho"
-              : "comentou em seu sonho"}
+              ? t("saved-your-dream")
+              : t("commented-your-dream")}
           </>
         );
 
@@ -213,7 +217,7 @@ export default function Inbox(props) {
     {
       property: "date",
       header: "",
-      render: (inbox) => dayjs(inbox.createdAt).locale("pt-br").fromNow(),
+      render: (inbox) => dayjs(inbox.createdAt).locale(locale).fromNow(),
       align: "end",
     },
   ];
@@ -221,12 +225,12 @@ export default function Inbox(props) {
   return (
     <>
       <Head>
-        <title>Inbox</title>
+        <title>{t("inbox")}</title>
       </Head>
       <Dashboard serverSession={serverSession} deviceType={deviceType}>
         <Box pad="medium">
           <Heading size="small" level={1}>
-            Inbox
+            {t("inbox")}
           </Heading>
           {eagerData.length === 0 ? <Empty empty={empty} /> : null}
           {eagerData.length > 0 ? (
@@ -278,7 +282,7 @@ export async function getServerSideProps(context) {
 
   if (!authProps.props.serverSession || !authProps.props.serverSession?.user) {
     const { res } = context;
-    res.setHeader("location", "/auth/signin");
+    res.setHeader("location", `/${context.locale}/auth/signin`);
     res.statusCode = 302;
     res.end();
   }
@@ -291,7 +295,7 @@ export async function getServerSideProps(context) {
         serverSession: JSON.stringify(authProps.props.serverSession),
         data: JSON.stringify(data),
         ...getUserAgentProps(context),
-        ...(await serverSideTranslations(context.locale, ["dashboard"])),
+        ...(await serverSideTranslations(context.locale, "dashboard")),
       },
     };
   } catch (error) {

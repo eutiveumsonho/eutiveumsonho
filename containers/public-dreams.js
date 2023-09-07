@@ -16,9 +16,12 @@ import { searchDreams, starDream, unstarDream } from "../lib/api";
 import { truncate } from "../lib/strings";
 import { useRouter } from "next/router";
 import { BRAND_HEX } from "../lib/config";
-import "dayjs/locale/pt-br";
 import DreamFooter from "../components/dream/footer";
 import { useTranslation } from "next-i18next";
+import "dayjs/locale/pt-br";
+import "dayjs/locale/en";
+import "dayjs/locale/es";
+import "dayjs/locale/fr";
 
 dayjs.extend(LocalizedFormat);
 
@@ -141,7 +144,7 @@ function PublicDream(props) {
           )}
         </Text>
         <Text size="xsmall">
-          {dayjs(item.createdAt).locale("pt-br").format("LL")}
+          {dayjs(item.createdAt).locale(locale).format("LL")}
         </Text>
       </Box>
       <Box

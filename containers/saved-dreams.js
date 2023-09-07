@@ -9,8 +9,11 @@ import { truncate } from "../lib/strings";
 import { useRouter } from "next/router";
 import { BRAND_HEX } from "../lib/config";
 import Empty from "../components/empty";
-import "dayjs/locale/pt-br";
 import DreamFooter from "../components/dream/footer";
+import "dayjs/locale/pt-br";
+import "dayjs/locale/en";
+import "dayjs/locale/es";
+import "dayjs/locale/fr";
 
 dayjs.extend(LocalizedFormat);
 
@@ -86,7 +89,7 @@ function SavedDream(props) {
           )}
         </Text>
         <Text size="xsmall">
-          {dayjs(item.createdAt).locale("pt-br").format("LL")}
+          {dayjs(item.createdAt).locale(locale).format("LL")}
         </Text>
       </Box>
       <Box

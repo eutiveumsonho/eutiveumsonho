@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { FormClose } from "grommet-icons";
 import { Box, Button, Keyboard, Text, TextInput } from "grommet";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 
 const Tag = ({ children, onRemove, ...rest }) => {
   const tag = (

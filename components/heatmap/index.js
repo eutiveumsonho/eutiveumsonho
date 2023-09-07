@@ -30,7 +30,7 @@ export const Heatmap = (props) => {
     i18n = {
       loading: "Carregando...",
       lastYear: "Último ano",
-      soFar: "até agora ",
+      soFar: "até agora",
       error: "Algo deu errado...",
       records: { plural: "sonhos", singular: "sonho" },
       on: "em",
@@ -176,7 +176,7 @@ export const Heatmap = (props) => {
       <Text>
         {isCurrentYear && fullYear ? i18n.lastYear : year}
         {" - "}
-        {isCurrentYear && !fullYear ? i18n.soFar : null}
+        {isCurrentYear && !fullYear ? `${i18n.soFar} ` : null}
         {totalCount}{" "}
         {totalCount === 1 ? i18n.records.singular : i18n.records.plural}
       </Text>
