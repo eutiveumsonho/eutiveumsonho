@@ -33,5 +33,7 @@
   "no-saved": "Les rêves que vous enregistrez (en cliquant sur la ⭐) seront listés ici.",
   "delete-account": "Supprimer le compte",
   "delete-account-description": "En supprimant votre compte, tout le contenu associé sera supprimé et il ne sera pas possible de le récupérer.",
-  "confirm-account-deletion": "Êtes-vous sûr de vouloir supprimer votre compte?"
+  "confirm-account-deletion": "Êtes-vous sûr de vouloir supprimer votre compte?",
+  "click-to-read-more": "Cliquez pour lire la suite",
+  "delete-comment": "Supprimer le commentaire"
 }

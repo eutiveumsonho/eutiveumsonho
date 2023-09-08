@@ -33,5 +33,7 @@
   "no-saved": "Los sueños que guardes (haciendo clic en la ⭐) se listarán aquí.",
   "delete-account": "Eliminar cuenta",
   "delete-account-description": "Al eliminar tu cuenta, todo el contenido asociado a ella se eliminará y no será posible recuperarlo.",
-  "confirm-account-deletion": "¿Estás seguro de que deseas eliminar tu cuenta?"
+  "confirm-account-deletion": "¿Estás seguro de que deseas eliminar tu cuenta?",
+  "click-to-read-more": "Haz clic para leer más",
+  "delete-comment": "Eliminar comentario"
 }

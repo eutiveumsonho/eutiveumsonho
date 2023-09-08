@@ -33,5 +33,7 @@
   "no-saved": "The dreams you save (by clicking on the ⭐) will be listed here.",
   "delete-account": "Delete account",
   "delete-account-description": "By deleting your account, all content associated with it will be removed, and it will not be possible to recover it.",
-  "confirm-account-deletion": "Are you sure you want to delete your account?"
+  "confirm-account-deletion": "Are you sure you want to delete your account?",
+  "click-to-read-more": "Click to read more",
+  "delete-comment": "Delete comment"
 }

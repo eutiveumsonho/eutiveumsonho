@@ -258,7 +258,7 @@ function Comments(props) {
                   </Box>
                   {isCommentOwner ? (
                     <Box>
-                      <Tip content="Deletar comentário">
+                      <Tip content={t("delete-comment")}>
                         <Button
                           icon={<Trash />}
                           hoverIndicator

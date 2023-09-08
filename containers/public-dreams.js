@@ -1,15 +1,5 @@
-import {
-  Avatar,
-  Box,
-  Heading,
-  ResponsiveContext,
-  Spinner,
-  Text,
-} from "grommet";
+import { Box, Heading, ResponsiveContext, Spinner, Text } from "grommet";
 import Dashboard from "../components/dashboard";
-import dayjs from "dayjs";
-import LocalizedFormat from "dayjs/plugin/localizedFormat";
-import VisibilityIcon from "../components/visbility-icon";
 import Search from "../components/search";
 import { useContext, useEffect, useState } from "react";
 import { searchDreams, starDream, unstarDream } from "../lib/api";
@@ -18,12 +8,7 @@ import { useRouter } from "next/router";
 import { BRAND_HEX } from "../lib/config";
 import DreamFooter from "../components/dream/footer";
 import { useTranslation } from "next-i18next";
-import "dayjs/locale/pt-br";
-import "dayjs/locale/en";
-import "dayjs/locale/es";
-import "dayjs/locale/fr";
-
-dayjs.extend(LocalizedFormat);
+import { DreamHeader } from "../components/dream/header";
 
 export default function PublicDreams(props) {
   const { serverSession, data, stars, title, deviceType } = props;
@@ -106,6 +91,7 @@ function PublicDream(props) {
   const [starred, setStarred] = useState(props.starred);
   const [updatingStarCount, setUpdatingStarCount] = useState(false);
   const { locale } = useRouter();
+  const { t } = useTranslation("dashboard");
 
   const star = async () => {
     setUpdatingStarCount(true);
@@ -132,21 +118,7 @@ function PublicDream(props) {
           index + 1 === data.length ? "unset" : `1px solid rgba(0, 0, 0, 0.33)`,
       }}
     >
-      <Box justify="center" align="center" pad="small" gap="small">
-        <Text size="xsmall">
-          {item.visibility === "anonymous" ? (
-            <VisibilityIcon option="anonymous" />
-          ) : (
-            <Box direction="column" justify="center" align="center">
-              <Avatar src={item.user.image} size="small" />
-              {item.user.name}
-            </Box>
-          )}
-        </Text>
-        <Text size="xsmall">
-          {dayjs(item.createdAt).locale(locale).format("LL")}
-        </Text>
-      </Box>
+      <DreamHeader item={item} locale={locale} />
       <Box
         direction="column"
         align="center"
@@ -176,7 +148,7 @@ function PublicDream(props) {
           }}
         />
         {item.dream.html.length > 400 ? (
-          <Text size="small">Clique para ler mais</Text>
+          <Text size="small">{t("click-to-read-more")}</Text>
         ) : null}
       </Box>
       <DreamFooter
