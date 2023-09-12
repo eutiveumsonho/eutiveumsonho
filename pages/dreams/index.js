@@ -9,6 +9,8 @@ import { logError } from "../../lib/o11y";
 import Head from "next/head";
 import { logReq } from "../../lib/middleware";
 import { getUserAgentProps } from "../../lib/user-agent";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export default function FindOut(props) {
   const {
@@ -19,6 +21,7 @@ export default function FindOut(props) {
   } = props;
 
   const serverSession = JSON.parse(rawServerSession);
+  const { t } = useTranslation("dashboard");
 
   const data = JSON.parse(rawData);
   const stars = JSON.parse(rawStars);
@@ -26,13 +29,13 @@ export default function FindOut(props) {
   return (
     <>
       <Head>
-        <title>Descubra</title>
+        <title>{t("discover")}</title>
       </Head>
       <PublicDreams
         serverSession={serverSession}
         data={data}
         stars={stars}
-        title="Sonhos recentes"
+        title={t("recent-dreams")}
         deviceType={deviceType}
       />
     </>
@@ -45,7 +48,7 @@ export async function getServerSideProps(context) {
 
   if (!authProps.props.serverSession) {
     const { res } = context;
-    res.setHeader("location", "/auth/signin");
+    res.setHeader("location", `/${context.locale}/auth/signin`);
     res.statusCode = 302;
     res.end();
   }
@@ -76,6 +79,7 @@ export async function getServerSideProps(context) {
         data: JSON.stringify(dreams),
         stars: JSON.stringify(stars),
         ...getUserAgentProps(context),
+        ...(await serverSideTranslations(context.locale, ["dashboard"])),
       },
     };
   } catch (error) {

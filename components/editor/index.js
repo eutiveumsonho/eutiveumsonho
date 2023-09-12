@@ -34,10 +34,11 @@ import SyncManagerHook from "./sync-manager-hook";
 import { ExtensionPriority } from "remirror";
 import { CommandsExtension } from "@remirror/core";
 import { Box } from "grommet";
+import { useTranslation } from "next-i18next";
 
-const extensions = () => [
+const extensions = (placeholder) => [
   new CommandsExtension(),
-  new PlaceholderExtension({ placeholder: "Eu tive um sonho..." }),
+  new PlaceholderExtension({ placeholder }),
   new LinkExtension({ autoLink: true }),
   new BoldExtension(),
   new StrikeExtension(),
@@ -66,9 +67,10 @@ const extensions = () => [
  */
 function Editor(props) {
   const { defaultValue, save } = props;
+  const { t, ready } = useTranslation("editor");
 
   const { manager } = useRemirror({
-    extensions,
+    extensions: extensions(ready ? t("i-had-a-dream") : ""),
     stringHandler: "html",
   });
 
@@ -79,13 +81,17 @@ function Editor(props) {
           manager={manager}
           save={save}
           defaultValue={defaultValue}
+          t={t}
+          ready={ready}
         />
       </ThemeProvider>
     </>
   );
 }
 
-function MarkdownToolbar() {
+function MarkdownToolbar(props) {
+  const { t, ready } = props;
+
   return (
     <Toolbar
       style={{
@@ -98,21 +104,21 @@ function MarkdownToolbar() {
       }}
     >
       <CommandButtonGroup>
-        <ToggleBoldButton />
-        <ToggleItalicButton />
-        <ToggleStrikeButton />
+        <ToggleBoldButton t={t} ready={ready} />
+        <ToggleItalicButton t={t} ready={ready} />
+        <ToggleStrikeButton t={t} ready={ready} />
       </CommandButtonGroup>
-      <HeadingLevelButtonGroup />
+      <HeadingLevelButtonGroup t={t} ready={ready} />
       <CommandButtonGroup>
-        <ToggleBlockquoteButton />
+        <ToggleBlockquoteButton t={t} ready={ready} />
       </CommandButtonGroup>
-      <HistoryButtonGroup />
+      <HistoryButtonGroup t={t} ready={ready} />
     </Toolbar>
   );
 }
 
 function MarkdownTextEditor(props) {
-  const { manager, save, defaultValue } = props;
+  const { manager, save, defaultValue, t, ready } = props;
   const [html, setHtml] = useState();
 
   return (
@@ -134,7 +140,7 @@ function MarkdownTextEditor(props) {
           `,
         ]}
       >
-        <MarkdownToolbar />
+        <MarkdownToolbar t={t} ready={ready} />
         <SyncManagerHook html={html} save={save} />
       </Remirror>
       <Box

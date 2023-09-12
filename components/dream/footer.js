@@ -13,7 +13,7 @@ export default function DreamFooter(props) {
     star,
     item,
   } = props;
-  const { push } = useRouter();
+  const { push, locale } = useRouter();
 
   return (
     <Box pad="medium" direction="row" gap={"xsmall"}>
@@ -22,7 +22,7 @@ export default function DreamFooter(props) {
         icon={<Tip />}
         badge={commentCount}
         onClick={() => {
-          push(`/dreams/${item._id}#comentar`);
+          push(`/${locale}/dreams/${item._id}#comentar`);
         }}
       />
       <Button

@@ -1,25 +1,14 @@
-import {
-  Avatar,
-  Box,
-  Heading,
-  ResponsiveContext,
-  Spinner,
-  Text,
-} from "grommet";
+import { Box, Heading, ResponsiveContext, Spinner, Text } from "grommet";
 import Dashboard from "../components/dashboard";
-import dayjs from "dayjs";
-import LocalizedFormat from "dayjs/plugin/localizedFormat";
-import VisibilityIcon from "../components/visbility-icon";
 import Search from "../components/search";
 import { useContext, useEffect, useState } from "react";
 import { searchDreams, starDream, unstarDream } from "../lib/api";
 import { truncate } from "../lib/strings";
 import { useRouter } from "next/router";
 import { BRAND_HEX } from "../lib/config";
-import "dayjs/locale/pt-br";
 import DreamFooter from "../components/dream/footer";
-
-dayjs.extend(LocalizedFormat);
+import { useTranslation } from "next-i18next";
+import { DreamHeader } from "../components/dream/header";
 
 export default function PublicDreams(props) {
   const { serverSession, data, stars, title, deviceType } = props;
@@ -28,6 +17,7 @@ export default function PublicDreams(props) {
   const [dreams, setDreams] = useState([]);
   const { push } = useRouter();
   const size = useContext(ResponsiveContext);
+  const { t } = useTranslation("dashboard");
 
   useEffect(() => {
     if (!selectedTags || selectedTags.length === 0) {
@@ -51,7 +41,7 @@ export default function PublicDreams(props) {
       <Box pad="medium">
         <Heading size="small">
           <Box direction="row" gap="small" align="center">
-            Pesquisar {searching ? <Spinner /> : null}
+            {t("search")} {searching ? <Spinner /> : null}
           </Box>
         </Heading>
         <Search
@@ -100,6 +90,8 @@ function PublicDream(props) {
   const [eagerStarCount, setEagerStarCount] = useState(item?.starCount ?? 0);
   const [starred, setStarred] = useState(props.starred);
   const [updatingStarCount, setUpdatingStarCount] = useState(false);
+  const { locale } = useRouter();
+  const { t } = useTranslation("dashboard");
 
   const star = async () => {
     setUpdatingStarCount(true);
@@ -126,21 +118,7 @@ function PublicDream(props) {
           index + 1 === data.length ? "unset" : `1px solid rgba(0, 0, 0, 0.33)`,
       }}
     >
-      <Box justify="center" align="center" pad="small" gap="small">
-        <Text size="xsmall">
-          {item.visibility === "anonymous" ? (
-            <VisibilityIcon option="anonymous" />
-          ) : (
-            <Box direction="column" justify="center" align="center">
-              <Avatar src={item.user.image} size="small" />
-              {item.user.name}
-            </Box>
-          )}
-        </Text>
-        <Text size="xsmall">
-          {dayjs(item.createdAt).locale("pt-br").format("LL")}
-        </Text>
-      </Box>
+      <DreamHeader item={item} locale={locale} />
       <Box
         direction="column"
         align="center"
@@ -155,7 +133,7 @@ function PublicDream(props) {
           elevation: "medium",
         }}
         onClick={() => {
-          push(`/dreams/${item._id}`);
+          push(`/${locale}/dreams/${item._id}`);
         }}
       >
         <div
@@ -170,7 +148,7 @@ function PublicDream(props) {
           }}
         />
         {item.dream.html.length > 400 ? (
-          <Text size="small">Clique para ler mais</Text>
+          <Text size="small">{t("click-to-read-more")}</Text>
         ) : null}
       </Box>
       <DreamFooter

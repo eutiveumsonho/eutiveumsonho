@@ -25,6 +25,7 @@ import { Logo } from "./logo";
 import PageActions from "./page-actions";
 import { useRouter } from "next/router";
 import { signOut } from "next-auth/react";
+import { useTranslation } from "next-i18next";
 
 const MOBILE_SIDEBAR_WIDTH = "4.5rem";
 const MOBILE_HEADER_HEIGHT = "3.95rem";
@@ -74,17 +75,21 @@ const SidebarButton = ({ icon, label, selected, ...rest }) => (
 );
 
 const SidebarFooter = (props) => {
-  const { size, deviceType } = props;
-  const { pathname, push } = useRouter();
+  const { size, deviceType, t } = props;
+  const { pathname: rawPathname, push, locale } = useRouter();
+
+  const account = `/${locale}/account`;
+  const callback = `/${locale}`;
+  const pathname = `/${locale}${rawPathname}`;
 
   if (deviceType === "mobile" || size === "small") {
     return (
       <Nav gap="small">
         <Button
           icon={<UserSettings />}
-          hoverIndicator={pathname !== "/account"}
-          primary={pathname === "/account"}
-          onClick={() => push("/account")}
+          hoverIndicator={pathname !== account}
+          primary={pathname === account}
+          onClick={() => push(account)}
         />
         <Button
           icon={<Logout />}
@@ -92,7 +97,7 @@ const SidebarFooter = (props) => {
           onClick={async () => {
             const data = await signOut({
               redirect: false,
-              callbackUrl: "/",
+              callbackUrl: callback,
             });
 
             push(data.url);
@@ -106,17 +111,17 @@ const SidebarFooter = (props) => {
     <Nav>
       <SidebarButton
         icon={<UserSettings />}
-        label="Minha conta"
-        selected={pathname === "/account"}
-        onClick={() => push("/account")}
+        label={t("my-account")}
+        selected={pathname === account}
+        onClick={() => push(account)}
       />
       <SidebarButton
         icon={<Logout />}
-        label="Sair"
+        label={t("logout")}
         onClick={async () => {
           const data = await signOut({
             redirect: false,
-            callbackUrl: "/",
+            callbackUrl: callback,
           });
 
           push(data.url);
@@ -131,41 +136,48 @@ const SidebarFooter = (props) => {
  * usage order (data from G.A.)
  */
 const MainNavigation = (props) => {
-  const { size, serverSession, deviceType } = props;
-  const { pathname, push } = useRouter();
+  const { size, serverSession, deviceType, t } = props;
+  const { pathname: rawPathname, push, locale } = useRouter();
+
+  const dreams = `/${locale}/dreams`;
+  const myDreams = `/${locale}/my-dreams`;
+  const insights = `/${locale}/insights`;
+  const inbox = `/${locale}/inbox`;
+  const savedDreams = `/${locale}/saved-dreams`;
+  const pathname = `/${locale}${rawPathname}`;
 
   if (deviceType === "mobile" || size === "small") {
     return (
       <Nav gap="small">
         <Button
           icon={<Magic />}
-          hoverIndicator={pathname !== "/dreams"}
-          primary={pathname === "/dreams"}
-          onClick={() => push("/dreams")}
+          hoverIndicator={pathname !== dreams}
+          primary={pathname === dreams}
+          onClick={() => push(dreams)}
         />
         <Button
           icon={<Book />}
-          hoverIndicator={pathname !== "/my-dreams"}
-          primary={pathname === "/my-dreams"}
-          onClick={() => push("/my-dreams")}
+          hoverIndicator={pathname !== myDreams}
+          primary={pathname === myDreams}
+          onClick={() => push(myDreams)}
         />
         <Button
           icon={<BarChart />}
-          hoverIndicator={pathname !== "/insights"}
-          primary={pathname === "/insights"}
-          onClick={() => push("/insights")}
+          hoverIndicator={pathname !== insights}
+          primary={pathname === insights}
+          onClick={() => push(insights)}
         />
         <Button
           icon={<Inbox />}
-          hoverIndicator={pathname !== "/inbox"}
-          primary={pathname === "/inbox"}
-          onClick={() => push("/inbox")}
+          hoverIndicator={pathname !== inbox}
+          primary={pathname === inbox}
+          onClick={() => push(inbox)}
           badge={
             serverSession?.inboxCount
               ? {
                   value: serverSession?.inboxCount,
                   background: {
-                    color: pathname === "/inbox" ? "#6FFFB0" : BRAND_HEX,
+                    color: pathname === inbox ? "#6FFFB0" : BRAND_HEX,
                   },
                 }
               : 0
@@ -173,11 +185,10 @@ const MainNavigation = (props) => {
         />
         <Button
           icon={<Star />}
-          hoverIndicator={pathname !== "/saved-dreams"}
-          primary={pathname === "/saved-dreams"}
-          onClick={() => push("/saved-dreams")}
+          hoverIndicator={pathname !== savedDreams}
+          primary={pathname === savedDreams}
+          onClick={() => push(savedDreams)}
         />
-        {/* Coming soon... */}
       </Nav>
     );
   }
@@ -186,58 +197,56 @@ const MainNavigation = (props) => {
     <Nav gap="medium" fill="vertical" responsive={false}>
       <SidebarButton
         icon={<Magic />}
-        label="Descubra"
-        selected={pathname === "/dreams"}
-        onClick={() => push("/dreams")}
+        label={t("discover")}
+        selected={pathname === dreams}
+        onClick={() => push(dreams)}
       />
       <SidebarButton
         icon={<Book />}
-        label="Meus sonhos"
-        selected={pathname === "/my-dreams"}
-        onClick={() => push("/my-dreams")}
+        label={t("my-dreams")}
+        selected={pathname === myDreams}
+        onClick={() => push(myDreams)}
       />
       <SidebarButton
         icon={<BarChart />}
-        label="Insights"
-        selected={pathname === "/insights"}
-        onClick={() => push("/insights")}
+        label={t("insights")}
+        selected={pathname === insights}
+        onClick={() => push(insights)}
       />
       <SidebarButton
         icon={
           <Button
             as="span"
             plain
-            icon={<Inbox color={pathname === "/inbox" ? "white" : undefined} />}
+            icon={<Inbox color={pathname === inbox ? "white" : undefined} />}
             badge={
               serverSession?.inboxCount
                 ? {
                     value: serverSession?.inboxCount,
                     background: {
-                      color: pathname === "/inbox" ? "#6FFFB0" : BRAND_HEX,
+                      color: pathname === inbox ? "#6FFFB0" : BRAND_HEX,
                     },
                   }
                 : 0
             }
           />
         }
-        label="Inbox"
-        selected={pathname === "/inbox"}
-        onClick={() => push("/inbox")}
+        label={t("inbox")}
+        selected={pathname === inbox}
+        onClick={() => push(inbox)}
       />
       <SidebarButton
         icon={<Star />}
-        label="Salvos"
-        selected={pathname === "/saved-dreams"}
-        onClick={() => push("/saved-dreams")}
+        label={t("saved")}
+        selected={pathname === savedDreams}
+        onClick={() => push(savedDreams)}
       />
-      {/* Coming soon... */}
-      {/* <SidebarButton icon={<StatusInfoSmall />} label="Inbox" /> */}
     </Nav>
   );
 };
 
 function MobileSidebar(props) {
-  const { serverSession, size } = props;
+  const { serverSession, size, t } = props;
 
   return (
     <SidebarBase
@@ -249,9 +258,10 @@ function MobileSidebar(props) {
           serverSession={serverSession}
           size={size}
           deviceType={"mobile"}
+          t={t}
         />
       }
-      footer={<SidebarFooter size={size} deviceType="mobile" />}
+      footer={<SidebarFooter size={size} deviceType="mobile" t={t} />}
       style={{
         top: MOBILE_HEADER_HEIGHT,
         height: `calc(100vh - ${MOBILE_HEADER_HEIGHT})`,
@@ -268,13 +278,14 @@ function MobileSidebar(props) {
         size={size}
         serverSession={serverSession}
         deviceType={"mobile"}
+        t={t}
       />
     </SidebarBase>
   );
 }
 
 function DesktopSidebar(props) {
-  const { serverSession, size } = props;
+  const { serverSession, size, t } = props;
 
   return (
     <SidebarBase
@@ -285,9 +296,10 @@ function DesktopSidebar(props) {
           serverSession={serverSession}
           size={size}
           deviceType={"desktop"}
+          t={t}
         />
       }
-      footer={<SidebarFooter deviceType="desktop" />}
+      footer={<SidebarFooter deviceType="desktop" t={t} />}
       pad={{ left: "unset", right: "unset", vertical: "large" }}
       background="light-1"
       style={{
@@ -302,13 +314,13 @@ function DesktopSidebar(props) {
         zIndex: "11",
       }}
     >
-      <MainNavigation size={size} serverSession={serverSession} />
+      <MainNavigation size={size} serverSession={serverSession} t={t} />
     </SidebarBase>
   );
 }
 
 function Sidebar(props) {
-  const { serverSession, size, deviceType } = props;
+  const { serverSession, size, deviceType, t } = props;
 
   if (deviceType === "mobile" || size === "small") {
     return (
@@ -316,6 +328,7 @@ function Sidebar(props) {
         serverSession={serverSession}
         size={size}
         deviceType={deviceType}
+        t={t}
       />
     );
   }
@@ -325,6 +338,7 @@ function Sidebar(props) {
       serverSession={serverSession}
       size={size}
       deviceType={deviceType}
+      t={t}
     />
   );
 }
@@ -332,6 +346,7 @@ function Sidebar(props) {
 export default function Dashboard(props) {
   const { serverSession, children, deviceType } = props;
   const size = useContext(ResponsiveContext);
+  const { t } = useTranslation("dashboard");
 
   const isSmall = deviceType === "mobile" || size === "small";
 
@@ -370,6 +385,7 @@ export default function Dashboard(props) {
             serverSession={serverSession}
             size={size}
             deviceType={deviceType}
+            t={t}
           />
           <PageContent
             style={{

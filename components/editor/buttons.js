@@ -110,6 +110,7 @@ export function CommandButton(props) {
 }
 
 export function ToggleBoldButton(props) {
+  const { t, ready } = props;
   const { toggleBold } = useCommands();
 
   const handleSelect = useCallback(() => {
@@ -128,13 +129,14 @@ export function ToggleBoldButton(props) {
       active={active}
       enabled={enabled}
       onSelect={handleSelect}
-      label="Traços mais grossos"
+      label={ready ? t("thicker") : ""}
     />
   );
 }
 
 export function ToggleItalicButton(props) {
   const { toggleItalic } = useCommands();
+  const { t, ready } = props;
 
   const handleSelect = useCallback(() => {
     if (toggleItalic.enabled()) {
@@ -152,13 +154,14 @@ export function ToggleItalicButton(props) {
       active={active}
       enabled={enabled}
       onSelect={handleSelect}
-      label="Itálico"
+      label={ready ? t("italic") : ""}
     />
   );
 }
 
 export function ToggleStrikeButton(props) {
   const { toggleStrike } = useCommands();
+  const { t, ready } = props;
 
   const handleSelect = useCallback(() => {
     if (toggleStrike.enabled()) {
@@ -176,13 +179,14 @@ export function ToggleStrikeButton(props) {
       active={active}
       enabled={enabled}
       onSelect={handleSelect}
-      label="Riscar"
+      label={ready ? t("strike") : ""}
     />
   );
 }
 
 export function ToggleBlockquoteButton(props) {
   const { toggleBlockquote } = useCommands();
+  const { t, ready } = props;
 
   const handleSelect = useCallback(() => {
     if (toggleBlockquote.enabled()) {
@@ -200,13 +204,13 @@ export function ToggleBlockquoteButton(props) {
       active={active}
       enabled={enabled}
       onSelect={handleSelect}
-      label="Bloco de citação"
+      label={ready ? t("quote") : ""}
     />
   );
 }
 
 export function ToggleHeadingButton(props) {
-  const { attrs, ...rest } = props;
+  const { attrs, t, ready, ...rest } = props;
   const { toggleHeading } = useCommands();
 
   const handleSelect = useCallback(() => {
@@ -226,7 +230,7 @@ export function ToggleHeadingButton(props) {
       enabled={enabled}
       attrs={attrs}
       onSelect={handleSelect}
-      label={`Cabeçalho ${attrs.level}`}
+      label={`${ready ? t("heading") : ""} ${attrs.level}`}
     />
   );
 }
@@ -236,7 +240,7 @@ const LEVEL_2 = { level: 2 };
 const LEVEL_3 = { level: 3 };
 
 export function DropdownButton(props) {
-  const { label, "aria-label": ariaLabel, children, onClose } = props;
+  const { label, "aria-label": ariaLabel, children } = props;
 
   const id = useRef(uniqueId());
   const [anchorEl, setAnchorEl] = useState(null);
@@ -268,13 +272,13 @@ export function DropdownButton(props) {
 }
 
 export function HeadingLevelButtonGroup(props) {
-  const { children } = props;
+  const { children, t, ready } = props;
 
   return (
     <CommandButtonGroup>
-      <ToggleHeadingButton attrs={LEVEL_1} />
-      <ToggleHeadingButton attrs={LEVEL_2} />
-      <ToggleHeadingButton attrs={LEVEL_3} />
+      <ToggleHeadingButton attrs={LEVEL_1} t={t} ready={ready} />
+      <ToggleHeadingButton attrs={LEVEL_2} t={t} ready={ready} />
+      <ToggleHeadingButton attrs={LEVEL_3} t={t} ready={ready} />
       {children}
     </CommandButtonGroup>
   );
@@ -283,6 +287,7 @@ export function HeadingLevelButtonGroup(props) {
 export function RedoButton(props) {
   const { redo } = useCommands();
   const { redoDepth } = useHelpers(true);
+  const { t, ready } = props;
 
   const handleSelect = useCallback(() => {
     if (redo.enabled()) {
@@ -299,7 +304,7 @@ export function RedoButton(props) {
       active={false}
       enabled={enabled}
       onSelect={handleSelect}
-      label="Refazer"
+      label={ready ? t("redo") : ""}
     />
   );
 }
@@ -307,6 +312,7 @@ export function RedoButton(props) {
 export function UndoButton(props) {
   const { undo } = useCommands();
   const { undoDepth } = useHelpers(true);
+  const { t, ready } = props;
 
   const handleSelect = useCallback(() => {
     if (undo.enabled()) {
@@ -323,18 +329,18 @@ export function UndoButton(props) {
       active={false}
       enabled={enabled}
       onSelect={handleSelect}
-      label="Desfazer"
+      label={ready ? t("undo") : ""}
     />
   );
 }
 
 export function HistoryButtonGroup(props) {
-  const { children } = props;
+  const { children, t, ready } = props;
 
   return (
     <CommandButtonGroup>
-      <UndoButton />
-      <RedoButton />
+      <UndoButton t={t} ready={ready} />
+      <RedoButton t={t} ready={ready} />
       {children}
     </CommandButtonGroup>
   );

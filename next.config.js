@@ -1,5 +1,6 @@
 const { patchWebpackConfig } = require("next-global-css");
 const webpackNodeExternals = require("webpack-node-externals");
+const { i18n } = require("./next-i18next.config");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -7,6 +8,7 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  i18n,
   webpack: (config, options) => {
     patchWebpackConfig(config, options);
 

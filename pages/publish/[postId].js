@@ -5,6 +5,7 @@ import { logError } from "../../lib/o11y";
 import Head from "next/head";
 import { logReq } from "../../lib/middleware";
 import { getUserAgentProps } from "../../lib/user-agent";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function DreamEditor(props) {
   const { data, ...authProps } = props;
@@ -25,7 +26,7 @@ export async function getServerSideProps(context) {
   const { res } = context;
 
   if (!authProps.props.serverSession) {
-    res.setHeader("location", "/auth/signin");
+    res.setHeader("location", `/${context.locale}/auth/signin`);
     res.statusCode = 302;
     res.end();
   }
@@ -41,12 +42,18 @@ export async function getServerSideProps(context) {
           ...authProps.props,
           data: JSON.stringify(data),
           ...getUserAgentProps(context),
+          ...(await serverSideTranslations(context.locale, ["dashboard"])),
         },
       };
     }
 
     return {
-      props: { ...authProps.props, data: null, ...getUserAgentProps(context) },
+      props: {
+        ...authProps.props,
+        data: null,
+        ...getUserAgentProps(context),
+        ...(await serverSideTranslations(context.locale, ["dashboard"])),
+      },
     };
   } catch (error) {
     logError({

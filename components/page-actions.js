@@ -1,12 +1,13 @@
 import { Avatar, Box, Button, ResponsiveContext } from "grommet";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useContext } from "react";
+import { useTranslation } from "next-i18next";
 
 export default function PageActions(props) {
   const { serverSession, deviceType } = props;
   const size = useContext(ResponsiveContext);
-  const { push } = useRouter();
+  const { push, locale } = useRouter();
+  const { t } = useTranslation("layout");
 
   const isSmall =
     deviceType === "mobile" || deviceType === "tablet" || size === "small";
@@ -24,9 +25,9 @@ export default function PageActions(props) {
         )}
         <Button
           primary
-          label="Adicionar sonho"
+          label={t("dashboard:add-dream")}
           onClick={() => {
-            push("/publish");
+            push(`/${locale}/publish`);
           }}
         />
       </Box>
@@ -35,7 +36,14 @@ export default function PageActions(props) {
 
   return (
     <Box direction="row-responsive" gap="small">
-      <Button label="Entrar" onClick={signIn} />
+      <Button
+        label={t("login")}
+        onClick={() => {
+          const callbackUrl = `${window.location.origin}/${locale}/dreams`;
+          const encodedURI = encodeURIComponent(callbackUrl);
+          push(`/${locale}/auth/signin?callbackUrl=${encodedURI}`);
+        }}
+      />
     </Box>
   );
 }

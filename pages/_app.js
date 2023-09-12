@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { appWithTranslation } from "next-i18next";
 import { Box, Button, grommet, Grommet, Heading, Layer } from "grommet";
 import Script from "next/script";
 import { useRouter } from "next/router";
@@ -126,4 +127,4 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   );
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp);

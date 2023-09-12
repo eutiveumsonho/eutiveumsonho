@@ -12,6 +12,9 @@ import { DATE_FORMAT } from "../components/heatmap/constants";
 import Tip from "../components/tip";
 import { logReq } from "../lib/middleware";
 import { getUserAgentProps } from "../lib/user-agent";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 
 export default function InsightsPage(props) {
   const { serverSession: rawServerSession, data: rawData, deviceType } = props;
@@ -19,21 +22,37 @@ export default function InsightsPage(props) {
   const serverSession = JSON.parse(rawServerSession);
   const data = JSON.parse(rawData);
 
+  const { t } = useTranslation(["dashboard", "heatmap"]);
+  const { locale } = useRouter();
+
+  const heatmapI18n = {
+    loading: t("heatmap:loading"),
+    lastYear: t("heatmap:last-year"),
+    soFar: t("heatmap:so-far"),
+    error: t("heatmap:error"),
+    records: {
+      plural: t("heatmap:records-plural"),
+      singular: t("heatmap:records-singular"),
+    },
+    on: t("heatmap:on"),
+    locale,
+  };
+
   return (
     <>
       <Head>
-        <title>Insights</title>
+        <title>{t("insights")}</title>
       </Head>
       <Dashboard serverSession={serverSession} deviceType={deviceType}>
         <Box pad="medium">
           <Heading size="small" level={1}>
-            Insights
+            {t("insights")}
           </Heading>
           {data?.heatmap?.years?.length > 0 &&
           data?.heatmap?.records?.length > 0 ? (
             <>
               <Heading size="small" level={2}>
-                A sua frequência de sonhos
+                {t("your-dream-frequency")}
               </Heading>
               <Heatmap
                 data={data.heatmap}
@@ -41,12 +60,13 @@ export default function InsightsPage(props) {
                 blockMargin={8}
                 color={BRAND_HEX}
                 fontSize={14}
+                i18n={heatmapI18n}
               />
 
               {data?.wordFrequencyDistribution ? (
                 <>
                   <Heading size="small" level={2}>
-                    As palavras mais frequentes em seus sonhos
+                    {t("most-frequent-words")}
                   </Heading>
                   <Distribution
                     basis="medium"
@@ -79,9 +99,9 @@ export default function InsightsPage(props) {
           ) : (
             <Empty
               empty={{
-                label: "Adicione seu primeiro sonho",
-                description: "Os insights dos seus sonhos aparecerão aqui 💡",
-                actionRoute: "/publish",
+                label: t("add-first-dream"),
+                description: `${t("insights-listed-here")} 💡`,
+                actionRoute: `/${locale}/publish`,
               }}
             />
           )}
@@ -97,7 +117,7 @@ export async function getServerSideProps(context) {
 
   if (!authProps.props.serverSession || !authProps.props.serverSession?.user) {
     const { res } = context;
-    res.setHeader("location", "/auth/signin");
+    res.setHeader("location", `/${context.locale}/auth/signin`);
     res.statusCode = 302;
     res.end();
   }
@@ -213,6 +233,7 @@ export async function getServerSideProps(context) {
           wordFrequencyDistribution: wordFrequencyDistributionData.slice(0, 14),
         }),
         ...getUserAgentProps(context),
+        ...(await serverSideTranslations(context.locale, "dashboard")),
       },
     };
   } catch (error) {

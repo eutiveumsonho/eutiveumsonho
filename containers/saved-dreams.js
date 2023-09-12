@@ -1,22 +1,18 @@
-import { Avatar, Box, Heading, ResponsiveContext, Text } from "grommet";
+import { Box, Heading, ResponsiveContext, Text } from "grommet";
 import Dashboard from "../components/dashboard";
-import dayjs from "dayjs";
-import LocalizedFormat from "dayjs/plugin/localizedFormat";
-import VisibilityIcon from "../components/visbility-icon";
 import { useContext, useState } from "react";
 import { unstarDream } from "../lib/api";
 import { truncate } from "../lib/strings";
 import { useRouter } from "next/router";
 import { BRAND_HEX } from "../lib/config";
 import Empty from "../components/empty";
-import "dayjs/locale/pt-br";
 import DreamFooter from "../components/dream/footer";
-
-dayjs.extend(LocalizedFormat);
+import { useTranslation } from "next-i18next";
+import { DreamHeader } from "../components/dream/header";
 
 export default function SavedDreams(props) {
   const { serverSession, data, title, empty, deviceType } = props;
-  const { push } = useRouter();
+  const { push, locale } = useRouter();
   const size = useContext(ResponsiveContext);
   const [unstarreds, setUnstarreds] = useState([]);
 
@@ -38,6 +34,7 @@ export default function SavedDreams(props) {
               size={size}
               unstarreds={unstarreds}
               setUnstarreds={setUnstarreds}
+              locale={locale}
             />
           );
         })}
@@ -47,9 +44,11 @@ export default function SavedDreams(props) {
 }
 
 function SavedDream(props) {
-  const { item, index, data, push, size, unstarreds, setUnstarreds } = props;
+  const { item, index, data, push, size, unstarreds, setUnstarreds, locale } =
+    props;
   const [eagerStarCount, setEagerStarCount] = useState(item?.starCount ?? 0);
   const [updatingStarCount, setUpdatingStarCount] = useState(false);
+  const { t } = useTranslation("dashboard");
 
   const unstar = async () => {
     setUpdatingStarCount(true);
@@ -72,21 +71,7 @@ function SavedDream(props) {
           index + 1 === data.length ? "unset" : `1px solid rgba(0, 0, 0, 0.33)`,
       }}
     >
-      <Box justify="center" align="center" pad="small" gap="small">
-        <Text size="xsmall">
-          {item.visibility === "anonymous" ? (
-            <VisibilityIcon option="anonymous" />
-          ) : (
-            <Box direction="column" justify="center" align="center">
-              <Avatar src={item.user.image} size="small" />
-              {item.user.name}
-            </Box>
-          )}
-        </Text>
-        <Text size="xsmall">
-          {dayjs(item.createdAt).locale("pt-br").format("LL")}
-        </Text>
-      </Box>
+      <DreamHeader item={item} locale={locale} />
       <Box
         direction="column"
         align="center"
@@ -101,7 +86,7 @@ function SavedDream(props) {
           elevation: "medium",
         }}
         onClick={() => {
-          push(`/dreams/${item._id}`);
+          push(`/${locale}/dreams/${item._id}`);
         }}
       >
         <div
@@ -116,7 +101,7 @@ function SavedDream(props) {
           }}
         />
         {item.dream.html.length > 400 ? (
-          <Text size="small">Clique para ler mais</Text>
+          <Text size="small">{t("click-to-read-more")}</Text>
         ) : null}
       </Box>
       <DreamFooter

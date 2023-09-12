@@ -14,44 +14,8 @@ import Link from "next/link";
 import { useContext } from "react";
 import { Logo } from "./logo";
 import PageActions from "./page-actions";
-
-const footerData = [
-  {
-    title: "Legal",
-    items: [
-      {
-        title: "Termos e Condiçōes",
-        path: "/terms-and-conditions",
-        props: {},
-      },
-      {
-        title: "Política de Privacidade",
-        path: "/privacy-policy",
-        props: {},
-      },
-      {
-        title: "Política de Cookies",
-        path: "/cookies-policy",
-        props: {},
-      },
-    ],
-  },
-  {
-    title: "Nas redes sociais",
-    items: [
-      {
-        title: "icon__Github",
-        path: "https://github.com/eutiveumsonho/eutiveumsonho",
-        props: { target: "_blank" },
-      },
-      {
-        title: "icon__Instagram",
-        path: "https://www.instagram.com/_eutiveumsonho/",
-        props: { target: "_blank" },
-      },
-    ],
-  },
-];
+import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 
 const FooterAnchor = (props) => {
   return <Anchor size="small" color="white" {...props} />;
@@ -64,6 +28,8 @@ const footerIconsMap = {
 
 const FooterContent = (props) => {
   const { size } = props;
+  const { t } = useTranslation("footer");
+  const { locale } = useRouter();
   const iconPrefix = "icon__";
 
   return (
@@ -74,7 +40,43 @@ const FooterContent = (props) => {
       align={size === "small" ? "center" : "flex-start"}
       fill
     >
-      {footerData.map((item) => (
+      {[
+        {
+          title: t("legal"),
+          items: [
+            {
+              title: t("terms"),
+              path: `/${locale}/terms-and-conditions`,
+              props: {},
+            },
+            {
+              title: t("privacy"),
+              path: `/${locale}/privacy-policy`,
+              props: {},
+            },
+            {
+              title: t("cookies"),
+              path: `/${locale}/cookies-policy`,
+              props: {},
+            },
+          ],
+        },
+        {
+          title: t("social"),
+          items: [
+            {
+              title: "icon__Github",
+              path: "https://github.com/eutiveumsonho/eutiveumsonho",
+              props: { target: "_blank" },
+            },
+            {
+              title: "icon__Instagram",
+              path: "https://www.instagram.com/_eutiveumsonho/",
+              props: { target: "_blank" },
+            },
+          ],
+        },
+      ].map((item) => (
         <Box gap="medium" key={item.title}>
           <Text
             weight="bold"
@@ -101,6 +103,8 @@ const FooterContent = (props) => {
 export default function Layout(props) {
   const { children, serverSession, deviceType } = props;
   const size = useContext(ResponsiveContext);
+  const router = useRouter();
+  const { t } = useTranslation("layout");
 
   const isSmall = deviceType === "mobile" || size === "small";
 
@@ -119,7 +123,11 @@ export default function Layout(props) {
                   maxWidth: "24rem",
                 }}
               >
-                <Link href="/" legacyBehavior>
+                <Link
+                  href={`/${router.locale}`}
+                  legacyBehavior
+                  locale={router.locale}
+                >
                   <a
                     style={{
                       color: "inherit",
@@ -130,8 +138,7 @@ export default function Layout(props) {
                       Eu tive um sonho
                     </Heading>
                     <Heading level={4} style={{ marginTop: "unset" }}>
-                      A maior comunidade conectada por sonhos, do Brasil para o
-                      mundo.
+                      {t("tagline")}
                     </Heading>
                   </a>
                 </Link>

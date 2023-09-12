@@ -1,12 +1,14 @@
 import { Box, Text } from "grommet";
 import Image from "next/legacy/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export function Logo(props) {
   const { color = "purple", noTitle = false } = props;
+  const { locale } = useRouter();
 
   return (
-    <Link href={noTitle ? "/dreams" : "/"} legacyBehavior>
+    <Link href={noTitle ? `/${locale}/dreams` : `/${locale}`} legacyBehavior>
       <Box align="center" gap="medium">
         <Image
           src={`/${color}-cloud.svg`}

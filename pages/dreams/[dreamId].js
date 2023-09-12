@@ -11,6 +11,7 @@ import {
 import { logError } from "../../lib/o11y";
 import { logReq } from "../../lib/middleware";
 import { getUserAgentProps } from "../../lib/user-agent";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function DreamPage(props) {
   const { data: rawData, comments: rawComments, ...authProps } = props;
@@ -40,7 +41,7 @@ export async function getServerSideProps(context) {
       const data = await getDreamById(dreamId);
 
       if (data.visibility === "private") {
-        res.setHeader("location", "/");
+        res.setHeader("location", `/${context.locale}`);
         res.statusCode = 302;
         res.end();
 
@@ -58,6 +59,10 @@ export async function getServerSideProps(context) {
           data: JSON.stringify(data),
           comments: JSON.stringify(comments),
           ...getUserAgentProps(context),
+          ...(await serverSideTranslations(context.locale, [
+            "layout",
+            "footer",
+          ])),
         },
       };
     }
@@ -70,13 +75,14 @@ export async function getServerSideProps(context) {
     const isDreamOwner = user._id.toString() === data.userId.toString();
 
     if (data.visibility === "private" && !isDreamOwner) {
-      res.setHeader("location", "/dreams");
+      res.setHeader("location", `/${context.locale}/dreams`);
       res.statusCode = 302;
       res.end();
 
       return {
         props: {
           ...getUserAgentProps(context),
+          ...(await serverSideTranslations(context.locale, ["dashboard"])),
         },
       };
     }
@@ -100,6 +106,7 @@ export async function getServerSideProps(context) {
         data: JSON.stringify(data),
         comments: JSON.stringify(comments),
         ...getUserAgentProps(context),
+        ...(await serverSideTranslations(context.locale, ["dashboard"])),
       },
     };
   } catch (error) {

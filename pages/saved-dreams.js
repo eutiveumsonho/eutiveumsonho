@@ -4,28 +4,32 @@ import Head from "next/head";
 import SavedDreams from "../containers/saved-dreams";
 import { getStarredDreams, getUserById } from "../lib/db/reads";
 import { logReq } from "../lib/middleware";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "react-i18next";
+import { useRouter } from "next/router";
 
 export default function Saved(props) {
   const { serverSession: rawServerSession, data: rawData } = props;
 
   const serverSession = JSON.parse(rawServerSession);
   const data = JSON.parse(rawData);
+  const { t } = useTranslation("dashboard");
+  const { locale } = useRouter();
 
   return (
     <>
       <Head>
-        <title>Sonhos salvos</title>
+        <title>{t("saved-dreams")}</title>
       </Head>
       <SavedDreams
         serverSession={serverSession}
         data={data}
-        title="Sonhos salvos"
+        title={t("saved-dreams")}
         page="saved-dreams"
         empty={{
-          label: "Descubra sonhos",
-          actionRoute: "/dreams",
-          description:
-            "Os sonhos que você salvar (clicando na ⭐), serão listados aqui",
+          label: t("discover-dreams"),
+          actionRoute: `/${locale}/dreams`,
+          description: t("no-saved"),
         }}
       />
     </>
@@ -37,8 +41,8 @@ export async function getServerSideProps(context) {
   logReq(context.req, context.res);
 
   if (!authProps.props.serverSession) {
-    const { res } = context;
-    res.setHeader("location", "/auth/signin");
+    const { res, locale } = context;
+    res.setHeader("location", `/${locale}/auth/signin`);
     res.statusCode = 302;
     res.end();
   }
@@ -66,6 +70,7 @@ export async function getServerSideProps(context) {
       props: {
         serverSession: JSON.stringify(authProps.props.serverSession),
         data: JSON.stringify(dreams),
+        ...(await serverSideTranslations(context.locale, ["dashboard"])),
       },
     };
   } catch (error) {

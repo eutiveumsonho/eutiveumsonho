@@ -3,6 +3,7 @@ import { getAuthProps } from "../lib/auth";
 import Invite from "../containers/invite";
 import { logReq } from "../lib/middleware";
 import { getUserAgentProps } from "../lib/user-agent";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function Home(props) {
   const { deviceType } = props;
@@ -16,7 +17,7 @@ export async function getServerSideProps(context) {
 
   if (authProps?.props?.serverSession) {
     const { res } = context;
-    res.setHeader("location", "/dreams");
+    res.setHeader("location", `/${context.locale}/dreams`);
     res.statusCode = 302;
     res.end();
   }
@@ -24,6 +25,11 @@ export async function getServerSideProps(context) {
   return {
     props: {
       ...getUserAgentProps(context),
+      ...(await serverSideTranslations(context.locale, [
+        "layout",
+        "footer",
+        "editor",
+      ])),
     },
   };
 }
