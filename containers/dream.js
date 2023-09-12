@@ -73,6 +73,7 @@ export default function DreamContainer(props) {
 function Dream(props) {
   const { data, publicView } = props;
   const { locale } = useRouter();
+  const { t } = useTranslation("dashboard");
 
   return (
     <Box

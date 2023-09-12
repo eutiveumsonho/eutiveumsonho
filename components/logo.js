@@ -8,7 +8,7 @@ export function Logo(props) {
   const { locale } = useRouter();
 
   return (
-    <Link href={noTitle ? `${locale}/dreams` : `/${locale}`} legacyBehavior>
+    <Link href={noTitle ? `/${locale}/dreams` : `/${locale}`} legacyBehavior>
       <Box align="center" gap="medium">
         <Image
           src={`/${color}-cloud.svg`}
