@@ -17,6 +17,7 @@ jobs:
           echo MONGODB_URI=mongodb://mongo                 > .env.local
           echo MONGODB_DB=mongodb                          >> .env.local
           echo ENCRYPTION_KEY=encryption_key               >> .env.local
+          echo OPENAI_TOKEN=openai_api_key                 >> .env.local
       - uses: actions/setup-node@v2
         with:
           cache: npm
