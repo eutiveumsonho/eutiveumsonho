@@ -69,8 +69,6 @@ export default function VerifyRequest() {
 }
 
 export async function getServerSideProps(context) {
-  console.log({ contextLocale: context.locale });
-
   return {
     props: {
       ...(await serverSideTranslations(context.locale, ["verify-request"])),

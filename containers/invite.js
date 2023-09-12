@@ -20,7 +20,6 @@ import Loading from "../components/editor/loading";
 import { Close } from "grommet-icons";
 import styles from "./invite.module.css";
 import { useTranslation } from "next-i18next";
-import { signIn } from "next-auth/react";
 
 const Editor = dynamic(() => import("../components/editor"), {
   ssr: false,

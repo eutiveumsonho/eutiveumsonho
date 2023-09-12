@@ -3,11 +3,14 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Clouds from "../../components/clouds";
 import { Logo } from "../../components/logo";
-import { NEXT_AUTH_ERRORS } from "../../lib/errors";
+import { NEXT_AUTH_ERRORS, _NEXT_AUTH_ERRORS } from "../../lib/errors";
 import { logError } from "../../lib/o11y";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-export default function VerifyRequest() {
+export default function Error() {
   const { query, push, locale } = useRouter();
+  const { t } = useTranslation("errors");
 
   const { error: errorCode } = query;
 
@@ -15,13 +18,13 @@ export default function VerifyRequest() {
     service: "web",
     pathname: "/auth/error",
     component: "VerifyRequest",
-    error_message: errorCode,
+    error_message: _NEXT_AUTH_ERRORS[errorCode],
   });
 
   return (
     <>
       <Head>
-        <title>Algo deu errado</title>
+        <title>{t("errored")}</title>
       </Head>
       <Clouds />
       <Box
@@ -52,14 +55,14 @@ export default function VerifyRequest() {
               marginBottom: 0,
             }}
           >
-            Algo deu errado
+            {t("errored")}
           </Heading>
           <Text
             style={{
               marginBottom: "1.5rem",
             }}
           >
-            {NEXT_AUTH_ERRORS[errorCode]}
+            {NEXT_AUTH_ERRORS[errorCode][locale]}
           </Text>
           <Button
             key={"back-to-site"}
@@ -67,11 +70,19 @@ export default function VerifyRequest() {
               width: "100%",
             }}
             onClick={() => push(`/${locale}`)}
-            label={"Voltar à tela inicial"}
+            label={t("back-to-site")}
             primary
           />
         </Card>
       </Box>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      ...(await serverSideTranslations(context.locale, ["errors"])),
+    },
+  };
 }

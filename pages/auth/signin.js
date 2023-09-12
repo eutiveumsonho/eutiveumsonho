@@ -16,7 +16,7 @@ import {
 } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import isEmail from "validator/lib/isEmail";
 import Clouds from "../../components/clouds";
 import { Logo } from "../../components/logo";
@@ -36,8 +36,33 @@ export default function SignIn({ providers, csrfToken }) {
   const [email, setEmail] = useState("");
   const { query, locale, push } = useRouter();
   const { t } = useTranslation("signin");
+  const [error, setError] = useState(null);
 
-  const error = query["error"];
+  const errorQs = query["error"];
+
+  useEffect(() => {
+    const localeQs = query["locale"];
+
+    if (!localeQs) {
+      window.location.href += `&locale=${locale}`;
+    }
+
+    if (errorQs) {
+      setError(errorQs);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (error) {
+      setEmailSignInLoading(false);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (error) {
+      setError(null);
+    }
+  }, [email]);
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
@@ -51,6 +76,10 @@ export default function SignIn({ providers, csrfToken }) {
 
     if (ok && !error) {
       push(callbackUrl);
+    }
+
+    if (error) {
+      setError(error);
     }
   };
 
@@ -68,9 +97,9 @@ export default function SignIn({ providers, csrfToken }) {
             align="center"
             background="status-critical"
           >
-            {NEXT_AUTH_ERRORS[error]
-              ? NEXT_AUTH_ERRORS[error]
-              : NEXT_AUTH_ERRORS.Default}
+            {NEXT_AUTH_ERRORS[error][locale]
+              ? NEXT_AUTH_ERRORS[error][locale]
+              : NEXT_AUTH_ERRORS.Default[locale]}
           </Box>
         </Layer>
       ) : null}
