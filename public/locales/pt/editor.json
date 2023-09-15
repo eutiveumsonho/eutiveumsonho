@@ -8,5 +8,21 @@
   "redo": "Refazer",
   "publicar": "Publicar",
   "i-had-a-dream": "Eu tive um sonho...",
-  "create-dream": "Criar sonho"
+  "create-dream": "Criar sonho",
+  "change-visibility": "Alterar visibilidade",
+  "publish": "Publicar",
+  "visibility-settings": "Configurações de visibilidade",
+  "visiblity-settings-description": " Selecione a caixa que define como as pessoas irão ver os seus sonhos.",
+  "public": "Público",
+  "public-description": "O seu sonho fica disponível para todas as pessoas logadas na plataforma, junto às informacoes de seu perfil.",
+  "anonymous": "Anônimo",
+  "anonymous-description": "O seu sonho fica disponível para todas as pessoas logadas na plataforma, porem as informacoes de seu perfil não são exibidas.",
+  "private": "Privado",
+  "private-description": "O seu sonho fica disponível apenas para você.",
+  "dream-saved-as": "O seu sonho está salvo como",
+  "save-visibility-as": "Salvar visibilidade do sonho como",
+  "saved-last-time": "Salvo pela última vez às",
+  "syncing": "Sincronizando",
+  "sync-failed": "Seu sonho deve ter no máximo 10000 caracteres, mas ele tem",
+  "errored": "Ocorreu um erro"
 }

@@ -17,7 +17,7 @@ import {
   updateDreamVisibility,
 } from "../lib/api";
 import { useRouter } from "next/router";
-import { stripHtml, VISIBILITY_TRANSLATIONS } from "../lib/strings";
+import { stripHtml } from "../lib/strings";
 import { BRAND_HEX } from "../lib/config";
 import { Logo } from "../components/logo";
 import { Close, StatusCritical, StatusGood } from "grommet-icons";
@@ -30,6 +30,7 @@ import "dayjs/locale/pt-br";
 import "dayjs/locale/en";
 import "dayjs/locale/es";
 import "dayjs/locale/fr";
+import { useTranslation } from "next-i18next";
 
 dayjs.extend(LocalizedFormat);
 
@@ -39,6 +40,8 @@ const Editor = dynamic(() => import("../components/editor"), {
 });
 
 function Syncing() {
+  const { t } = useTranslation("editor");
+
   return (
     <>
       <Spinner size="xsmall" />
@@ -48,7 +51,7 @@ function Syncing() {
           paddingLeft: "0.5rem",
         }}
       >
-        Sincronizando
+        {t("syncing")}
       </Text>
     </>
   );
@@ -57,6 +60,7 @@ function Syncing() {
 function LastSyncedAt(props) {
   const { lastSynced } = props;
   const { locale } = useRouter();
+  const { t } = useTranslation("editor");
 
   if (!lastSynced) {
     return null;
@@ -71,8 +75,7 @@ function LastSyncedAt(props) {
           paddingLeft: "0.5rem",
         }}
       >
-        Salvo pela última vez às{" "}
-        {dayjs(lastSynced).locale(locale).format("LTS")}
+        {t("saved-last-time")} {dayjs(lastSynced).locale(locale).format("LTS")}
       </Text>
     </>
   );
@@ -80,6 +83,7 @@ function LastSyncedAt(props) {
 
 function SyncFailed(props) {
   const { error } = props;
+  const { t } = useTranslation("editor");
 
   return (
     <>
@@ -90,7 +94,7 @@ function SyncFailed(props) {
           paddingLeft: "0.5rem",
         }}
       >
-        {error ? error : "Ocorreu um erro"}
+        {error ? error : t("errored")}
       </Text>
     </>
   );
@@ -176,6 +180,7 @@ export default function CreateOrEdit(props) {
     ) : null
   );
   const size = useContext(ResponsiveContext);
+  const { t } = useTranslation("editor");
 
   const { postId } = router.query;
 
@@ -224,9 +229,7 @@ export default function CreateOrEdit(props) {
 
     if (text.length > 10000) {
       setSyncStatus(
-        <SyncFailed
-          error={`Seu sonho deve ter no máximo 10000 caracteres, mas ele tem ${text.length}`}
-        />
+        <SyncFailed error={`${t("sync-failed")} ${text.length}`} />
       );
       return;
     }
@@ -312,8 +315,8 @@ export default function CreateOrEdit(props) {
                 primary
                 label={
                   data.dream.visibility === "public"
-                    ? "Alterar visibilidade"
-                    : "Publicar"
+                    ? t("change-visiblity")
+                    : t("publish")
                 }
                 onClick={() => setOpenVisibilitySettings(true)}
               />
@@ -369,7 +372,7 @@ export default function CreateOrEdit(props) {
           >
             <Box direction="row" justify="between" width="100%">
               <Heading level={2} margin="none">
-                Configurações de visibilidade
+                {t("visibility-settings")}
               </Heading>
               <Button
                 icon={<Close />}
@@ -384,14 +387,11 @@ export default function CreateOrEdit(props) {
                 textAlign: "center",
               }}
             >
-              Selecione a caixa que define como as pessoas irão ver os seus
-              sonhos.
+              {t("visibility-settings-description")}
             </Heading>
             <VisiblityOption
-              title={"Público"}
-              description={
-                "O seu sonho fica disponível para todas as pessoas logadas na plataforma, junto às informacoes de seu perfil."
-              }
+              title={t("public")}
+              description={t("public-description")}
               updatingVisibility={updatingVisibility}
               visibility={visibility}
               setVisibility={setVisibility}
@@ -399,10 +399,8 @@ export default function CreateOrEdit(props) {
             />
             <hr />
             <VisiblityOption
-              title={"Anônimo"}
-              description={
-                "O seu sonho fica disponível para todas as pessoas logadas na plataforma, porem as informacoes de seu perfil não são exibidas."
-              }
+              title={t("anonymous")}
+              description={t("anonymous-description")}
               updatingVisibility={updatingVisibility}
               visibility={visibility}
               setVisibility={setVisibility}
@@ -410,8 +408,8 @@ export default function CreateOrEdit(props) {
             />
             <hr />
             <VisiblityOption
-              title={"Privado"}
-              description={"O seu sonho fica disponível apenas para você."}
+              title={t("private")}
+              description={t("private-description")}
               updatingVisibility={updatingVisibility}
               visibility={visibility}
               setVisibility={setVisibility}
@@ -419,14 +417,13 @@ export default function CreateOrEdit(props) {
             />
             <hr />
             <Text size="small">
-              O seu sonho está salvo como{" "}
-              {VISIBILITY_TRANSLATIONS[data.visibility]}
+              {t("dream-saved-as")} {t(data.visibility)}
             </Text>
             <Button
               onClick={saveVisibility}
               disabled={updatingVisibility}
               icon={updatingVisibility ? <Spinner size="xsmall" /> : null}
-              label={`Salvar visibilidade do sonho como ${VISIBILITY_TRANSLATIONS[visibility]}`}
+              label={`${t("save-visibility-as")} ${t(visibility)}`}
             />
           </Box>
         </Layer>
