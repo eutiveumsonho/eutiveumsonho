@@ -8,5 +8,22 @@
   "redo": "Redo",
   "publish": "Publish",
   "i-had-a-dream": "I had a dream...",
-  "create-dream": "Create dream"
+  "create-dream": "Create dream",
+  "change-visibility": "Change visibility",
+  "visibility-settings": "Visibility settings",
+  "visibility-settings-description": "Select the box that defines how people will see your dreams.",
+  "public": "Public",
+  "public-description": "Your dream is available to all logged-in users on the platform, along with your profile information.",
+  "anonymous": "Anonymous",
+  "anonymous-description": "Your dream is available to all logged-in users on the platform, but your profile information is not displayed.",
+  "private": "Private",
+  "private-description": "Your dream is available only to you.",
+  "dream-saved-as": "Your dream is saved as",
+  "save-visibility-as": "Save dream visibility as",
+  "saved-last-time": "Last saved at",
+  "syncing": "Syncing",
+  "sync-failed": "Your dream must have a maximum of 10000 characters, but it has",
+  "errored": "An error occurred",
+  "edit-dream": "Edit dream",
+  "loading-with-love": "Loading with love..."
 }

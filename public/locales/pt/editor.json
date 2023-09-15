@@ -6,13 +6,12 @@
   "quote": "Bloco de citação",
   "undo": "Desfazer",
   "redo": "Refazer",
-  "publicar": "Publicar",
+  "publish": "Publicar",
   "i-had-a-dream": "Eu tive um sonho...",
   "create-dream": "Criar sonho",
   "change-visibility": "Alterar visibilidade",
-  "publish": "Publicar",
   "visibility-settings": "Configurações de visibilidade",
-  "visiblity-settings-description": " Selecione a caixa que define como as pessoas irão ver os seus sonhos.",
+  "visibility-settings-description": " Selecione a caixa que define como as pessoas irão ver os seus sonhos.",
   "public": "Público",
   "public-description": "O seu sonho fica disponível para todas as pessoas logadas na plataforma, junto às informacoes de seu perfil.",
   "anonymous": "Anônimo",
@@ -24,5 +23,6 @@
   "saved-last-time": "Salvo pela última vez às",
   "syncing": "Sincronizando",
   "sync-failed": "Seu sonho deve ter no máximo 10000 caracteres, mas ele tem",
-  "errored": "Ocorreu um erro"
+  "errored": "Ocorreu um erro",
+  "loading-with-love": "Carregando com amor..."
 }

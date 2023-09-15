@@ -6,14 +6,16 @@ import Head from "next/head";
 import { logReq } from "../../lib/middleware";
 import { getUserAgentProps } from "../../lib/user-agent";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export default function DreamEditor(props) {
   const { data, ...authProps } = props;
+  const { t } = useTranslation("dashboard");
 
   return (
     <>
       <Head>
-        <title>Editar sonho</title>
+        <title>{t("edit-dream")}</title>
       </Head>
       <CreateOrEdit {...authProps} data={data ? JSON.parse(data) : null} />
     </>
@@ -42,7 +44,10 @@ export async function getServerSideProps(context) {
           ...authProps.props,
           data: JSON.stringify(data),
           ...getUserAgentProps(context),
-          ...(await serverSideTranslations(context.locale, ["dashboard"])),
+          ...(await serverSideTranslations(context.locale, [
+            "dashboard",
+            "editor",
+          ])),
         },
       };
     }
@@ -52,7 +57,10 @@ export async function getServerSideProps(context) {
         ...authProps.props,
         data: null,
         ...getUserAgentProps(context),
-        ...(await serverSideTranslations(context.locale, ["dashboard"])),
+        ...(await serverSideTranslations(context.locale, [
+          "dashboard",
+          "editor",
+        ])),
       },
     };
   } catch (error) {

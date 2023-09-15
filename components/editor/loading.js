@@ -2,6 +2,7 @@ import { Box, Spinner, Text } from "grommet";
 import { Favorite } from "grommet-icons";
 import styled from "styled-components";
 import { BRAND_HEX } from "../../lib/config";
+import { useTranslation } from "next-i18next";
 
 const FavoriteFilled = styled(Favorite)`
   path[fill="none"] {
@@ -10,6 +11,8 @@ const FavoriteFilled = styled(Favorite)`
 `;
 
 export default function Loading() {
+  const { t } = useTranslation("editor");
+
   return (
     <Box fill>
       <Box margin="large" align="center">
@@ -20,7 +23,7 @@ export default function Loading() {
           >
             <FavoriteFilled color={BRAND_HEX} size="large" />
           </Spinner>
-          <Text margin={{ horizontal: "small" }}>Carregando com amor...</Text>
+          <Text margin={{ horizontal: "small" }}>{t("loading-with-love")}</Text>
         </Box>
       </Box>
     </Box>

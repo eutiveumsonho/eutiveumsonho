@@ -36,7 +36,10 @@ export async function getServerSideProps(context) {
     props: {
       ...authProps.props,
       ...getUserAgentProps(context),
-      ...(await serverSideTranslations(context.locale, ["editor"])),
+      ...(await serverSideTranslations(context.locale, [
+        "dashboard",
+        "editor",
+      ])),
     },
   };
 }
