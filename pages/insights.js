@@ -233,11 +233,11 @@ export async function getServerSideProps(context) {
           wordFrequencyDistribution: wordFrequencyDistributionData.slice(0, 14),
         }),
         ...getUserAgentProps(context),
-        ...(await serverSideTranslations(
-          context.locale,
+        ...(await serverSideTranslations(context.locale, [
           "dashboard",
-          "common"
-        )),
+          "heatmap",
+          "common",
+        ])),
       },
     };
   } catch (error) {
