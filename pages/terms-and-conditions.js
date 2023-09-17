@@ -56,7 +56,11 @@ export async function getServerSideProps(context) {
     return {
       props: {
         ...getUserAgentProps(context),
-        ...(await serverSideTranslations(context.locale, ["footer", "layout"])),
+        ...(await serverSideTranslations(context.locale, [
+          "footer",
+          "layout",
+          "common",
+        ])),
       },
     };
   }
@@ -65,7 +69,11 @@ export async function getServerSideProps(context) {
     props: {
       serverSession: JSON.stringify(authProps.props.serverSession),
       ...getUserAgentProps(context),
-      ...(await serverSideTranslations(context.locale, ["footer", "layout"])),
+      ...(await serverSideTranslations(context.locale, [
+        "footer",
+        "layout",
+        "common",
+      ])),
     },
   };
 }

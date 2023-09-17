@@ -82,7 +82,7 @@ export default function Error() {
 export async function getServerSideProps(context) {
   return {
     props: {
-      ...(await serverSideTranslations(context.locale, ["errors"])),
+      ...(await serverSideTranslations(context.locale, ["errors", "common"])),
     },
   };
 }

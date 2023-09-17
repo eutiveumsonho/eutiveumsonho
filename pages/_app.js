@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { appWithTranslation } from "next-i18next";
+import { appWithTranslation, useTranslation } from "next-i18next";
 import { Box, Button, grommet, Grommet, Heading, Layer } from "grommet";
 import Script from "next/script";
 import { useRouter } from "next/router";
@@ -22,6 +22,7 @@ const WebPerformanceObserver = dynamic(() => import("../components/o11y"), {
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
   const [openWebViewAlert, setOpenWebViewAlert] = useState(false);
+  const { t } = useTranslation("common");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -89,9 +90,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             {openWebViewAlert ? (
               <Layer
                 position="center"
-                onClickOutside={() => setOpenWebViewAlert(false)}
-                onEsc={() => setOpenWebViewAlert(false)}
                 modal
+                style={{
+                  zIndex: 9007199254740991,
+                }}
               >
                 <Box
                   pad="medium"
@@ -100,10 +102,13 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                   overflow="auto"
                   justify="center"
                   align="center"
+                  style={{
+                    zIndex: 9007199254740991,
+                  }}
                 >
                   <Box direction="row" justify="between" width="100%">
                     <Heading level={2} margin="none" alignSelf="center">
-                      🚨 Alerta 🚨
+                      🚨 {t("alert")} 🚨
                     </Heading>
                     <Button
                       icon={<Close />}
@@ -111,9 +116,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                     />
                   </Box>
                   <Heading level={3} margin="none">
-                    Abra o site no navegador do seu celular para ter a melhor
-                    experiência. Agora, você está usando o navegador do app do
-                    Instagram ou Facebook (Meta).
+                    {t("webview-alert")}
                   </Heading>
                 </Box>
               </Layer>

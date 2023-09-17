@@ -1,1 +1,4 @@
-{}
+{
+  "alert": "Alert",
+  "webview-alert": "Open the site in your mobile browser for the best experience. Currently, you are using the browser from the Instagram or Facebook (Meta) app."
+}

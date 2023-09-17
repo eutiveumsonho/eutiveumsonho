@@ -47,6 +47,7 @@ export async function getServerSideProps(context) {
           ...(await serverSideTranslations(context.locale, [
             "dashboard",
             "editor",
+            "common",
           ])),
         },
       };
@@ -60,6 +61,7 @@ export async function getServerSideProps(context) {
         ...(await serverSideTranslations(context.locale, [
           "dashboard",
           "editor",
+          "common",
         ])),
       },
     };

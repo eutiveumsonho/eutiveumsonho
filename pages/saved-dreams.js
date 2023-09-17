@@ -70,7 +70,10 @@ export async function getServerSideProps(context) {
       props: {
         serverSession: JSON.stringify(authProps.props.serverSession),
         data: JSON.stringify(dreams),
-        ...(await serverSideTranslations(context.locale, ["dashboard"])),
+        ...(await serverSideTranslations(context.locale, [
+          "dashboard",
+          "common",
+        ])),
       },
     };
   } catch (error) {

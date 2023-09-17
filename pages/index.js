@@ -29,6 +29,7 @@ export async function getServerSideProps(context) {
         "layout",
         "footer",
         "editor",
+        "common",
       ])),
     },
   };

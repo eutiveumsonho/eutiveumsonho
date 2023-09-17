@@ -79,7 +79,10 @@ export async function getServerSideProps(context) {
         data: JSON.stringify(dreams),
         stars: JSON.stringify(stars),
         ...getUserAgentProps(context),
-        ...(await serverSideTranslations(context.locale, ["dashboard"])),
+        ...(await serverSideTranslations(context.locale, [
+          "dashboard",
+          "common",
+        ])),
       },
     };
   } catch (error) {

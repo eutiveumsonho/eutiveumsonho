@@ -62,6 +62,7 @@ export async function getServerSideProps(context) {
           ...(await serverSideTranslations(context.locale, [
             "layout",
             "footer",
+            "common",
           ])),
         },
       };
@@ -82,7 +83,10 @@ export async function getServerSideProps(context) {
       return {
         props: {
           ...getUserAgentProps(context),
-          ...(await serverSideTranslations(context.locale, ["dashboard"])),
+          ...(await serverSideTranslations(context.locale, [
+            "dashboard",
+            "common",
+          ])),
         },
       };
     }
@@ -106,7 +110,10 @@ export async function getServerSideProps(context) {
         data: JSON.stringify(data),
         comments: JSON.stringify(comments),
         ...getUserAgentProps(context),
-        ...(await serverSideTranslations(context.locale, ["dashboard"])),
+        ...(await serverSideTranslations(context.locale, [
+          "dashboard",
+          "common",
+        ])),
       },
     };
   } catch (error) {

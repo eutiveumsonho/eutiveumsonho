@@ -229,7 +229,7 @@ export async function getServerSideProps(context) {
     return {
       props: {
         ...getUserAgentProps(context),
-        ...(await serverSideTranslations(context.locale, ["signin"])),
+        ...(await serverSideTranslations(context.locale, ["signin", "common"])),
       },
     };
   }
@@ -239,7 +239,7 @@ export async function getServerSideProps(context) {
       providers,
       csrfToken: await getCsrfToken(context),
       ...getUserAgentProps(context),
-      ...(await serverSideTranslations(context.locale, ["signin"])),
+      ...(await serverSideTranslations(context.locale, ["signin", "common"])),
     },
   };
 }

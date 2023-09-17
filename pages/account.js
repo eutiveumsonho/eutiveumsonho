@@ -46,7 +46,10 @@ export async function getServerSideProps(context) {
         serverSession: JSON.stringify(authProps.props.serverSession),
         data: JSON.stringify(data),
         ...getUserAgentProps(context),
-        ...(await serverSideTranslations(context.locale, ["dashboard"])),
+        ...(await serverSideTranslations(context.locale, [
+          "dashboard",
+          "common",
+        ])),
       },
     };
   } catch (error) {
