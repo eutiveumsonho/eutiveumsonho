@@ -17,7 +17,7 @@
 
 ## Desenvolvimento
 
-> Entre em contato comigo (marcelo@eutiveumsonho.com) para pegar as credenciais do banco de dados de contribuição e APIs do Google - você precisará delas para começar a desenvolver.
+> Entre em contato com marcelo@eutiveumsonho.com para pegar as credenciais que você precisará para começar a desenvolver.
 
 ```sh
 yarn

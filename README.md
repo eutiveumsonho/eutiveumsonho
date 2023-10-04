@@ -17,7 +17,7 @@
 
 ## Development
 
-> Get in touch with me (marcelo@eutiveumsonho.com) to get the credentials of our contributing database and Google APIs - you will need both to start developing.
+> Get in touch with marcelo@eutiveumsonho.com to get the credentials you will need to start developing.
 
 ```sh
 yarn
