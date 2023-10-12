@@ -20,11 +20,11 @@
 > Get in touch with marcelo@eutiveumsonho.com to get the credentials you will need to start developing.
 
 ```sh
-yarn
+bun
 ```
 
 ```sh
-yarn dev
+bun dev
 ```
 
 ## Data
