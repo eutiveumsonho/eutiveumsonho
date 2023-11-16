@@ -27,6 +27,12 @@ bun
 bun dev
 ```
 
+To run this service along with [chiron](https://github.com/eutiveumsonho/chiron), run:
+  
+```sh
+bun dev:with-chiron
+```
+
 ## Data
 
 - [Public data overview from eutiveumsonho.com](https://charts.mongodb.com/charts-eutiveumsonho-bwwsj/public/dashboards/6338cd66-f9a9-47a6-8cb8-bb7033b24350)
