@@ -2,7 +2,7 @@
 
 import { getServerSession } from "../../../lib/auth";
 import { hasCommentedOnDream } from "../../../lib/db/reads";
-import { generateComment } from "../../../lib/db/writes";
+import { generateCompletion } from "../../../lib/db/writes";
 import {
   BAD_REQUEST,
   METHOD_NOT_ALLOWED,
@@ -39,7 +39,7 @@ async function post(req, res) {
     return res;
   }
 
-  const hasCommented = await hasCommentedOnDream("Sonio", req.body.dreamId);
+  const hasCommented = await hasCommentedOnDream("Sonia", req.body.dreamId);
 
   if (hasCommented) {
     res.setHeader("Content-Type", "application/json");
@@ -48,21 +48,17 @@ async function post(req, res) {
   }
 
   try {
-    const objectId = await generateComment(
-      req.body.dreamId,
-      req.body.text,
-      session
-    );
+    generateCompletion(req.body.dreamId, req.body.text, session);
 
     res.setHeader("Content-Type", "application/json");
-    res.status(201).send({ objectId });
+    res.status(202).send("Accepted");
 
     return res;
   } catch (error) {
     logError({
       error,
       service: "api",
-      pathname: "/api/data/ai-comments",
+      pathname: "/api/data/completions",
       method: "post",
     });
     res.status(500).end(SERVER_ERROR);
