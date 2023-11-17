@@ -63,6 +63,8 @@ async function post(req, res) {
       return res;
     }
 
+    // TODO: Update the reviwed completion
+
     const data = {
       comment: completion.choices[0].message.content,
       dreamId,
