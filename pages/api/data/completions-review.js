@@ -50,7 +50,7 @@ async function post(req, res) {
     if (!req.body.pendingReview && !req.body.approved) {
       const dreamData = await getDreamById(dreamId);
 
-      generateCompletion(
+      await generateCompletion(
         dreamId,
         dreamData.dream.text,
         undefined,
