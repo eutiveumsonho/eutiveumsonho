@@ -32,7 +32,7 @@
     "i18next": "^23.4.6",
     "inngest": "^2.5.0",
     "languagedetect": "^2.0.0",
-    "libhoney": "^3.1.1",
+    "libhoney": "^4.1.0",
     "mongodb": "^4.7.0",
     "multilingual-stemmer": "^1.0.2",
     "next": "^13.4.19",
