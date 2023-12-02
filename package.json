@@ -10,7 +10,7 @@
     "semantic-release": "semantic-release",
     "test": "NODE_ENV=test jest --watch --detectOpenHandles",
     "test:ci": "NODE_ENV=test jest --ci --detectOpenHandles",
-    "gen:docs": "jsdoc ./**/*.js -d out"
+    "gen:docs": "jsdoc -r ./components/ ./containers/ ./lib/ ./pages/ ./public/ ./scripts/ ./package.json -c ./jsdoc.json -d out"
   },
   "dependencies": {
     "@next-auth/mongodb-adapter": "^1.0.3",

@@ -8,6 +8,13 @@ import { getUserAgentProps } from "../lib/user-agent";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
+/**
+ * This component represents the page for the user's account.
+ * On this page, users can manage their account settings.
+ *
+ * @param {{ serversSession, data }} props
+ * @returns {JSX.Element}
+ */
 export default function MyAccount(props) {
   const { serverSession: rawServerSession, data: rawData } = props;
 

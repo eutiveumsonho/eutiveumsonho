@@ -35,6 +35,14 @@ import "dayjs/locale/fr";
 dayjs.extend(LocalizedFormat);
 dayjs.extend(relativeTime);
 
+/**
+ * This component represents the page for the user's inbox.
+ * On this page, users can manage their inbox messages.
+ *
+ * @function
+ * @param {{ serversSession, data, deviceType }} props - The props this component gets from getServerSideProps
+ * @returns {JSX.Element}
+ */
 export default function Inbox(props) {
   const { serverSession: rawServerSession, data: rawData, deviceType } = props;
 
