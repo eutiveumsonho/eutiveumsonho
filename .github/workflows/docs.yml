@@ -11,6 +11,10 @@ jobs:
     container: pandoc/latex
     steps:
       - uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
       - name: Install jsdoc
         run: npm install -g jsdoc
       - name: Run jsdoc
