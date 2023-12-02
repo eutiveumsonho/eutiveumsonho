@@ -1,0 +1,27 @@
+name: Generate docs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate-docs:
+    runs-on: ubuntu-latest
+    container: pandoc/latex
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install jsdoc
+        run: npm install -g jsdoc
+      - name: Run jsdoc
+        run: jsdoc /**/*.js -d out
+      - name: Push output to docs repo
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.DOCS_GEN_GH_TOKEN }}
+        with:
+          source-directory: "out"
+          destination-github-username: "eutiveumsonho"
+          destination-repository-name: "docs"
+          user-email: marcelovicentegc.bot@gmail.com
+          target-branch: main
