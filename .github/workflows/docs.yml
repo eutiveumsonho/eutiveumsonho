@@ -15,10 +15,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 18
-      - name: Install jsdoc
-        run: npm install -g jsdoc
-      - name: Run jsdoc
-        run: jsdoc /**/*.js -d out
+      - run: npm install -g jsdoc
+      - run: jsdoc /**/*.js -d out
       - name: Push output to docs repo
         uses: cpina/github-action-push-to-another-repository@main
         env:
