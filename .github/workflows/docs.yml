@@ -8,15 +8,11 @@ on:
 jobs:
   generate-docs:
     runs-on: ubuntu-latest
-    container: pandoc/latex
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 18
-      - run: npm install -g jsdoc
-      - run: jsdoc /**/*.js -d out
+      - uses: actions/checkout@v3
+      - uses: oven-sh/setup-bun@v1
+      - run: bun install
+      - run: bun run gen:docs
       - name: Push output to docs repo
         uses: cpina/github-action-push-to-another-repository@main
         env:

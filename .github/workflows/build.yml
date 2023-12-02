@@ -11,17 +11,16 @@ jobs:
     env:
       CI_JOB_NUMBER: 1
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Create mocked .env.local with required variables
         run: |
           echo MONGODB_URI=mongodb://mongo                 > .env.local
           echo MONGODB_DB=mongodb                          >> .env.local
           echo ENCRYPTION_KEY=encryption_key               >> .env.local
           echo OPENAI_TOKEN=openai_api_key                 >> .env.local
-      - uses: actions/setup-node@v2
-        with:
-          cache: npm
-          node-version: 18
+      - uses: oven-sh/setup-bun@v1
+      - run: bun install
+      - run: bun run build
       - uses: preactjs/compressed-size-action@v2
         with:
           pattern: ".next/**/*.{js,css,html,json}"
