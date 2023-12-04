@@ -14,12 +14,13 @@ jobs:
       - run: bun install
       - run: bun run gen:docs
       - name: Push output to docs repo
-        uses: cpina/github-action-push-to-another-repository@main
+        uses: tech-thinker/push-to-repo@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.DOCS_GEN_GH_TOKEN }}
         with:
           source-directory: "out"
           destination-github-username: "eutiveumsonho"
           destination-repository-name: "docs"
+          user-name: mypersonalmachine
           user-email: marcelovicentegc.bot@gmail.com
           target-branch: main
