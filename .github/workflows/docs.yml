@@ -24,3 +24,4 @@ jobs:
           user-name: marcelovicentegc
           user-email: marcelovicentegc@gmail.com
           target-branch: main
+          commit-message: "docs: update docs ORIGIN_COMMIT"
