@@ -21,6 +21,6 @@ jobs:
           source-directory: "out"
           destination-github-username: "eutiveumsonho"
           destination-repository-name: "docs"
-          user-name: mypersonalmachine
-          user-email: marcelovicentegc.bot@gmail.com
+          user-name: marcelovicentegc
+          user-email: marcelovicentegc@gmail.com
           target-branch: main
