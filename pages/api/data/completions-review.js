@@ -49,11 +49,7 @@ async function post(req, res) {
     // See https://github.com/eutiveumsonho/internal-docs for more details about
     // this workflow.
     if (!req.body.pendingReview && !req.body.approved) {
-      console.log({ reqBody: req.body });
       const dreamData = await getDreamById(dreamId);
-      console.log({ dreamData });
-
-      // TODO: Decrypt the dream text
 
       await generateCompletion(
         dreamId,
