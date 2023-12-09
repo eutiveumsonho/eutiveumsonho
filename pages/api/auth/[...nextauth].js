@@ -7,7 +7,6 @@ import clientPromise from "../../../lib/mongodb";
 import { createTransport } from "nodemailer";
 import { html } from "../../../lib/email";
 import { ALLOWED_HOST, BRAND_HEX } from "../../../lib/config";
-import { withTracing } from "../../../lib/middleware";
 
 const i18n = (url) => ({
   pt: {
@@ -161,4 +160,4 @@ export const authOptions = {
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
-export default withTracing(NextAuth(authOptions));
+export default NextAuth(authOptions);

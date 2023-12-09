@@ -13,10 +13,13 @@ import {
   SERVER_ERROR,
   FORBIDDEN,
 } from "../../../lib/errors";
-import { withTracing } from "../../../lib/middleware";
-import { logError } from "../../../lib/o11y";
 
-function handler(req, res) {
+/**
+ * This is the API route for managing inbox messages.
+ * It supports PATCH and DELETE, allowing users to mark messages as read and
+ * delete them.
+ */
+function inboxHandler(req, res) {
   switch (req.method) {
     case "PATCH":
       return patch(req, res);
@@ -62,7 +65,7 @@ async function patch(req, res) {
 
     return res;
   } catch (error) {
-    logError({
+    console.error({
       error,
       service: "api",
       pathname: "/api/data/inbox",
@@ -107,7 +110,7 @@ async function del(req, res) {
 
     return res;
   } catch (error) {
-    logError({
+    console.error({
       error,
       service: "api",
       pathname: "/api/data/inbox",
@@ -119,4 +122,4 @@ async function del(req, res) {
   }
 }
 
-export default withTracing(handler);
+export default inboxHandler;

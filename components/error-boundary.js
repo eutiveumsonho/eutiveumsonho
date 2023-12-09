@@ -1,5 +1,4 @@
 import React from "react";
-import { logError } from "../lib/o11y";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -11,7 +10,7 @@ class ErrorBoundary extends React.Component {
     return { hasError: true };
   }
   componentDidCatch(error, errorInfo) {
-    logError({ error, error_message: errorInfo, service: "web" });
+    console.error({ error, errorInfo });
   }
 
   render() {

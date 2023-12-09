@@ -23,7 +23,6 @@ import { Logo } from "../components/logo";
 import { Close, StatusCritical, StatusGood } from "grommet-icons";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import VisibilityIcon from "../components/visbility-icon";
-import { logError } from "../lib/o11y";
 import Loading from "../components/editor/loading";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
@@ -257,7 +256,7 @@ export default function CreateOrEdit(props) {
         await saveDream(postId, dreamData);
         setSyncStatus(<LastSyncedAt lastSynced={new Date()} />);
       } catch (error) {
-        logError({ error, service: "web" });
+        console.error({ error, service: "web" });
       }
     }
   };

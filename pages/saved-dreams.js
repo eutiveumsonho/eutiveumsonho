@@ -1,13 +1,17 @@
 import { getAuthProps } from "../lib/auth";
-import { logError } from "../lib/o11y";
 import Head from "next/head";
 import SavedDreams from "../containers/saved-dreams";
 import { getStarredDreams, getUserById } from "../lib/db/reads";
-import { logReq } from "../lib/middleware";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
 
+/**
+ * Saved dreams page. This page shows the user's saved dreams.
+ * The user can manage their saved dreams on this page.
+ *
+ * @param {{ serverSession, data }} props - The props this component gets from getServerSideProps
+ */
 export default function Saved(props) {
   const { serverSession: rawServerSession, data: rawData } = props;
 
@@ -38,7 +42,6 @@ export default function Saved(props) {
 
 export async function getServerSideProps(context) {
   const authProps = await getAuthProps(context);
-  logReq(context.req, context.res);
 
   if (!authProps.props.serverSession) {
     const { res, locale } = context;
@@ -77,7 +80,7 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    logError({
+    console.error({
       error,
       service: "web",
       pathname: "/saved-dreams",

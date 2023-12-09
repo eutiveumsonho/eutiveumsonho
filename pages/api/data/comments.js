@@ -8,10 +8,14 @@ import {
   SERVER_ERROR,
   FORBIDDEN,
 } from "../../../lib/errors";
-import { withTracing } from "../../../lib/middleware";
-import { logError } from "../../../lib/o11y";
 
-function handler(req, res) {
+/**
+ * This is the API route for managing comments.
+ * It supports POST and DELETE, allowing users to create and delete their own comments.
+ * Comments cannot be edited, and dream owners cannot delete comments from others (this is likely
+ * changing in the near future).
+ */
+function commentsHandler(req, res) {
   switch (req.method) {
     case "POST":
       return post(req, res);
@@ -56,7 +60,7 @@ async function post(req, res) {
 
     return res;
   } catch (error) {
-    logError({
+    console.error({
       error,
       service: "api",
       pathname: "/api/data/comments",
@@ -92,7 +96,7 @@ async function del(req, res) {
 
     return res;
   } catch (error) {
-    logError({
+    console.error({
       error,
       service: "api",
       pathname: "/api/data/comments",
@@ -104,4 +108,4 @@ async function del(req, res) {
   }
 }
 
-export default withTracing(handler);
+export default commentsHandler;

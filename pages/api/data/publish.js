@@ -8,10 +8,14 @@ import {
   SERVER_ERROR,
   FORBIDDEN,
 } from "../../../lib/errors";
-import { withTracing } from "../../../lib/middleware";
-import { logError } from "../../../lib/o11y";
 
-function handler(req, res) {
+/**
+ * This endpoint is responsible for enabling users to control the visibility of their dreams.
+ * To publish a dream means to make it visible to other users, either publicly visible,
+ * or anonymously visible. Users can also hide dreams from other users ('private' is the defaut
+ * visbility mode).
+ */
+function publishHandler(req, res) {
   switch (req.method) {
     case "PATCH":
       return patch(req, res);
@@ -47,7 +51,7 @@ async function patch(req, res) {
 
     return res;
   } catch (error) {
-    logError({
+    console.error({
       error,
       service: "api",
       pathname: "/api/data/publish",
@@ -59,4 +63,4 @@ async function patch(req, res) {
   }
 }
 
-export default withTracing(handler);
+export default publishHandler;

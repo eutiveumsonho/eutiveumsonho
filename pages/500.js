@@ -3,13 +3,12 @@ import Head from "next/head";
 import Image from "next/legacy/image";
 import { useRouter } from "next/router";
 import Layout from "../components/layout";
-import { logError } from "../lib/o11y";
 
 export default function Custom500(props) {
   const { deviceType } = props;
   const { reload } = useRouter();
 
-  logError({
+  console.error({
     error_name: "500ComponentRendered",
     service: "web",
     component: "Custom500",

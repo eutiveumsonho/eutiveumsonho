@@ -3,13 +3,12 @@ import Head from "next/head";
 import Image from "next/legacy/image";
 import { useRouter } from "next/router";
 import Layout from "../components/layout";
-import { logWarn } from "../lib/o11y";
 
 export default function Custom404(props) {
   const { deviceType } = props;
   const { push, locale } = useRouter();
 
-  logWarn({
+  console.warn({
     error_name: "404ComponentRendered",
     service: "web",
     component: "Custom404",

@@ -8,11 +8,14 @@ import {
   getUserById,
   getComments,
 } from "../../lib/db/reads";
-import { logError } from "../../lib/o11y";
-import { logReq } from "../../lib/middleware";
 import { getUserAgentProps } from "../../lib/user-agent";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
+/**
+ * Dream page. This page shows a user's dream.
+ *
+ * @param {{ data, comments, serverSession }} props - The props this component gets from getServerSideProps
+ */
 export default function DreamPage(props) {
   const { data: rawData, comments: rawComments, ...authProps } = props;
 
@@ -31,7 +34,6 @@ export default function DreamPage(props) {
 
 export async function getServerSideProps(context) {
   const authProps = await getAuthProps(context);
-  logReq(context.req, context.res);
   const { res } = context;
 
   try {
@@ -117,7 +119,7 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    logError({
+    console.error({
       error,
       service: "web",
       pathname: "/sonhos/[dreamId]",

@@ -3,10 +3,13 @@
 import { getServerSession } from "../../lib/auth";
 import { METHOD_NOT_ALLOWED, SERVER_ERROR, FORBIDDEN } from "../../lib/errors";
 import { deleteAccount } from "../../lib/db/writes";
-import { logError } from "../../lib/o11y";
-import { withTracing } from "../../lib/middleware";
 
-function handler(req, res) {
+/**
+ * Account related API. Currently only supports DELETE.
+ * When deleting an account, we delete all dreams, comments, and inbox messages
+ * through this endpoint.
+ */
+function accountHandler(req, res) {
   switch (req.method) {
     case "DELETE":
       return del(req, res);
@@ -33,7 +36,7 @@ async function del(req, res) {
 
     return res;
   } catch (error) {
-    logError({
+    console.error({
       error,
       service: "api",
       pathname: "/api/account",
@@ -45,4 +48,4 @@ async function del(req, res) {
   }
 }
 
-export default withTracing(handler);
+export default accountHandler;

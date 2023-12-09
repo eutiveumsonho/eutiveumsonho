@@ -1,5 +1,4 @@
 import { getAuthProps } from "../lib/auth";
-import { logError } from "../lib/o11y";
 import Head from "next/head";
 import Dashboard from "../components/dashboard";
 import { css } from "@emotion/css";
@@ -23,7 +22,6 @@ import { Checkmark, StatusGoodSmall, Trash } from "grommet-icons";
 import { markInboxMessagesAsRead, deleteInboxMessages } from "../lib/api";
 import "dayjs/locale/pt-br";
 import { BRAND_HEX } from "../lib/config";
-import { logReq } from "../lib/middleware";
 import { getUserAgentProps } from "../lib/user-agent";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
@@ -286,7 +284,6 @@ export default function Inbox(props) {
 
 export async function getServerSideProps(context) {
   const authProps = await getAuthProps(context);
-  logReq(context.req, context.res);
 
   if (!authProps.props.serverSession || !authProps.props.serverSession?.user) {
     const { res } = context;
@@ -310,7 +307,7 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    logError({
+    console.error({
       error,
       service: "web",
       pathname: "/inbox",

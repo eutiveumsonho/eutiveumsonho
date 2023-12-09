@@ -15,10 +15,6 @@ import ErrorBoundary from "../components/error-boundary";
 import { Analytics } from "@vercel/analytics/react";
 import { Close } from "grommet-icons";
 
-const WebPerformanceObserver = dynamic(() => import("../components/o11y"), {
-  ssr: false,
-});
-
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
   const [openWebViewAlert, setOpenWebViewAlert] = useState(false);
@@ -122,7 +118,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
               </Layer>
             ) : null}
           </SessionProvider>
-          <WebPerformanceObserver />
           <Analytics />
         </Grommet>
       </ErrorBoundary>

@@ -4,17 +4,19 @@ import { useRouter } from "next/router";
 import Clouds from "../../components/clouds";
 import { Logo } from "../../components/logo";
 import { NEXT_AUTH_ERRORS, _NEXT_AUTH_ERRORS } from "../../lib/errors";
-import { logError } from "../../lib/o11y";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
+/**
+ * This page is shown when the user encounters an error while signing up or signing in.
+ */
 export default function Error() {
   const { query, push, locale } = useRouter();
   const { t } = useTranslation("errors");
 
   const { error: errorCode } = query;
 
-  logError({
+  console.error({
     service: "web",
     pathname: "/auth/error",
     component: "VerifyRequest",

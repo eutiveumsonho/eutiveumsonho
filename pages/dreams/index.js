@@ -5,13 +5,16 @@ import {
   getUserById,
 } from "../../lib/db/reads";
 import PublicDreams from "../../containers/public-dreams";
-import { logError } from "../../lib/o11y";
 import Head from "next/head";
-import { logReq } from "../../lib/middleware";
 import { getUserAgentProps } from "../../lib/user-agent";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
+/**
+ * The home page for logged in users. This page shows a feed with the latest public dreams.
+ *
+ * @param {{ serverSession, data, stars, deviceType }} props - The props this component gets from getServerSideProps
+ */
 export default function FindOut(props) {
   const {
     serverSession: rawServerSession,
@@ -44,7 +47,6 @@ export default function FindOut(props) {
 
 export async function getServerSideProps(context) {
   const authProps = await getAuthProps(context);
-  logReq(context.req, context.res);
 
   if (!authProps.props.serverSession) {
     const { res } = context;
@@ -86,7 +88,7 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    logError({
+    console.error({
       error,
       service: "web",
       pathname: "/dreams",

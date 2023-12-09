@@ -8,10 +8,13 @@ import {
   SERVER_ERROR,
   FORBIDDEN,
 } from "../../../lib/errors";
-import { withTracing } from "../../../lib/middleware";
-import { logError } from "../../../lib/o11y";
 
-function handler(req, res) {
+/**
+ * This endpoint is used to star and unstar dreams.
+ * To star a dream means to save it to a user's list of starred/saved dreams.
+ * This endpoint only supports POST and DELETE.
+ */
+function starsHandler(req, res) {
   switch (req.method) {
     case "POST":
       return post(req, res);
@@ -55,7 +58,7 @@ async function post(req, res) {
 
     return res;
   } catch (error) {
-    logError({
+    console.error({
       error,
       service: "api",
       pathname: "/api/data/stars",
@@ -96,7 +99,7 @@ async function del(req, res) {
 
     return res;
   } catch (error) {
-    logError({
+    console.error({
       error,
       service: "api",
       pathname: "/api/data/stars",
@@ -108,4 +111,4 @@ async function del(req, res) {
   }
 }
 
-export default withTracing(handler);
+export default starsHandler;

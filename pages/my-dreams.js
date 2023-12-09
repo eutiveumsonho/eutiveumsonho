@@ -1,9 +1,7 @@
 import { getAuthProps } from "../lib/auth";
 import { getDreams } from "../lib/db/reads";
-import { logError } from "../lib/o11y";
 import Dreams from "../containers/dreams";
 import Head from "next/head";
-import { logReq } from "../lib/middleware";
 import { getUserAgentProps } from "../lib/user-agent";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
@@ -40,7 +38,6 @@ export default function MyDreams(props) {
 
 export async function getServerSideProps(context) {
   const authProps = await getAuthProps(context);
-  logReq(context.req, context.res);
 
   if (!authProps.props.serverSession || !authProps.props.serverSession?.user) {
     const { res } = context;
@@ -66,7 +63,7 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    logError({
+    console.error({
       error,
       service: "web",
       pathname: "/my-dreams",

@@ -2,7 +2,6 @@ import { PageContent } from "grommet";
 import Head from "next/head";
 import Layout from "../components/layout";
 import { getAuthProps } from "../lib/auth";
-import { logReq } from "../lib/middleware";
 import { getUserAgentProps } from "../lib/user-agent";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
@@ -52,7 +51,6 @@ export default function CookiesPolicy(props) {
 
 export async function getServerSideProps(context) {
   const authProps = await getAuthProps(context);
-  logReq(context.req, context.res);
 
   if (authProps.props.serverSession) {
     return {

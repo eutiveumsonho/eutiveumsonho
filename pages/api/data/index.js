@@ -9,10 +9,13 @@ import {
   SERVER_ERROR,
   FORBIDDEN,
 } from "../../../lib/errors";
-import { withTracing } from "../../../lib/middleware";
-import { logError } from "../../../lib/o11y";
 
-function handler(req, res) {
+/**
+ * This is the main API route for getting, creating, updating, and deleting dreams.
+ * It supports GET, POST, PATCH, and DELETE, allowing users to search for dreams,
+ * create new dreams, update existing dreams, and delete dreams.
+ */
+function dataHandler(req, res) {
   switch (req.method) {
     case "POST":
       return post(req, res);
@@ -54,7 +57,7 @@ async function patch(req, res) {
 
     return res;
   } catch (error) {
-    logError({
+    console.error({
       error,
       service: "api",
       pathname: "/api/data",
@@ -95,7 +98,7 @@ async function post(req, res) {
 
     return res;
   } catch (error) {
-    logError({
+    console.error({
       error,
       service: "api",
       pathname: "/api/data",
@@ -128,7 +131,7 @@ async function del(req, res) {
 
     return res;
   } catch (error) {
-    logError({
+    console.error({
       error,
       service: "api",
       pathname: "/api/data",
@@ -175,7 +178,7 @@ async function get(req, res) {
 
     return res;
   } catch (error) {
-    logError({
+    console.error({
       error,
       service: "api",
       pathname: "/api/data",
@@ -187,4 +190,4 @@ async function get(req, res) {
   }
 }
 
-export default withTracing(handler);
+export default dataHandler;

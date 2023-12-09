@@ -1,13 +1,18 @@
 import CreateOrEdit from "../../containers/create-or-edit";
 import { getAuthProps } from "../../lib/auth";
 import { getDreamById } from "../../lib/db/reads";
-import { logError } from "../../lib/o11y";
 import Head from "next/head";
-import { logReq } from "../../lib/middleware";
 import { getUserAgentProps } from "../../lib/user-agent";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
+/**
+ * The page for editing a dream. This page is only accessible for logged in users.
+ * This page is used for creating dreams. Once the dream is synced to the cloud, it redirects
+ * the user to another page that looks exactly the same as this, which is used for editing dreams.
+ *
+ * @param {{ data, serverSession }} props - The props this component gets from getServerSideProps
+ */
 export default function DreamEditor(props) {
   const { data, ...authProps } = props;
   const { t } = useTranslation("dashboard");
@@ -24,7 +29,6 @@ export default function DreamEditor(props) {
 
 export async function getServerSideProps(context) {
   const authProps = await getAuthProps(context);
-  logReq(context.req, context.res);
   const { res } = context;
 
   if (!authProps.props.serverSession) {
@@ -66,7 +70,7 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    logError({
+    console.error({
       error,
       service: "web",
       pathname: "/publish/[postId]",
