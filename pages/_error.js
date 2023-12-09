@@ -2,6 +2,7 @@ import Invite from "../containers/invite";
 import { logError } from "../lib/o11y";
 import Custom404 from "./404";
 import Custom500 from "./500";
+import * as Sentry from "@sentry/nextjs";
 
 function Error({ statusCode }) {
   if (statusCode === 404) {
@@ -15,8 +16,9 @@ function Error({ statusCode }) {
   return <Invite />;
 }
 
-Error.getInitialProps = ({ res, err }) => {
-  logError({ error: err, res });
+Error.getInitialProps = async (contextData) => {
+  logError({ error: contextData?.err, res: contextData?.res });
+  await Sentry.captureUnderscoreErrorException(contextData);
 
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
   return { statusCode };
