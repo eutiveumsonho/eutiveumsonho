@@ -44,11 +44,16 @@ async function post(req, res) {
   const { completion, dreamId } = req.body;
 
   try {
-    // The "approved" property is always set by a human through Chiron.
+    // The "approved" property is always set by a human to `true` through Chiron,
+    // while "pendingReview" is set to `false`, also by a human.
     // See https://github.com/eutiveumsonho/internal-docs for more details about
     // this workflow.
     if (!req.body.pendingReview && !req.body.approved) {
+      console.log({ reqBody: req.body });
       const dreamData = await getDreamById(dreamId);
+      console.log({ dreamData });
+
+      // TODO: Decrypt the dream text
 
       await generateCompletion(
         dreamId,
