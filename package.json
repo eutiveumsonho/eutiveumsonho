@@ -26,6 +26,7 @@
     "date-fns": "^2.29.3",
     "dayjs": "^1.11.5",
     "dotenv": "^16.0.3",
+    "exponential-backoff": "^3.1.1",
     "express-useragent": "^1.0.15",
     "form-data": "^4.0.0",
     "framer-motion": "^7.5.3",
