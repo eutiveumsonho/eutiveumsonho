@@ -16,10 +16,14 @@ function Error({ statusCode }) {
 }
 
 Error.getInitialProps = async (contextData) => {
-  console.error({ error: contextData?.err, res: contextData?.res });
+  console.error(contextData);
   await Sentry.captureUnderscoreErrorException(contextData);
 
-  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
+  const statusCode = contextData?.res
+    ? contextData?.res.statusCode
+    : contextData?.err
+    ? contextData?.err.statusCode
+    : 404;
   return { statusCode };
 };
 
