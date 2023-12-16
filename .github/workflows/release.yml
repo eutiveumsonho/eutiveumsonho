@@ -16,3 +16,21 @@ jobs:
       - run: bun run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  generate-docs:
+    name: generate docs
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Generate docs
+        uses: eutiveumsonho/jsdoc-builder-action@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.DOCS_GEN_GH_TOKEN }}
+        with:
+          jsdoc-input-files: "./components/ ./containers/ ./lib/ ./pages/ ./scripts/ ./package.json"
+          destination-github-username: "eutiveumsonho"
+          destination-repository-name: "docs"
+          user-name: marcelovicentegc
+          user-email: marcelovicentegc@gmail.com
+          target-branch: main
+          commit-message: "docs: update docs ORIGIN_COMMIT"

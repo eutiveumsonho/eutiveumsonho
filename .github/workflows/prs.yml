@@ -1,4 +1,4 @@
-name: Build workflow
+name: Pull request workflow
 
 on:
   pull_request:
