@@ -10,15 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: oven-sh/setup-bun@v1
-      - run: bun install
-      - run: bun run gen:docs
-      - name: Push output to docs repo
-        uses: tech-thinker/push-to-repo@main
+      - name: Generate docs
+        uses: eutiveumsonho/jsdoc-builder-action@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.DOCS_GEN_GH_TOKEN }}
         with:
-          source-directory: "out"
+          jsdoc-input-files: "./components/ ./containers/ ./lib/ ./pages/ ./scripts/ ./package.json"
           destination-github-username: "eutiveumsonho"
           destination-repository-name: "docs"
           user-name: marcelovicentegc
