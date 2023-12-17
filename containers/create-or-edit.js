@@ -11,7 +11,7 @@ import {
 } from "grommet";
 import dynamic from "next/dynamic";
 import {
-  createAIComment,
+  createAICompletion,
   createDream,
   saveDream,
   updateDreamVisibility,
@@ -185,7 +185,7 @@ export default function CreateOrEdit(props) {
 
   useEffect(() => {
     const exitingFunction = async () => {
-      await createAIComment({ text: data?.dream?.text, dreamId: postId });
+      await createAICompletion({ text: data?.dream?.text, dreamId: postId });
     };
 
     console.log({ routerPathname: router.pathname });
