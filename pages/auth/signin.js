@@ -1,3 +1,4 @@
+/** @module pages/api/auth/signin */
 import {
   Box,
   Button,

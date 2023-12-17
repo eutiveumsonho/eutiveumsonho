@@ -1,4 +1,4 @@
-import dynamic from "next/dynamic";
+/** @module pages/_app */
 import { appWithTranslation, useTranslation } from "next-i18next";
 import { Box, Button, grommet, Grommet, Heading, Layer } from "grommet";
 import Script from "next/script";
@@ -15,7 +15,13 @@ import ErrorBoundary from "../components/error-boundary";
 import { Analytics } from "@vercel/analytics/react";
 import { Close } from "grommet-icons";
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+/**
+ * Eu tive um sonho front-end entry point.
+ */
+function EuTiveUmSonhoClient({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   const router = useRouter();
   const [openWebViewAlert, setOpenWebViewAlert] = useState(false);
   const { t } = useTranslation("common");
@@ -125,4 +131,4 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   );
 }
 
-export default appWithTranslation(MyApp);
+export default appWithTranslation(EuTiveUmSonhoClient);

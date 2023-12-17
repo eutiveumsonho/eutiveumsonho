@@ -1,5 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
+/** @module pages/api/data/stars */
 import { getServerSession } from "../../../lib/auth";
 import { starDream, unstarDream } from "../../../lib/db/writes";
 import {

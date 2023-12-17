@@ -1,3 +1,4 @@
+/** @module pages/publish/:postId */
 import CreateOrEdit from "../../containers/create-or-edit";
 import { getAuthProps } from "../../lib/auth";
 import { getDreamById } from "../../lib/db/reads";

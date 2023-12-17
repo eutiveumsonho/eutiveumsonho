@@ -1,3 +1,4 @@
+/** @module pages/api/auth/error */
 import { Box, Button, Card, Heading, Text } from "grommet";
 import Head from "next/head";
 import { useRouter } from "next/router";

@@ -1,5 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
+/** @module pages/api/account */
 import { getServerSession } from "../../lib/auth";
 import { METHOD_NOT_ALLOWED, SERVER_ERROR, FORBIDDEN } from "../../lib/errors";
 import { deleteAccount } from "../../lib/db/writes";

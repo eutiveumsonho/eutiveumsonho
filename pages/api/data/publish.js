@@ -1,5 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
+/** @module pages/api/data/publish */
 import { getServerSession } from "../../../lib/auth";
 import { updateDreamVisibility } from "../../../lib/db/writes";
 import {

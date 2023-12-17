@@ -1,3 +1,4 @@
+/** @module pages/dreams */
 import { getAuthProps } from "../../lib/auth";
 import {
   getLatestPublicDreams,

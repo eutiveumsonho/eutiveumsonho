@@ -1,5 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
+/** @module pages/api/data */
 import { getServerSession } from "../../../lib/auth";
 import { getUserById, searchDreams } from "../../../lib/db/reads";
 import { createDream, deleteDream, updateDream } from "../../../lib/db/writes";

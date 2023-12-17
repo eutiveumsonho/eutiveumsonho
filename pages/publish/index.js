@@ -1,5 +1,5 @@
+/** @module pages/publish */
 import { getAuthProps } from "../../lib/auth";
-
 import CreateOrEdit from "../../containers/create-or-edit";
 import Head from "next/head";
 import { getUserAgentProps } from "../../lib/user-agent";

@@ -1,3 +1,4 @@
+/** @module pages/dreams/:dreamId */
 import Head from "next/head";
 import Dream from "../../containers/dream";
 import { getAuthProps } from "../../lib/auth";

@@ -1,5 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
+/** @module pages/api/data/ai-comments */
 import { getServerSession } from "../../../lib/auth";
 import { hasCommentedOnDream } from "../../../lib/db/reads";
 import { generateComment } from "../../../lib/db/writes";
