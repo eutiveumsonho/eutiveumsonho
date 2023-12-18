@@ -1,6 +1,6 @@
 /** @module pages/api/data/ai-comments */
 import { getServerSession } from "../../../lib/auth";
-import { hasCommentedOnDream } from "../../../lib/db/reads";
+import { getDreamById, hasAiCommentedOnDream } from "../../../lib/db/reads";
 import { generateCompletion } from "../../../lib/db/writes";
 import {
   BAD_REQUEST,
@@ -41,7 +41,18 @@ async function post(req, res) {
     return res;
   }
 
-  const hasCommented = await hasCommentedOnDream("Sonia", req.body.dreamId);
+  const hasCommented = await hasAiCommentedOnDream(req.body.dreamId);
+  const dreamData = await getDreamById(req.body.dreamId);
+
+  if (dreamData?.visibility === "private") {
+    console.log(
+      "Dream visibility not public nor anonymous, not generating completion"
+    );
+
+    res.setHeader("Content-Type", "application/json");
+    res.status(200).end("OK");
+    return res;
+  }
 
   if (hasCommented) {
     res.setHeader("Content-Type", "application/json");
@@ -50,6 +61,7 @@ async function post(req, res) {
   }
 
   try {
+    console.log("Generating completion from workflow #1");
     await generateCompletion(req.body.dreamId, req.body.text, session);
 
     res.setHeader("Content-Type", "application/json");

@@ -1,6 +1,5 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
-import { getDreamById, hasCommentedOnDream } from "../../../lib/db/reads";
+/** @module/api/data/completions-review */
+import { getDreamById, hasAiCommentedOnDream } from "../../../lib/db/reads";
 import { createComment, generateCompletion } from "../../../lib/db/writes";
 import {
   BAD_REQUEST,
@@ -33,7 +32,7 @@ async function post(req, res) {
     return res;
   }
 
-  const hasCommented = await hasCommentedOnDream("Sonia", req.body.dreamId);
+  const hasCommented = await hasAiCommentedOnDream(req.body.dreamId);
 
   if (hasCommented) {
     res.setHeader("Content-Type", "application/json");
@@ -51,6 +50,7 @@ async function post(req, res) {
     if (!req.body.pendingReview && !req.body.approved) {
       const dreamData = await getDreamById(dreamId);
 
+      console.log("Generating completion from workflow #2");
       await generateCompletion(
         dreamId,
         dreamData.dream.text,
