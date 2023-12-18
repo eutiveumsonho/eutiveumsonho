@@ -1,3 +1,10 @@
+# [1.23.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.22.0...v1.23.0) (2023-12-18)
+
+
+### Features
+
+* ai comments only for public/anonymous dreams ([1dd668a](https://github.com/eutiveumsonho/eutiveumsonho/commit/1dd668a89c99251a778a0dc78758be33db8fdb51))
+
 # [1.22.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.21.1...v1.22.0) (2023-12-17)
 
 
