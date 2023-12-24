@@ -35,5 +35,9 @@
   "delete-account-description": "Al eliminar tu cuenta, todo el contenido asociado a ella se eliminará y no será posible recuperarlo.",
   "confirm-account-deletion": "¿Estás seguro de que deseas eliminar tu cuenta?",
   "click-to-read-more": "Haz clic para leer más",
-  "delete-comment": "Eliminar comentario"
+  "delete-comment": "Eliminar comentario",
+  "ai-settings": "Configuraciones de Sonia",
+  "ai-settings-description": "Al marcar esta casilla, permites que el personal de Eu tive um sonho revise los comentarios generados por Sonia, que podrían contener información de tus sueños privados. Al marcar esta casilla, también nos ayudas a mejorar las tecnologías que alimentan a Sonia.",
+  "ai-settings-short-description": "Permitir que los humanos revisen los comentarios de Sonia sobre tus sueños privados",
+  "ai-settings-update-error": "Hubo un error al actualizar tus configuraciones de Sonia. Por favor, intenta de nuevo más tarde."
 }

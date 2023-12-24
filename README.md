@@ -8,7 +8,7 @@
 <p align="center">
   <img alt="Eu tive um sonho" src="https://raw.githubusercontent.com/eutiveumsonho/.github/main/profile/assets/logo-512x512.png" height="192" width="192" />
   <h3 align="center">Eu tive um sonho</h3>
-  <p align="center">The biggest community made by dreamers, for dreamers, from Brazil to the world.</p>
+  <p align="center">Source code from eutiveumsonho.com, the largest community made by dreamers, for dreamers, powered by A.I.</p>
 </p>
 
 ---

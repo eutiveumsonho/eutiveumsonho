@@ -1,7 +1,7 @@
-import { Box, Button, Heading, Layer, Spinner, Text } from "grommet";
+import { Box, Button, CheckBox, Heading, Layer, Spinner, Text } from "grommet";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { deleteAccount } from "../lib/api";
+import { deleteAccount, updateUser } from "../lib/api";
 import Dashboard from "../components/dashboard";
 import { useTranslation } from "next-i18next";
 
@@ -10,6 +10,8 @@ export default function MyAccountPage(props) {
   const [open, setOpen] = useState(false);
   const { push } = useRouter();
   const [deleting, setDeleting] = useState(false);
+  const [updatingAiSettings, setUpdatingAiSettings] = useState(false);
+  const [user, setUser] = useState(rawData);
   const { t } = useTranslation("dashboard");
   const { locale } = useRouter();
 
@@ -28,6 +30,34 @@ export default function MyAccountPage(props) {
     setDeleting(false);
   };
 
+  const updateAiSettings = async (event) => {
+    setUpdatingAiSettings(true);
+
+    const aiCommentsOnPrivatePosts = event.target.checked;
+
+    const success = await updateUser({
+      settings: {
+        ...rawData?.settings,
+        aiCommentsOnPrivatePosts,
+      },
+    });
+
+    if (!success) {
+      alert(t("ai-settings-update-error"));
+      return;
+    }
+
+    setUser({
+      ...user,
+      settings: {
+        ...user?.settings,
+        aiCommentsOnPrivatePosts,
+      },
+    });
+
+    setUpdatingAiSettings(false);
+  };
+
   return (
     <Dashboard serverSession={serverSession} deviceType={deviceType}>
       <Box pad="medium">
@@ -39,6 +69,18 @@ export default function MyAccountPage(props) {
             color="status-critical"
             primary
             onClick={onOpen}
+          />
+        </Box>
+        <Heading size="small" margin={{ top: "medium" }}>
+          {t("ai-settings")}
+        </Heading>
+        <Text>{t("ai-settings-description")}</Text>
+        <Box align="start" pad={{ top: "medium" }}>
+          <CheckBox
+            label={t("ai-settings-short-description")}
+            disabled={updatingAiSettings}
+            checked={user?.settings?.aiCommentsOnPrivatePosts}
+            onChange={updateAiSettings}
           />
         </Box>
         {open && (

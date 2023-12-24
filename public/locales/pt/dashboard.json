@@ -36,5 +36,9 @@
   "confirm-account-deletion": "Tem certeza que deseja deletar sua conta?",
   "click-to-read-more": "Clique para ler mais",
   "delete-comment": "Deletar comentário",
-  "edit-dream": "Editar sonho"
+  "edit-dream": "Editar sonho",
+  "ai-settings": "Configurações da Sonia",
+  "ai-settings-description": "Ao marcar esta caixa, você permite que a equipe do Eu tive um sonho revise os comentários gerados pela Sonia, que podem conter informações de seus sonhos privados. Ao marcar esta caixa, você também nos ajuda a melhorar as tecnologias que alimentam a Sonia.",
+  "ai-settings-short-description": "Permitir que humanos revisem os comentários da Sonia sobre seus sonhos privados",
+  "ai-settings-update-error": "Houve um erro ao atualizar suas configurações da Sonia. Por favor, tente novamente mais tarde."
 }

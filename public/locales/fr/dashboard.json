@@ -35,5 +35,9 @@
   "delete-account-description": "En supprimant votre compte, tout le contenu associé sera supprimé et il ne sera pas possible de le récupérer.",
   "confirm-account-deletion": "Êtes-vous sûr de vouloir supprimer votre compte?",
   "click-to-read-more": "Cliquez pour lire la suite",
-  "delete-comment": "Supprimer le commentaire"
+  "delete-comment": "Supprimer le commentaire",
+  "ai-settings": "Paramètres de Sonia",
+  "ai-settings-description": "En cochant cette case, vous permettez au personnel de Eu tive um sonho de réviser les commentaires générés par Sonia, qui pourraient contenir des informations provenant de vos rêves privés. En cochant cette case, vous nous aidez également à améliorer les technologies alimentant Sonia.",
+  "ai-settings-short-description": "Permettre aux humains de réviser les commentaires de Sonia sur vos rêves privés",
+  "ai-settings-update-error": "Une erreur s'est produite lors de la mise à jour de vos paramètres Sonia. Veuillez réessayer plus tard."
 }

@@ -1,6 +1,10 @@
 /** @module pages/api/data/ai-comments */
 import { getServerSession } from "../../../lib/auth";
-import { getDreamById, hasAiCommentedOnDream } from "../../../lib/db/reads";
+import {
+  getDreamById,
+  getUserByEmail,
+  hasAiCommentedOnDream,
+} from "../../../lib/db/reads";
 import { generateCompletion } from "../../../lib/db/writes";
 import {
   BAD_REQUEST,
@@ -43,10 +47,14 @@ async function post(req, res) {
 
   const hasCommented = await hasAiCommentedOnDream(req.body.dreamId);
   const dreamData = await getDreamById(req.body.dreamId);
+  const user = await getUserByEmail(session.user.email);
 
-  if (dreamData?.visibility === "private") {
+  if (
+    dreamData?.visibility === "private" &&
+    !user?.settings?.aiCommentsOnPrivatePosts
+  ) {
     console.log(
-      "Dream visibility not public nor anonymous, not generating completion"
+      "Post visibility not public nor anonymous, and user settings for comments on private posts disabled. Not generating completion"
     );
 
     res.setHeader("Content-Type", "application/json");
