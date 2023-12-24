@@ -1,7 +1,5 @@
 <div align="right">
 
-[Português](README-pt.md) | English
-
 [![codecov](https://codecov.io/gh/eutiveumsonho/eutiveumsonho/branch/main/graph/badge.svg?token=E0233QY1CP)](https://codecov.io/gh/eutiveumsonho/eutiveumsonho)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
 
@@ -25,12 +23,6 @@ bun
 
 ```sh
 bun dev
-```
-
-To run this service along with [chiron](https://github.com/eutiveumsonho/chiron), run:
-  
-```sh
-bun dev:with-chiron
 ```
 
 ## Data
