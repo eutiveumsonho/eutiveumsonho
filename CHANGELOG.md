@@ -1,3 +1,10 @@
+# [1.24.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.23.0...v1.24.0) (2023-12-24)
+
+
+### Features
+
+* upgrade to latest next version ([371af7f](https://github.com/eutiveumsonho/eutiveumsonho/commit/371af7f8efb63252ebaae824d6b29aebc3a3b874))
+
 # [1.23.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.22.0...v1.23.0) (2023-12-18)
 
 
