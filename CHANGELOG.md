@@ -1,3 +1,10 @@
+# [1.25.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.24.0...v1.25.0) (2023-12-24)
+
+
+### Features
+
+* **account:** ability to control sonia settings ([c4c0db3](https://github.com/eutiveumsonho/eutiveumsonho/commit/c4c0db3e1afde14732c9a26f37acb8cc95aa13d8))
+
 # [1.24.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.23.0...v1.24.0) (2023-12-24)
 
 
