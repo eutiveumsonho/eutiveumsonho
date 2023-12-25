@@ -1,4 +1,4 @@
-/** @module/api/data/completions-review */
+/** @module api/data/completions-review */
 import { getDreamById, hasAiCommentedOnDream } from "../../../lib/db/reads";
 import { createComment, generateCompletion } from "../../../lib/db/writes";
 import {

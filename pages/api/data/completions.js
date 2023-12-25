@@ -1,11 +1,15 @@
 /** @module pages/api/data/ai-comments */
 import { getServerSession } from "../../../lib/auth";
+import { cosineSimilarityScore } from "../../../lib/data-analysis";
 import {
   getDreamById,
   getUserByEmail,
   hasAiCommentedOnDream,
 } from "../../../lib/db/reads";
-import { generateCompletion } from "../../../lib/db/writes";
+import {
+  generateCompletion,
+  saveCosineSimilarityScore,
+} from "../../../lib/db/writes";
 import {
   BAD_REQUEST,
   METHOD_NOT_ALLOWED,
@@ -21,7 +25,7 @@ import {
 function completionsHandler(req, res) {
   switch (req.method) {
     case "POST":
-      return post(req, res);
+      return completionsPost(req, res);
     default:
       res.setHeader("Allow", ["POST"]);
       res.status(405).end(METHOD_NOT_ALLOWED);
@@ -30,9 +34,12 @@ function completionsHandler(req, res) {
 }
 
 /**
- * @private
+ * This is the POST handler for the completions API route.
+ * It is responsible for generating a completion and saving it to the database.
+ * It starts the first (out of 3) completion workflow, which is triggered by a user
+ * when submitting a dream.
  */
-async function post(req, res) {
+async function completionsPost(req, res) {
   const session = await getServerSession(req, res);
 
   if (!session) {
@@ -63,6 +70,19 @@ async function post(req, res) {
   }
 
   if (hasCommented) {
+    // TODO: Even though we're not generating a completion as of now, we should still
+    // calculate the cosine similarity score to evaluate whether we should generate
+    // another completion or not to override the previous one based on what has changed
+    // in the dream text.
+    // We are logging the score for now for further analysis.
+    const csScore = cosineSimilarityScore(req.body.text, dreamData?.text);
+    await saveCosineSimilarityScore({
+      postId: req.body.dreamId,
+      previousPostLength: dreamData?.text.length,
+      currentPostLength: req.body.text.length,
+      cosineSimilarityScore: csScore,
+    });
+
     res.setHeader("Content-Type", "application/json");
     res.status(200).send("OK");
     return res;

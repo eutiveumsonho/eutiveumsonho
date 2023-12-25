@@ -1,4 +1,4 @@
-/** @module pages/api/data/inbox*/
+/** @module pages/api/data/inbox */
 import { getServerSession } from "../../../lib/auth";
 import {
   deleteAllInboxMessages,
