@@ -188,7 +188,6 @@ export default function CreateOrEdit(props) {
       await createAICompletion({ text: data?.dream?.text, dreamId: postId });
     };
 
-    console.log({ routerPathname: router.pathname });
     if (
       router.pathname === `/${router.locale}/publish/[postId]` ||
       router.pathname === "/publish/[postId]"
