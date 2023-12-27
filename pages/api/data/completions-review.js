@@ -1,6 +1,6 @@
 /** @module api/data/completions-review */
 import { getDreamById, hasAiCommentedOnDream } from "../../../lib/db/reads";
-import { createComment, generateCompletion } from "../../../lib/db/writes";
+import { createAIComment, generateCompletion } from "../../../lib/db/writes";
 import {
   BAD_REQUEST,
   METHOD_NOT_ALLOWED,
@@ -64,23 +64,10 @@ async function post(req, res) {
       return res;
     }
 
-    // TODO: Update the reviwed completion
-
-    const data = {
-      comment: completion.choices[0].message.content,
-      dreamId,
-      session: {
-        user: {
-          name: "Sonia",
-          email: "no-reply@eutiveumsonho.com",
-          image: "https://eutiveumsonho.com/android-chrome-192x192.png",
-        },
-        expires: new Date(8640000000000000), // Maximum timestamp,
-      },
-    };
+    // TODO: Update the reviewed completion
 
     // Once the completion is approved, we can generate a comment.
-    await createComment(data);
+    await createAIComment(completion.choices[0].message.content, dreamId);
 
     res.setHeader("Content-Type", "application/json");
     res.status(201).send("Created");
