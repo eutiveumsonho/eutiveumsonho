@@ -20,7 +20,7 @@
     "@remirror/styles": "^2.0.0",
     "@sentry/nextjs": "^7.86.0",
     "@vercel/analytics": "^1.0.2",
-    "@vercel/og": "^0.5.11",
+    "@vercel/og": "^0.6.1",
     "@xenova/transformers": "^2.5.2",
     "browserslist": "^4.21.3",
     "date-fns": "^2.29.3",
