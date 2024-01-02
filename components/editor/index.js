@@ -124,6 +124,7 @@ function MarkdownTextEditor(props) {
   return (
     <>
       <Remirror
+        attributes={{ spellcheck: "false" }}
         manager={manager}
         onChange={({ helpers, state }) => {
           const html = helpers.getHTML(state);

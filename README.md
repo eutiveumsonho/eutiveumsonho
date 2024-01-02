@@ -8,7 +8,7 @@
 <p align="center">
   <img alt="Eu tive um sonho" src="https://raw.githubusercontent.com/eutiveumsonho/.github/main/profile/assets/logo-512x512.png" height="192" width="192" />
   <h3 align="center">Eu tive um sonho</h3>
-  <p align="center">Source code from eutiveumsonho.com, the largest community made by dreamers, for dreamers, powered by A.I.</p>
+  <p align="center">Source code from eutiveumsonho.com, the largest community made by dreamers, for dreamers, powered by AI</p>
 </p>
 
 ---
@@ -17,13 +17,15 @@
 
 > Get in touch with marcelo@eutiveumsonho.com to get the credentials you will need to start developing.
 
+> Use the command below to install bun:
 ```sh
-bun
+bun i
 ```
-
+> Use the command below to start developing the project:
 ```sh
 bun dev
 ```
+> Now that you started to run the project, you can have acess at localhost:3000
 
 ## Data
 
