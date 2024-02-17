@@ -66,7 +66,7 @@ const extensions = (placeholder) => [
  * The editor which is used to create the annotation. Supports formatting.
  */
 function Editor(props) {
-  const { defaultValue, save } = props;
+  const { defaultValue, save, color } = props;
   const { t, ready } = useTranslation("editor");
 
   const { manager } = useRemirror({
@@ -83,6 +83,7 @@ function Editor(props) {
           defaultValue={defaultValue}
           t={t}
           ready={ready}
+          color={color}
         />
       </ThemeProvider>
     </>
@@ -90,13 +91,13 @@ function Editor(props) {
 }
 
 function MarkdownToolbar(props) {
-  const { t, ready } = props;
+  const { t, ready, color } = props;
 
   return (
     <Toolbar
       style={{
         width: "100vw",
-        backgroundColor: BRAND_HEX,
+        backgroundColor: color ? color : BRAND_HEX,
         padding: "1rem",
         display: "flex",
         justifyContent: "center",
@@ -118,7 +119,7 @@ function MarkdownToolbar(props) {
 }
 
 function MarkdownTextEditor(props) {
-  const { manager, save, defaultValue, t, ready } = props;
+  const { manager, save, defaultValue, t, ready, color } = props;
   const [html, setHtml] = useState();
 
   return (
@@ -141,7 +142,7 @@ function MarkdownTextEditor(props) {
           `,
         ]}
       >
-        <MarkdownToolbar t={t} ready={ready} />
+        <MarkdownToolbar t={t} ready={ready} color={color} />
         <SyncManagerHook html={html} save={save} />
       </Remirror>
       <Box

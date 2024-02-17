@@ -402,7 +402,7 @@ export default function Invite(props) {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  Entre para salvar seu sonho 🌟
+                  {t("common:enter-to-save")}
                 </Heading>
                 <Heading
                   level={4}
@@ -412,8 +412,7 @@ export default function Invite(props) {
                     textAlign: "center",
                   }}
                 >
-                  Venha construir a maior comunidade de pessoas sonhadoras do
-                  Brasil, e do mundo!
+                  {t("common:come-build")}
                 </Heading>
                 <Button
                   primary
