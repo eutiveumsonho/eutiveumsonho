@@ -69,6 +69,16 @@ async function completionsPost(req, res) {
     return res;
   }
 
+  if (dreamData?.text.length < 30) {
+    console.log(
+      "Post length less than 30 characters. Not generating completion"
+    );
+
+    res.setHeader("Content-Type", "application/json");
+    res.status(200).end("OK");
+    return res;
+  }
+
   if (hasCommented) {
     // TODO: Even though we're not generating a completion as of now, we should still
     // calculate the cosine similarity score to evaluate whether we should generate
