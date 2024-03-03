@@ -42,6 +42,13 @@ async function post(req, res) {
 
   const { completion, dreamId } = req.body;
 
+  if (req.body?.skip) {
+    console.log("Skipping completion review");
+    res.setHeader("Content-Type", "application/json");
+    res.status(202).send("Accepted");
+    return res;
+  }
+
   try {
     // The "approved" property is always set by a human to `true` through Chiron,
     // while "pendingReview" is set to `false`, also by a human.
