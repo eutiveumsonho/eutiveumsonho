@@ -1,3 +1,10 @@
+## [1.25.1](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.25.0...v1.25.1) (2024-03-03)
+
+
+### Bug Fixes
+
+* add missing translation on home page ([5d1d021](https://github.com/eutiveumsonho/eutiveumsonho/commit/5d1d021ad93fa71322256092a21a04892c879183))
+
 # [1.25.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.24.0...v1.25.0) (2023-12-24)
 
 
