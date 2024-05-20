@@ -1,7 +1,7 @@
 /** @module pages/api/data */
 import { getServerSession } from "../../../lib/auth";
-import { getUserById, searchDreams } from "../../../lib/db/reads";
-import { createDream, deleteDream, updateDream } from "../../../lib/db/writes";
+import { getUserById, searchPosts } from "../../../lib/db/reads";
+import { createPost, deletePost, updatePost } from "../../../lib/db/writes";
 import {
   BAD_REQUEST,
   METHOD_NOT_ALLOWED,
@@ -49,7 +49,7 @@ async function patch(req, res) {
   }
 
   try {
-    await updateDream(req.body.dreamId, req.body.dreamData, session.user.email);
+    await updatePost(req.body.dreamId, req.body.dreamData, session.user.email);
 
     res.setHeader("Content-Type", "application/json");
     res.status(200).end();
@@ -88,7 +88,7 @@ async function post(req, res) {
   const data = { dream: req.body, session };
 
   try {
-    const result = await createDream(data);
+    const result = await createPost(data);
 
     const objectId = result.insertedId.toString();
 
@@ -123,7 +123,7 @@ async function del(req, res) {
   }
 
   try {
-    const result = await deleteDream(req.body.dreamId);
+    const result = await deletePost(req.body.dreamId);
 
     res.setHeader("Content-Type", "application/json");
     res.status(200).send(result);
@@ -156,7 +156,7 @@ async function get(req, res) {
   }
 
   try {
-    const result = await searchDreams(req.query.query);
+    const result = await searchPosts(req.query.query);
 
     const dreams = [];
 

@@ -1,7 +1,7 @@
 /** @module pages/publish/:postId */
 import CreateOrEdit from "../../containers/create-or-edit";
 import { getAuthProps } from "../../lib/auth";
-import { getDreamById } from "../../lib/db/reads";
+import { getPostById } from "../../lib/db/reads";
 import Head from "next/head";
 import { getUserAgentProps } from "../../lib/user-agent";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -42,7 +42,7 @@ export async function getServerSideProps(context) {
     const { postId } = context.params;
 
     if (postId) {
-      const data = await getDreamById(postId);
+      const data = await getPostById(postId);
 
       return {
         props: {

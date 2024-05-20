@@ -2,9 +2,9 @@
 import { getServerSession } from "../../../lib/auth";
 import { cosineSimilarityScore } from "../../../lib/data-analysis";
 import {
-  getDreamById,
+  getPostById,
   getUserByEmail,
-  hasAiCommentedOnDream,
+  hasAiCommentedOnPost,
 } from "../../../lib/db/reads";
 import {
   generateCompletion,
@@ -52,8 +52,8 @@ async function completionsPost(req, res) {
     return res;
   }
 
-  const hasCommented = await hasAiCommentedOnDream(req.body.dreamId);
-  const dreamData = await getDreamById(req.body.dreamId);
+  const hasCommented = await hasAiCommentedOnPost(req.body.dreamId);
+  const dreamData = await getPostById(req.body.dreamId);
   const user = await getUserByEmail(session.user.email);
 
   if (
