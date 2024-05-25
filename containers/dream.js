@@ -60,7 +60,7 @@ export default function DreamContainer(props) {
         </Box>
         <Dream data={data} />
         <Comments
-          dreamId={data._id}
+          postId={data._id}
           comments={comments}
           push={push}
           serverSession={serverSession}
@@ -117,7 +117,7 @@ function Dream(props) {
 }
 
 function Comments(props) {
-  const { mustSignIn, dreamId, comments, push, serverSession } = props;
+  const { mustSignIn, postId, comments, push, serverSession } = props;
   const [value, setValue] = useState("");
   const [commenting, setCommenting] = useState(false);
   const [eagerComments, setEagerComments] = useState(comments);
@@ -136,7 +136,10 @@ function Comments(props) {
     }
 
     setCommenting(true);
-    const { success } = await createComment({ comment: value, dreamId });
+    const { success } = await createComment({
+      comment: value,
+      dreamId: postId,
+    });
 
     if (success) {
       setEagerComments([
@@ -166,7 +169,7 @@ function Comments(props) {
 
   const delComment = async () => {
     setDeleting(true);
-    await deleteComment(commentIdToDelete, dreamId);
+    await deleteComment(commentIdToDelete, postId);
     setDeleting(false);
 
     setEagerComments(

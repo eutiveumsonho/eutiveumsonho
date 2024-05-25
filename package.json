@@ -3,8 +3,8 @@
   "version": "1.25.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently -p [{name}] -n nextjs@eutiveumsonho -c bgMagenta \"next\"",
-    "dev:with-chiron": "concurrently -p [{name}] -n nextjs@eutiveumsonho,chiron@eutiveumsonho -c bgMagenta,bgYellow \"next\" \"cd ../chiron && bun dev\"",
+    "dev": "concurrently -p [{name}] -n nextjs@eutiveumsonho \"next\"",
+    "dev:with-chiron": "concurrently -p [{name}] -n nextjs@eutiveumsonho,chiron@eutiveumsonho \"next\" \"cd ../chiron && bun dev\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

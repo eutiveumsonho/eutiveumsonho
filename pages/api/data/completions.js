@@ -69,7 +69,7 @@ async function completionsPost(req, res) {
     return res;
   }
 
-  if (dreamData?.text.length < 30) {
+  if (dreamData?.text?.length < 30) {
     console.log(
       "Post length less than 30 characters. Not generating completion"
     );
