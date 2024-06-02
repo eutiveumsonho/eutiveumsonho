@@ -12,9 +12,9 @@ import {
 import dynamic from "next/dynamic";
 import {
   createAICompletion,
-  createDream,
-  saveDream,
-  updateDreamVisibility,
+  createPost,
+  savePost,
+  updatePostVisibility,
 } from "../lib/api";
 import { useRouter } from "next/router";
 import { stripHtml } from "../lib/strings";
@@ -238,7 +238,7 @@ export default function CreateOrEdit(props) {
     };
 
     if (!postId) {
-      const { success, data } = await createDream(dreamData);
+      const { success, data } = await createPost(dreamData);
 
       if (!success && !data) {
         setSyncStatus(<SyncFailed />);
@@ -252,7 +252,7 @@ export default function CreateOrEdit(props) {
       router.push(url);
     } else {
       try {
-        await saveDream(postId, dreamData);
+        await savePost(postId, dreamData);
         setSyncStatus(<LastSyncedAt lastSynced={new Date()} />);
       } catch (error) {
         console.error({ error, service: "web" });
@@ -281,7 +281,7 @@ export default function CreateOrEdit(props) {
     const { postId } = router.query;
     setUpdatingVisibility(true);
 
-    await updateDreamVisibility(postId, visibility);
+    await updatePostVisibility(postId, visibility);
 
     setUpdatingVisibility(false);
     setOpenVisibilitySettings(false);

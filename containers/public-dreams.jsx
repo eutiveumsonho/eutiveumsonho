@@ -2,7 +2,7 @@ import { Box, Heading, ResponsiveContext, Spinner, Text } from "grommet";
 import Dashboard from "../components/dashboard";
 import Search from "../components/search";
 import { useContext, useEffect, useState } from "react";
-import { searchDreams, starDream, unstarDream } from "../lib/api";
+import { searchPosts, starPost, unstarPost } from "../lib/api";
 import { truncate } from "../lib/strings";
 import { useRouter } from "next/router";
 import { BRAND_HEX } from "../lib/config";
@@ -30,7 +30,7 @@ export default function PublicDreams(props) {
 
   const search = async (query) => {
     setSearching(true);
-    const result = await searchDreams(query);
+    const result = await searchPosts(query);
     setSearching(false);
 
     setDreams(result);
@@ -95,7 +95,7 @@ function PublicDream(props) {
 
   const star = async () => {
     setUpdatingStarCount(true);
-    await starDream({ dreamId: item._id });
+    await starPost({ dreamId: item._id });
     setStarred(true);
     setEagerStarCount(eagerStarCount + 1);
     setUpdatingStarCount(false);
@@ -103,7 +103,7 @@ function PublicDream(props) {
 
   const unstar = async () => {
     setUpdatingStarCount(true);
-    await unstarDream({ dreamId: item._id });
+    await unstarPost({ dreamId: item._id });
     setStarred(false);
     setEagerStarCount(eagerStarCount - 1);
     setUpdatingStarCount(false);
