@@ -3,7 +3,7 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-import clientPromise from "../../../lib/mongodb.js";
+import clientPromise from "../../../lib/db/mongodb.js";
 import { createTransport } from "nodemailer";
 import { html } from "../../../lib/email.js";
 import { ALLOWED_HOST, BRAND_HEX } from "../../../lib/config.js";
