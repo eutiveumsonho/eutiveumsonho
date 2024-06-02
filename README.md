@@ -38,13 +38,13 @@ Get in touch with marcelo@eutiveumsonho.com to request the credentials you will 
 Install dependencies:
 
 ```sh
-bun i
+pnpm i
 ```
 
 Run the development server:
 
 ```sh
-bun dev
+pnpm dev
 ```
 
 Access the project in your local machine at http://localhost:3000. 
