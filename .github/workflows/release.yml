@@ -11,9 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v1
-      - run: bun install
-      - run: bun run semantic-release
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8
+      - run: pnpm install
+      - run: pnpm run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   generate-docs:
