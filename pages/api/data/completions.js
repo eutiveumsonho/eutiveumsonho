@@ -1,6 +1,6 @@
 /** @module pages/api/data/ai-comments */
 import { getServerSession } from "../../../lib/auth";
-import { cosineSimilarityScore } from "../../../lib/data-analysis";
+import { cosineSimilarityScore } from "../../../lib/data-analysis/cosine-similarity";
 import {
   getPostById,
   getUserByEmail,
