@@ -25,6 +25,7 @@ jobs:
       - run: bun run build
       - uses: preactjs/compressed-size-action@v2
         with:
-          pattern: ".next/**/*.{js,css,html,json}"
-          # always ignore chunks
-          exclude: "{.next/chunks/**}"
+          # Relevant issue https://github.com/preactjs/compressed-size-action/issues/25
+          pattern: "{./.next/static/chunks/**/*.js,.next/static/css/*.css,.next/server/pages/*.{html,json}}"
+          exclude: "{**/*.map,**/*.nft.json,**/node_modules/**}"
+          strip-hash: "\\w+-(\\w{16}).js$"
