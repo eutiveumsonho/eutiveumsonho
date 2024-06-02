@@ -1,7 +1,7 @@
 import { Box, Heading, ResponsiveContext, Text } from "grommet";
 import Dashboard from "../components/dashboard";
 import { useContext, useState } from "react";
-import { unstarDream } from "../lib/api";
+import { unstarPost } from "../lib/api";
 import { truncate } from "../lib/strings";
 import { useRouter } from "next/router";
 import { BRAND_HEX } from "../lib/config";
@@ -52,7 +52,7 @@ function SavedDream(props) {
 
   const unstar = async () => {
     setUpdatingStarCount(true);
-    await unstarDream({ dreamId: item._id });
+    await unstarPost({ dreamId: item._id });
     setEagerStarCount(eagerStarCount - 1);
     setUpdatingStarCount(false);
     setUnstarreds([...unstarreds, item._id]);

@@ -1,15 +1,12 @@
 /** @module pages/_app */
 import { appWithTranslation, useTranslation } from "next-i18next";
 import { Box, Button, grommet, Grommet, Heading, Layer } from "grommet";
-import Script from "next/script";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { SessionProvider } from "next-auth/react";
 import { DefaultSeo } from "next-seo";
 import NextNProgress from "nextjs-progressbar";
-import * as gtag from "../lib/gtag";
 import SEO from "../next-seo.config.js";
-import { BRAND_HEX } from "../lib/config";
+import { BRAND_HEX } from "../lib/config.js";
 import CustomScripts from "../components/custom-scripts";
 import ErrorBoundary from "../components/error-boundary";
 import { Analytics } from "@vercel/analytics/react";
@@ -22,7 +19,6 @@ function EuTiveUmSonhoClient({
   Component,
   pageProps: { session, ...pageProps },
 }) {
-  const router = useRouter();
   const [openWebViewAlert, setOpenWebViewAlert] = useState(false);
   const { t } = useTranslation("common");
 
@@ -38,55 +34,8 @@ function EuTiveUmSonhoClient({
     }
   }, []);
 
-  useEffect(() => {
-    const handleRouteChange = (url) => {
-      gtag.pageview(url);
-    };
-
-    router.events.on("routeChangeComplete", handleRouteChange);
-
-    return () => {
-      router.events.off("routeChangeComplete", handleRouteChange);
-    };
-  }, [router.events]);
-
   return (
     <>
-      <Script
-        id="gtag-load"
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_MEASUREMENT_ID}`}
-      />
-      <Script
-        id="gtag-start"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${gtag.GA_MEASUREMENT_ID}', {
-            page_path: window.location.pathname,
-          });
-          gtag('config', '${gtag.GA_ADS_ID}', {
-            page_path: window.location.pathname,
-          });
-          `,
-        }}
-      />
-      <Script
-        id="clarity-load"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-    (function(c,l,a,r,i,t,y){
-      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window, document, "clarity", "script", "l3gh3jr64h");
-    `,
-        }}
-      />
       <DefaultSeo {...SEO} />
       <CustomScripts />
       <NextNProgress color={BRAND_HEX} />

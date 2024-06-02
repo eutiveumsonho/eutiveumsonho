@@ -4,7 +4,7 @@ import Dream from "../../containers/dream";
 import { getAuthProps } from "../../lib/auth";
 import { truncate } from "../../lib/strings";
 import {
-  getDreamById,
+  getPostById,
   getUserByEmail,
   getUserById,
   getComments,
@@ -41,7 +41,7 @@ export async function getServerSideProps(context) {
     const { dreamId } = context.params;
 
     if (!authProps.props.serverSession) {
-      const data = await getDreamById(dreamId);
+      const data = await getPostById(dreamId);
 
       if (data.visibility === "private") {
         res.setHeader("location", `/${context.locale}`);
@@ -72,7 +72,7 @@ export async function getServerSideProps(context) {
     }
 
     let [data, user] = await Promise.all([
-      getDreamById(dreamId),
+      getPostById(dreamId),
       getUserByEmail(authProps.props.serverSession.user.email),
     ]);
 

@@ -1,5 +1,5 @@
 /** @module api/data/completions-review */
-import { getDreamById, hasAiCommentedOnDream } from "../../../lib/db/reads";
+import { getPostById, hasAiCommentedOnPost } from "../../../lib/db/reads";
 import { createAIComment, generateCompletion } from "../../../lib/db/writes";
 import {
   BAD_REQUEST,
@@ -32,7 +32,7 @@ async function post(req, res) {
     return res;
   }
 
-  const hasCommented = await hasAiCommentedOnDream(req.body.dreamId);
+  const hasCommented = await hasAiCommentedOnPost(req.body.dreamId);
 
   if (hasCommented) {
     res.setHeader("Content-Type", "application/json");
@@ -55,7 +55,7 @@ async function post(req, res) {
     // See https://github.com/eutiveumsonho/internal-docs for more details about
     // this workflow.
     if (!req.body.pendingReview && !req.body.approved) {
-      const dreamData = await getDreamById(dreamId);
+      const dreamData = await getPostById(dreamId);
 
       console.log("Generating completion from workflow #2");
       await generateCompletion(

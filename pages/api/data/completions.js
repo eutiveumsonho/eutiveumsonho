@@ -1,10 +1,10 @@
 /** @module pages/api/data/ai-comments */
 import { getServerSession } from "../../../lib/auth";
-import { cosineSimilarityScore } from "../../../lib/data-analysis";
+import { cosineSimilarityScore } from "../../../lib/data-analysis/cosine-similarity";
 import {
-  getDreamById,
+  getPostById,
   getUserByEmail,
-  hasAiCommentedOnDream,
+  hasAiCommentedOnPost,
 } from "../../../lib/db/reads";
 import {
   generateCompletion,
@@ -52,8 +52,8 @@ async function completionsPost(req, res) {
     return res;
   }
 
-  const hasCommented = await hasAiCommentedOnDream(req.body.dreamId);
-  const dreamData = await getDreamById(req.body.dreamId);
+  const hasCommented = await hasAiCommentedOnPost(req.body.dreamId);
+  const dreamData = await getPostById(req.body.dreamId);
   const user = await getUserByEmail(session.user.email);
 
   if (
@@ -69,7 +69,7 @@ async function completionsPost(req, res) {
     return res;
   }
 
-  if (dreamData?.text.length < 30) {
+  if (dreamData?.text?.length < 30) {
     console.log(
       "Post length less than 30 characters. Not generating completion"
     );

@@ -1,5 +1,5 @@
 import { getAuthProps } from "../lib/auth";
-import { getDreams } from "../lib/db/reads";
+import { getPosts } from "../lib/db/reads";
 import Dreams from "../containers/dreams";
 import Head from "next/head";
 import { getUserAgentProps } from "../lib/user-agent";
@@ -49,7 +49,7 @@ export async function getServerSideProps(context) {
   try {
     const { email } = authProps.props.serverSession.user;
 
-    const data = await getDreams(email);
+    const data = await getPosts(email);
 
     return {
       props: {

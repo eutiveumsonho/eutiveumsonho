@@ -1,6 +1,6 @@
 /** @module pages/api/data/stars */
 import { getServerSession } from "../../../lib/auth";
-import { starDream, unstarDream } from "../../../lib/db/writes";
+import { starPost, unstarPost } from "../../../lib/db/writes";
 import {
   BAD_REQUEST,
   METHOD_NOT_ALLOWED,
@@ -48,7 +48,7 @@ async function post(req, res) {
   };
 
   try {
-    const result = await starDream(data);
+    const result = await starPost(data);
 
     const objectId = result.insertedId.toString();
 
@@ -91,7 +91,7 @@ async function del(req, res) {
   };
 
   try {
-    const result = await unstarDream(data);
+    const result = await unstarPost(data);
 
     res.setHeader("Content-Type", "application/json");
     res.status(200).send(result);

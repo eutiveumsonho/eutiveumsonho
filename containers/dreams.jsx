@@ -8,7 +8,7 @@ import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import { truncate } from "../lib/strings";
 import VisibilityIcon from "../components/visbility-icon";
 import { BRAND_HEX } from "../lib/config";
-import { deleteDream } from "../lib/api";
+import { deletePost } from "../lib/api";
 import { useState } from "react";
 import Empty from "../components/empty";
 import "dayjs/locale/pt-br";
@@ -27,7 +27,7 @@ export default function DreamsContainer(props) {
 
   const delDream = async () => {
     setDeleting(true);
-    await deleteDream(dreamIdToDelete);
+    await deletePost(dreamIdToDelete);
     setDeleting(false);
     onClose();
 

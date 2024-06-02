@@ -1,7 +1,7 @@
 /** @module pages/dreams */
 import { getAuthProps } from "../../lib/auth";
 import {
-  getLatestPublicDreams,
+  getLatestPublicPosts,
   getStarsByUserEmail,
   getUserById,
 } from "../../lib/db/reads";
@@ -57,7 +57,7 @@ export async function getServerSideProps(context) {
   }
 
   try {
-    const data = await getLatestPublicDreams();
+    const data = await getLatestPublicPosts();
     const stars = await getStarsByUserEmail(
       authProps.props.serverSession.user.email
     );

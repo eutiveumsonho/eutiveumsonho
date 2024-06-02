@@ -1,7 +1,7 @@
 import { getAuthProps } from "../lib/auth";
 import Head from "next/head";
 import SavedDreams from "../containers/saved-dreams";
-import { getStarredDreams, getUserById } from "../lib/db/reads";
+import { getStarredPosts, getUserById } from "../lib/db/reads";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
@@ -51,7 +51,7 @@ export async function getServerSideProps(context) {
   }
 
   try {
-    const data = await getStarredDreams(
+    const data = await getStarredPosts(
       authProps.props.serverSession.user.email
     );
 

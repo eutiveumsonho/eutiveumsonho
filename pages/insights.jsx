@@ -5,7 +5,7 @@ import Dashboard from "../components/dashboard";
 import { Box, Distribution, Heading, Text } from "grommet";
 import { Heatmap } from "../components/heatmap";
 import { BRAND_HEX } from "../lib/config";
-import { getDreamRecords } from "../lib/db/reads";
+import { getPostsInsights } from "../lib/db/reads";
 import format from "date-fns/format";
 import { DATE_FORMAT } from "../components/heatmap/constants";
 import Tip from "../components/tip";
@@ -122,7 +122,7 @@ export async function getServerSideProps(context) {
   try {
     const { email } = authProps.props.serverSession.user;
 
-    const results = await getDreamRecords(email);
+    const results = await getPostsInsights(email);
 
     const { heatmap, wordFrequencyDistribution } = results.reduce(
       (acc, cur) => {

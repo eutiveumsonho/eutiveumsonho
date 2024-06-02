@@ -1,0 +1,16 @@
+{
+  "entry": [
+    "pages/**/*.{ts,js,jsx}",
+    "components/**/*.{ts,js,jsx}",
+    "containers/**/*.{ts,js,jsx}",
+    "lib/**/*.{ts,js,jsx}",
+    "static/**/*.{ts,js,jsx}"
+  ],
+  "extensions": [".ts", ".js", ".jsx"],
+  "ignorePatterns": ["**/node_modules/**", ".next/**"],
+  "ignoreUnresolved": [],
+  "ignoreUnimported": [],
+  "ignoreUnused": [],
+  "respectGitignore": true,
+  "scannedDirs": ["./"]
+}

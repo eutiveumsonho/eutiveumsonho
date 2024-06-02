@@ -1,6 +1,6 @@
 /** @module pages/api/data/publish */
 import { getServerSession } from "../../../lib/auth";
-import { updateDreamVisibility } from "../../../lib/db/writes";
+import { updatePostVisibility } from "../../../lib/db/writes";
 import {
   BAD_REQUEST,
   METHOD_NOT_ALLOWED,
@@ -39,7 +39,7 @@ async function patch(req, res) {
   }
 
   try {
-    await updateDreamVisibility(
+    await updatePostVisibility(
       req.body.dreamId,
       req.body.visibility,
       session.user.email
