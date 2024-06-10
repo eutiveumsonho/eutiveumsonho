@@ -36,7 +36,7 @@ export function CookiesPolicyEs() {
 
           <p>
             Eutiveumsonho solo utiliza Rastreadores gestionados directamente por
-            el Titular (denominados Rastreadores “de origen”).
+            el Titular (denominados Rastreadores &quot;de origen&quot;).
             <br />
             Los plazos de validez y expiración de las Cookies de origen y otros
             Rastreadores similares pueden variar dependiendo de la duración
@@ -50,8 +50,8 @@ export function CookiesPolicyEs() {
           </h3>
 
           <p>
-            Eutiveumsonho utiliza Cookies denominadas “técnicas” y otros
-            Rastreadores similares para llevar a cabo actividades que son
+            Eutiveumsonho utiliza Cookies denominadas &quot;técnicas&quot; y
+            otros Rastreadores similares para llevar a cabo actividades que son
             estrictamente necesarias para el funcionamiento o la prestación del
             Servicio.
           </p>

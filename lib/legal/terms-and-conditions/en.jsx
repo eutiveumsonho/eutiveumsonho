@@ -272,8 +272,8 @@ export function TermsAndConditionsEn() {
             received;
           </li>
           <li>
-            if a notice of violation of a third party’s privacy, including their
-            intimate privacy, is received;
+            if a notice of violation of a third party&apos;s privacy, including
+            their intimate privacy, is received;
           </li>
           <li>upon order of a public authority; or</li>
           <li>
@@ -315,7 +315,7 @@ export function TermsAndConditionsEn() {
         <p>
           Private content provided by Users shall stay private and will not be
           shared with any third parties or accessed by the Owner without the
-          User’s explicit consent.
+          User&apos;s explicit consent.
         </p>
         <h5 id="content-for-determined-audiences">
           Content for determined audiences
@@ -345,8 +345,8 @@ export function TermsAndConditionsEn() {
         <p>
           Conditions applicable to any resources provided by third parties,
           including those applicable to any possible grant of rights in content,
-          result from each such third parties’ terms and conditions or, in the
-          absence of those, applicable statutory law.
+          result from each such third parties&apos; terms and conditions or, in
+          the absence of those, applicable statutory law.
         </p>
         <h3 id="acceptable-use">Acceptable use</h3>
         <p>
@@ -375,7 +375,7 @@ export function TermsAndConditionsEn() {
         <ul>
           <li>violate laws, regulations and/or these Terms;</li>
           <li>infringe any third-party rights;</li>
-          <li>considerably impair the Owner’s legitimate interests;</li>
+          <li>considerably impair the Owner&apos;s legitimate interests;</li>
           <li>offend the Owner or any third party.</li>
         </ul>
 
@@ -426,24 +426,25 @@ export function TermsAndConditionsEn() {
           modified (non-excludable right). To the fullest extent permitted by
           law, our liability to the User, including liability for a breach of a
           non-excludable right and liability which is not otherwise excluded
-          under these Terms of Use, is limited, at the Owner’s sole discretion,
-          to the re-performance of the services or the payment of the cost of
-          having the services supplied again.
+          under these Terms of Use, is limited, at the Owner&apos;s sole
+          discretion, to the re-performance of the services or the payment of
+          the cost of having the services supplied again.
         </p>
         <h3 id="us-users">US Users</h3>
         <h4 id="disclaimer-of-warranties">Disclaimer of Warranties</h4>
         <p>
           <strong>
-            Eutiveumsonho is provided strictly on an “as is” and “as available”
-            basis. Use of the Service is at Users’ own risk. To the maximum
-            extent permitted by applicable law, the Owner expressly disclaims
-            all conditions, representations, and warranties — whether express,
-            implied, statutory or otherwise, including, but not limited to, any
-            implied warranty of merchantability, fitness for a particular
-            purpose, or non-infringement of third-party rights. No advice or
-            information, whether oral or written, obtained by the User from the
-            Owner or through the Service will create any warranty not expressly
-            stated herein.
+            Eutiveumsonho is provided strictly on an &quot;as is&quot; and
+            &quot;as available&quot; basis. Use of the Service is at Users&apos;
+            own risk. To the maximum extent permitted by applicable law, the
+            Owner expressly disclaims all conditions, representations, and
+            warranties — whether express, implied, statutory or otherwise,
+            including, but not limited to, any implied warranty of
+            merchantability, fitness for a particular purpose, or
+            non-infringement of third-party rights. No advice or information,
+            whether oral or written, obtained by the User from the Owner or
+            through the Service will create any warranty not expressly stated
+            herein.
           </strong>
         </p>
 
@@ -452,15 +453,15 @@ export function TermsAndConditionsEn() {
             Without limiting the foregoing, the Owner, its subsidiaries,
             affiliates, licensors, officers, directors, agents, co-branders,
             partners, suppliers and employees do not warrant that the content is
-            accurate, reliable or correct; that the Service will meet Users’
-            requirements; that the Service will be available at any particular
-            time or location, uninterrupted or secure; that any defects or
-            errors will be corrected; or that the Service is free of viruses or
-            other harmful components. Any content downloaded or otherwise
-            obtained through the use of the Service is downloaded at Users' own
-            risk and Users shall be solely responsible for any damage to Users’
-            computer system or mobile device or loss of data that results from
-            such download or Users’ use of the Service.
+            accurate, reliable or correct; that the Service will meet
+            Users&apos; requirements; that the Service will be available at any
+            particular time or location, uninterrupted or secure; that any
+            defects or errors will be corrected; or that the Service is free of
+            viruses or other harmful components. Any content downloaded or
+            otherwise obtained through the use of the Service is downloaded at
+            Users' own risk and Users shall be solely responsible for any damage
+            to Users&apos; computer system or mobile device or loss of data that
+            results from such download or Users&apos; use of the Service.
           </strong>
         </p>
 
@@ -478,9 +479,10 @@ export function TermsAndConditionsEn() {
         <p>
           <strong>
             The Service may become inaccessible or it may not function properly
-            with Users’ web browser, mobile device, and/or operating system. The
-            owner cannot be held liable for any perceived or actual damages
-            arising from Service content, operation, or use of this Service.
+            with Users&apos; web browser, mobile device, and/or operating
+            system. The owner cannot be held liable for any perceived or actual
+            damages arising from Service content, operation, or use of this
+            Service.
           </strong>
         </p>
 
@@ -533,8 +535,8 @@ export function TermsAndConditionsEn() {
           </li>
           <li>
             <strong>
-              any unauthorized access to or use of the Owner’s secure servers
-              and/or any and all personal information stored therein;
+              any unauthorized access to or use of the Owner&apos;s secure
+              servers and/or any and all personal information stored therein;
             </strong>
           </li>
           <li>
@@ -607,38 +609,39 @@ export function TermsAndConditionsEn() {
         <ul>
           <li>
             <strong>
-              User’s use of and access to the Service, including any data or
-              content transmitted or received by User;
+              User&apos;s use of and access to the Service, including any data
+              or content transmitted or received by User;
             </strong>
           </li>
           <li>
             <strong>
-              User’s violation of these terms, including, but not limited to,
-              User’s breach of any of the representations and warranties set
-              forth in these terms;
+              User&apos;s violation of these terms, including, but not limited
+              to, User&apos;s breach of any of the representations and
+              warranties set forth in these terms;
             </strong>
           </li>
           <li>
             <strong>
-              User’s violation of any third-party rights, including, but not
-              limited to, any right of privacy or intellectual property rights;
+              User&apos;s violation of any third-party rights, including, but
+              not limited to, any right of privacy or intellectual property
+              rights;
             </strong>
           </li>
           <li>
             <strong>
-              User’s violation of any statutory law, rule, or regulation;
+              User&apos;s violation of any statutory law, rule, or regulation;
             </strong>
           </li>
           <li>
             <strong>
-              any content that is submitted from User’s account, including third
-              party access with User’s unique username, password or other
-              security measure, if applicable, including, but not limited to,
-              misleading, false, or inaccurate information;
+              any content that is submitted from User&apos;s account, including
+              third party access with User&apos;s unique username, password or
+              other security measure, if applicable, including, but not limited
+              to, misleading, false, or inaccurate information;
             </strong>
           </li>
           <li>
-            <strong>User’s wilful misconduct; or</strong>
+            <strong>User&apos;s wilful misconduct; or</strong>
           </li>
           <li>
             <strong>
@@ -652,8 +655,8 @@ export function TermsAndConditionsEn() {
         <h2 id="common-provisions">Common provisions</h2>
         <h3 id="no-waiver">No Waiver</h3>
         <p>
-          The Owner’s failure to assert any right or provision under these Terms
-          shall not constitute a waiver of any such right or provision. No
+          The Owner&apos;s failure to assert any right or provision under these
+          Terms shall not constitute a waiver of any such right or provision. No
           waiver shall be considered a further or continuing waiver of such term
           or any other term.
         </p>
@@ -675,13 +678,13 @@ export function TermsAndConditionsEn() {
 
         <p>
           Additionally, the Service might not be available due to reasons
-          outside the Owner’s reasonable control, such as “force majeure” events
-          (infrastructural breakdowns or blackouts etc.).
+          outside the Owner&apos;s reasonable control, such as &quot;force
+          majeure&quot; events (infrastructural breakdowns or blackouts etc.).
         </p>
         <h3 id="service-reselling">Service reselling</h3>
         <p>
           Users may not reproduce, duplicate, copy, sell, resell or exploit any
-          portion of eutiveumsonho and of its Service without the Owner’s
+          portion of eutiveumsonho and of its Service without the Owner&apos;s
           express prior written permission, granted either directly or through a
           legitimate reselling programme.
         </p>
@@ -722,8 +725,8 @@ export function TermsAndConditionsEn() {
 
         <p>
           <strong>
-            The continued use of the Service will signify the User’s acceptance
-            of the revised Terms.
+            The continued use of the Service will signify the User&apos;s
+            acceptance of the revised Terms.
           </strong>{" "}
           If Users do not wish to be bound by the changes, they must stop using
           the Service and may terminate the Agreement.
@@ -742,8 +745,8 @@ export function TermsAndConditionsEn() {
         <p>
           The Owner reserves the right to transfer, assign, dispose of by
           novation, or subcontract any or all rights or obligations under these
-          Terms, taking the User’s legitimate interests into account. Provisions
-          regarding changes of these Terms will apply accordingly.
+          Terms, taking the User&apos;s legitimate interests into account.
+          Provisions regarding changes of these Terms will apply accordingly.
         </p>
 
         <p>

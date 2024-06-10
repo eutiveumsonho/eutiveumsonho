@@ -34,9 +34,7 @@ export function TermsAndConditionsPt() {
           <b>E-mail de contato do Proprietário:</b> marcelo@eutiveumsonho.com
         </p>
 
-        <h2 id="o-que-o-usuario-deve-saber-de-imediato">
-          O que o Usuário deve saber de imediato
-        </h2>
+        <h2>O que o Usuário deve saber de imediato</h2>
         <ul>
           <li>
             Observe que algumas disposições destes Termos poderão se aplicar
@@ -65,7 +63,7 @@ export function TermsAndConditionsPt() {
 
         <hr />
 
-        <h2 id="termos-de-uso">TERMOS DE USO</h2>
+        <h2>TERMOS DE USO</h2>
         <p>
           A menos que seja especificado o contrário, os termos de uso detalhados
           nesta seção serão geralmente aplicados ao usar eutiveumsonho.
@@ -99,7 +97,7 @@ export function TermsAndConditionsPt() {
           </li>
         </ul>
 
-        <h3 id="cadastro-de-contas">Cadastro de contas</h3>
+        <h3>Cadastro de contas</h3>
         <p>
           Para usar o Serviço, os Usuários deverão cadastrar ou criar uma conta
           de Usuário, fornecendo todos os dados ou informações solicitadas de
@@ -125,9 +123,7 @@ export function TermsAndConditionsPt() {
           entre outras, contas de Usuários, dados de acesso ou dados pessoais,
           tiverem sido violadas, indevidamente divulgadas ou roubadas.
         </p>
-        <h4 id="condicoes-para-cadastro-de-contas">
-          Condições para cadastro de contas
-        </h4>
+        <h4>Condições para cadastro de contas</h4>
         <p>
           O cadastro de contas de Usuário neste serviço (eutiveumsonho) estará
           sujeito às condições previstas abaixo. Ao se cadastrarem, os Usuários

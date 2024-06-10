@@ -146,9 +146,9 @@ export function PrivacyPolicyEs() {
             Cuando los Usuarios hayan dado su consentimiento para una o más
             finalidades específicas. Aviso: Al amparo de varias legislaciones
             diferentes, el Titular podrá estar autorizado a tratar los Datos
-            Personales hasta que el Usuario se oponga a ello (“opción de no
-            participación”), sin necesidad de consentimiento o de cualquier otra
-            base jurídica. Sin embargo, esto no será aplicable cuando el
+            Personales hasta que el Usuario se oponga a ello (&quot;opción de no
+            participación&quot;), sin necesidad de consentimiento o de cualquier
+            otra base jurídica. Sin embargo, esto no será aplicable cuando el
             tratamiento de los Datos Personales esté sujeto a la normativa
             europea en materia de protección de Datos Personales;
           </li>
@@ -339,15 +339,16 @@ export function PrivacyPolicyEs() {
             facilitada por la sociedad que explota eutiveumsonho y, en su caso,
             por su matriz, sus filiales y sociedades afiliadas (a los efectos de
             la presente sección se denominarán de forma conjunta como
-            “nosotros”, “nuestro” o “nuestra”).
+            &quot;nosotros&quot;, &quot;nuestro&quot; o &quot;nuestra&quot;).
             <br /> Esta sección es aplicable a todos los Usuarios situados en
             Brasil (a continuación, se hará referencia a dichos Usuarios
-            simplemente como “usted”, “suyo”, “suyos”), de conformidad con la
-            "Lei Geral de Proteção de Dados" (la "LGPD"), y respecto de tales
-            Usuarios, sustituye a cualquier otra información discrepante o que
-            entre en conflicto con esta que figure en la política de privacidad.{" "}
-            <br /> Esta parte del documento emplea el término “Información
-            personal“ según se define en la <strong>LGPD</strong>.
+            simplemente como &quot;usted&quot;, &quot;suyo&quot;,
+            &quot;suyos&quot;), de conformidad con la "Lei Geral de Proteção de
+            Dados" (la "LGPD"), y respecto de tales Usuarios, sustituye a
+            cualquier otra información discrepante o que entre en conflicto con
+            esta que figure en la política de privacidad. <br /> Esta parte del
+            documento emplea el término &quot;Información personal&quot; según
+            se define en la <strong>LGPD</strong>.
           </p>
 
           <h3>Motivos por los que tratamos su información personal</h3>
@@ -406,16 +407,16 @@ export function PrivacyPolicyEs() {
           <h3>Categorías de información personal tratada</h3>
           <p>
             Para averiguar qué categorías de su información personal son
-            tratadas, puede leer la sección titulada “Información detallada del
-            Tratamiento de los Datos Personales” que aparece en el presente
-            documento.
+            tratadas, puede leer la sección titulada &quot;Información detallada
+            del Tratamiento de los Datos Personales&quot; que aparece en el
+            presente documento.
           </p>
 
           <h3>Por qué tratamos su información personal</h3>
           <p>
             Para saber por qué tratamos su información personal, puede leer las
-            secciones tituladas “Información detallada del Tratamiento de los
-            Datos Personales” y «Finalidad del Tratamiento de los Datos
+            secciones tituladas &quot;Información detallada del Tratamiento de
+            los Datos Personales&quot; y «Finalidad del Tratamiento de los Datos
             recogidos» que aparecen en el presente documento.
           </p>
 
@@ -586,12 +587,14 @@ export function PrivacyPolicyEs() {
             information contained in the rest of the privacy policy and is
             provided by the business running eutiveumsonho and, if the case may
             be, its parent, subsidiaries and affiliates (for the purposes of
-            this section referred to collectively as “we”, “us”, “our”).
+            this section referred to collectively as &quot;we&quot;,
+            &quot;us&quot;, &quot;our&quot;).
           </p>
           <p>
             This section applies to all Users (Users are referred to below,
-            simply as “you”, “your”, “yours”), who are consumers residing in the
-            state of California, United States of America, according to the "
+            simply as &quot;you&quot;, &quot;your&quot;, &quot;yours&quot;), who
+            are consumers residing in the state of California, United States of
+            America, according to the "
             <a href="https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&amp;part=4.&amp;lawCode=CIV&amp;title=1.81.5">
               California Consumer Privacy Act of 2018
             </a>
@@ -602,8 +605,9 @@ export function PrivacyPolicyEs() {
           </p>
 
           <p>
-            This part of the document uses the term “personal information“ as
-            defined in the California Consumer Privacy Act (CCPA/CPRA).
+            This part of the document uses the term &quot;personal
+            information&quot; as defined in the California Consumer Privacy Act
+            (CCPA/CPRA).
           </p>
 
           <h3>Notice at collection</h3>
@@ -617,8 +621,8 @@ export function PrivacyPolicyEs() {
             thereof.{" "}
             <strong>
               You can read about these activities in detail in the section
-              titled “Detailed information on the processing of Personal Data”
-              within this document.
+              titled &quot;Detailed information on the processing of Personal
+              Data&quot; within this document.
             </strong>
           </p>
 
@@ -643,30 +647,30 @@ export function PrivacyPolicyEs() {
           </h5>
           <p>
             We may use your personal information to allow the operational
-            functioning of eutiveumsonho and features thereof (“business
-            purposes”). In such cases, your personal information will be
+            functioning of eutiveumsonho and features thereof (&quot;business
+            purposes&quot;). In such cases, your personal information will be
             processed in a fashion necessary and proportionate to the business
             purpose for which it was collected, and strictly within the limits
             of compatible operational purposes.
           </p>
           <p>
             We may also use your personal information for other reasons such as
-            for commercial purposes (as indicated within the section “Detailed
-            information on the processing of Personal Data” within this
-            document), as well as for complying with the law and defending our
-            rights before the competent authorities where our rights and
-            interests are threatened or we suffer an actual damage.
+            for commercial purposes (as indicated within the section
+            &quot;Detailed information on the processing of Personal Data&quot;
+            within this document), as well as for complying with the law and
+            defending our rights before the competent authorities where our
+            rights and interests are threatened or we suffer an actual damage.
           </p>
           <p>
-            We won’t process your information for unexpected purposes, or for
-            purposes incompatible with the purposes originally disclosed,
+            We won&apos;t process your information for unexpected purposes, or
+            for purposes incompatible with the purposes originally disclosed,
             without your consent.
           </p>
 
           <h5>How long do we keep your personal information?</h5>
           <p>
-            Unless stated otherwise inside the “Detailed information on the
-            processing of Personal Data” section, we will not retain your
+            Unless stated otherwise inside the &quot;Detailed information on the
+            processing of Personal Data&quot; section, we will not retain your
             personal information for longer than is reasonably necessary for the
             purpose(s) they have been collected for.
           </p>
@@ -694,9 +698,9 @@ export function PrivacyPolicyEs() {
 
           <p>
             We do not disclose your personal information to third parties. For
-            our purposes, the word “third party” means “a person who is not any
-            of the following: a service provider or a contractor, as defined by
-            the CCPA.
+            our purposes, the word &quot;third party&quot; means &quot;a person
+            who is not any of the following: a service provider or a contractor,
+            as defined by the CCPA.
           </p>
 
           <h4>No sale of your personal information</h4>
@@ -781,7 +785,8 @@ export function PrivacyPolicyEs() {
             we will delete your personal information and notify any of our
             service providers and all third parties to whom we have sold or
             shared the personal information to do so — provided that this is
-            technically feasible and doesn’t involve disproportionate effort.
+            technically feasible and doesn&apos;t involve disproportionate
+            effort.
           </p>
 
           <h4>The right to correct inaccurate personal information</h4>
@@ -835,9 +840,9 @@ export function PrivacyPolicyEs() {
             in this document.
           </p>
           <p>
-            For us to respond to your request, it’s necessary that we know who
-            you are. Therefore, you can only exercise the above rights by making
-            a verifiable request which must:
+            For us to respond to your request, it&apos;s necessary that we know
+            who you are. Therefore, you can only exercise the above rights by
+            making a verifiable request which must:
           </p>
           <ul>
             <li>
@@ -917,15 +922,17 @@ export function PrivacyPolicyEs() {
             information contained in the rest of the privacy policy and is
             provided by the controller running this Application and, if the case
             may be, its parent, subsidiaries and affiliates (for the purposes of
-            this section referred to collectively as “we”, “us”, “our”).
+            this section referred to collectively as &quot;we&quot;,
+            &quot;us&quot;, &quot;our&quot;).
           </p>
           <p>
             This section applies to all Users (Users are referred to below,
-            simply as “you”, “your”, “yours”), who are consumers residing in the
-            Commonwealth of Virginia, according to the{" "}
+            simply as &quot;you&quot;, &quot;your&quot;, &quot;yours&quot;), who
+            are consumers residing in the Commonwealth of Virginia, according to
+            the{" "}
             <a href="https://law.lis.virginia.gov/vacode/title59.1/chapter53/">
               {" "}
-              “Virginia Consumer Data Protection Act"
+              &quot;Virginia Consumer Data Protection Act"
             </a>{" "}
             (the "VCDPA"), and, for such consumers, it supersedes any other
             possibly divergent or conflicting information contained in the
@@ -933,8 +940,8 @@ export function PrivacyPolicyEs() {
           </p>
 
           <p>
-            This part of the document uses the term “personal data” as defined
-            in the VCDPA.
+            This part of the document uses the term &quot;personal data&quot; as
+            defined in the VCDPA.
           </p>
 
           <h3>Categories of personal data processed</h3>
@@ -943,8 +950,8 @@ export function PrivacyPolicyEs() {
             we've processed and the purposes thereof.{" "}
             <b>
               You can read about these activities in detail in the section
-              titled “Detailed information on the processing of Persona Data”
-              within this document
+              titled &quot;Detailed information on the processing of Persona
+              Data&quot; within this document
             </b>
             .
           </p>
@@ -962,12 +969,13 @@ export function PrivacyPolicyEs() {
           <h4>Why we process your personal data</h4>
           <p>
             To find out why we process your personal data, you can read the
-            sections titled “Detailed information on the processing of Personal
-            Data” and “The purposes of processing” within this document.
+            sections titled &quot;Detailed information on the processing of
+            Personal Data&quot; and &quot;The purposes of processing&quot;
+            within this document.
           </p>
           <p>
-            We won’t process your information for unexpected purposes, or for
-            purposes incompatible with the purposes originally disclosed,
+            We won&apos;t process your information for unexpected purposes, or
+            for purposes incompatible with the purposes originally disclosed,
             without your consent.
             <br />
             You can freely give, deny, or withdraw such consent at any time
@@ -1126,20 +1134,21 @@ export function PrivacyPolicyEs() {
             information contained in the rest of the privacy policy and is
             provided by the controller running eutiveumsonho and, if the case
             may be, its parent, subsidiaries and affiliates (for the purposes of
-            this section referred to collectively as “we”, “us”, “our”).
+            this section referred to collectively as &quot;we&quot;,
+            &quot;us&quot;, &quot;our&quot;).
           </p>
           <p>
             This section applies to all Users (Users are referred to below,
-            simply as “you”, “your”, “yours”), who are consumers residing in the
-            State of Colorado, according to the “Colorado Privacy Act" (the
-            "CPA"), and, for such consumers, it supersedes any other possibly
-            divergent or conflicting information contained in the privacy
-            policy.
+            simply as &quot;you&quot;, &quot;your&quot;, &quot;yours&quot;), who
+            are consumers residing in the State of Colorado, according to the
+            &quot;Colorado Privacy Act" (the "CPA"), and, for such consumers, it
+            supersedes any other possibly divergent or conflicting information
+            contained in the privacy policy.
           </p>
 
           <p>
-            This part of the document uses the term “personal data” as defined
-            in the CPA.
+            This part of the document uses the term &quot;personal data&quot; as
+            defined in the CPA.
           </p>
 
           <h3>Categories of personal data processed</h3>
@@ -1148,8 +1157,8 @@ export function PrivacyPolicyEs() {
             we've processed and the purposes thereof.{" "}
             <b>
               You can read about these activities in detail in the section
-              titled “Detailed information on the processing of Persona Data”
-              within this document
+              titled &quot;Detailed information on the processing of Persona
+              Data&quot; within this document
             </b>
             .
           </p>
@@ -1167,12 +1176,13 @@ export function PrivacyPolicyEs() {
           <h4>Why we process your personal data</h4>
           <p>
             To find out why we process your personal data, you can read the
-            sections titled “Detailed information on the processing of Personal
-            Data” and “The purposes of processing” within this document.
+            sections titled &quot;Detailed information on the processing of
+            Personal Data&quot; and &quot;The purposes of processing&quot;
+            within this document.
           </p>
           <p>
-            We won’t process your information for unexpected purposes, or for
-            purposes incompatible with the purposes originally disclosed,
+            We won&apos;t process your information for unexpected purposes, or
+            for purposes incompatible with the purposes originally disclosed,
             without your consent.
             <br />
             You can freely give, deny, or withdraw such consent at any time
@@ -1239,14 +1249,14 @@ export function PrivacyPolicyEs() {
             predict consumer preferences or interests" as defined by CPA. <br />
             <br />
             Please note that according to the CPA, targeted advertising does not
-            include: “advertisements directed to a consumer in response to the
-            consumer's request for information or feedback; advertisements based
-            on activities within a controller's own websites or online
+            include: &quot;advertisements directed to a consumer in response to
+            the consumer's request for information or feedback; advertisements
+            based on activities within a controller's own websites or online
             applications or any affiliated website or online application;
             advertisements based on the context of a consumer's current search
             query, visit to an internet web site or online application; or
             processing personal data solely to measure or report advertising
-            frequency, performance or reach”.
+            frequency, performance or reach&quot;.
           </p>
 
           <h3>
@@ -1362,21 +1372,23 @@ export function PrivacyPolicyEs() {
             information contained in the rest of the privacy policy and is
             provided by the controller running eutiveumsonho and, if the case
             may be, its parent, subsidiaries and affiliates (for the purposes of
-            this section referred to collectively as “we”, “us”, “our”).
+            this section referred to collectively as &quot;we&quot;,
+            &quot;us&quot;, &quot;our&quot;).
           </p>
           <p>
             This section applies o all Users (Users are referred to below,
-            simply as “you”, “your”, “yours”), who are consumers residing in the
-            State of Connecticut, according to “An Act Concerning Personal Data
-            Privacy and Online Monitoring " (also known as "The Connecticut Data
-            Privacy Act" or the “CTDPA"), and, for such consumers, it supersedes
-            any other possibly divergent or conflicting information contained in
-            the privacy policy.
+            simply as &quot;you&quot;, &quot;your&quot;, &quot;yours&quot;), who
+            are consumers residing in the State of Connecticut, according to
+            &quot;An Act Concerning Personal Data Privacy and Online Monitoring
+            " (also known as "The Connecticut Data Privacy Act" or the
+            &quot;CTDPA"), and, for such consumers, it supersedes any other
+            possibly divergent or conflicting information contained in the
+            privacy policy.
           </p>
 
           <p>
-            This part of the document uses the term “personal data” as defined
-            in the CTDPA.
+            This part of the document uses the term &quot;personal data&quot; as
+            defined in the CTDPA.
           </p>
 
           <h3>Categories of personal data processed</h3>
@@ -1385,8 +1397,8 @@ export function PrivacyPolicyEs() {
             we've processed and the purposes thereof.{" "}
             <b>
               You can read about these activities in detail in the section
-              titled “Detailed information on the processing of Persona Data”
-              within this document
+              titled &quot;Detailed information on the processing of Persona
+              Data&quot; within this document
             </b>
             .
           </p>
@@ -1404,12 +1416,13 @@ export function PrivacyPolicyEs() {
           <h4>Why we process your personal data</h4>
           <p>
             To find out why we process your personal data, you can read the
-            sections titled “Detailed information on the processing of Personal
-            Data” and “The purposes of processing” within this document.
+            sections titled &quot;Detailed information on the processing of
+            Personal Data&quot; and &quot;The purposes of processing&quot;
+            within this document.
           </p>
           <p>
-            We won’t process your information for unexpected purposes, or for
-            purposes incompatible with the purposes originally disclosed,
+            We won&apos;t process your information for unexpected purposes, or
+            for purposes incompatible with the purposes originally disclosed,
             without your consent.
             <br />
             You can freely give, deny, or withdraw such consent at any time
@@ -1472,13 +1485,13 @@ export function PrivacyPolicyEs() {
             <br />
             <br />
             Please note that according to the CTDPA, targeted advertising does
-            not include: “advertisements based on activities within a
+            not include: &quot;advertisements based on activities within a
             controller's own web sites or online applications; advertisements
             based on the context of a consumer's current search query, visit to
             an internet web site or online application; advertisements directed
             to a consumer in response to the consumer's request for information
             or feedback; or processing personal data solely to measure or report
-            advertising frequency, performance or reach”.
+            advertising frequency, performance or reach&quot;.
           </p>
 
           <h3>
@@ -1598,19 +1611,21 @@ export function PrivacyPolicyEs() {
             information contained in the rest of the privacy policy and is
             provided by the controller running eutiveumsonho and, if the case
             may be, its parent, subsidiaries and affiliates (for the purposes of
-            this section referred to collectively as “we”, “us”, “our”).
+            this section referred to collectively as &quot;we&quot;,
+            &quot;us&quot;, &quot;our&quot;).
           </p>
           <p>
             This section applies to all Users (Users are referred to below,
-            simply as “you”, “your”, “yours”), who are consumers residing in the
-            State of Utah, according to the “Consumer Privacy Act" (the “UCPA"),
-            and, for such consumers, it supersedes any other possibly divergent
-            or conflicting information contained in the privacy policy.
+            simply as &quot;you&quot;, &quot;your&quot;, &quot;yours&quot;), who
+            are consumers residing in the State of Utah, according to the
+            &quot;Consumer Privacy Act" (the &quot;UCPA"), and, for such
+            consumers, it supersedes any other possibly divergent or conflicting
+            information contained in the privacy policy.
           </p>
 
           <p>
-            This part of the document uses the term “personal data” as defined
-            in the UCPA.
+            This part of the document uses the term &quot;personal data&quot; as
+            defined in the UCPA.
           </p>
 
           <h3>Categories of personal data processed</h3>
@@ -1619,8 +1634,8 @@ export function PrivacyPolicyEs() {
             we've processed and the purposes thereof.{" "}
             <b>
               You can read about these activities in detail in the section
-              titled “Detailed information on the processing of Persona Data”
-              within this document
+              titled &quot;Detailed information on the processing of Persona
+              Data&quot; within this document
             </b>
             .
           </p>
@@ -1638,8 +1653,9 @@ export function PrivacyPolicyEs() {
           <h4>Why we process your personal data</h4>
           <p>
             To find out why we process your personal data, you can read the
-            sections titled “Detailed information on the processing of Personal
-            Data” and “The purposes of processing” within this document.
+            sections titled &quot;Detailed information on the processing of
+            Personal Data&quot; and &quot;The purposes of processing&quot;
+            within this document.
           </p>
 
           <h4>
@@ -1698,14 +1714,14 @@ export function PrivacyPolicyEs() {
             <br />
             <br />
             Please note that according to the UCPA, targeted advertising does
-            not include: “advertisements based on activities within a
+            not include: &quot;advertisements based on activities within a
             controller's own websites or online applications or any affiliated
             website or online application; advertisements based on the context
             of a consumer's current search query, visit to an web site or online
             application; advertisements directed to a consumer in response to
             the consumer's request for information, product, a service or
             feedback; or processing personal data solely to measure or report
-            advertising performance, reach or frequency.”
+            advertising performance, reach or frequency.&quot;
           </p>
 
           <h3>

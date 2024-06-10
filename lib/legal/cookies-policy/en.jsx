@@ -9,7 +9,7 @@ export function CookiesPolicyEn() {
           eutiveumsonho to achieve the purposes described below. Such
           technologies allow the Owner to access and store information (for
           example by using a Cookie) or use resources (for example by running a
-          script) on a User’s device as they interact with eutiveumsonho.
+          script) on a User&apos;s device as they interact with eutiveumsonho.
         </p>
         <p>
           For simplicity, all such technologies are defined as "Trackers" within
@@ -31,11 +31,12 @@ export function CookiesPolicyEn() {
 
         <p>
           Eutiveumsonho only uses Trackers managed directly by the Owner
-          (so-called “first-party” Trackers).
+          (so-called &quot;first-party&quot; Trackers).
           <br />
           The validity and expiration periods of first-party Cookies and other
           similar Trackers may vary depending on the lifetime set by the Owner.
-          Some of them expire upon termination of the User’s browsing session.
+          Some of them expire upon termination of the User&apos;s browsing
+          session.
         </p>
 
         <h3>
@@ -44,9 +45,9 @@ export function CookiesPolicyEn() {
         </h3>
 
         <p>
-          Eutiveumsonho uses so-called “technical” Cookies and other similar
-          Trackers to carry out activities that are strictly necessary for the
-          operation or delivery of the Service.
+          Eutiveumsonho uses so-called &quot;technical&quot; Cookies and other
+          similar Trackers to carry out activities that are strictly necessary
+          for the operation or delivery of the Service.
         </p>
 
         <h3>How to manage preferences and provide or withdraw consent</h3>
@@ -69,10 +70,10 @@ export function CookiesPolicyEn() {
         <p>
           It is also possible, via relevant browser or device features, to
           delete previously stored Trackers, including those used to remember
-          the User’s initial consent preferences.
+          the User&apos;s initial consent preferences.
         </p>
         <p>
-          Other Trackers in the browser’s local memory may be cleared by
+          Other Trackers in the browser&apos;s local memory may be cleared by
           deleting the browsing history.
         </p>
 
@@ -269,7 +270,7 @@ export function CookiesPolicyEn() {
               Tracker indicates any technology - e.g Cookies, unique
               identifiers, web beacons, embedded scripts, e-tags and
               fingerprinting - that enables the tracking of Users, for example
-              by accessing or storing information on the User’s device.
+              by accessing or storing information on the User&apos;s device.
             </p>
 
             <hr />
