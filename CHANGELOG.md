@@ -1,3 +1,10 @@
+## [1.25.2](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.25.1...v1.25.2) (2024-06-10)
+
+
+### Bug Fixes
+
+* remove iubenda ([de4e339](https://github.com/eutiveumsonho/eutiveumsonho/commit/de4e339eae26be8dbc2c87698b54b4e51ea30ccc))
+
 ## [1.25.1](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.25.0...v1.25.1) (2024-03-03)
 
 
