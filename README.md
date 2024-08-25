@@ -48,7 +48,3 @@ pnpm dev
 ```
 
 Access the project in your local machine at http://localhost:3000. 
-
-## Data
-
-If you'd like to take a glimpse into some of the statistics for this social network, visit the  [Public data overview from eutiveumsonho.com](https://charts.mongodb.com/charts-eutiveumsonho-bwwsj/public/dashboards/6338cd66-f9a9-47a6-8cb8-bb7033b24350).
