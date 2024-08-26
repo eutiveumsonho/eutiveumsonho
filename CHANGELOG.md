@@ -1,3 +1,10 @@
+## [1.25.3](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.25.2...v1.25.3) (2024-08-26)
+
+
+### Bug Fixes
+
+* export all inbox methods from api lib ([cea7642](https://github.com/eutiveumsonho/eutiveumsonho/commit/cea76421bda4d3e8ee01e44ac544ffac9b921080))
+
 ## [1.25.2](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.25.1...v1.25.2) (2024-06-10)
 
 

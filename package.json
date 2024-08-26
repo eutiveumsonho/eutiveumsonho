@@ -1,6 +1,6 @@
 {
   "name": "eutiveumsonho",
-  "version": "1.25.2",
+  "version": "1.25.3",
   "private": true,
   "scripts": {
     "dev": "concurrently -p [{name}] -n nextjs@eutiveumsonho \"next\"",
