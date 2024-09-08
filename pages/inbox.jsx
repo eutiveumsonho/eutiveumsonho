@@ -17,7 +17,7 @@ import { useState } from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import { Checkmark, StatusGoodSmall, Trash } from "grommet-icons";
 import { markInboxMessagesAsRead, deleteInboxMessages } from "../lib/api";
 import "dayjs/locale/pt-br";
@@ -29,6 +29,7 @@ import "dayjs/locale/pt-br";
 import "dayjs/locale/en";
 import "dayjs/locale/es";
 import "dayjs/locale/fr";
+import { logError } from "../lib/o11y/log";
 
 dayjs.extend(LocalizedFormat);
 dayjs.extend(relativeTime);
@@ -123,7 +124,11 @@ export default function Inbox(props) {
       setEagerData(nonDeleted);
       setChecked([]);
     } catch (error) {
-      console.error(error);
+      logError(error, {
+        service: "web",
+        pathname: "/inbox",
+        component: "Inbox",
+      });
     }
   };
 
@@ -307,8 +312,7 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    console.error({
-      error,
+    logError(error, {
       service: "web",
       pathname: "/inbox",
       component: "Inbox",

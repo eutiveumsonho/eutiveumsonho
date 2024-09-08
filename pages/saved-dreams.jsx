@@ -5,6 +5,7 @@ import { getStarredPosts, getUserById } from "../lib/db/reads";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
+import { logError } from "../lib/o11y/log";
 
 /**
  * Saved dreams page. This page shows the user's saved dreams.
@@ -80,8 +81,7 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    console.error({
-      error,
+    logError(error, {
       service: "web",
       pathname: "/saved-dreams",
       component: "SavedDreams",

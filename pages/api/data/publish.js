@@ -7,6 +7,7 @@ import {
   SERVER_ERROR,
   FORBIDDEN,
 } from "../../../lib/errors";
+import { logError } from "../../../lib/o11y/log";
 
 /**
  * This endpoint is responsible for enabling users to control the visibility of their dreams.
@@ -50,8 +51,7 @@ async function patch(req, res) {
 
     return res;
   } catch (error) {
-    console.error({
-      error,
+    logError(error, {
       service: "api",
       pathname: "/api/data/publish",
       method: "patch",

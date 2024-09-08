@@ -6,6 +6,7 @@ import Head from "next/head";
 import { getUserAgentProps } from "../../lib/user-agent";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import { logError } from "../../lib/o11y/log";
 
 /**
  * The page for editing a dream. This page is only accessible for logged in users.
@@ -71,8 +72,7 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    console.error({
-      error,
+    logError(error, {
       service: "web",
       pathname: "/publish/[postId]",
       component: "DreamEditor",

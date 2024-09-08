@@ -6,6 +6,7 @@ import {
   METHOD_NOT_ALLOWED,
   SERVER_ERROR,
 } from "../../../lib/errors";
+import { logError } from "../../../lib/o11y/log";
 
 /**
  * This endpoint is hit by Chiron after a review is completed.
@@ -81,8 +82,7 @@ async function post(req, res) {
 
     return res;
   } catch (error) {
-    console.error({
-      error,
+    logError(error, {
       service: "api",
       pathname: "/api/data/completions-review",
       method: "post",

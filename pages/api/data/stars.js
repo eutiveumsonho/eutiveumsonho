@@ -7,6 +7,7 @@ import {
   SERVER_ERROR,
   FORBIDDEN,
 } from "../../../lib/errors";
+import { logError } from "../../../lib/o11y/log";
 
 /**
  * This endpoint is used to star and unstar dreams.
@@ -57,8 +58,7 @@ async function post(req, res) {
 
     return res;
   } catch (error) {
-    console.error({
-      error,
+    logError(error, {
       service: "api",
       pathname: "/api/data/stars",
       method: "post",
@@ -98,8 +98,7 @@ async function del(req, res) {
 
     return res;
   } catch (error) {
-    console.error({
-      error,
+    logError(error, {
       service: "api",
       pathname: "/api/data/stars",
       method: "delete",

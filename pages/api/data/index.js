@@ -8,6 +8,7 @@ import {
   SERVER_ERROR,
   FORBIDDEN,
 } from "../../../lib/errors";
+import { logError } from "../../../lib/o11y/log";
 
 /**
  * This is the main API route for getting, creating, updating, and deleting dreams.
@@ -56,8 +57,7 @@ async function patch(req, res) {
 
     return res;
   } catch (error) {
-    console.error({
-      error,
+    logError(error, {
       service: "api",
       pathname: "/api/data",
       method: "patch",
@@ -97,8 +97,7 @@ async function post(req, res) {
 
     return res;
   } catch (error) {
-    console.error({
-      error,
+    logError(error, {
       service: "api",
       pathname: "/api/data",
       method: "post",
@@ -130,8 +129,7 @@ async function del(req, res) {
 
     return res;
   } catch (error) {
-    console.error({
-      error,
+    logError(error, {
       service: "api",
       pathname: "/api/data",
       method: "delete",
@@ -177,8 +175,7 @@ async function get(req, res) {
 
     return res;
   } catch (error) {
-    console.error({
-      error,
+    logError(error, {
       service: "api",
       pathname: "/api/data",
       method: "get",

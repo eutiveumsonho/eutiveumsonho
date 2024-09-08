@@ -30,6 +30,7 @@ import "dayjs/locale/en";
 import "dayjs/locale/es";
 import "dayjs/locale/fr";
 import { useTranslation } from "next-i18next";
+import { logError } from "../lib/o11y/log";
 
 dayjs.extend(LocalizedFormat);
 
@@ -255,7 +256,11 @@ export default function CreateOrEdit(props) {
         await savePost(postId, dreamData);
         setSyncStatus(<LastSyncedAt lastSynced={new Date()} />);
       } catch (error) {
-        console.error({ error, service: "web" });
+        logError(error, {
+          service: "web",
+          pathname: router.pathname,
+          component: "CreateOrEdit",
+        });
       }
     }
   };

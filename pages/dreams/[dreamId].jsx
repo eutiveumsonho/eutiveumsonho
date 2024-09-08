@@ -120,10 +120,9 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    console.error({
-      error,
+    logError(error, {
       service: "web",
-      pathname: "/sonhos/[dreamId]",
+      pathname: "/dreams/[dreamId]",
       component: "DreamPage",
     });
   }

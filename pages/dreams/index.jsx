@@ -10,6 +10,7 @@ import Head from "next/head";
 import { getUserAgentProps } from "../../lib/user-agent";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import { logError } from "../../lib/o11y/log";
 
 /**
  * The home page for logged in users. This page shows a feed with the latest public dreams.
@@ -89,8 +90,7 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    console.error({
-      error,
+    logError(error, {
       service: "web",
       pathname: "/dreams",
       component: "FindOut",

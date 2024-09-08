@@ -3,6 +3,7 @@ import { getServerSession } from "../../lib/auth";
 import { METHOD_NOT_ALLOWED, SERVER_ERROR, FORBIDDEN } from "../../lib/errors";
 import { deleteAccount, updateUser } from "../../lib/db/writes";
 import { getUserByEmail } from "../../lib/db/reads";
+import { logError } from "../../lib/o11y/log";
 
 /**
  * Account related API. Currently only supports DELETE.
@@ -41,8 +42,7 @@ async function delAccount(req, res) {
 
     return res;
   } catch (error) {
-    console.error({
-      error,
+    logError(error, {
       service: "api",
       pathname: "/api/account",
       method: "delete",
@@ -83,8 +83,7 @@ async function updateUserSettings(req, res) {
 
     return res;
   } catch (error) {
-    console.error({
-      error,
+    logError(error, {
       service: "api",
       pathname: "/api/account",
       method: "patch",

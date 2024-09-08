@@ -13,6 +13,7 @@ import { getUserAgentProps } from "../lib/user-agent";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
+import { logError } from "../lib/o11y/log";
 
 export default function InsightsPage(props) {
   const { serverSession: rawServerSession, data: rawData, deviceType } = props;
@@ -238,8 +239,7 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    console.error({
-      error,
+    logError(error, {
       service: "web",
       pathname: "/insights",
       component: "InsightsPage",

@@ -7,6 +7,7 @@ import {
   SERVER_ERROR,
   FORBIDDEN,
 } from "../../../lib/errors";
+import { logError } from "../../../lib/o11y/log";
 
 /**
  * This is the API route for managing comments.
@@ -59,8 +60,7 @@ async function post(req, res) {
 
     return res;
   } catch (error) {
-    console.error({
-      error,
+    logError(error, {
       service: "api",
       pathname: "/api/data/comments",
       method: "post",
@@ -95,8 +95,7 @@ async function del(req, res) {
 
     return res;
   } catch (error) {
-    console.error({
-      error,
+    logError(error, {
       service: "api",
       pathname: "/api/data/comments",
       method: "delete",
