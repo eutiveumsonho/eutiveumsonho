@@ -16,7 +16,6 @@ function Error({ statusCode }) {
 }
 
 Error.getInitialProps = async (contextData) => {
-  console.error(contextData);
   await Sentry.captureUnderscoreErrorException(contextData);
 
   const statusCode = contextData?.res
