@@ -1,3 +1,10 @@
+## [1.25.4](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.25.3...v1.25.4) (2024-09-16)
+
+
+### Bug Fixes
+
+* sentry import ([1a4e2a9](https://github.com/eutiveumsonho/eutiveumsonho/commit/1a4e2a981be5502a064d6917f6ca3184c5cce7bb))
+
 ## [1.25.3](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.25.2...v1.25.3) (2024-08-26)
 
 
