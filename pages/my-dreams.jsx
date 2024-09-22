@@ -33,6 +33,7 @@ export default function MyDreams(props) {
           description: `${t("dreams-listed-here")} 📚`,
         }}
       />
+      )
     </>
   );
 }
@@ -69,5 +70,16 @@ export async function getServerSideProps(context) {
       pathname: "/my-dreams",
       component: "MyDreams",
     });
+
+    return {
+      props: {
+        serverSession: JSON.stringify(authProps.props.serverSession),
+        data: JSON.stringify([]),
+        ...(await serverSideTranslations(context.locale, [
+          "dashboard",
+          "common",
+        ])),
+      },
+    };
   }
 }

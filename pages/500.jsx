@@ -8,12 +8,6 @@ export default function Custom500(props) {
   const { deviceType } = props;
   const { reload } = useRouter();
 
-  console.error({
-    error_name: "500ComponentRendered",
-    service: "web",
-    component: "Custom500",
-  });
-
   return (
     <Layout deviceType={deviceType}>
       <Head>
