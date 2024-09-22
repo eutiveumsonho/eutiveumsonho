@@ -1,3 +1,10 @@
+## [1.25.5](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.25.4...v1.25.5) (2024-09-22)
+
+
+### Bug Fixes
+
+* log my-dreams page errs ([30c6d3a](https://github.com/eutiveumsonho/eutiveumsonho/commit/30c6d3a8e286e834b56ee8a9310709b3dd80ba37))
+
 ## [1.25.4](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.25.3...v1.25.4) (2024-09-16)
 
 
