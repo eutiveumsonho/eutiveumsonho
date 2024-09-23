@@ -1,3 +1,10 @@
+## [1.25.6](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.25.5...v1.25.6) (2024-09-23)
+
+
+### Bug Fixes
+
+* return empty device type if ua not available ([07cdb77](https://github.com/eutiveumsonho/eutiveumsonho/commit/07cdb77e763d0ee1a9b45066f51c530ae54a9027))
+
 ## [1.25.5](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.25.4...v1.25.5) (2024-09-22)
 
 
