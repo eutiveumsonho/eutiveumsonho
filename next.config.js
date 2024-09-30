@@ -39,7 +39,7 @@ module.exports = withSentryConfig(
 
     // Suppresses source map uploading logs during build
     silent: true,
-    org: "marcelovicentegc",
+    org: "url4irl",
     project: "eutiveumsonho",
   },
   {
