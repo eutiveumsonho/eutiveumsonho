@@ -1,3 +1,10 @@
+## [1.25.7](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.25.6...v1.25.7) (2024-09-30)
+
+
+### Bug Fixes
+
+* sentry project org ([85b11ec](https://github.com/eutiveumsonho/eutiveumsonho/commit/85b11ec473f79ab05bcbf8c85651c6c3824c33d5))
+
 ## [1.25.6](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.25.5...v1.25.6) (2024-09-23)
 
 
