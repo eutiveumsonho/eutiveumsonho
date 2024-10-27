@@ -1,3 +1,10 @@
+# [1.26.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.25.7...v1.26.0) (2024-10-27)
+
+
+### Features
+
+* otel client ([2d51268](https://github.com/eutiveumsonho/eutiveumsonho/commit/2d5126813e70e50d28da9d6cf4cb4435545a99be))
+
 ## [1.25.7](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.25.6...v1.25.7) (2024-09-30)
 
 
