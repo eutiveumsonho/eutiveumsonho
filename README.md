@@ -31,7 +31,12 @@ Eu tive um sonho is a social network designed for dreamers to preserve and excha
 
 First of all, clone this repository.
 
-Make sure you've got Docker and Docker Compose installed on your machine, as we use it to run an OpenTelemetry Collector to collect traces and metrics.
+Make sure you've got Docker and Docker Compose installed on your machine, as we use it to run an OpenTelemetry Collector setup to collect traces, metrics and logs.
+
+The following services are spawned by the `docker-compose.yml` file:
+1. Jaeger at http://0.0.0.0:16686
+2. Zipkin at http://0.0.0.0:9411
+3. Prometheus at http://0.0.0.0:9090
 
 Create a `.env.local` file based on the [`.env.example`](.env.example) file.
 
