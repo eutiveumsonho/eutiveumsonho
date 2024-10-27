@@ -3,7 +3,7 @@
   "version": "1.25.7",
   "private": true,
   "scripts": {
-    "dev": "concurrently -p [{name}] -n nextjs@eutiveumsonho \"next\"",
+    "dev": "concurrently -p [{name}] -n eutiveumsonho,otel \"next\" \"docker compose -f ./dev/docker-compose.yaml up\"",
     "dev:with-chiron": "concurrently -p [{name}] -n nextjs@eutiveumsonho,chiron@eutiveumsonho \"next\" \"cd ../chiron && bun dev\"",
     "build": "next build",
     "start": "next start",
@@ -16,6 +16,13 @@
   },
   "dependencies": {
     "@next-auth/mongodb-adapter": "^1.1.3",
+    "@opentelemetry/auto-instrumentations-node": "^0.52.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.54.0",
+    "@opentelemetry/resources": "^1.27.0",
+    "@opentelemetry/sdk-metrics": "^1.27.0",
+    "@opentelemetry/sdk-node": "^0.54.0",
+    "@opentelemetry/sdk-trace-node": "^1.27.0",
+    "@opentelemetry/semantic-conventions": "^1.27.0",
     "@remirror/pm": "^2.0.8",
     "@remirror/react": "^2.0.35",
     "@remirror/react-editors": "^1.0.41",
@@ -73,6 +80,6 @@
     "webpack-node-externals": "^3.0.0"
   },
   "engines": {
-    "node": "18"
+    "node": "20"
   }
 }

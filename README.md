@@ -22,7 +22,7 @@ Eu tive um sonho is a social network designed for dreamers to preserve and excha
 - To start using Eu tive um sonho, creating an account via email or Google account is required.
 - Members have the option to publish their dreams publicly, anonymously, or store them as private entries.
 - It's possible to bookmark favorite published dreams.
-- Memberos can leave comments on both their own dreams and those of others.
+- Members can leave comments on both their own dreams and those of others.
 - Dreams can receive comments from our dream interpreter AI, Sonia, if the member consents.
 - Any comments made on a member's dreams will appear in their inbox.
 - Members can access a page that offers insights into their dreams, including dream frequency and the most frequently used words in their dreams.
@@ -30,6 +30,8 @@ Eu tive um sonho is a social network designed for dreamers to preserve and excha
 ## Development instructions
 
 First of all, clone this repository.
+
+Make sure you've got Docker and Docker Compose installed on your machine, as we use it to run an OpenTelemetry Collector to collect traces and metrics.
 
 Create a `.env.local` file based on the [`.env.example`](.env.example) file.
 
