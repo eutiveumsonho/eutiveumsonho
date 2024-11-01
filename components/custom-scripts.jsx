@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-// import { chatwoot } from "../static/chatwoot";
+import dynamic from "next/dynamic";
 
 export default function CustomScripts() {
   useEffect(() => {
-    // chatwoot(document, "script");
+    dynamic(() => import("../lib/o11y/web-vitals"));
   }, []);
 
   return <></>;
