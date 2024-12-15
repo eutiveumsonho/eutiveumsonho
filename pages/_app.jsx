@@ -9,7 +9,6 @@ import SEO from "../next-seo.config.js";
 import { BRAND_HEX } from "../lib/config.js";
 import CustomScripts from "../components/custom-scripts";
 import ErrorBoundary from "../components/error-boundary";
-import { Analytics } from "@vercel/analytics/react";
 import { Close } from "grommet-icons";
 
 /**
@@ -86,7 +85,6 @@ function EuTiveUmSonhoClient({
               </Layer>
             ) : null}
           </SessionProvider>
-          <Analytics />
         </Grommet>
       </ErrorBoundary>
     </>
