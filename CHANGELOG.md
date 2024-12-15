@@ -1,3 +1,10 @@
+# [1.27.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.26.0...v1.27.0) (2024-12-15)
+
+
+### Features
+
+* collect web vitals ([f8720bc](https://github.com/eutiveumsonho/eutiveumsonho/commit/f8720bc17404613e4584cb86be4ec11f9422592a))
+
 # [1.26.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.25.7...v1.26.0) (2024-10-27)
 
 
