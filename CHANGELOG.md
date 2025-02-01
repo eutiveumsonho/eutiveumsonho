@@ -1,3 +1,11 @@
+# [1.28.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.27.0...v1.28.0) (2025-02-01)
+
+
+### Features
+
+* let ollama api handle completions ([55d6993](https://github.com/eutiveumsonho/eutiveumsonho/commit/55d69933a1d37c791ba2386f7f956358cee07e58))
+* point to ollama api ([92f217f](https://github.com/eutiveumsonho/eutiveumsonho/commit/92f217f5a504fb898dbe71774ab802266e8d99f9))
+
 # [1.27.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.26.0...v1.27.0) (2024-12-15)
 
 
