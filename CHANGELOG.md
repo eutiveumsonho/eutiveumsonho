@@ -1,3 +1,10 @@
+# [1.29.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.28.0...v1.29.0) (2025-02-01)
+
+
+### Features
+
+* change model to llama3.2:3b ([4662028](https://github.com/eutiveumsonho/eutiveumsonho/commit/4662028b6b8b8ef8f07fec0a3f6ab2b643b34b7a))
+
 # [1.28.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.27.0...v1.28.0) (2025-02-01)
 
 
