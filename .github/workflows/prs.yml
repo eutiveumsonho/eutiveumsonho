@@ -22,9 +22,3 @@ jobs:
           version: 8
       - run: pnpm install
       - run: pnpm run build
-      - uses: preactjs/compressed-size-action@v2
-        with:
-          # Relevant issue https://github.com/preactjs/compressed-size-action/issues/25
-          pattern: "{./.next/static/chunks/**/*.js,.next/static/css/*.css,.next/server/pages/*.{html,json}}"
-          exclude: "{**/*.map,**/*.nft.json,**/node_modules/**}"
-          strip-hash: "\\w+-(\\w{16}).js$"
