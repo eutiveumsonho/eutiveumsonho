@@ -41,9 +41,11 @@ The following services are spawned by the `docker-compose.yml` file:
 | Zipkin     | Distributed tracing | [9411](http://0.0.0.0:9411)   |
 | Prometheus | Metrics             | [9090](http://0.0.0.0:9090)   |
 
-Create a `.env.local` file based on the [`.env.example`](.env.example) file.
+Make sure you've got either an Ollama API available or a local instance running. You'll need both a URL of the API and an API key to run the project, as well as llama3.2:latest model available.
 
-Get in touch with marcelo@eutiveumsonho.com to request the credentials you will need to start developing this project.
+Also make sure you've got a MongoDB instance available or a local instance running. You'll need a connection string to run the project.
+
+Create a `.env.local` file based on the [`.env.example`](.env.example) file.
 
 Install dependencies:
 
