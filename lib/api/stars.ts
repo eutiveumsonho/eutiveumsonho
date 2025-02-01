@@ -1,6 +1,9 @@
 import { logError } from "../o11y/log";
 
-export async function starPost(data) {
+/**
+ * Stars a post by the currently logged in user.
+ */
+export async function starPost(data: Record<string, any>) {
   const body = JSON.stringify(data);
 
   try {
@@ -23,7 +26,10 @@ export async function starPost(data) {
   }
 }
 
-export async function unstarPost(data) {
+/**
+ * Unstars a post by the currently logged in user.
+ */
+export async function unstarPost(data: Record<string, any>) {
   const body = JSON.stringify(data);
 
   try {

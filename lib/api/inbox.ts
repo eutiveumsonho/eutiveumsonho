@@ -1,6 +1,9 @@
 import { logError } from "../o11y/log";
 
-export async function markInboxMessagesAsRead(inboxIds, all = undefined) {
+export async function markInboxMessagesAsRead(
+  inboxIds: string[],
+  all: boolean = false
+) {
   const body = JSON.stringify({ inboxIds, all });
 
   try {
@@ -23,7 +26,10 @@ export async function markInboxMessagesAsRead(inboxIds, all = undefined) {
   }
 }
 
-export async function deleteInboxMessages(inboxIds, all = undefined) {
+export async function deleteInboxMessages(
+  inboxIds: string[],
+  all: boolean = false
+) {
   const body = JSON.stringify({ inboxIds, all });
 
   try {
@@ -38,7 +44,7 @@ export async function deleteInboxMessages(inboxIds, all = undefined) {
     return data;
   } catch (error) {
     logError(error, {
-      service: "aopi",
+      service: "api",
       pathname: "/api/data/inbox",
       component: "deleteInboxMessages",
     });

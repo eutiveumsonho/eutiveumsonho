@@ -11,6 +11,7 @@ import {
 } from "../../lib/db/reads";
 import { getUserAgentProps } from "../../lib/user-agent";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { logError } from "../../lib/o11y/log";
 
 /**
  * Dream page. This page shows a user's dream.

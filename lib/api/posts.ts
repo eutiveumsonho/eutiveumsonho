@@ -1,6 +1,10 @@
 import { logError } from "../o11y/log";
+import { PostVisibility } from "../posts/types";
 
-export async function createPost(data) {
+/**
+ * Creates a new post.
+ */
+export async function createPost(data: Record<string, any>) {
   const body = JSON.stringify(data);
 
   try {
@@ -24,8 +28,11 @@ export async function createPost(data) {
   }
 }
 
-export async function savePost(dreamId, dreamData) {
-  const body = JSON.stringify({ dreamId, dreamData });
+/**
+ * Updates an existing post.
+ */
+export async function savePost(postId: string, postData: Record<string, any>) {
+  const body = JSON.stringify({ dreamId: postId, dreamData: postData });
 
   try {
     const response = await fetch("/api/data", {
@@ -45,7 +52,10 @@ export async function savePost(dreamId, dreamData) {
   }
 }
 
-export async function updatePostVisibility(postId, visibility) {
+export async function updatePostVisibility(
+  postId: string,
+  visibility: PostVisibility
+) {
   const body = JSON.stringify({ dreamId: postId, visibility });
 
   try {
@@ -66,7 +76,7 @@ export async function updatePostVisibility(postId, visibility) {
   }
 }
 
-export async function deletePost(postId) {
+export async function deletePost(postId: string) {
   const body = JSON.stringify({ dreamId: postId });
 
   try {
@@ -89,7 +99,7 @@ export async function deletePost(postId) {
   }
 }
 
-export async function searchPosts(query) {
+export async function searchPosts(query: string) {
   try {
     const response = await fetch(`/api/data?query=${encodeURI(query)}`, {
       method: "GET",

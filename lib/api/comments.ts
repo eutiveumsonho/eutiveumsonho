@@ -23,7 +23,10 @@ export async function createComment(data) {
   }
 }
 
-export async function deleteComment(commentId, postId) {
+/**
+ * Deletes a comment by ID from a given post.
+ */
+export async function deleteComment(commentId: string, postId: string) {
   const body = JSON.stringify({ commentId, dreamId: postId });
 
   try {

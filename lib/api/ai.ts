@@ -1,13 +1,6 @@
 import { logError } from "../o11y/log";
 
-export * from "./posts";
-export * from "./users";
-export * from "./account";
-export * from "./comments";
-export * from "./stars";
-export * from "./inbox";
-
-export async function createAICompletion(data) {
+export async function createAICompletion(data: Record<string, any>) {
   const body = JSON.stringify(data);
 
   try {

@@ -1,5 +1,8 @@
 import { logError } from "../o11y/log";
 
+/**
+ * Deletes the account of the currently logged in user.
+ */
 export async function deleteAccount() {
   try {
     const response = await fetch("/api/account", {
