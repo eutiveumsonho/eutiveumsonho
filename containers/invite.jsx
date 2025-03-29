@@ -126,6 +126,7 @@ export default function Invite(props) {
           <div>
             <Button
               primary
+              data-umami-event="home-join-button"
               label={t("join")}
               onClick={() => {
                 const callbackUrl = `${window.location.origin}/${locale}/dreams`;
@@ -391,6 +392,7 @@ export default function Invite(props) {
                     {t("login")}
                   </Heading>
                   <Button
+                    data-umami-event="home-close-signin-modal"
                     icon={<Close />}
                     onClick={() => setOpenSignIn(false)}
                   />
@@ -416,6 +418,7 @@ export default function Invite(props) {
                 </Heading>
                 <Button
                   primary
+                  data-umami-event="home-signin-button"
                   label={t("login")}
                   onClick={() => {
                     const callbackUrl = `${window.location.origin}/${locale}/dreams`;

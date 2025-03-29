@@ -76,6 +76,7 @@ const TagInput = ({ value = [], onAdd, onChange, onRemove, ...rest }) => {
         <Box flex style={{ minWidth: "px" }}>
           <TextInput
             type="search"
+            data-umami-event="search-input"
             plain
             dropTarget={boxRef.current}
             {...rest}

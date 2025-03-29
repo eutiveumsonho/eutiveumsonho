@@ -25,6 +25,7 @@ export default function PageActions(props) {
         )}
         <Button
           primary
+          data-umami-event="dashboard-add-dream"
           label={t("dashboard:add-dream")}
           onClick={() => {
             push(`/${locale}/publish`);
@@ -37,6 +38,7 @@ export default function PageActions(props) {
   return (
     <Box direction="row-responsive" gap="small">
       <Button
+        data-umami-event="home-signin"
         label={t("login")}
         onClick={() => {
           const callbackUrl = `${window.location.origin}/${locale}/dreams`;

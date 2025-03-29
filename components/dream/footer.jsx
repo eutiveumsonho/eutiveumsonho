@@ -18,6 +18,7 @@ export default function DreamFooter(props) {
   return (
     <Box pad="medium" direction="row" gap={"xsmall"}>
       <Button
+        data-umami-event="dream-comment"
         hoverIndicator
         icon={<Tip />}
         badge={commentCount}

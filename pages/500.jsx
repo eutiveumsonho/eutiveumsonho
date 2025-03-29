@@ -27,6 +27,7 @@ export default function Custom500(props) {
           vontade para recarregar a página e tentar novamente!
         </Heading>
         <Button
+          data-umami-event="500-recovery-attempt"
           label="Recarregar a página"
           style={{
             marginBottom: "2rem",

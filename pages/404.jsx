@@ -30,6 +30,7 @@ export default function Custom404(props) {
       >
         <Heading>Oooops! Página não encontrada</Heading>
         <Button
+          data-umami-event="404-to-home"
           label="Ir pra página inicial"
           style={{
             marginBottom: "2rem",

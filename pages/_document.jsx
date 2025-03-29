@@ -71,6 +71,11 @@ class MyDocument extends Document {
             type="text/javascript"
             dangerouslySetInnerHTML={{ __html: this.props.browserTimingHeader }}
           />
+          <script
+            defer
+            src="https://umami.url4irl.com/script.js"
+            data-website-id="797fc68a-aa56-4db7-90f9-05adb9048edb"
+          ></script>
         </Head>
         <body
           style={{

@@ -65,6 +65,7 @@ export default function MyAccountPage(props) {
         <Text>{t("delete-account-description")}</Text>
         <Box align="start" pad={{ top: "medium" }}>
           <Button
+            data-umami-event="delete-account-open-modal"
             label={t("delete-account")}
             color="status-critical"
             primary
@@ -105,6 +106,7 @@ export default function MyAccountPage(props) {
               >
                 <Button
                   icon={deleting ? <Spinner size="xsmall" /> : null}
+                  data-umami-event="delete-account-confirmation"
                   label={
                     <Text color="white">
                       {deleting ? (
