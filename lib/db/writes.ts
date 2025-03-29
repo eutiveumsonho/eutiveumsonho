@@ -24,10 +24,8 @@ export * from "./account/writes";
  * It uses the createComment method to create the comment.
  *
  * @todo move AI logic from createComment to this method
- * @param {string} comment
- * @param {string} postId
  */
-export async function createAIComment(comment, postId) {
+export async function createAIComment(comment: string, postId: string): Promise<void> {
   const data = {
     comment,
     dreamId: postId,
@@ -46,27 +44,21 @@ export async function createAIComment(comment, postId) {
 
 /**
  * Saves a completion to the database
- *
- * @param {*} completion
- * @param {*} postId
- * @param {*} userEmail
- * @param {*} userId
  */
-export async function saveCompletion(completion, postId, userEmail, userId) {
+export async function saveCompletion(
+  completion: any,
+  postId: string,
+  userEmail?: string,
+  userId?: string
+): Promise<{ result: any; data: any }> {
   const collection = await getCompletionsCollection();
 
-  // This should never happen as the client route (triggered first time a completion
-  // is generated) always provides the userEmail from the session.
-  // In the meanwhile, backend routes (triggered from Chiron or from upateDream), always provides the userId.
-
-  // Backend routes
   if (!userEmail && !userId) {
     throw new Error("No user data provided");
   }
 
-  let user = {};
+  let user: any = {};
 
-  // Client route; first completion
   if (userEmail && !userId) {
     user = await getUserByEmail(userEmail);
   }
@@ -86,24 +78,14 @@ export async function saveCompletion(completion, postId, userEmail, userId) {
 }
 
 /**
- * Starts the completion generation process, which is followed by a
- * human-in-the-loop review process until it gets back to this
- * service
- *
- * session and userId params are optional because this method
- * has two possible workflows, one using the session and the other
- * using the userIds. The session workflow starts on the frontend,
- * while the userId workflow starts on the backend.
- *
- * This is this way because saveCompletions method is, and this method
- * calls it.
- *
- * @param {string} postId The dream id
- * @param {string} text The dream data text
- * @param {object} session (Optional) The session object. If not provided, the `userId` must be provided.
- * @param {string} userId (Optional) The user id. If not provided, the `session` must be provided.
+ * Starts the completion generation process
  */
-export async function generateCompletion(postId, text, session, userId) {
+export async function generateCompletion(
+  postId: string,
+  text: string,
+  session?: { user: { email: string } },
+  userId?: string
+): Promise<void> {
   const params = {
     messages: [
       { role: "system", content: systemInstruction },
@@ -135,8 +117,6 @@ export async function generateCompletion(postId, text, session, userId) {
     );
 
     if (result?.acknowledged || result?.insertedId) {
-      // Disable human in the loop for now. Even small models nowadays are good enough to generate fair completions.
-      // TODO: Experiment feature flagging this
       const enableHumanInTheLoop = false;
       if (enableHumanInTheLoop) {
         await hitChiron(data);
@@ -166,7 +146,7 @@ const systemInstruction = `Act as a psychotherapist specializing in dream interp
 /**
  * Saves the cosine similarity score between two texts.
  */
-export async function saveCosineSimilarityScore(scoreData) {
+export async function saveCosineSimilarityScore(scoreData: any): Promise<void> {
   const csCollection = await getCosineSimilarityCollection();
 
   try {
