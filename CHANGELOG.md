@@ -1,3 +1,10 @@
+# [1.30.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.29.0...v1.30.0) (2025-03-29)
+
+
+### Features
+
+* add analytics and some analytics events ([271a347](https://github.com/eutiveumsonho/eutiveumsonho/commit/271a34769be5be87a9931a8a851adc14403a48e9))
+
 # [1.29.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.28.0...v1.29.0) (2025-02-01)
 
 
