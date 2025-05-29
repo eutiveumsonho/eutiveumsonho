@@ -1,3 +1,10 @@
+# [1.31.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.30.0...v1.31.0) (2025-05-29)
+
+
+### Features
+
+* add email export functionality for dreams ([7a7d715](https://github.com/eutiveumsonho/eutiveumsonho/commit/7a7d715df79427ccc3f7a552144d88fe3fd6176c))
+
 # [1.30.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.29.0...v1.30.0) (2025-03-29)
 
 
