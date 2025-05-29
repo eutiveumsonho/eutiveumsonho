@@ -11,6 +11,7 @@ import { BRAND_HEX } from "../lib/config";
 import { deletePost, exportDreamsToEmail } from "../lib/api";
 import { useState } from "react";
 import Empty from "../components/empty";
+import Pagination from "../components/pagination";
 import "dayjs/locale/pt-br";
 import "dayjs/locale/en";
 import "dayjs/locale/es";
@@ -19,7 +20,7 @@ import "dayjs/locale/fr";
 dayjs.extend(LocalizedFormat);
 
 export default function DreamsContainer(props) {
-  const { serverSession, data, title, empty, deviceType } = props;
+  const { serverSession, data, pagination, title, empty, deviceType } = props;
   const { push, reload, locale } = useRouter();
   const [open, setOpen] = useState(false);
   const [dreamIdToDelete, setDreamIdToDelete] = useState();
@@ -110,6 +111,8 @@ export default function DreamsContainer(props) {
             );
           })}
         </div>
+
+        {pagination && <Pagination pagination={pagination} />}
 
         {exportOpen && (
           <Layer

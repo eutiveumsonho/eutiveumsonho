@@ -2,6 +2,7 @@
 import { getAuthProps } from "../../lib/auth";
 import {
   getLatestPublicPosts,
+  getPublicPostsCount,
   getStarsByUserEmail,
   getUserById,
 } from "../../lib/db/reads";
@@ -22,6 +23,7 @@ export default function FindOut(props) {
     serverSession: rawServerSession,
     data: rawData,
     stars: rawStars,
+    pagination: rawPagination,
     deviceType,
   } = props;
 
@@ -30,6 +32,7 @@ export default function FindOut(props) {
 
   const data = JSON.parse(rawData);
   const stars = JSON.parse(rawStars);
+  const pagination = JSON.parse(rawPagination);
 
   return (
     <>
@@ -40,6 +43,7 @@ export default function FindOut(props) {
         serverSession={serverSession}
         data={data}
         stars={stars}
+        pagination={pagination}
         title={t("recent-dreams")}
         deviceType={deviceType}
       />
@@ -58,30 +62,51 @@ export async function getServerSideProps(context) {
   }
 
   try {
-    const data = await getLatestPublicPosts();
-    const stars = await getStarsByUserEmail(
-      authProps.props.serverSession.user.email
-    );
+    const { page = 1 } = context.query;
+    const currentPage = parseInt(page, 10);
+    const limit = 20;
+
+    const [data, stars, total] = await Promise.all([
+      getLatestPublicPosts({ page: currentPage, limit }),
+      getStarsByUserEmail(authProps.props.serverSession.user.email),
+      getPublicPostsCount()
+    ]);
 
     const dreams = [];
 
-    for (let dream of data) {
-      if (dream.visibility === "anonymous") {
-        delete dream.userId;
-        dreams.push(dream);
-        continue;
-      }
+    if (data) {
+      for (let dream of data) {
+        if (dream.visibility === "anonymous") {
+          delete dream.userId;
+          dreams.push(dream);
+          continue;
+        }
 
-      const user = await getUserById(dream.userId);
-      dream.user = user;
-      dreams.push(dream);
+        const user = await getUserById(dream.userId);
+        dream.user = user;
+        dreams.push(dream);
+      }
     }
+
+    const totalPages = Math.ceil(total / limit);
+    const hasNextPage = currentPage < totalPages;
+    const hasPrevPage = currentPage > 1;
+
+    const pagination = {
+      currentPage,
+      totalPages,
+      total,
+      hasNextPage,
+      hasPrevPage,
+      limit
+    };
 
     return {
       props: {
         serverSession: JSON.stringify(authProps.props.serverSession),
         data: JSON.stringify(dreams),
         stars: JSON.stringify(stars),
+        pagination: JSON.stringify(pagination),
         ...getUserAgentProps(context),
         ...(await serverSideTranslations(context.locale, [
           "dashboard",
@@ -95,5 +120,19 @@ export async function getServerSideProps(context) {
       pathname: "/dreams",
       component: "FindOut",
     });
+
+    return {
+      props: {
+        serverSession: JSON.stringify(authProps.props.serverSession),
+        data: JSON.stringify([]),
+        stars: JSON.stringify([]),
+        pagination: JSON.stringify({ currentPage: 1, totalPages: 0, total: 0, hasNextPage: false, hasPrevPage: false, limit: 20 }),
+        ...getUserAgentProps(context),
+        ...(await serverSideTranslations(context.locale, [
+          "dashboard",
+          "common",
+        ])),
+      },
+    };
   }
 }

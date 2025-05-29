@@ -1,5 +1,5 @@
 import { getAuthProps } from "../lib/auth";
-import { getPosts } from "../lib/db/reads";
+import { getPosts, getPostsCount } from "../lib/db/reads";
 import Dreams from "../containers/dreams";
 import Head from "next/head";
 import { getUserAgentProps } from "../lib/user-agent";
@@ -9,10 +9,15 @@ import { useRouter } from "next/router";
 import { logError } from "../lib/o11y/log";
 
 export default function MyDreams(props) {
-  const { serverSession: rawServerSession, data: rawData } = props;
+  const { 
+    serverSession: rawServerSession, 
+    data: rawData, 
+    pagination: rawPagination 
+  } = props;
 
   const serverSession = JSON.parse(rawServerSession);
   const data = JSON.parse(rawData);
+  const pagination = JSON.parse(rawPagination);
 
   const { t } = useTranslation("dashboard");
   const { locale } = useRouter();
@@ -25,6 +30,7 @@ export default function MyDreams(props) {
       <Dreams
         serverSession={serverSession}
         data={data}
+        pagination={pagination}
         title={t("my-dreams")}
         page="my-dreams"
         empty={{
@@ -50,13 +56,33 @@ export async function getServerSideProps(context) {
 
   try {
     const { email } = authProps.props.serverSession.user;
+    const { page = 1 } = context.query;
+    const currentPage = parseInt(page, 10);
+    const limit = 20;
 
-    const data = await getPosts(email);
+    const [data, total] = await Promise.all([
+      getPosts(email, { page: currentPage, limit }),
+      getPostsCount(email)
+    ]);
+
+    const totalPages = Math.ceil(total / limit);
+    const hasNextPage = currentPage < totalPages;
+    const hasPrevPage = currentPage > 1;
+
+    const pagination = {
+      currentPage,
+      totalPages,
+      total,
+      hasNextPage,
+      hasPrevPage,
+      limit
+    };
 
     return {
       props: {
         serverSession: JSON.stringify(authProps.props.serverSession),
-        data: JSON.stringify(data),
+        data: JSON.stringify(data || []),
+        pagination: JSON.stringify(pagination),
         ...getUserAgentProps(context),
         ...(await serverSideTranslations(context.locale, [
           "dashboard",
@@ -75,6 +101,7 @@ export async function getServerSideProps(context) {
       props: {
         serverSession: JSON.stringify(authProps.props.serverSession),
         data: JSON.stringify([]),
+        pagination: JSON.stringify({ currentPage: 1, totalPages: 0, total: 0, hasNextPage: false, hasPrevPage: false, limit: 20 }),
         ...(await serverSideTranslations(context.locale, [
           "dashboard",
           "common",
