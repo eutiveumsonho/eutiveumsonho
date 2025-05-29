@@ -19,6 +19,7 @@ import {
   UserSettings,
   BarChart,
   Inbox,
+  User,
 } from "grommet-icons";
 import { BRAND_HEX } from "../lib/config";
 import { Logo } from "./logo";
@@ -144,6 +145,7 @@ const MainNavigation = (props) => {
   const insights = `/${locale}/insights`;
   const inbox = `/${locale}/inbox`;
   const savedDreams = `/${locale}/saved-dreams`;
+  const profile = `/${locale}/profile`;
   const pathname = `/${locale}${rawPathname}`;
 
   if (deviceType === "mobile" || size === "small") {
@@ -188,6 +190,12 @@ const MainNavigation = (props) => {
           hoverIndicator={pathname !== savedDreams}
           primary={pathname === savedDreams}
           onClick={() => push(savedDreams)}
+        />
+        <Button
+          icon={<User />}
+          hoverIndicator={pathname !== profile}
+          primary={pathname === profile}
+          onClick={() => push(profile)}
         />
       </Nav>
     );
@@ -240,6 +248,12 @@ const MainNavigation = (props) => {
         label={t("saved")}
         selected={pathname === savedDreams}
         onClick={() => push(savedDreams)}
+      />
+      <SidebarButton
+        icon={<User />}
+        label={t("profile")}
+        selected={pathname === profile}
+        onClick={() => push(profile)}
       />
     </Nav>
   );
