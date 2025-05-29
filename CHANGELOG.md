@@ -1,3 +1,10 @@
+# [1.32.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.31.0...v1.32.0) (2025-05-29)
+
+
+### Features
+
+* implement user profile pages with username and visibility controls ([2423fa7](https://github.com/eutiveumsonho/eutiveumsonho/commit/2423fa7b6edb30711f004ca2250d1eb466730702))
+
 # [1.31.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.30.0...v1.31.0) (2025-05-29)
 
 
