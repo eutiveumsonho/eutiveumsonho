@@ -1,3 +1,10 @@
+# [1.33.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.32.0...v1.33.0) (2025-05-29)
+
+
+### Features
+
+* add pagination to dream feed pages ([7b4f837](https://github.com/eutiveumsonho/eutiveumsonho/commit/7b4f837991e7ce3af71a68dcbf6640ff49febae8)), closes [#58](https://github.com/eutiveumsonho/eutiveumsonho/issues/58)
+
 # [1.32.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.31.0...v1.32.0) (2025-05-29)
 
 
