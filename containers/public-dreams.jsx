@@ -9,9 +9,10 @@ import { BRAND_HEX } from "../lib/config";
 import DreamFooter from "../components/dream/footer";
 import { useTranslation } from "next-i18next";
 import { DreamHeader } from "../components/dream/header";
+import Pagination from "../components/pagination";
 
 export default function PublicDreams(props) {
-  const { serverSession, data, stars, title, deviceType } = props;
+  const { serverSession, data, stars, pagination, title, deviceType } = props;
   const [selectedTags, setSelectedTags] = useState([]);
   const [searching, setSearching] = useState(false);
   const [dreams, setDreams] = useState([]);
@@ -80,6 +81,7 @@ export default function PublicDreams(props) {
             );
           })}
         </div>
+        {pagination && <Pagination pagination={pagination} />}
       </Box>
     </Dashboard>
   );
