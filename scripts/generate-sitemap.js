@@ -16,6 +16,7 @@ const skipMatch = [
   "!pages/404.js",
   "!pages/500.js",
   "!pages/inbox.js",
+  "!pages/profile/[username].jsx",
 ];
 
 // Important! The following issue has useful information on
