@@ -55,7 +55,7 @@ export default function DreamsContainer(props) {
         setExportOpen(false);
       }
     } catch (error) {
-      console.error('Error exporting dreams:', error);
+      console.error("Error exporting dreams:", error);
     }
     setExporting(false);
   };
@@ -71,7 +71,12 @@ export default function DreamsContainer(props) {
   return (
     <Dashboard serverSession={serverSession} deviceType={deviceType}>
       <Box pad="medium">
-        <Box direction="row" justify="between" align="center" margin={{ bottom: "medium" }}>
+        <Box
+          direction="row"
+          justify="between"
+          align="center"
+          margin={{ bottom: "medium" }}
+        >
           <Heading size="small">{title}</Heading>
           {data.length > 0 && (
             <Tip content={getExportTooltip(locale)}>
@@ -105,7 +110,7 @@ export default function DreamsContainer(props) {
             );
           })}
         </div>
-        
+
         {exportOpen && (
           <Layer
             id="export-modal"
@@ -136,7 +141,9 @@ export default function DreamsContainer(props) {
                   label={
                     <Text color="white">
                       <strong>
-                        {exporting ? getExportingLabel(locale) : getExportConfirmLabel(locale)}
+                        {exporting
+                          ? getExportingLabel(locale)
+                          : getExportConfirmLabel(locale)}
                       </strong>
                     </Text>
                   }
@@ -276,7 +283,7 @@ function getExportLabel(locale) {
     en: "Export to Email",
     pt: "Exportar por Email",
     es: "Exportar por Email",
-    fr: "Exporter par Email"
+    fr: "Exporter par Email",
   };
   return labels[locale] || labels.en;
 }
@@ -286,7 +293,7 @@ function getExportTooltip(locale) {
     en: "Send all your dreams to your email",
     pt: "Enviar todos os seus sonhos para seu email",
     es: "Enviar todos tus sueños a tu email",
-    fr: "Envoyer tous vos rêves à votre email"
+    fr: "Envoyer tous vos rêves à votre email",
   };
   return tooltips[locale] || tooltips.en;
 }
@@ -296,7 +303,7 @@ function getExportModalTitle(locale) {
     en: "Export Dreams to Email",
     pt: "Exportar Sonhos por Email",
     es: "Exportar Sueños por Email",
-    fr: "Exporter Rêves par Email"
+    fr: "Exporter Rêves par Email",
   };
   return titles[locale] || titles.en;
 }
@@ -306,7 +313,7 @@ function getExportModalText(locale, count) {
     en: `We will send all ${count} of your dreams to your email address. This may take a few moments.`,
     pt: `Enviaremos todos os seus ${count} sonhos para seu endereço de email. Isso pode levar alguns instantes.`,
     es: `Enviaremos todos tus ${count} sueños a tu dirección de email. Esto puede tomar unos momentos.`,
-    fr: `Nous enverrons tous vos ${count} rêves à votre adresse email. Cela peut prendre quelques instants.`
+    fr: `Nous enverrons tous vos ${count} rêves à votre adresse email. Cela peut prendre quelques instants.`,
   };
   return texts[locale] || texts.en;
 }
@@ -316,7 +323,7 @@ function getCancelLabel(locale) {
     en: "Cancel",
     pt: "Cancelar",
     es: "Cancelar",
-    fr: "Annuler"
+    fr: "Annuler",
   };
   return labels[locale] || labels.en;
 }
@@ -326,7 +333,7 @@ function getExportConfirmLabel(locale) {
     en: "Send to Email",
     pt: "Enviar por Email",
     es: "Enviar por Email",
-    fr: "Envoyer par Email"
+    fr: "Envoyer par Email",
   };
   return labels[locale] || labels.en;
 }
@@ -336,7 +343,7 @@ function getExportingLabel(locale) {
     en: "Sending...",
     pt: "Enviando...",
     es: "Enviando...",
-    fr: "Envoi..."
+    fr: "Envoi...",
   };
   return labels[locale] || labels.en;
 }
