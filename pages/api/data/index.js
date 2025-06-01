@@ -9,6 +9,7 @@ import {
   FORBIDDEN,
 } from "../../../lib/errors";
 import { logError } from "../../../lib/o11y/log";
+import { combineLocationData, inferLocationFromHeaders } from "../../../lib/location";
 
 /**
  * This is the main API route for getting, creating, updating, and deleting dreams.
@@ -85,7 +86,16 @@ async function post(req, res) {
     return res;
   }
 
-  const data = { dream: req.body, session };
+  // Handle location data
+  const clientLocation = req.body.location;
+  const inferredLocation = inferLocationFromHeaders(req);
+  const finalLocation = combineLocationData(clientLocation, inferredLocation);
+
+  const data = { 
+    dream: req.body, 
+    session,
+    location: finalLocation
+  };
 
   try {
     const result = await createPost(data);

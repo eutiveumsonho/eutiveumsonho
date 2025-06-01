@@ -25,5 +25,9 @@
   "sync-failed": "Votre rêve doit avoir un maximum de 10000 caractères, mais il en a",
   "errored": "Une erreur s'est produite",
   "edit-dream": "Éditer le rêve",
-  "loading-with-love": "Chargement avec amour..."
+  "loading-with-love": "Chargement avec amour...",
+  "location-permission-title": "Partager l'Emplacement du Rêve?",
+  "location-permission-description": "Souhaitez-vous sauvegarder où ce rêve a été écrit? Cela aide à créer une carte personnelle de vos rêves et n'est visible que par vous.",
+  "allow-location": "Autoriser l'Emplacement",
+  "skip": "Ignorer"
 }

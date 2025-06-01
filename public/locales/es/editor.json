@@ -25,5 +25,9 @@
   "sync-failed": "Tu sueño debe tener un máximo de 10000 caracteres, pero tiene",
   "errored": "Ocurrió un error",
   "edit-dream": "Editar sueño",
-  "loading-with-love": "Cargando con amor..."
+  "loading-with-love": "Cargando con amor...",
+  "location-permission-title": "¿Compartir la Ubicación del Sueño?",
+  "location-permission-description": "¿Te gustaría guardar dónde fue escrito este sueño? Esto ayuda a crear un mapa personal de tus sueños y solo es visible para ti.",
+  "allow-location": "Permitir Ubicación",
+  "skip": "Omitir"
 }
