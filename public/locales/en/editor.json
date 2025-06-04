@@ -25,5 +25,9 @@
   "sync-failed": "Your dream must have a maximum of 10000 characters, but it has",
   "errored": "An error occurred",
   "edit-dream": "Edit dream",
-  "loading-with-love": "Loading with love..."
+  "loading-with-love": "Loading with love...",
+  "location-permission-title": "Share Your Dream's Location?",
+  "location-permission-description": "Would you like to save where this dream was written? This helps create a personal map of your dreams and is only visible to you.",
+  "allow-location": "Allow Location",
+  "skip": "Skip"
 }
