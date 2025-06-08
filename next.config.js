@@ -12,6 +12,18 @@ const nextConfig = {
   webpack: (config, options) => {
     patchWebpackConfig(config, options);
 
+    // Add WebAssembly support
+    config.experiments = {
+      ...config.experiments,
+      asyncWebAssembly: true,
+    };
+
+    // Handle .wasm files
+    config.module.rules.push({
+      test: /\.wasm$/,
+      type: "webassembly/async",
+    });
+
     if (options.isServer) {
       config.externals = webpackNodeExternals({
         // Uses list to add this modules for server bundle and process.

@@ -62,7 +62,7 @@ export default function PublicDreamsSection({ deviceType }) {
     <Box
       pad={{ horizontal: "large", vertical: "xlarge" }}
       background="light-1"
-      style={{ minHeight: "80vh" }}
+      style={{ minHeight: "80vh", width: "100%" }}
     >
       <Box align="center" gap="large" style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <Box align="center" gap="medium">

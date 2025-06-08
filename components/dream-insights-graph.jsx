@@ -1,49 +1,8 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Box, Heading, Text } from "grommet";
-import { cosineSimilarityScore } from "../lib/data-analysis/cosine-similarity";
-import { getInsights } from "../lib/data-analysis/word-frequency";
 
-export default function DreamInsightsGraph({ dreams, title = "Dream Insights" }) {
-  const [insights, setInsights] = useState(null);
+export default function DreamInsightsGraph({ insights, title = "Dream Insights" }) {
   const canvasRef = useRef(null);
-
-  useEffect(() => {
-    if (!dreams || dreams.length === 0) return;
-
-    // Extract text from all dreams
-    const allText = dreams
-      .map(dream => dream.dream?.text || "")
-      .join(" ");
-
-    // Get word frequency insights
-    const dreamInsights = getInsights(allText);
-    
-    // Get top 20 most frequent words for visualization
-    const topWords = dreamInsights.wordFrequency.slice(0, 20);
-    
-    // Calculate similarities between words
-    const similarities = [];
-    for (let i = 0; i < topWords.length; i++) {
-      for (let j = i + 1; j < topWords.length; j++) {
-        const similarity = cosineSimilarityScore(topWords[i].word, topWords[j].word);
-        if (similarity > 0.1) { // Only show meaningful connections
-          similarities.push({
-            source: i,
-            target: j,
-            similarity: similarity,
-            sourceWord: topWords[i].word,
-            targetWord: topWords[j].word
-          });
-        }
-      }
-    }
-
-    setInsights({
-      words: topWords,
-      similarities: similarities,
-      characterCount: dreamInsights.characterCount
-    });
-  }, [dreams]);
 
   useEffect(() => {
     if (!insights || !canvasRef.current) return;

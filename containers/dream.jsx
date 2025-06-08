@@ -13,6 +13,7 @@ import {
 import VisibilityIcon from "../components/visbility-icon";
 import Layout from "../components/layout";
 import Dashboard from "../components/dashboard";
+import DreamInsightsGraph from "../components/dream-insights-graph";
 import { truncate } from "../lib/strings";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import { useRouter } from "next/router";
@@ -29,7 +30,7 @@ import "dayjs/locale/fr";
 dayjs.extend(LocalizedFormat);
 
 export default function DreamContainer(props) {
-  const { serverSession, data, comments, deviceType } = props;
+  const { serverSession, data, comments, insights, deviceType } = props;
   const { back, push } = useRouter();
   const { t } = useTranslation("dashboard");
 
@@ -37,7 +38,7 @@ export default function DreamContainer(props) {
     return (
       <Layout serverSession={serverSession} deviceType={deviceType}>
         <PageContent justify="center" align="center" flex>
-          <Dream data={data} publicView />
+          <Dream data={data} insights={insights} publicView />
           <Comments mustSignIn comments={comments} push={push} />
         </PageContent>
       </Layout>
@@ -58,7 +59,7 @@ export default function DreamContainer(props) {
           <Button icon={<Return />} hoverIndicator onClick={() => back()} />
           <Heading size="small">{t("back")}</Heading>
         </Box>
-        <Dream data={data} />
+        <Dream data={data} insights={insights} />
         <Comments
           postId={data._id}
           comments={comments}
@@ -71,7 +72,7 @@ export default function DreamContainer(props) {
 }
 
 function Dream(props) {
-  const { data, publicView } = props;
+  const { data, insights, publicView } = props;
   const { locale } = useRouter();
   const { t } = useTranslation("dashboard");
 
@@ -112,6 +113,7 @@ function Dream(props) {
           />
         </Box>
       </Box>
+      {insights && <DreamInsightsGraph insights={insights} />}
     </Box>
   );
 }

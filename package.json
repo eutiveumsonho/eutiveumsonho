@@ -3,8 +3,8 @@
   "version": "1.33.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently -p [{name}] -n eutiveumsonho,otel \"next\" \"docker compose -f ./dev/docker-compose.yaml up\"",
-    "dev:with-chiron": "concurrently -p [{name}] -n nextjs@eutiveumsonho,chiron@eutiveumsonho \"next\" \"cd ../chiron && bun dev\"",
+    "dev": "concurrently -p [{name}] -n eutiveumsonho,otel -c blue.bold,magenta.bold \"next\" \"docker compose -f ./dev/docker-compose.yaml up\"",
+    "dev:with-chiron": "concurrently -p [{name}] -n nextjs@eutiveumsonho,chiron@eutiveumsonho -c blue.bold,magenta.bold \"next\" \"cd ../chiron && bun dev\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -38,12 +38,14 @@
     "exponential-backoff": "^3.1.1",
     "express-useragent": "^1.0.15",
     "framer-motion": "^7.10.3",
+    "fs": "0.0.1-security",
     "grommet": "^2.38.0",
     "grommet-icons": "^4.12.1",
     "i18next": "^23.11.5",
     "languagedetect": "^2.0.0",
     "mongodb": "^4.17.2",
     "multilingual-stemmer": "^1.0.2",
+    "natural": "^8.1.0",
     "next": "latest",
     "next-auth": "^4.24.7",
     "next-i18next": "^14.0.3",
@@ -83,6 +85,9 @@
   },
   "engines": {
     "node": "20"
+  },
+  "browser": {
+    "fs": false
   },
   "packageManager": "pnpm@10.11.1+sha512.e519b9f7639869dc8d5c3c5dfef73b3f091094b0a006d7317353c72b124e80e1afd429732e28705ad6bfa1ee879c1fce46c128ccebd3192101f43dd67c667912"
 }

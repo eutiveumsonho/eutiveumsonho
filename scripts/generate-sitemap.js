@@ -3,19 +3,19 @@ const globby = require("globby");
 
 // Needs empty line to generate root paths
 const skipMatch = [
-  "!pages/my-dreams.js",
-  "!pages/account.js",
+  "!pages/my-dreams.jsx",
+  "!pages/account.jsx",
   "!pages/publish",
-  "!pages/_*.js",
+  "!pages/_*.jsx",
   "!pages/api",
-  "!pages/auth/error.js",
-  "!pages/auth/verify-request.js",
+  "!pages/auth/error.jsx",
+  "!pages/auth/verify-request.jsx",
   "!pages/dreams",
-  "!pages/saved-dreams.js",
-  "!pages/insights.js",
-  "!pages/404.js",
-  "!pages/500.js",
-  "!pages/inbox.js",
+  "!pages/saved-dreams.jsx",
+  "!pages/insights.jsx",
+  "!pages/404.jsx",
+  "!pages/500.jsx",
+  "!pages/inbox.jsx",
   "!pages/profile/[username].jsx",
 ];
 

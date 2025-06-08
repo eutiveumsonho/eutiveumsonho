@@ -2,35 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-      <loc>https://eutiveumsonho.com/404x</loc>
-  </url>
-          
-  <url>
-      <loc>https://eutiveumsonho.com/500x</loc>
-  </url>
-          
-  <url>
-      <loc>https://eutiveumsonho.com/_appx</loc>
-  </url>
-          
-  <url>
-      <loc>https://eutiveumsonho.com/_documentx</loc>
-  </url>
-          
-  <url>
-      <loc>https://eutiveumsonho.com/_errorx</loc>
-  </url>
-          
-  <url>
-      <loc>https://eutiveumsonho.com/accountx</loc>
-  </url>
-          
-  <url>
       <loc>https://eutiveumsonho.com/cookies-policyx</loc>
-  </url>
-          
-  <url>
-      <loc>https://eutiveumsonho.com/inboxx</loc>
   </url>
           
   <url>
@@ -38,19 +10,11 @@
   </url>
           
   <url>
-      <loc>https://eutiveumsonho.com/insightsx</loc>
-  </url>
-          
-  <url>
-      <loc>https://eutiveumsonho.com/my-dreamsx</loc>
-  </url>
-          
-  <url>
       <loc>https://eutiveumsonho.com/privacy-policyx</loc>
   </url>
           
   <url>
-      <loc>https://eutiveumsonho.com/saved-dreamsx</loc>
+      <loc>https://eutiveumsonho.com/profilex</loc>
   </url>
           
   <url>
@@ -58,15 +22,7 @@
   </url>
           
   <url>
-      <loc>https://eutiveumsonho.com/auth/errorx</loc>
-  </url>
-          
-  <url>
       <loc>https://eutiveumsonho.com/auth/signinx</loc>
-  </url>
-          
-  <url>
-      <loc>https://eutiveumsonho.com/auth/verify-requestx</loc>
   </url>
           
 </urlset>

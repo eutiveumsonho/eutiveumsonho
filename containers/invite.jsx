@@ -309,6 +309,18 @@ export default function Invite(props) {
           </Box>
         </Box>
       </PageContent>
+      <PageContent         
+        justify="center"
+        align="center"
+        flex
+        style={{
+          position: "relative",
+          paddingRight: 0,
+          paddingLeft: 0,
+        }}
+      >
+        <PublicDreamsSection deviceType={deviceType} />
+      </PageContent>
       <PageContent
         justify="start"
         align="center"
@@ -432,7 +444,6 @@ export default function Invite(props) {
           ) : null}
         </Box>
       </PageContent>
-      <PublicDreamsSection deviceType={deviceType} />
     </Layout>
   );
 }
