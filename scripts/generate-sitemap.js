@@ -30,7 +30,10 @@ const skipMatch = [
 function generateUrlLoc(pages) {
   const routes = pages
     .map((page) => {
-      const path = page.replace("pages", "").replace(".js", "");
+      const path = page
+        .replace("pages", "")
+        .replace(".js", "")
+        .replace(".jsx", "");
       const route = path === "/index" ? "" : path;
 
       return `

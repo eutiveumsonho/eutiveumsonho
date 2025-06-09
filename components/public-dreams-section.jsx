@@ -1,18 +1,27 @@
 import { useState, useEffect } from "react";
-import { Box, Heading, Text, Button, Spinner, TextInput, ResponsiveContext } from "grommet";
+import {
+  Box,
+  Heading,
+  Text,
+  Button,
+  Spinner,
+  TextInput,
+  ResponsiveContext,
+} from "grommet";
 import { Search as SearchIcon } from "grommet-icons";
 import { useContext } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { truncate } from "../lib/strings";
-import DreamInsightsGraph from "./dream-insights-graph";
+// import PostInsightsGraph from "./post-insights-graph";
 
 export default function PublicDreamsSection({ deviceType }) {
   const [dreams, setDreams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [searching, setSearching] = useState(false);
-  const [showGraph, setShowGraph] = useState(false);
+  // const [insights, setInsights] = useState(null);
+  // const [loadingInsights, setLoadingInsights] = useState(false);
   const size = useContext(ResponsiveContext);
   const { locale, push } = useRouter();
   const { t } = useTranslation("layout");
@@ -23,13 +32,19 @@ export default function PublicDreamsSection({ deviceType }) {
     fetchDreams();
   }, []);
 
+  // useEffect(() => {
+  //   if (dreams.length > 0) {
+  //     fetchInsights();
+  //   }
+  // }, [dreams]);
+
   const fetchDreams = async (query = "") => {
     try {
       setLoading(true);
-      const url = query 
+      const url = query
         ? `/api/public-dreams?query=${encodeURIComponent(query)}&limit=15`
         : "/api/public-dreams?limit=15";
-      
+
       const response = await fetch(url);
       const data = await response.json();
       setDreams(data || []);
@@ -41,12 +56,26 @@ export default function PublicDreamsSection({ deviceType }) {
     }
   };
 
+  // const fetchInsights = async () => {
+  //   try {
+  //     setLoadingInsights(true);
+  //     const response = await fetch("/api/post-insights");
+  //     const data = await response.json();
+  //     setInsights(data);
+  //   } catch (error) {
+  //     console.error("Error fetching insights:", error);
+  //     setInsights(null);
+  //   } finally {
+  //     setLoadingInsights(false);
+  //   }
+  // };
+
   const handleSearch = async (query) => {
     if (!query.trim()) {
       fetchDreams();
       return;
     }
-    
+
     setSearching(true);
     await fetchDreams(query);
     setSearching(false);
@@ -64,21 +93,26 @@ export default function PublicDreamsSection({ deviceType }) {
       background="light-1"
       style={{ minHeight: "80vh", width: "100%" }}
     >
-      <Box align="center" gap="large" style={{ maxWidth: "1200px", margin: "0 auto" }}>
+      <Box
+        align="center"
+        gap="large"
+        style={{ maxWidth: "1200px", margin: "0 auto" }}
+      >
         <Box align="center" gap="medium">
           <Heading level={2} size="large" textAlign="center">
             {t("discover-dreams") || "Discover Dreams"}
           </Heading>
           <Text size="medium" textAlign="center" color="dark-4">
-            {t("explore-public-dreams") || "Explore dreams shared by our community"}
+            {t("explore-public-dreams") ||
+              "Explore dreams shared by our community"}
           </Text>
         </Box>
 
         {/* Search Section */}
-        <Box 
-          direction={isSmall ? "column" : "row"} 
-          gap="small" 
-          align="center" 
+        <Box
+          direction={isSmall ? "column" : "row"}
+          gap="small"
+          align="center"
           width={{ max: "600px" }}
         >
           <TextInput
@@ -91,27 +125,38 @@ export default function PublicDreamsSection({ deviceType }) {
           />
           <Button
             primary
-            label={searching ? <Spinner size="small" /> : (t("search") || "Search")}
+            label={
+              searching ? <Spinner size="small" /> : t("search") || "Search"
+            }
             onClick={() => handleSearch(searchQuery)}
             disabled={searching}
-          />
-          <Button
-            secondary
-            label={showGraph ? (t("hide-insights") || "Hide Insights") : (t("show-insights") || "Show Insights")}
-            onClick={() => setShowGraph(!showGraph)}
-            disabled={dreams.length === 0}
           />
         </Box>
 
         {/* Insights Graph */}
-        {showGraph && dreams.length > 0 && (
+        {/* {dreams.length > 0 && (
           <Box width="100%" align="center">
-            <DreamInsightsGraph 
-              dreams={dreams} 
-              title={t("dream-insights") || "Dream Insights"}
-            />
+            {loadingInsights ? (
+              <Box align="center" pad="large">
+                <Spinner size="medium" />
+                <Text>{t("loading-insights") || "Loading insights..."}</Text>
+              </Box>
+            ) : insights ? (
+              <PostInsightsGraph
+                insights={insights}
+                title={`${t("dream-insights") || "Dream Insights"} (${
+                  insights.dreamCount
+                } ${t("dreams") || "dreams"})`}
+              />
+            ) : (
+              <Box align="center" pad="large">
+                <Text>
+                  {t("error-loading-insights") || "Error loading insights"}
+                </Text>
+              </Box>
+            )}
           </Box>
-        )}
+        )} */}
 
         {/* Dreams List */}
         <Box width="100%" gap="medium">
@@ -163,7 +208,10 @@ export default function PublicDreamsSection({ deviceType }) {
 function PublicDreamCard({ dream, locale, push, isSmall, t }) {
   const maxLength = isSmall ? 200 : 300;
   const dreamText = dream.dream?.html || dream.dream?.text || "";
-  const truncatedText = dreamText.length > maxLength ? truncate(dreamText, maxLength, true) : dreamText;
+  const truncatedText =
+    dreamText.length > maxLength
+      ? truncate(dreamText, maxLength, true)
+      : dreamText;
 
   return (
     <Box
