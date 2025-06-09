@@ -19,6 +19,6 @@ jobs:
           echo ENCRYPTION_KEY=encryption_key               >> .env.local
       - uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: 10
       - run: pnpm install
       - run: pnpm run build

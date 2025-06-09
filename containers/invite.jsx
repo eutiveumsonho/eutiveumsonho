@@ -20,6 +20,7 @@ import Loading from "../components/editor/loading";
 import { Close } from "grommet-icons";
 import styles from "./invite.module.css";
 import { useTranslation } from "next-i18next";
+import PublicDreamsSection from "../components/public-dreams-section";
 
 const Editor = dynamic(() => import("../components/editor"), {
   ssr: false,
@@ -307,6 +308,18 @@ export default function Invite(props) {
             </Box>
           </Box>
         </Box>
+      </PageContent>
+      <PageContent         
+        justify="center"
+        align="center"
+        flex
+        style={{
+          position: "relative",
+          paddingRight: 0,
+          paddingLeft: 0,
+        }}
+      >
+        <PublicDreamsSection deviceType={deviceType} />
       </PageContent>
       <PageContent
         justify="start"
