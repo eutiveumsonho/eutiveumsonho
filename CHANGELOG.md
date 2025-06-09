@@ -1,3 +1,17 @@
+# [1.34.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.33.0...v1.34.0) (2025-06-09)
+
+
+### Bug Fixes
+
+* claude incomplete code gen ([d910652](https://github.com/eutiveumsonho/eutiveumsonho/commit/d91065265f2a96707d294fa9c5eeede6586389bf))
+* display dreams on public page ([b413878](https://github.com/eutiveumsonho/eutiveumsonho/commit/b413878b28623cccabb8261c00404c535d2150d6))
+
+
+### Features
+
+* add location tracking for dream publishing ([a84f6ae](https://github.com/eutiveumsonho/eutiveumsonho/commit/a84f6aec6d3ddfe5113b19becf1e16ec2b0cf089))
+* display public dreams on landing page ([a506645](https://github.com/eutiveumsonho/eutiveumsonho/commit/a5066450b7b82e02930c57847a5d69d291986c32)), closes [#104](https://github.com/eutiveumsonho/eutiveumsonho/issues/104)
+
 # [1.33.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.32.0...v1.33.0) (2025-05-29)
 
 

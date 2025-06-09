@@ -1,6 +1,6 @@
 {
   "name": "eutiveumsonho",
-  "version": "1.33.0",
+  "version": "1.34.0",
   "private": true,
   "scripts": {
     "dev": "concurrently -p [{name}] -n eutiveumsonho,otel -c blue.bold,magenta.bold \"next\" \"docker compose -f ./dev/docker-compose.yaml up\"",
