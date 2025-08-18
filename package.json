@@ -3,8 +3,8 @@
   "version": "1.34.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently -p [{name}] -n eutiveumsonho,otel -c blue.bold,magenta.bold \"next\" \"docker compose -f ./dev/docker-compose.yaml up\"",
-    "dev:with-chiron": "concurrently -p [{name}] -n nextjs@eutiveumsonho,chiron@eutiveumsonho -c blue.bold,magenta.bold \"next\" \"cd ../chiron && bun dev\"",
+    "seed": "concurrently -p [{name}] -n db,seed -c blue.bold,magenta.bold \"docker compose -f ./dev/docker-compose.db.yaml up\" \"wait-on tcp:27017 && node scripts/seed.js\"",
+    "dev": "concurrently -p [{name}] -n eutiveumsonho,otel,db -c blue.bold,magenta.bold,green.bold \"wait-on tcp:27017 && next\" \"docker compose -f ./dev/docker-compose.otel.yaml up\" \"docker compose -f ./dev/docker-compose.db.yaml up\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -83,6 +83,7 @@
     "semantic-release": "^19.0.5",
     "typescript": "^5.4.5",
     "unimported": "^1.31.1",
+    "wait-on": "^8.0.4",
     "webpack-node-externals": "^3.0.0"
   },
   "engines": {
