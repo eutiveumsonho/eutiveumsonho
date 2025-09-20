@@ -74,7 +74,7 @@ class MyDocument extends Document {
           <script
             defer
             src="https://umami.url4irl.com/script.js"
-            data-website-id="797fc68a-aa56-4db7-90f9-05adb9048edb"
+            data-website-id="a0b5e18c-2122-42f7-9209-7aaf2cd27303"
           ></script>
         </Head>
         <body
