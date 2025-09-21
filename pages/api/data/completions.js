@@ -1,11 +1,7 @@
 /** @module pages/api/data/ai-comments */
 import { getServerSession } from "../../../lib/auth";
 import { cosineSimilarityScore } from "../../../lib/data-analysis/cosine-similarity";
-import {
-  getPostById,
-  getUserByEmail,
-  hasAiCommentedOnPost,
-} from "../../../lib/db/reads";
+import { getPostById, hasAiCommentedOnPost } from "../../../lib/db/reads";
 import {
   generateCompletion,
   saveCosineSimilarityScore,
@@ -55,24 +51,10 @@ async function completionsPost(req, res) {
 
   const hasCommented = await hasAiCommentedOnPost(req.body.dreamId);
   const dreamData = await getPostById(req.body.dreamId);
-  const user = await getUserByEmail(session.user.email);
 
-  if (
-    dreamData?.visibility === "private" &&
-    !user?.settings?.aiCommentsOnPrivatePosts
-  ) {
+  if (dreamData?.text?.length < 10) {
     console.log(
-      "Post visibility not public nor anonymous, and user settings for comments on private posts disabled. Not generating completion"
-    );
-
-    res.setHeader("Content-Type", "application/json");
-    res.status(200).end("OK");
-    return res;
-  }
-
-  if (dreamData?.text?.length < 30) {
-    console.log(
-      "Post length less than 30 characters. Not generating completion"
+      "Post length less than 10 characters. Not generating completion"
     );
 
     res.setHeader("Content-Type", "application/json");

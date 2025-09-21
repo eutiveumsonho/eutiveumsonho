@@ -31,7 +31,10 @@ async function seed() {
   // Sample dreams (posts)
   const posts = [
     {
-      dream: { text: "I dreamed I was flying over a city." },
+      dream: {
+        text: "I dreamed I was flying over a city. It was amazing!",
+        html: "<p>I dreamed I was flying over a city.</p><p>It was amazing!</p>",
+      },
       userId: userResult.insertedIds["0"],
       createdAt: new Date(),
       lastUpdatedAt: new Date(),
@@ -39,7 +42,10 @@ async function seed() {
       commentCount: 2,
     },
     {
-      dream: { text: "I was swimming with dolphins." },
+      dream: {
+        text: "I was swimming with dolphins.",
+        html: "<p>I was swimming with dolphins.</p>",
+      },
       userId: userResult.insertedIds["1"],
       createdAt: new Date(),
       lastUpdatedAt: new Date(),
@@ -47,7 +53,10 @@ async function seed() {
       commentCount: 1,
     },
     {
-      dream: { text: "I found a secret door in my house." },
+      dream: {
+        text: "I found a secret door in my house.",
+        html: "<p>I found a secret door in my house.</p>",
+      },
       userId: userResult.insertedIds["2"],
       createdAt: new Date(),
       lastUpdatedAt: new Date(),
@@ -55,7 +64,10 @@ async function seed() {
       commentCount: 0,
     },
     {
-      dream: { text: "I was on stage giving a talk." },
+      dream: {
+        text: "I was on stage giving a talk.",
+        html: "<p>I was on stage giving a talk.</p>",
+      },
       userId: userResult.insertedIds["3"],
       createdAt: new Date(),
       lastUpdatedAt: new Date(),
@@ -63,7 +75,10 @@ async function seed() {
       commentCount: 1,
     },
     {
-      dream: { text: "I was lost in a maze." },
+      dream: {
+        text: "I was lost in a maze.",
+        html: "<p>I was lost in a maze.</p>",
+      },
       userId: userResult.insertedIds["4"],
       createdAt: new Date(),
       lastUpdatedAt: new Date(),

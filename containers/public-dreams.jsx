@@ -144,12 +144,12 @@ function PublicDream(props) {
           }}
           dangerouslySetInnerHTML={{
             __html:
-              item.dream.html.length > 400
+              item.dream.html?.length > 400
                 ? truncate(item.dream.html, 400, true)
                 : item.dream.html,
           }}
         />
-        {item.dream.html.length > 400 ? (
+        {item.dream.html?.length > 400 ? (
           <Text size="small">{t("click-to-read-more")}</Text>
         ) : null}
       </Box>

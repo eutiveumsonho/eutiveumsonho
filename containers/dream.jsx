@@ -13,7 +13,6 @@ import {
 import VisibilityIcon from "../components/visbility-icon";
 import Layout from "../components/layout";
 import Dashboard from "../components/dashboard";
-import PostInsightsGraph from "../components/post-insights-graph";
 import { truncate } from "../lib/strings";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import { useRouter } from "next/router";
@@ -113,7 +112,6 @@ function Dream(props) {
           />
         </Box>
       </Box>
-      {insights && <PostInsightsGraph insights={insights} />}
     </Box>
   );
 }

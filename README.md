@@ -27,6 +27,14 @@ Eu tive um sonho is a social network designed for dreamers to preserve and excha
 - Any comments made on a member's dreams will appear in their inbox.
 - Members can access a page that offers insights into their dreams, including dream frequency and the most frequently used words in their dreams.
 
+## High-level architecture
+
+```mermaid
+flowchart TD
+    A["eutiveumsonho.com"] --> B["MongoDB"] & C["LiteLLM"] & E["OpenTelemetry Collector"]
+    C --> D["Ollama"]
+```
+
 ## Development instructions
 
 First of all, clone this repository.
@@ -41,7 +49,7 @@ The following services are spawned by the `docker-compose.yml` file:
 | Zipkin     | Distributed tracing | [9411](http://0.0.0.0:9411)   |
 | Prometheus | Metrics             | [9090](http://0.0.0.0:9090)   |
 
-Make sure you've got either an Ollama API available or a local instance running. You'll need both a URL of the API and an API key to run the project, as well as llama3.2:latest model available.
+Make sure you've got either LiteLLM service available or a local instance running. You'll need both a URL of the API and an API key to run the project, as well as llama3.2:latest model available.
 
 Also make sure you've got a MongoDB instance available or a local instance running. You'll need a connection string to run the project.
 

@@ -13,15 +13,12 @@ import { useContext } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { truncate } from "../lib/strings";
-// import PostInsightsGraph from "./post-insights-graph";
 
 export default function PublicDreamsSection({ deviceType }) {
   const [dreams, setDreams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [searching, setSearching] = useState(false);
-  // const [insights, setInsights] = useState(null);
-  // const [loadingInsights, setLoadingInsights] = useState(false);
   const size = useContext(ResponsiveContext);
   const { locale, push } = useRouter();
   const { t } = useTranslation("layout");
@@ -31,12 +28,6 @@ export default function PublicDreamsSection({ deviceType }) {
   useEffect(() => {
     fetchDreams();
   }, []);
-
-  // useEffect(() => {
-  //   if (dreams.length > 0) {
-  //     fetchInsights();
-  //   }
-  // }, [dreams]);
 
   const fetchDreams = async (query = "") => {
     try {
@@ -55,20 +46,6 @@ export default function PublicDreamsSection({ deviceType }) {
       setLoading(false);
     }
   };
-
-  // const fetchInsights = async () => {
-  //   try {
-  //     setLoadingInsights(true);
-  //     const response = await fetch("/api/post-insights");
-  //     const data = await response.json();
-  //     setInsights(data);
-  //   } catch (error) {
-  //     console.error("Error fetching insights:", error);
-  //     setInsights(null);
-  //   } finally {
-  //     setLoadingInsights(false);
-  //   }
-  // };
 
   const handleSearch = async (query) => {
     if (!query.trim()) {
@@ -132,32 +109,6 @@ export default function PublicDreamsSection({ deviceType }) {
             disabled={searching}
           />
         </Box>
-
-        {/* Insights Graph */}
-        {/* {dreams.length > 0 && (
-          <Box width="100%" align="center">
-            {loadingInsights ? (
-              <Box align="center" pad="large">
-                <Spinner size="medium" />
-                <Text>{t("loading-insights") || "Loading insights..."}</Text>
-              </Box>
-            ) : insights ? (
-              <PostInsightsGraph
-                insights={insights}
-                title={`${t("dream-insights") || "Dream Insights"} (${
-                  insights.dreamCount
-                } ${t("dreams") || "dreams"})`}
-              />
-            ) : (
-              <Box align="center" pad="large">
-                <Text>
-                  {t("error-loading-insights") || "Error loading insights"}
-                </Text>
-              </Box>
-            )}
-          </Box>
-        )} */}
-
         {/* Dreams List */}
         <Box width="100%" gap="medium">
           {loading ? (
