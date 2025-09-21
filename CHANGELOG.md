@@ -1,3 +1,10 @@
+# [1.35.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.34.0...v1.35.0) (2025-09-21)
+
+
+### Features
+
+* replace ollama api by litellm ([72e1e9e](https://github.com/eutiveumsonho/eutiveumsonho/commit/72e1e9e4c3a01c13692c5446c7be745e9ffd664b))
+
 # [1.34.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.33.0...v1.34.0) (2025-06-09)
 
 
