@@ -62,7 +62,7 @@
     "string-sanitizer": "^2.0.2",
     "styled-components": "^5.3.11",
     "uuid": "^9.0.1",
-    "validator": "^13.12.0",
+    "validator": "^13.15.20",
     "web-vitals": "^4.2.4"
   },
   "devDependencies": {
