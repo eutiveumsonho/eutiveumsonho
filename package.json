@@ -1,6 +1,6 @@
 {
   "name": "eutiveumsonho",
-  "version": "1.35.0",
+  "version": "1.35.1",
   "private": true,
   "scripts": {
     "seed": "concurrently -p [{name}] -n db,seed -c blue.bold,magenta.bold \"docker compose -f ./dev/docker-compose.db.yaml up\" \"wait-on tcp:27017 && node scripts/seed.js\"",

@@ -1,3 +1,10 @@
+## [1.35.1](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.35.0...v1.35.1) (2025-12-08)
+
+
+### Bug Fixes
+
+* react2shell ([7aae5fa](https://github.com/eutiveumsonho/eutiveumsonho/commit/7aae5fafe21e4e3412441c3930ba34291b689771))
+
 # [1.35.0](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.34.0...v1.35.0) (2025-09-21)
 
 
