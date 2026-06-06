@@ -1,3 +1,10 @@
+## [1.35.2](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.35.1...v1.35.2) (2026-06-06)
+
+
+### Bug Fixes
+
+* **security:** bump next.js to 15.2.8 to clear Railway CVE scanner ([dcd571b](https://github.com/eutiveumsonho/eutiveumsonho/commit/dcd571bd31d4b10e976606f51ef20ab2c38c98b2))
+
 ## [1.35.1](https://github.com/eutiveumsonho/eutiveumsonho/compare/v1.35.0...v1.35.1) (2025-12-08)
 
 
