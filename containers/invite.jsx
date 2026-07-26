@@ -6,6 +6,7 @@ import {
   Layer,
   PageContent,
   ResponsiveContext,
+  Spinner,
   Text,
   WorldMap,
 } from "grommet";
@@ -17,10 +18,13 @@ import { useContext, useEffect, useState } from "react";
 import NoSSR from "../components/no-ssr";
 import dynamic from "next/dynamic";
 import Loading from "../components/editor/loading";
-import { Close } from "grommet-icons";
+import { Close, StatusGood } from "grommet-icons";
 import styles from "./invite.module.css";
 import { useTranslation } from "next-i18next";
 import PublicDreamsSection from "../components/public-dreams-section";
+import { createAnonymousDream } from "../lib/api/posts";
+import { saveAnonymousDream } from "../lib/anonymous-dreams";
+import { stripHtml } from "../lib/strings";
 
 const Editor = dynamic(() => import("../components/editor"), {
   ssr: false,
@@ -42,6 +46,8 @@ export default function Invite(props) {
 
   const size = useContext(ResponsiveContext);
   const [openSignIn, setOpenSignIn] = useState(false);
+  const [publishingDream, setPublishingDream] = useState(false);
+  const [publishSuccess, setPublishSuccess] = useState(false);
 
   const variant = {
     visible: { opacity: 1, scale: 1, transition: { duration: 0.7 } },
@@ -362,7 +368,7 @@ export default function Invite(props) {
                   "<p></p>"
                 : "<p></p>"
             }
-            save={(html) => {
+            save={async (html) => {
               if (
                 html === localStorage.getItem("eutiveumsonho__publicEditorData")
               ) {
@@ -373,12 +379,103 @@ export default function Invite(props) {
                 localStorage.setItem("eutiveumsonho__publicEditorData", html);
               }
 
-              setOpenSignIn(true);
+              // Check if the dream has meaningful content
+              const text = stripHtml(html);
+              if (text.trim().length < 10) {
+                setOpenSignIn(true);
+                return;
+              }
+
+              // Publish the dream anonymously
+              setPublishingDream(true);
+              
+              try {
+                const dreamData = {
+                  dream: { html, text }
+                };
+
+                const { success, data } = await createAnonymousDream(dreamData);
+
+                if (success && data?.objectId && data?.anonymousKey) {
+                  // Save to localStorage for tracking
+                  saveAnonymousDream(data.objectId, data.anonymousKey, html, text);
+                  
+                  setPublishSuccess(true);
+                  
+                  // Clear the editor after successful publish
+                  if (typeof window !== "undefined") {
+                    localStorage.removeItem("eutiveumsonho__publicEditorData");
+                  }
+                  
+                  // Hide success message after 5 seconds
+                  setTimeout(() => {
+                    setPublishSuccess(false);
+                  }, 5000);
+                } else {
+                  // If publishing fails, show signin option
+                  setOpenSignIn(true);
+                }
+              } catch (error) {
+                console.error('Error publishing anonymous dream:', error);
+                setOpenSignIn(true);
+              } finally {
+                setPublishingDream(false);
+              }
             }}
             style={{
               width: "100%",
             }}
           />
+          {publishingDream && (
+            <Layer
+              position="bottom"
+              modal={false}
+              margin={{ vertical: "medium", horizontal: "small" }}
+              responsive={false}
+              plain
+            >
+              <Box
+                align="center"
+                direction="row"
+                gap="small"
+                justify="center"
+                round="medium"
+                elevation="medium"
+                pad={{ vertical: "small", horizontal: "medium" }}
+                background="brand"
+              >
+                <Spinner size="small" />
+                <Text color="white">
+                  {t("publishing-dream")}
+                </Text>
+              </Box>
+            </Layer>
+          )}
+          {publishSuccess && (
+            <Layer
+              position="bottom"
+              modal={false}
+              margin={{ vertical: "medium", horizontal: "small" }}
+              responsive={false}
+              plain
+            >
+              <Box
+                align="center"
+                direction="row"
+                gap="small"
+                justify="center"
+                round="medium"
+                elevation="medium"
+                pad={{ vertical: "small", horizontal: "medium" }}
+                background="status-ok"
+              >
+                <StatusGood />
+                <Text color="white">
+                  {t("dream-published-successfully")}
+                </Text>
+              </Box>
+            </Layer>
+          )}
           {openSignIn ? (
             <Layer
               position="center"

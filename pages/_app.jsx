@@ -10,6 +10,7 @@ import { BRAND_HEX } from "../lib/config.js";
 import CustomScripts from "../components/custom-scripts";
 import ErrorBoundary from "../components/error-boundary";
 import { Close } from "grommet-icons";
+import { useAnonymousDreamClaim } from "../lib/hooks/use-anonymous-dream-claim";
 
 /**
  * Eu tive um sonho front-end entry point.
@@ -20,6 +21,9 @@ function EuTiveUmSonhoClient({
 }) {
   const [openWebViewAlert, setOpenWebViewAlert] = useState(false);
   const { t } = useTranslation("common");
+  
+  // Automatically claim anonymous dreams when user signs in
+  useAnonymousDreamClaim();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
